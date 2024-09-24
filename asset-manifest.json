@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/advia.tech/static/css/main.79816c1e.css",
+    "main.js": "/advia.tech/static/js/main.874ce410.js",
+    "static/js/453.bb828c5d.chunk.js": "/advia.tech/static/js/453.bb828c5d.chunk.js",
+    "index.html": "/advia.tech/index.html",
+    "main.79816c1e.css.map": "/advia.tech/static/css/main.79816c1e.css.map",
+    "main.874ce410.js.map": "/advia.tech/static/js/main.874ce410.js.map",
+    "453.bb828c5d.chunk.js.map": "/advia.tech/static/js/453.bb828c5d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.79816c1e.css",
+    "static/js/main.874ce410.js"
+  ]
+}

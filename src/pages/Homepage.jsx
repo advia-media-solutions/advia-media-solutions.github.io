@@ -1,28 +1,27 @@
-import React from 'react';
-import HeroSection from '../components/HeroSection';
-import ActiveInternet from '../components/ActiveInternet';
-import MarketingBlock from '../components/MarketingBlock';
-import BrandShowcase from '../components/BrandShowcase';
-import ScrollToTop from '../components/ScrollToTop';
+import React from "react";
+import HeroSection from "../blocks/HeroSection";
+import ActiveInternet from "../blocks/ActiveInternet";
+import MarketingBlock from "../blocks/MarketingBlock";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Homepage = () => {
   return (
-    <div className="relative min-h-screen">
+    <main className="relative min-h-screen bg-white overflow-x-hidden">
       {/* Main Content Sections */}
-      <div className="">
+      <div className="relative z-0">
         {/* Hero Section */}
         <HeroSection />
-        
+
+        {/* Active Internet Section */}
+        <ActiveInternet />
+
         {/* Marketing Solutions Section */}
         <MarketingBlock />
-
-        {/* Brand Showcase Section */}
-        <BrandShowcase />
       </div>
 
       {/* Scroll To Top Button */}
       <ScrollToTop />
-    </div>
+    </main>
   );
 };
 

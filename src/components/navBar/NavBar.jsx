@@ -6,6 +6,7 @@ import MobileNav from "./MobileNav";
 import { useNavigation } from "./hooks/useNavigation";
 
 const NavBar = () => {
+  // Custom hooks
   const {
     isScrolled,
     isMobileMenuOpen,
@@ -13,6 +14,8 @@ const NavBar = () => {
     openDropdown,
     setOpenDropdown,
   } = useNavigation();
+
+  // Initialize scroll-to-top behavior
 
   return (
     <nav
@@ -22,31 +25,39 @@ const NavBar = () => {
         ${isScrolled ? "py-2 bg-accent-cream/50" : "py-4 bg-transparent"}
         backdrop-blur-sm border-b border-white/10
       `}
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-14">
-          {/* Standardized Logo size */}
+          {/* Logo with standardized size */}
           <Logo className="w-40 h-10" />
 
+          {/* Desktop Navigation */}
           <DesktopNav
             openDropdown={openDropdown}
             setOpenDropdown={setOpenDropdown}
           />
 
-          {/* Updated button styles to match MobileNav */}
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
             onClick={() => setIsMobileMenuOpen(true)}
             aria-label="Open menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             <Menu className="w-6 h-6 text-neutral-dark" />
           </button>
         </div>
       </div>
 
+      {/* Mobile Navigation */}
       <MobileNav
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        id="mobile-menu"
+        aria-hidden={!isMobileMenuOpen}
       />
     </nav>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Mail } from "lucide-react";
 import NavDropdown from "./NavDropdown";
@@ -9,10 +9,6 @@ import { menuItems } from "./config/menuItems";
 
 const DesktopNav = ({ openDropdown, setOpenDropdown }) => {
   const location = useLocation();
-
-  const handleContactClick = () => {
-    window.location.href = "mailto:contacto@advia.tech";
-  };
 
   return (
     <div className="hidden md:flex items-center space-x-4">
@@ -33,7 +29,8 @@ const DesktopNav = ({ openDropdown, setOpenDropdown }) => {
           ¿Te interesa?
         </span>
         <Button
-          onClick={handleContactClick}
+          as={Link}
+          to="/contact"
           size="sm"
           className="bg-white hover:bg-neutral-50"
           icon={<Mail className="w-4 h-4" />}

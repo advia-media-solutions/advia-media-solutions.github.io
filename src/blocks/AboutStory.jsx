@@ -31,19 +31,19 @@ const AboutStory = () => {
               Pablo, ingeniero aeronáutico con experiencia en el sector espacial
               y consultoría estratégica; Miguelón, economista especializado en
               marketing digital con amplia experiencia en agencias de medios; y
-              Jaime, ingeniero aeronáutico con background en el sector
-              aeronáutico y agencias de medios. Tras compartir una experiencia
-              inspiradora y enriquecedora en Seedtag, decidimos dar el siguiente
-              paso.
+              Jaime, ingeniero aeronáutico experto en activación de campañas
+              digitales y producto estratégico en agencias de medios. Tras
+              compartir una experiencia inspiradora y enriquecedora en Seedtag,
+              decidimos dar el siguiente paso.
             </p>
             <p className="leading-relaxed">
-              Nuestros años de experiencia en la industria publicitaria nos han
-              dado una visión única de cómo la publicidad digital puede y debe
-              evolucionar. Por eso creamos Advia, con la firme convicción de que
-              es posible hacer una publicidad mejor: más eficiente, menos
-              intrusiva para el usuario y, sobre todo, que responda
-              verdaderamente a las necesidades de las marcas, promocionándolas
-              de forma precisa y mejorando su comunicación.
+              Nuestra experiencia y nuestro conocimiento en la industria
+              publicitaria nos han dado una visión única de cómo la publicidad
+              digital puede y debe evolucionar. Creamos Advia con la firme
+              convicción de que es posible hacer una publicidad mejor: más
+              eficiente, menos intrusiva para el usuario y, sobre todo, que
+              responda verdaderamente a las necesidades de las marcas,
+              promocionándolas de forma precisa y mejorando su comunicación.
             </p>
           </div>
         </div>

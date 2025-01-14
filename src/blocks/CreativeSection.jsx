@@ -10,12 +10,11 @@ const CreativeSection = () => {
             {/* Left Column */}
             <div className="space-y-8">
               <h2 className="text-3xl font-bold text-gray-900">
-                Creatividad Adaptativa
+                Creatividades diseñadas para recordar
               </h2>
               <p className="text-lg text-gray-600">
                 Transformamos datos en experiencias visuales únicas, adaptando
-                el contenido del anuncio según las necesidades de información de
-                tu audiencia.
+                el contenido del anuncio según las necesidades de tu audiencia.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-3">
@@ -23,8 +22,8 @@ const CreativeSection = () => {
                     <Clock className="w-4 h-4 text-orange-500" />
                   </div>
                   <span className="text-gray-600">
-                    Adaptación del contenido basada en el comportamiento del
-                    usuario
+                    Formatos notorios, que ayudarán al consumidor a solucionar
+                    su problema a través de tu marca
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
@@ -32,8 +31,8 @@ const CreativeSection = () => {
                     <LineChart className="w-4 h-4 text-orange-500" />
                   </div>
                   <span className="text-gray-600">
-                    Creatividades personalizadas que responden a las preguntas
-                    de tu audiencia
+                    Configuraciones únicas, adaptadas a cada campaña y tipo de
+                    consumidor
                   </span>
                 </div>
               </div>
@@ -60,11 +59,12 @@ const CreativeSection = () => {
             {/* Right Column */}
             <div className="space-y-8">
               <h2 className="text-3xl font-bold text-gray-900">
-                Impacto Personalizado
+                Creatividades adaptas para solucionar
               </h2>
               <p className="text-lg text-gray-600">
-                Cada creatividad se adapta al momento específico del customer
-                journey, maximizando el impacto y la relevancia de tu mensaje.
+                Cada creatividad se adapta al momento específico de la
+                navegación activa, maximizando el impacto y la relevancia de tu
+                mensaje.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-3">
@@ -72,8 +72,8 @@ const CreativeSection = () => {
                     <Clock className="w-4 h-4 text-orange-500" />
                   </div>
                   <span className="text-gray-600">
-                    Optimización en tiempo real del contenido según el
-                    engagement
+                    Creatividades personalizadas que responden a las preguntas
+                    de tu audiencia
                   </span>
                 </div>
                 <div className="flex items-start gap-3">

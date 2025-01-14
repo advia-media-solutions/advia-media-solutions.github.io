@@ -2,6 +2,7 @@ import React from "react";
 import HeroSection from "../blocks/HeroSection";
 import ActiveInternet from "../blocks/ActiveInternet";
 import MarketingBlock from "../blocks/MarketingBlock";
+import TestimonialsBlock from "../blocks/TestimonialsBlock";
 import ScrollToTop from "../components/ScrollToTop";
 
 const Homepage = () => {
@@ -17,6 +18,9 @@ const Homepage = () => {
 
         {/* Marketing Solutions Section */}
         <MarketingBlock />
+
+        {/* Testimonials Section */}
+        <TestimonialsBlock />
       </div>
 
       {/* Scroll To Top Button */}

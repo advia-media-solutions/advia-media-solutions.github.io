@@ -18,15 +18,15 @@ import SimulationOverview from "../blocks/SimulationOverview";
 const Products = () => {
   const channels = [
     {
-      id: "open-web", // Add id for scrolling
+      id: "open-web",
       background: "",
-      title: "Simulación en Open Web",
+      title: "Campañas navegación activa en Open-Web",
       description:
         "Simulamos la navegación de tus potenciales clientes en la web abierta, identificando patrones de búsqueda y consumo de información. Esto nos permite conectar con ellos en el momento preciso cuando están activamente buscando información relevante para tu marca o industria, maximizando así la efectividad de tu inversión publicitaria.",
       features: [
         {
           icon: Globe,
-          text: "Análisis avanzado de patrones de navegación en tiempo real",
+          text: "Simulación de patrones de navegación en tiempo real",
         },
         {
           icon: Route,
@@ -38,15 +38,15 @@ const Products = () => {
         },
         {
           icon: UserCheck,
-          text: "Activación publicitaria contextual y relevante",
+          text: "Insights desde el punto de vista de tu consumidor",
         },
       ],
       imageSrc:
         "https://storage.googleapis.com/public-web-assets-advia/Images/openweb.jpeg",
       imageAlt: "Simulación en Open Web",
       stats: [
-        { value: "96%", label: "Precisión en targeting" },
-        { value: "3.2x", label: "Reducción de costes" },
+        { value: "2.8x", label: "Mayor Afinidad" },
+        { value: "2.2x", label: "Eficiencia navegación activa" },
       ],
       benefits: [
         "Mayor precisión en el targeting",
@@ -54,12 +54,13 @@ const Products = () => {
         "Mejor comprensión del journey del cliente",
       ],
     },
+    // Update within the channels array
     {
       id: "youtube",
       background: "bg-neutral-50",
       title: "Simulación en YouTube",
       description:
-        "Replicamos el comportamiento de visualización de vídeos informativos de tu audiencia objetivo, analizando patrones de consumo y preferencias de contenido. Esto nos permite mostrar tu publicidad en el momento más oportuno, cuando tu audiencia está más receptiva y comprometida con contenido relacionado a tu industria.",
+        "Replicamos el comportamiento de visualización de vídeos informativos de tus consumidores estableciendo una conexión más efectiva con tu audiencia. Esto nos permite impactar en los momentos de máxima receptividad, cuando tu mensaje se alinea con sus intereses.",
       features: [
         {
           icon: Play,
@@ -82,8 +83,8 @@ const Products = () => {
         "https://storage.googleapis.com/public-web-assets-advia/Images/youtube.jpeg",
       imageAlt: "Simulación en YouTube",
       stats: [
-        { value: "93%", label: "Eficiencia de campaña" },
-        { value: "2.5x", label: "Mayor engagement" },
+        { value: "Próximamente", label: "En desarrollo" },
+        { value: "2025 H1", label: "Lanzamiento" },
       ],
       benefits: [
         "Mayor precisión en el targeting",
@@ -136,7 +137,6 @@ const Products = () => {
         {/* Section 1: Simulation Overview */}
         <SimulationOverview />
 
-        {/* Section 2: Creative Section */}
         <div className="mb-32">
           <CreativeSection />
         </div>

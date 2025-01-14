@@ -11,6 +11,8 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Footer from './components/FooterComponent';
 import NotFound from './pages/404';
 import CookieConsent from './components/CookieConsent';
+import Contact from './pages/Contact';
+import Technology from './pages/Technology';
 
 export default function App() {
   return (
@@ -24,6 +26,8 @@ export default function App() {
           <Route path="/cookies-policy" element={<CookiesPolicy />} />
           <Route path="/legal-notice" element={<LegalNotice />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/technology" element={<Technology />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

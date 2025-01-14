@@ -30,7 +30,10 @@ const Footer = () => {
   const footerSections = {
     company: {
       title: "Empresa",
-      links: [{ label: "Sobre Nosotros", to: "/about" }],
+      links: [
+        { label: "Sobre Nosotros", to: "/about" },
+        { label: "Contacto", to: "/contact" },
+      ],
     },
     solutions: {
       title: "Productos",

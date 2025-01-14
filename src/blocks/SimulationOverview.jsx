@@ -7,7 +7,7 @@ const SimulationOverview = () => {
   const simulationFeatures = [
     {
       icon: <Brain className="w-full h-full" />,
-      title: "IA Generativa",
+      title: "Gen-AI",
       subtitle:
         "Nuestro motor de IA generativa analiza y comprende los patrones de navegación del usuario",
     },
@@ -15,18 +15,18 @@ const SimulationOverview = () => {
       icon: <Target className="w-full h-full" />,
       title: "Precisión a escala",
       subtitle:
-        "Identificamos el comportamiento de tu audiencia con máxima precisión",
+        "Comvertimos tu briefing en las preguntas del consumidor, brandsafe by design",
     },
     {
       icon: <Activity className="w-full h-full" />,
-      title: "Tendencias",
+      title: "Insights únicos",
       subtitle:
-        "Nuestra tecnología se adapta a las tendencias de navegación de tu audiencia a tiempo real",
+        "Una nueva forma de entender a tu consumidor y cómo se informa sobre tu marca.",
     },
   ];
 
   return (
-    <section className="relative min-h-[80vh] py-24 flex items-center bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
+    <section className="relative min-h-[80vh] py-12 md:py-24 flex items-center bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
 
@@ -34,11 +34,9 @@ const SimulationOverview = () => {
         <div className="text-center mb-20">
           <h1 className="text-6xl md:text-7xl font-bold text-neutral-dark mb-6">
             Simulación del{" "}
-            <span className="text-primary-light">Comportamiento</span>
+            <span className="text-primary-light">Consumidor</span>
           </h1>
-          <h2 className="text-5xl md:text-6xl font-bold text-neutral-dark mb-12">
-            del Consumidor
-          </h2>
+
           <p className="text-xl md:text-2xl text-neutral-DEFAULT/80 max-w-4xl mx-auto mb-16">
             Entendemos cómo piensa tu consumidor, qué preguntas se hace hasta
             llegar a los artículos donde se va a informar. Ahí posicionaremos tu

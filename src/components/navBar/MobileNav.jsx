@@ -87,13 +87,12 @@ const MobileNav = ({ isOpen, onClose }) => {
             ¿Te interesa?
           </span>
           <Button
-            onClick={() => {
-              window.location.href = "mailto:contacto@advia.tech";
-              onClose();
-            }}
+            as={Link}
+            to="/contact"
             size="sm"
             className="w-full bg-white hover:bg-neutral-50"
             icon={<Mail className="w-4 h-4" />}
+            onClick={onClose}
           >
             ¡Contacta ahora!
           </Button>
@@ -104,7 +103,7 @@ const MobileNav = ({ isOpen, onClose }) => {
       <div className="relative bg-white border-t border-neutral-100">
         <div className="container mx-auto px-4 py-4">
           <div className="text-sm text-neutral-500 text-center">
-            © {new Date().getFullYear()} Your Company. All rights reserved.
+            © 2025 Advia. Todos los derechos reservados.
           </div>
         </div>
       </div>

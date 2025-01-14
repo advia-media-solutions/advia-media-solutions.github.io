@@ -9,7 +9,8 @@
   <meta name="description" content="Advia media solutions. Think like your customer" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet">
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <!-- Google tag (gtag.js) -->
@@ -29,7 +30,24 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>Advia \ Think like your customer</title>
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // https://github.com/rafgraph/spa-github-pages
+    (function(l)
+    {
+      if(l.search[1] === '/')
+      {
+        var decoded = l.search.slice(1).split('&').map(function(s)
+        {
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+  </script>
+  <title>Turning ads into answers</title>
 </head>
 
 <body>

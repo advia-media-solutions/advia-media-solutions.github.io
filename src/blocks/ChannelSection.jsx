@@ -15,7 +15,7 @@ const ChannelSection = ({
   background = "",
 }) => {
   return (
-    <div className={`w-full py-16 ${background}`}>
+    <div className={`w-full md:py-16 ${background}`}>
       <div className="container mx-auto px-4">
         {/* Main Layout */}
         <div

@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 
 const AboutHero = () => {
   return (
-    <section className="relative min-h-[60vh] flex items-center">
+    <section className="relative min-h-[60vh] flex items-center mt-0 md:mt-10">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
 
@@ -12,12 +12,6 @@ const AboutHero = () => {
 
       <div className="container mx-auto px-4 py-16 md:py-24 relative">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-glass-light to-glass-medium backdrop-blur-md border border-white/30 text-sm text-neutral-dark/90 shadow-lg hover:shadow-xl transition-all duration-300 mb-8">
-            <Sparkles className="w-4 h-4 text-secondary-DEFAULT animate-pulse" />
-            <span className="font-medium">Nuestra Misión</span>
-          </div>
-
           <div className="text-center space-y-8">
             <h1 className="text-5xl md:text-7xl font-bold text-neutral-dark tracking-tight leading-tight">
               Potenciando el{" "}
@@ -31,13 +25,13 @@ const AboutHero = () => {
             </h1>
 
             <p className="text-xl md:text-2xl text-neutral-DEFAULT/80 max-w-3xl mx-auto leading-relaxed">
-              Nuestra misión es revolucionar el marketing digital mediante la
-              fusión de inteligencia artificial y comprensión profunda del
-              comportamiento humano. Desarrollamos modelos avanzados que simulan
-              las interacciones digitales, permitiendo a las empresas establecer
-              conexiones auténticas y significativas con sus audiencias.
-              Aspiramos a crear un ecosistema publicitario más preciso, seguro y
-              eficiente, donde la tecnología potencie la comunicación humana.
+              En Advia, combinamos{" "}
+              <span className="font-bold">inteligencia artificial</span> y{" "}
+              <span className="font-bold">comportamiento humano</span> para
+              revolucionar el marketing digital. Nuestros modelos avanzados
+              ayudan a las <span className="font-bold">marcas</span> a crear
+              conexiones auténticas con sus audiencias, construyendo un
+              ecosistema publicitario más preciso y eficiente.
             </p>
           </div>
         </div>

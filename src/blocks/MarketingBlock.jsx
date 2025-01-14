@@ -6,40 +6,40 @@ const MarketingBlock = () => {
   const features = [
     {
       icon: "https://storage.googleapis.com/public-web-assets-advia/icons/www.png",
-      title: "Simulación en Open Web",
+      title: "Activaciones en Open Web",
       description:
         "Simulamos la navegación de tus potenciales clientes en la web abierta para conectar con ellos cuando están buscando activamente información relevante.",
       benefits: [
-        "Mayor precisión en el targeting",
-        "Reducción de costes publicitarios",
-        "Mejor comprensión del journey del cliente",
+        "Encuentra al consumidor cuando está receptivo",
+        "Mayor relevancia de impacto",
+        "Coberturas más efectivas",
       ],
     },
     {
       icon: "https://storage.googleapis.com/public-web-assets-advia/icons/youtube_logo.png",
-      title: "Simulación en YouTube",
+      title: "Activaciones en YouTube",
       description:
         "Replicamos el comportamiento de visualización de vídeos informativos de tu audiencia para mostrar tu publicidad en el momento preciso.",
       benefits: [
-        "Mayor precisión en el targeting",
-        "Incremento de la eficiencia de la campaña",
-        "Presencia notoria",
+        "Inventario curado en entorno brand safe",
+        "Responde a búsquedas en youtube",
+        "Impactos de alta receptividad",
       ],
     },
     {
       icon: "https://storage.googleapis.com/public-web-assets-advia/icons/tiktok.svg",
-      title: "Simulación en TikTok",
+      title: "Activaciones en TikTok",
       description: "Próximamente...",
       benefits: [
+        "Navegación en nuevos entornos",
         "Expansión a nuevas audiencias",
-        "Navegación activa en el app",
-        "Análisis de engagement por formato",
+        "Creatividades adaptadas",
       ],
     },
   ];
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
+    <section className="relative py-12 md:py-24 bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
 
       <div className="container mx-auto px-4 relative">

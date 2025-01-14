@@ -1,9 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const NavItem = ({ item, location, onClick, className = "" }) => {
   if (!item.to) return null;
+
+  const handleClick = (e) => {
+    e.preventDefault(); // Prevent default Link behavior
+    if (onClick) {
+      onClick();
+    }
+    // Scroll to top immediately
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Then navigate programmatically
+    window.location.href = item.to;
+  };
 
   return (
     <Link
@@ -18,7 +29,7 @@ const NavItem = ({ item, location, onClick, className = "" }) => {
         }
         ${className}
       `}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {item.icon}
       <span className="flex-1 ml-2">{item.label}</span>

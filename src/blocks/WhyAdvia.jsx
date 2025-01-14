@@ -1,3 +1,4 @@
+// src/blocks/WhyAdvia.jsx
 import React from "react";
 import { Rocket, Monitor, BarChart3, Check } from "lucide-react";
 
@@ -6,32 +7,20 @@ const WhyAdvia = () => {
     {
       icon: <Rocket className="w-12 h-12 text-secondary-DEFAULT" />,
       title: "Una Start-up con Experiencia",
-      features: [
-        "Rápidos y eficaces",
-        "Co-Creamos en base a tus necesidades",
-        "Conocemos el sector",
-        "Expertos en IA y Adtech",
-      ],
+      description:
+        "Combinamos agilidad y experiencia para ofrecer soluciones rápidas y efectivas. Nuestro equipo de expertos en IA y AdTech co-crea adaptando nuestra tecnología a tus necesidades específicas.",
     },
     {
       icon: <Monitor className="w-12 h-12 text-secondary-DEFAULT" />,
       title: "Tecnología Única",
-      features: [
-        "Ni DMP ni Contextual",
-        "Simulamos al usuario",
-        "Técnicas aeronáuticas aplicadas al marketing digital",
-        "Emparejamiento con datos reales",
-      ],
+      description:
+        "Superamos las limitaciones del DMP y contextual mediante simulación avanzada del comportamiento del usuario, integrando inteligencia artificial con datos reales para resultados precisos.",
     },
     {
       icon: <BarChart3 className="w-12 h-12 text-secondary-DEFAULT" />,
       title: "Gestión Integral de Campaña",
-      features: [
-        "Gestión completa",
-        "Configuración, gestión y optimización",
-        "Creatividades adaptadas",
-        "Reporting con insights únicos",
-      ],
+      description:
+        "Gestionamos tu campaña de principio a fin, desde la estrategia inicial hasta el reporting final, generando insights únicos desde una perspectiva innovadora y efectiva.",
     },
   ];
 
@@ -58,17 +47,9 @@ const WhyAdvia = () => {
                     {reason.title}
                   </h3>
 
-                  <ul className="space-y-4 w-full">
-                    {reason.features.map((feature, featureIndex) => (
-                      <li
-                        key={featureIndex}
-                        className="flex items-center text-neutral-DEFAULT"
-                      >
-                        <Check className="w-4 h-4 text-secondary-DEFAULT mr-3 flex-shrink-0" />
-                        <span className="text-left">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-neutral-DEFAULT leading-relaxed">
+                    {reason.description}
+                  </p>
                 </div>
               </div>
             ))}

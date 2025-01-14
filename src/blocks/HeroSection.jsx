@@ -13,27 +13,27 @@ import GlassCard from "./../components/GlassCard";
 const HeroSection = () => {
   const features = [
     {
-      icon: <Youtube className="w-5 h-5" />,
-      title: "Activación Omnichannel",
+      icon: <Globe className="w-5 h-5" />,
+      title: "Navegación Activa",
       description:
-        "Tus clietes están presentes en múltiples plataformas en internet, donde destacan YouTube e internet para informarse activamente.",
+        "Durante la navegación activa los usuarios están activamente resolviéndose un problema o situación, es el momento clave para comunicarse con ellos.",
     },
     {
-      icon: <Globe className="w-5 h-5" />,
-      title: "Internet activo",
+      icon: <Youtube className="w-5 h-5" />,
+      title: "Activación Omnicanal",
       description:
-        "Conecta con tu audiencia a través de toda la web activa, cuando se informan sobre temas relevantes para tu marca",
+        "Históricamente, los consumidores se han informado en Google y periódicos especializados. Esto está cambiando, plataformas como Youtube o Tiktok se están convirtiendo en buscadores.",
     },
     {
       icon: <Sparkles className="w-5 h-5" />,
-      title: "AI: Simulación & Realidad",
+      title: "Inteligencia Artificial: Simulación y Realidad",
       description:
-        "Simulamos por donde navegan tus clientes y encontramos todos aquellos espacios donde lo hacen realmente",
+        "Simulamos a tus consumidores para adelantarnos a sus necesidades, validamos nuestras simulación con datos reales para posicionar tu publicidad.",
     },
   ];
 
   return (
-    <section className="relative min-h-[90vh] pt-24 flex items-center bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
+    <section className="relative min-h-[90vh] pt-12 md:pt-24 flex items-center bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
 
@@ -45,7 +45,7 @@ const HeroSection = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-glass-light to-glass-medium backdrop-blur-md border border-white/30 text-sm text-neutral-dark/90 shadow-lg hover:shadow-xl transition-all duration-300">
               <Sparkles className="w-4 h-4 text-secondary-DEFAULT animate-pulse" />
               <span className="font-medium">
-                Comprensión del Cliente basada en IA
+                Comprensión del <b>Consumidor</b> basada en IA
               </span>
             </div>
 
@@ -62,15 +62,15 @@ const HeroSection = () => {
               </h1>
 
               <p className="text-lg md:text-xl text-neutral-DEFAULT/80 leading-relaxed max-w-2xl font-medium">
-                Advia propone una nueva solución que se centra en comprender
-                cómo los usuarios descubren marcas de forma natural,
-                identificando sus preguntas y posicionando tu marca en los
-                momentos clave de decisión.
+                En Advia, creemos en el poder de la publicidad para generar
+                valor al consumidor. Usamos tecnología para adelantarnos a las
+                necesidades del consumidor y posicionar tu marca en el momento
+                relevante.
               </p>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-6">
+            <div className="flex flex-wrap justify-between md:justify-start gap-4 pt-6">
               <Button
                 to="/about"
                 variant="primary"
@@ -96,18 +96,18 @@ const HeroSection = () => {
                 <div className="flex gap-12 justify-center md:justify-start w-full md:w-auto">
                   <div className="group hover:transform hover:scale-105 transition-all duration-300 text-center md:text-left">
                     <div className="text-3xl font-bold text-neutral-dark group-hover:text-secondary-DEFAULT">
-                      85%
+                      x2.8
                     </div>
                     <div className="text-sm text-neutral-DEFAULT/80 font-medium">
-                      Mayor Relevancia
+                      Mayor Afinidad
                     </div>
                   </div>
                   <div className="group hover:transform hover:scale-105 transition-all duration-300 text-center md:text-left">
                     <div className="text-3xl font-bold text-neutral-dark group-hover:text-secondary-DEFAULT">
-                      40%
+                      x2.2
                     </div>
                     <div className="text-sm text-neutral-DEFAULT/80 font-medium">
-                      Ahorro en Presupuesto
+                      Eficiencia navegación activa
                     </div>
                   </div>
                 </div>
@@ -140,12 +140,10 @@ const HeroSection = () => {
                     Características de la nuestra tecnología
                   </h3>
                   <p className="text-neutral-DEFAULT/80">
-                    Todo lo que necesitas para entender y alcanzar a tus
-                    clientes cuando se informan en la web sobre temas relevantes
-                    para tu marca. Las pilares de nuestra tecnología son:
+                    Advia se adelanta a las necesidades de los consumidores
+                    emparejando distintas capacidades tecnológicas:
                   </p>
                 </div>
-
                 <div className="space-y-8">
                   {features.map((feature, index) => (
                     <div
@@ -157,7 +155,7 @@ const HeroSection = () => {
                       </div>
                       <div className="space-y-2">
                         <h4 className="font-semibold text-neutral-dark group-hover:text-secondary-DEFAULT transition-colors">
-                          {feature.title}
+                          <b>{feature.title}</b>
                         </h4>
                         <p className="text-sm text-neutral-DEFAULT/80">
                           {feature.description}

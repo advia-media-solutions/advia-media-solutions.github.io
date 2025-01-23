@@ -21,7 +21,7 @@ const Contact = () => {
               Construyamos{" "}
               <span className="relative inline-block">
                 <span className="bg-gradient-to-r from-primary-light via-secondary-DEFAULT to-primary-light bg-clip-text text-transparent animate-gradient bg-[length:200%_auto] px-2 py-1 relative z-10">
-                  Juntos
+                  juntos
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-secondary-DEFAULT/20 to-secondary-light/20 -skew-y-2 transform rounded-lg blur-[2px]"></div>
               </span>{" "}

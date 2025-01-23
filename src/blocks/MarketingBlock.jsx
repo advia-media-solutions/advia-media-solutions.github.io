@@ -8,7 +8,7 @@ const MarketingBlock = () => {
       icon: "https://storage.googleapis.com/public-web-assets-advia/icons/www.png",
       title: "Activaciones en Open Web",
       description:
-        "Simulamos la navegación de tus potenciales clientes en la web abierta para conectar con ellos cuando están buscando activamente información relevante.",
+        "Simulamos la navegación de tus potenciales clientes en Open Web para conectar con ellos cuando están buscando activamente información relevante.",
       benefits: [
         "Encuentra al consumidor cuando está receptivo",
         "Mayor relevancia de impacto",

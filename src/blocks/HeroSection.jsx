@@ -74,7 +74,7 @@ const HeroSection = () => {
               <Button
                 to="/about"
                 variant="primary"
-                size="lg"
+                size="md"
                 icon={<ArrowRight className="w-5 h-5" />}
                 className="relative z-10 bg-gradient-to-r from-secondary-DEFAULT to-secondary-light hover:shadow-lg hover:shadow-secondary-DEFAULT/20 transform hover:-translate-y-0.5 transition-all duration-300"
               >
@@ -82,7 +82,7 @@ const HeroSection = () => {
               </Button>
               <Button
                 to="/contact"
-                size="lg"
+                size="md"
                 className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
                 icon={<ArrowUpRight className="w-5 h-5" />}
               >
@@ -137,7 +137,7 @@ const HeroSection = () => {
               <div className="space-y-8">
                 <div>
                   <h3 className="text-2xl font-bold text-neutral-dark mb-2">
-                    Características de la nuestra tecnología
+                    Características de nuestra tecnología
                   </h3>
                   <p className="text-neutral-DEFAULT/80">
                     Advia se adelanta a las necesidades de los consumidores

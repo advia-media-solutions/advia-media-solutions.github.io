@@ -20,9 +20,9 @@ const Products = () => {
     {
       id: "open-web",
       background: "",
-      title: "Campañas navegación activa en Open-Web",
+      title: "Campañas Navegación Activa en Open Web",
       description:
-        "Simulamos la navegación de tus potenciales clientes en la web abierta, identificando patrones de búsqueda y consumo de información. Esto nos permite conectar con ellos en el momento preciso cuando están activamente buscando información relevante para tu marca o industria, maximizando así la efectividad de tu inversión publicitaria.",
+        "Simulamos la navegación de tus potenciales clientes en open web, identificando patrones de búsqueda y consumo de información. Esto nos permite conectar con ellos en el momento preciso cuando están activamente buscando información relevante para tu marca o industria, maximizando así la efectividad de tu inversión publicitaria.",
       features: [
         {
           icon: Globe,
@@ -46,7 +46,7 @@ const Products = () => {
       imageAlt: "Simulación en Open Web",
       stats: [
         { value: "2.8x", label: "Mayor Afinidad" },
-        { value: "2.2x", label: "Eficiencia navegación activa" },
+        { value: "2.2x", label: "Eficiencia Navegación Activa" },
       ],
       benefits: [
         "Mayor precisión en el targeting",
@@ -58,7 +58,7 @@ const Products = () => {
     {
       id: "youtube",
       background: "bg-neutral-50",
-      title: "Simulación en YouTube",
+      title: "Campañas Navegación Activa en YouTube",
       description:
         "Replicamos el comportamiento de visualización de vídeos informativos de tus consumidores estableciendo una conexión más efectiva con tu audiencia. Esto nos permite impactar en los momentos de máxima receptividad, cuando tu mensaje se alinea con sus intereses.",
       features: [
@@ -95,7 +95,7 @@ const Products = () => {
     {
       id: "tiktok",
       background: "",
-      title: "Simulación en TikTok",
+      title: "Campañas Navegación Activa en TikTok",
       description:
         "Innovamos en la forma de conectar con audiencias en TikTok mediante la simulación avanzada del comportamiento de usuarios en la plataforma. Analizamos patrones de interacción, preferencias de contenido y momentos de máximo engagement para optimizar la entrega de tu mensaje publicitario. Esta nueva frontera en la publicidad digital estará disponible próximamente.",
       features: [
@@ -125,7 +125,7 @@ const Products = () => {
       ],
       benefits: [
         "Expansión a nuevas audiencias",
-        "Navegación activa en el app",
+        "Navegación Activa en el app",
         "Análisis de engagement por formato",
       ],
     },
@@ -136,10 +136,6 @@ const Products = () => {
       <div className="mx-auto">
         {/* Section 1: Simulation Overview */}
         <SimulationOverview />
-
-        <div className="mb-32">
-          <CreativeSection />
-        </div>
 
         {/* Section 3: Channels */}
         <div className="space-y-24 mb-12">

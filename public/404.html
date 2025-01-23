@@ -1,13 +1,11 @@
-// public/404.html
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <title>Advia - Page Not Found</title>
-  <script type="text/javascript">
-    // Single Page Apps for GitHub Pages
-    // https://github.com/rafgraph/spa-github-pages
+  <title>Redirecting...</title>
+  <script>
+    // Store the URL the user was trying to access when receiving the 404.
     var pathSegmentsToKeep = 0;
 
     var l = window.location;
@@ -19,6 +17,23 @@
       l.hash
     );
   </script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body * {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>

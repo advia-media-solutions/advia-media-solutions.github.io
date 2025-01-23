@@ -38,9 +38,9 @@ const NavigationSimulation = () => {
             Simulación de <span className="text-primary-light">Navegación</span>
           </h2>
           <p className="text-lg text-neutral-DEFAULT/80">
-            Nuestra tecnología combina simulación impulsada por IA y validación
-            de datos en tiempo real para comprender y anticipar el
-            comportamiento del usuario.
+            Nuestra tecnología combina simulación impulsada por Inteligencia
+            Artificial Generativa y validación de datos en tiempo real para
+            comprender y anticipar el comportamiento del usuario.
           </p>
         </div>
 
@@ -57,7 +57,7 @@ const NavigationSimulation = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-dark mb-1">
-                    {feature.title}
+                    <b>{feature.title}</b>
                   </h3>
                   <p className="text-sm text-neutral-DEFAULT">
                     {feature.description}
@@ -72,28 +72,28 @@ const NavigationSimulation = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-lg shadow-lg overflow-hidden aspect-[5/3]">
                 <img
-                  src="https://storage.googleapis.com/public-web-assets-advia/Images/active_internet_demo.png"
+                  src="https://storage.googleapis.com/public-web-assets-advia/Images/active_internet_demo_2.png"
                   alt="Topics visualization"
                   className="w-full h-full object-contain bg-white"
                 />
               </div>
               <div className="rounded-lg shadow-lg overflow-hidden aspect-[5/3]">
                 <img
-                  src="https://storage.googleapis.com/public-web-assets-advia/Images/topics_demo.png"
+                  src="https://storage.googleapis.com/public-web-assets-advia/Images/topics_demo_2.png"
                   alt="User behavior analysis"
                   className="w-full h-full object-contain bg-white"
                 />
               </div>
               <div className="rounded-lg shadow-lg overflow-hidden aspect-[5/3]">
                 <img
-                  src="https://storage.googleapis.com/public-web-assets-advia/Images/users_demo.png"
+                  src="https://storage.googleapis.com/public-web-assets-advia/Images/users_demo_2.png"
                   alt="Active Internet Analysis"
                   className="w-full h-full object-contain bg-white"
                 />
               </div>
               <div className="rounded-lg shadow-lg overflow-hidden aspect-[5/3]">
                 <img
-                  src="https://storage.googleapis.com/public-web-assets-advia/Images/preguntas_respuestas_demo.png"
+                  src="https://storage.googleapis.com/public-web-assets-advia/Images/preguntas_respuestas_demo_2.png"
                   alt="Questions and Answers Analysis"
                   className="w-full h-full object-contain bg-white"
                 />

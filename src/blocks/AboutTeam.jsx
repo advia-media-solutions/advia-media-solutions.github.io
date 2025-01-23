@@ -18,7 +18,7 @@ const AboutTeam = () => {
       name: "Jaime Sanabria",
       role: "Co-Fundador",
       quote:
-        "La tecnología debe simplificar la vida, no complicarla. Nuestro objetivo es hacer que el marketing sea potente y accesible.",
+        "La tecnología debe simplificar la vida, no complicarla. Nuestro objetivo es hacer que la publicidad sea potente y accesible.",
       email: "jaime@advia.tech",
       linkedinUrl: "https://www.linkedin.com/in/jaime-sanabria-sunye/",
       imageUrl:

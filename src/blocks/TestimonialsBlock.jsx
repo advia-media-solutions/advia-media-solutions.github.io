@@ -19,7 +19,7 @@ const TestimonialsBlock = () => {
     },
     {
       quote:
-        "Cliente siempre ha tenido problemas para dirigirse a Segmento, creo que esto podría ser muy útil",
+        "[Cliente] siempre ha tenido problemas para dirigirse a ciertos segmentos, creo que esto podría ser muy útil",
       author: "Brand Director",
       company: "Agencia de Medios",
       featured: false,

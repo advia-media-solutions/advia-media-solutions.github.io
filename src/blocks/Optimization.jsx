@@ -65,8 +65,8 @@ const Optimization = () => {
           </h2>
           <p className="text-lg text-neutral-DEFAULT/80">
             Maximiza el rendimiento de tus campañas con nuestra tecnología de
-            optimización impulsada por IA, que adapta y mejora continuamente las
-            estrategias basándose en datos en tiempo real.
+            optimización impulsada por Inteligencia Artificial, que mejora
+            continuamente las estrategias basándose en datos en tiempo real.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ const Optimization = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-dark mb-1">
-                    {feature.title}
+                    <b>{feature.title}</b>
                   </h3>
                   <p className="text-sm text-neutral-DEFAULT">
                     {feature.description}
@@ -99,24 +99,22 @@ const Optimization = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-6 bg-primary-light/5 rounded-lg">
                   <div className="text-5xl font-bold text-primary-light mb-2">
-                    52%
+                    x2.8
                   </div>
-                  <p className="text-sm text-neutral-DEFAULT">
-                    Mejora en Rendimiento de Campaña
-                  </p>
+                  <p className="text-sm text-neutral-DEFAULT">Mayor Afinidad</p>
                 </div>
                 <div className="text-center p-6 bg-primary-light/5 rounded-lg">
                   <div className="text-5xl font-bold text-primary-light mb-2">
-                    85%
+                    x2.2
                   </div>
                   <p className="text-sm text-neutral-DEFAULT">
-                    Precisión en Identificación de Audiencia
+                    Eficiencia Navegación Activa
                   </p>
                 </div>
                 <div className="col-span-2">
                   <div className="p-6 bg-secondary/5 rounded-lg">
                     <h4 className="font-semibold text-neutral-dark mb-2">
-                      Optimización Continua
+                      <b>Optimización Continua</b>
                     </h4>
                     <p className="text-sm text-neutral-DEFAULT">
                       Nuestros algoritmos aprenden y mejoran constantemente,

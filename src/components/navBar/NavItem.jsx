@@ -10,8 +10,6 @@ const NavItem = ({ item, location, onClick, className = "" }) => {
     if (onClick) {
       onClick();
     }
-    // Scroll to top immediately
-    window.scrollTo({ top: 0, behavior: "smooth" });
     // Then navigate programmatically
     window.location.href = item.to;
   };

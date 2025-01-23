@@ -14,7 +14,7 @@ const WhyAdvia = () => {
       icon: <Monitor className="w-12 h-12 text-secondary-DEFAULT" />,
       title: "Tecnología Única",
       description:
-        "Superamos las limitaciones del DMP y contextual mediante simulación avanzada del comportamiento del usuario, integrando inteligencia artificial con datos reales para resultados precisos.",
+        "Superamos las limitaciones de las cookies y el contextual mediante simulación avanzada del comportamiento del consumidor, integrando inteligencia artificial con datos reales para resultados precisos.",
     },
     {
       icon: <BarChart3 className="w-12 h-12 text-secondary-DEFAULT" />,

@@ -41,7 +41,7 @@ const AboutStory = () => {
               publicitaria nos han dado una visión única de cómo la publicidad
               digital puede y debe evolucionar. Creamos Advia con la firme
               convicción de que es posible hacer una publicidad mejor: más
-              eficiente, menos intrusiva para el usuario y, sobre todo, que
+              eficiente, menos intrusiva para la audiencia y, sobre todo, que
               responda verdaderamente a las necesidades de las marcas,
               promocionándolas de forma precisa y mejorando su comunicación.
             </p>

@@ -15,7 +15,7 @@ const SimulationOverview = () => {
       icon: <Target className="w-full h-full" />,
       title: "Precisión a escala",
       subtitle:
-        "Comvertimos tu briefing en las preguntas del consumidor, brandsafe by design",
+        "Convertimos tu briefing en las preguntas del consumidor, brandsafe by design",
     },
     {
       icon: <Activity className="w-full h-full" />,

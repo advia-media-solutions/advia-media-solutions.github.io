@@ -39,7 +39,7 @@ const MarketingBlock = () => {
   ];
 
   return (
-    <section className="relative py-12 md:py-24 bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
+    <section className="relative py-12 md:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
 
       <div className="container mx-auto px-4 relative">

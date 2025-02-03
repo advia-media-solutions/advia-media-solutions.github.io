@@ -49,7 +49,7 @@ const CreativeSection = () => {
                   playsInline
                 >
                   <source
-                    src="https://storage.googleapis.com/public-web-assets-advia/Videos/thinking_mu_fondo_gris_claro.mp4"
+                    src="https://storage.googleapis.com/public-web-assets-advia/Videos/advia_website_ad.mp4"
                     type="video/mp4"
                   />
                 </video>

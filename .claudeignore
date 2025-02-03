@@ -21,7 +21,7 @@ postcss.config.js
 src/setupTests.js
 .claudeignore
 src/components/AnimatedCard.module
---src/pages/Homepage.jsx
+src/pages/Homepage.jsx
 src/components/BrandShowcase.jsx
 src/components/BrandShowcase.module.css
 src/components/AnimatedCard.module.css
@@ -30,7 +30,7 @@ src/blocks/SimulationOverview.jsx
 src/components/ValueCard.jsx
 src/blocks/AboutStats.jsx
 src/components/LocationCard.jsx
---src/blocks/ActiveInternet.jsx
+src/blocks/ActiveInternet.jsx
 src/components/InternetDistributionChart.jsx
 src/blocks/CreativeSection.jsx
 --src/blocks/HeroSection.jsx
@@ -38,7 +38,7 @@ src/components/LocationCard.jsx
 src/utils/analytics.js
 src/pages/404.jsx
 src/blocks/ChannelSection.jsx
---src/blocks/MarketingBlock.jsx
+src/blocks/MarketingBlock.jsx
 src/App.js
 src/pages/LegalNotice.jsx
 src/pages/PrivacyPolicy.jsx
@@ -65,7 +65,7 @@ src/components/navBar/NavItem.jsx
 src/components/NavBar.jsx
 src/components/ScrollToTop.jsx
 src/components/FooterComponent.jsx
---src/blocks/TestimonialsBlock.jsx
+src/blocks/TestimonialsBlock.jsx
 src/pages/Technology.jsx
 src/blocks/InsightsSection.jsx
 src/blocks/CreativeSection.jsx
@@ -73,5 +73,4 @@ src/blocks/Optimization.jsx
 src/blocks/NavigationSimulation.jsx
 src/blocks/TechnologyOverview.jsx
 src/components/VideoDistributionChart.jsx
-
 src/hooks/useScrollToTop.js

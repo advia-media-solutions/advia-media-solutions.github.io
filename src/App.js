@@ -13,6 +13,7 @@ import NotFound from './pages/404';
 import CookieConsent from './components/CookieConsent';
 import Contact from './pages/Contact';
 import Technology from './pages/Technology';
+import Impulsa from './pages/Impulsa';
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/impulsa" element={<Impulsa />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

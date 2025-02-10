@@ -81,7 +81,7 @@ const ImpulsaHero = () => {
               Descubre cómo funciona Advia Impulsa
             </h3>
 
-            <LiquidButton videoUrl="https://www.youtube.com/embed/OurVZnPcep8" gtmEvent="play-impulsa"/>
+            <LiquidButton videoId="OurVZnPcep8" gtmEvent="play-impulsa"/>
 
             <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-secondary-DEFAULT/20 max-w-md">
               <p className="text-lg font-semibold text-neutral-dark mb-3">

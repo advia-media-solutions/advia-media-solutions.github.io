@@ -1,30 +1,32 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { preserveUtmParams } from "../../utils/urlUtils";
 
 const NavItem = ({ item, location, onClick, className = "" }) => {
+  const navigate = useNavigate();
+  
   if (!item.to) return null;
 
   const handleClick = (e) => {
-    e.preventDefault(); // Prevent default Link behavior
+    e.preventDefault();
     if (onClick) {
       onClick();
     }
-    // Then navigate programmatically
-    window.location.href = item.to;
+    
+    const preservedUrl = preserveUtmParams(item.to);
+    navigate(preservedUrl);
   };
+
+  const isActive = location.pathname === item.to;
 
   return (
     <Link
-      to={item.to}
+      to={preserveUtmParams(item.to)}
       className={`
         px-4 py-2 rounded-lg flex items-center
         text-neutral-dark transition-all
-        ${
-          location.pathname === item.to
-            ? "bg-primary-light/10 text-primary-light"
-            : "hover:bg-neutral-100"
-        }
+        ${isActive ? "bg-primary-light/10 text-primary-light" : "hover:bg-neutral-100"}
         ${className}
       `}
       onClick={handleClick}

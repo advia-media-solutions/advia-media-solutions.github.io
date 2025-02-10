@@ -7,7 +7,7 @@ const Logo = ({ to = "/", src = "https://storage.googleapis.com/public-web-asset
       <img 
         src={src}
         alt={alt} 
-        className
+        className={className}
       />
     </Link>
   );

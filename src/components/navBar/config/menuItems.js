@@ -1,4 +1,4 @@
-import { Home, Package, Users, MessageSquare, Wand2 } from 'lucide-react';
+import { Home, Package, Users, MessageSquare, Wand2, Rocket } from 'lucide-react';
 import React from 'react';
 
 export const menuItems = [
@@ -21,6 +21,11 @@ export const menuItems = [
     to: '/about',
     label: 'Nosotros',
     icon: <Users className="w-5 h-5" />,
+  },
+  {
+    to: '/impulsa',
+    label: '#Impulsa',
+    icon: <Rocket className="w-5 h-5" />,
   },
 ];
 

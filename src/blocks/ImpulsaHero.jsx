@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import LiquidButton from "../components/PlayButton";
+import Button from "../components/Button";
+import { ArrowRight } from "lucide-react";
 
 const ImpulsaHero = () => {
+  useEffect(() => {
+    // Asegurarse de que window.dataLayer existe
+    window.dataLayer = window.dataLayer || [];
+    
+    // Enviar el evento al dataLayer
+    window.dataLayer.push({
+      'event': 'impulsa_video_shown',
+      'video_name': 'impulsa_presentation',
+      'video_url': 'https://www.youtube.com/embed/OurVZnPcep8'
+    });
+  }, []); // Se ejecuta solo una vez al montar el componente
+
   return (
     <section className="relative min-h-[80vh] py-8 flex items-center bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
+      {/* El resto del código permanece igual */}
       <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
 
       <div className="container mx-auto px-4 relative">
@@ -66,21 +81,27 @@ const ImpulsaHero = () => {
               Descubre cómo funciona Advia Impulsa
             </h3>
 
-            <LiquidButton videoUrl="https://www.youtube.com/embed/YOUR_VIDEO_ID" />
+            <LiquidButton videoUrl="https://www.youtube.com/embed/OurVZnPcep8" gtmEvent="play-impulsa"/>
 
             <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-secondary-DEFAULT/20 max-w-md">
               <p className="text-lg font-semibold text-neutral-dark mb-3">
-                ¿Quieres participar en el programa?
+                <b>¿Quieres participar en el programa?</b>
               </p>
-              <p className="text-neutral-DEFAULT/80 mb-4">
-                Envíanos un email y te compartiremos todos los detalles
+              <p className="m-5">
+                Solo tendrás que dejarnos cierta información para que podamos contactarte y valorar tu candidatura
               </p>
-              <a
-                href="mailto:impulsa@advia.tech"
-                className="inline-block text-lg text-secondary-DEFAULT hover:text-secondary-light font-semibold transition-colors duration-300 border-b-2 border-secondary-DEFAULT/20 hover:border-secondary-DEFAULT"
+              <Button
+                to="https://lime-primula-895.notion.site/18b496292a528085a7efcf8f08326cde?pvs=105"
+                variant="primary"
+                id="form-impulsa"
+                newTab={true}
+                size="md"
+                event="form-impulsa"
+                icon={<ArrowRight className="w-5 h-5" />}
+                className="relative z-10 bg-gradient-to-r from-secondary-DEFAULT to-secondary-light hover:shadow-lg hover:shadow-secondary-DEFAULT/20 transform hover:-translate-y-0.5 transition-all duration-300"
               >
-                impulsa@advia.tech
-              </a>
+                ¡Quiero participar!
+              </Button>
             </div>
           </div>
         </div>

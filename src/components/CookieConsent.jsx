@@ -1,148 +1,218 @@
-// components/CookieConsent.jsx
 import React, { useState, useEffect } from "react";
-import { X, ChevronDown, ChevronUp } from "lucide-react";
-import {
-  getStoredConsent,
-  setConsent,
-  CookieConsentState,
-  initializeAnalytics,
-} from "../utils/analytics";
+import { X } from "lucide-react";
+import { getStoredConsent, setConsent } from "../utils/gtm";
 import Button from "./Button";
+import Logo from "./Logo";
 
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  const [consent, setConsentState] = useState(getStoredConsent());
+  const [tempConsent, setTempConsent] = useState({
+    necessary: true,
+    analytics: true,
+    advertising: true,
+    functionality: true,
+    personalization: true,
+    hasUserChosen: false
+  });
 
   useEffect(() => {
-    const storedConsent = getStoredConsent();
-    // Solo mostramos si el usuario no ha tomado una decisión
-    if (!storedConsent.hasUserChosen) {
+    const stored = getStoredConsent();
+    if (!stored.hasUserChosen) {
       setIsVisible(true);
-    } else if (storedConsent[CookieConsentState.ANALYTICS]) {
-      initializeAnalytics(storedConsent);
+      setTempConsent({
+        necessary: true,
+        analytics: true,
+        advertising: true,
+        functionality: true,
+        personalization: true,
+        hasUserChosen: false
+      });
     }
-    setConsentState(storedConsent);
   }, []);
 
-  const handleConsentChange = (type, value) => {
-    const newConsent = setConsent(type, value);
-    setConsentState(newConsent);
-  };
-
-  const handleAcceptAnalytics = () => {
-    handleConsentChange(CookieConsentState.ANALYTICS, true);
+  const handleAcceptAll = () => {
+    const newConsent = {
+      ...tempConsent,
+      analytics: true,
+      advertising: true,
+      functionality: true,
+      personalization: true,
+      hasUserChosen: true,
+    };
+    setConsent(newConsent);
     setIsVisible(false);
   };
 
-  const handleRejectAnalytics = () => {
-    handleConsentChange(CookieConsentState.ANALYTICS, false);
+  const handleSaveConfiguration = () => {
+    const newConsent = {
+      ...tempConsent,
+      hasUserChosen: true,
+    };
+    setConsent(newConsent);
     setIsVisible(false);
   };
 
-  const handleClose = () => {
-    handleRejectAnalytics();
+  const handleRejectAll = () => {
+    const newConsent = {
+      ...tempConsent,
+      analytics: false,
+      advertising: false,
+      functionality: false,
+      personalization: false,
+      hasUserChosen: true,
+    };
+    setConsent(newConsent);
+    setIsVisible(false);
   };
 
   if (!isVisible) return null;
 
+  const cookieTypes = [
+    {
+      title: "Cookies de análisis",
+      key: "analytics",
+      description: "Nos permiten entender cómo interactúas con el sitio web, qué páginas son más populares, y detectar problemas de navegación. Esta información nos ayuda a mejorar constantemente la experiencia del usuario y optimizar nuestros servicios."
+    },
+    {
+      title: "Cookies publicitarias",
+      key: "advertising",
+      description: "Utilizadas para mostrarte anuncios relevantes basados en tus intereses y hábitos de navegación. Nos ayudan a gestionar la publicidad que ves, evitar que veas los mismos anuncios repetidamente y medir la efectividad de las campañas publicitarias."
+    },
+    {
+      title: "Cookies de funcionalidad",
+      key: "functionality",
+      description: "Permiten recordar tus preferencias como el idioma, la región o el inicio de sesión. Estas cookies hacen que tu experiencia sea más fluida al mantener tus ajustes entre visitas y ofrecer funciones personalizadas."
+    },
+    {
+      title: "Cookies de personalización",
+      key: "personalization",
+      description: "Nos ayudan a adaptar el contenido que ves según tus intereses. Esto incluye recomendaciones de productos, sugerencias personalizadas y contenido adaptado a tu perfil y preferencias de navegación."
+    }
+  ];
+
   return (
-    <div className="fixed bottom-4 right-4 left-4 z-50 mx-auto max-w-3xl">
-      <div className="bg-white rounded-lg shadow-lg border border-neutral-100">
-        <div className="p-4">
-          <div className="flex flex-col gap-4">
-            {/* Mensaje principal y botón de cerrar */}
-            <div className="flex gap-4">
-              <div className="flex-1 text-sm text-neutral-dark">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex items-center justify-center">
+      <div className="bg-white rounded-lg shadow-lg mx-4 w-full max-w-3xl">
+        {!showDetails ? (
+          <div className="p-6">
+            <div className="flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <Logo className="w-48 h-10" />
+              </div>
+
+              <div className="text-sm text-gray-700 mt-4">
                 <p className="leading-relaxed">
-                  <span className="text-primary-dark font-medium">¡Hola! </span>
-                  En Advia, nos gusta personalizar cada experiencia.{" "}
-                  <span className="text-neutral-DEFAULT">
-                    Aunque podríamos simular tu comportamiento, preferimos
-                    conocerte mejor.
-                  </span>
+                  Utilizamos cookies propias y de terceros con fines técnicos, 
+                  analíticos, para mejora de productos y servicios, para mostrarte 
+                  publicidad personalizada en base a un perfil elaborado a partir 
+                  de tus hábitos de navegación y para la medición del rendimiento 
+                  de anuncios y contenidos.
+                </p>
+                <p className="mt-2">
+                  Puedes aceptar todas las cookies pulsando en "Aceptar", 
+                  rechazarlas y/o{" "}
+                  <button
+                    onClick={() => setShowDetails(true)}
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    configurar
+                  </button>{" "}
+                  su uso.
                 </p>
               </div>
+
+              <div className="flex justify-center mt-4">
+                <Button
+                  onClick={handleAcceptAll}
+                  variant="primary"
+                  className="bg-blue-600 hover:bg-blue-700 text-black px-16 py-3 rounded w-96"
+                >
+                  Aceptar
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-6">
+              <Logo className="w-48 h-10" />
               <Button
-                onClick={handleClose}
+                onClick={() => setShowDetails(false)}
                 variant="ghost"
-                size="sm"
-                aria-label="Cerrar aviso de cookies"
-                className="hover:bg-neutral-50 rounded-full h-6 w-6 flex items-center justify-center flex-shrink-0"
+                className="hover:bg-gray-100 rounded-full p-2"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </Button>
             </div>
 
-            {/* Toggle de detalles */}
-            <button
-              onClick={() => setShowDetails(!showDetails)}
-              className="inline-flex items-center gap-1 text-sm text-primary-light hover:text-primary-dark transition-colors"
-            >
-              {showDetails ? (
-                <>
-                  <ChevronUp className="w-4 h-4" /> Menos detalles
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="w-4 h-4" /> Más detalles
-                </>
-              )}
-            </button>
-
-            {/* Sección de detalles */}
-            {showDetails && (
-              <div className="space-y-3 bg-neutral-50 p-3 rounded">
-                <div className="text-sm text-neutral-DEFAULT mb-2">
-                  <p>
-                    Las cookies necesarias siempre están activas, ya que son
-                    esenciales para el funcionamiento del sitio.
-                  </p>
-                </div>
-                <label className="flex items-start gap-2">
-                  <input
-                    type="checkbox"
-                    checked={consent[CookieConsentState.ANALYTICS]}
-                    onChange={(e) =>
-                      handleConsentChange(
-                        CookieConsentState.ANALYTICS,
-                        e.target.checked
-                      )
-                    }
-                    className="mt-1 rounded border-gray-300"
-                  />
-                  <span className="flex flex-col text-sm">
-                    <strong className="text-neutral-dark">
-                      Medición analítica
-                    </strong>
-                    <span className="text-neutral-DEFAULT text-xs">
-                      Nos permite entender cómo utilizas nuestro sitio para
-                      mejorarlo
-                    </span>
+            <div className="space-y-6">
+              <div className="border-b pb-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 className="font-semibold">Cookies necesarias</h3>
+                    <p className="text-sm text-gray-600">
+                      Necesarias para el funcionamiento básico y la seguridad del sitio web
+                    </p>
+                  </div>
+                  <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded text-sm">
+                    Obligatorio
                   </span>
-                </label>
+                </div>
               </div>
-            )}
 
-            {/* Botones de acción */}
-            <div className="flex items-center gap-2 justify-end">
+              {cookieTypes.map((cookie) => (
+                <div key={cookie.key} className="border-b pb-4">
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="flex items-start gap-3">
+                        <input
+                          type="checkbox"
+                          id={cookie.key}
+                          checked={tempConsent[cookie.key]}
+                          onChange={(e) =>
+                            setTempConsent((prev) => ({
+                              ...prev,
+                              [cookie.key]: e.target.checked,
+                            }))
+                          }
+                          className="mt-1 rounded border-gray-300"
+                        />
+                        <div>
+                          <label
+                            htmlFor={cookie.key}
+                            className="font-semibold block"
+                          >
+                            {cookie.title}
+                          </label>
+                          <p className="text-sm text-gray-600">
+                            {cookie.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6">
               <Button
-                onClick={handleRejectAnalytics}
-                size="sm"
-                className="bg-neutral-50 hover:bg-neutral-100"
+                onClick={handleAcceptAll}
+                variant="primary"
+                className="bg-blue-600 hover:bg-blue-700 text-black px-6 py-2 rounded"
               >
-                Continuar sin medición
+                Aceptar todas
               </Button>
               <Button
-                onClick={handleAcceptAnalytics}
-                variant="primary"
-                size="sm"
+                onClick={handleSaveConfiguration}
+                className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
               >
-                Aceptar medición
+                Guardar
               </Button>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

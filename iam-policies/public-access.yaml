@@ -1,0 +1,6 @@
+bindings:
+  - members:
+      - allUsers
+    role: roles/run.invoker
+version: 1
+etag: BwYtY7U1AOA= # Keep the current etag

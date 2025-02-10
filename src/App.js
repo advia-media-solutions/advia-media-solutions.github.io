@@ -14,10 +14,12 @@ import CookieConsent from './components/CookieConsent';
 import Contact from './pages/Contact';
 import Technology from './pages/Technology';
 import Impulsa from './pages/Impulsa';
+import PageHelmet from './components/Helmet';
 
 export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-corporate-cream via-corporate-lightGray to-corporate-cream">
+      <PageHelmet />
       <NavBar />
       <main>
         <Routes>

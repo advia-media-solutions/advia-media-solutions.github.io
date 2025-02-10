@@ -55,7 +55,7 @@ const ProgramFeatures = () => {
           </span>
         </div>
         <div className="text-sm text-neutral-DEFAULT/80">
-          Valor real: {highlighted ? "6.000€" : "3.000€"}
+          Valor real: {highlighted ? "Desde 6.000€" : "3.000€"}
         </div>
       </div>
 
@@ -85,10 +85,7 @@ const ProgramFeatures = () => {
             </span>
           </h2>
           <p className="text-lg text-neutral-DEFAULT/80">
-            Nuestro programa es totalmente gratuito, pero también tiene la
-            posibilidad de que puedas participar en el programa y ampliar el
-            alcance de tu campaña. Ambos incluyen nuestra tecnología de IA y
-            soporte profesional.
+          Nuestro programa es totalmente gratuito, pero también tiene la posibilidad de que puedas participar en el programa y ampliar el alcance de la campaña. Usando nuestra Inteligencia Artificial planificaremos una campaña para promocionar tus productos y servicios
           </p>
         </div>
 
@@ -102,7 +99,7 @@ const ProgramFeatures = () => {
           />
           <PlanCard
             title="Nivel Premium"
-            price={1000}
+            price={"Desde 799"}
             features={premiumFeatures}
             highlighted={true}
             icon={Sparkles}

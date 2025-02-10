@@ -11,13 +11,33 @@ const LiquidButton = ({
   liquidOpacity = 0.1,
   borderOpacity = 0.2,
   morphRadius = 40,
+  id,
   hoverScale = 1.05,
   wobbleAmplitude = 20,
   videoUrl = "https://www.youtube.com/embed/YOUR_VIDEO_ID",
+  gtmEvent = null, // Nuevo parámetro opcional para el evento GTM
 }) => {
   const [showVideo, setShowVideo] = useState(false);
 
-  // Define keyframes with unique names to avoid conflicts
+  // Función para pushear el evento al dataLayer si está configurado
+  const pushVideoEvent = () => {
+    console.log("pushVideoEvent")
+    if (window.dataLayer && gtmEvent) {
+      window.dataLayer.push({
+        'event': gtmEvent,  // Change this to be the main event name
+        'event_from_code': gtmEvent,
+        'video_url': videoUrl
+      });
+      console.log('GTM event pushed:', gtmEvent); // Add debugging
+    }
+  };
+
+  // Manejador del click que combina mostrar el video y enviar el evento
+  const handleVideoClick = () => {
+    setShowVideo(true);
+    pushVideoEvent();
+  };
+
   const keyframes = `
     @keyframes liquid-spin {
       from { transform: rotate(0deg); }
@@ -32,23 +52,18 @@ const LiquidButton = ({
 
     @keyframes liquid-morph {
       0%, 100% { border-radius: ${morphRadius}%; }
-      33% { border-radius: ${morphRadius + 5}% ${morphRadius - 5}% ${
-    morphRadius - 5
-  }% ${morphRadius + 5}%; }
-      66% { border-radius: ${morphRadius - 5}% ${morphRadius + 5}% ${
-    morphRadius + 5
-  }% ${morphRadius - 5}%; }
+      33% { border-radius: ${morphRadius + 5}% ${morphRadius - 5}% ${morphRadius - 5}% ${morphRadius + 5}%; }
+      66% { border-radius: ${morphRadius - 5}% ${morphRadius + 5}% ${morphRadius + 5}% ${morphRadius - 5}%; }
     }
   `;
 
   return (
     <>
-      {/* Inject keyframes directly into component output */}
       <style>{keyframes}</style>
 
       <div
         className="relative cursor-pointer"
-        onClick={() => setShowVideo(true)}
+        onClick={handleVideoClick}
       >
         {/* Liquid animation effect */}
         <div className="absolute -inset-8 rounded-full overflow-hidden">
@@ -108,6 +123,7 @@ const LiquidButton = ({
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 animate-fadeIn">
           <div className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl">
             <button
+              id={id}
               onClick={() => setShowVideo(false)}
               className="absolute top-4 right-4 bg-black/50 p-2 rounded-full text-white/80 hover:text-white hover:bg-black/70 transition-all duration-300 z-10"
             >

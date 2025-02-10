@@ -6,6 +6,8 @@ import NavDropdown from "./NavDropdown";
 import NavItem from "./NavItem";
 import Button from "../Button";
 import { menuItems } from "./config/menuItems";
+import { preserveUtmParams } from "../../utils/urlUtils";
+
 
 const DesktopNav = ({ openDropdown, setOpenDropdown }) => {
   const location = useLocation();
@@ -25,12 +27,12 @@ const DesktopNav = ({ openDropdown, setOpenDropdown }) => {
         )
       )}
       <div className="flex items-center gap-6 pl-2 border-l border-neutral-200">
-        <span className="text-sm font-medium text-neutral-600 animate-fadeIn ml-4">
+        <span className="hidden lg:block text-sm font-medium text-neutral-600 animate-fadeIn ml-4">
           ¿Te interesa?
         </span>
         <Button
           as={Link}
-          to="/contact"
+          to={preserveUtmParams("/contact")}
           size="sm"
           className="bg-white hover:bg-neutral-50"
           icon={<Mail className="w-4 h-4" />}

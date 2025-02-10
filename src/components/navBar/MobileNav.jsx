@@ -7,6 +7,8 @@ import NavItem from "./NavItem";
 import { menuItems } from "./config/menuItems";
 import Button from "../Button";
 import { Mail } from "lucide-react";
+import { preserveUtmParams } from "../../utils/urlUtils";
+
 
 const MobileNav = ({ isOpen, onClose }) => {
   const location = useLocation();
@@ -88,7 +90,7 @@ const MobileNav = ({ isOpen, onClose }) => {
           </span>
           <Button
             as={Link}
-            to="/contact"
+            to={preserveUtmParams("/contact")}
             size="sm"
             className="w-full bg-white hover:bg-neutral-50"
             icon={<Mail className="w-4 h-4" />}

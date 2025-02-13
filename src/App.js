@@ -1,5 +1,6 @@
 // src/App.js
 import React from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Homepage from './pages/Homepage';
@@ -15,8 +16,14 @@ import Contact from './pages/Contact';
 import Technology from './pages/Technology';
 import Impulsa from './pages/Impulsa';
 import PageHelmet from './components/Helmet';
+import { initializeGTM } from './utils/gtm';
+
 
 export default function App() {
+  useEffect(() => {
+    // Initialize GTM with your container ID
+    initializeGTM('GTM-PWN554Q3');
+  }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-corporate-cream via-corporate-lightGray to-corporate-cream">
       <PageHelmet />

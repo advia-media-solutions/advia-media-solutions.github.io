@@ -41,6 +41,14 @@ const CookieConsent = () => {
       hasUserChosen: true,
     };
     setConsent(newConsent);
+    
+    // Remove the duplicate consent_update push and keep only the pageview event
+    window.dataLayer.push({
+      event: 'post_consent_pageview',
+      page_path: window.location.pathname,
+      page_title: document.title
+    });
+    
     setIsVisible(false);
   };
 
@@ -50,6 +58,16 @@ const CookieConsent = () => {
       hasUserChosen: true,
     };
     setConsent(newConsent);
+  
+    // If analytics was accepted, trigger immediate page view
+    if (tempConsent.analytics) {
+      window.dataLayer.push({
+        event: 'post_consent_pageview',
+        page_path: window.location.pathname,
+        page_title: document.title
+      });
+    }
+    
     setIsVisible(false);
   };
 
@@ -63,6 +81,15 @@ const CookieConsent = () => {
       hasUserChosen: true,
     };
     setConsent(newConsent);
+    // Add this to push consent denial to dataLayer
+    window.dataLayer.push({
+      event: 'consent_update',
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_personalization: 'denied',
+      ad_user_data: 'denied',
+      functionality_storage: 'denied'
+    });
     setIsVisible(false);
   };
 
@@ -75,19 +102,19 @@ const CookieConsent = () => {
       description: "Nos permiten entender cómo interactúas con el sitio web, qué páginas son más populares, y detectar problemas de navegación. Esta información nos ayuda a mejorar constantemente la experiencia del usuario y optimizar nuestros servicios."
     },
     {
-      title: "Cookies publicitarias",
+      title: "Cookies publicitarias y datos de usuario",
       key: "advertising",
-      description: "Utilizadas para mostrarte anuncios relevantes basados en tus intereses y hábitos de navegación. Nos ayudan a gestionar la publicidad que ves, evitar que veas los mismos anuncios repetidamente y medir la efectividad de las campañas publicitarias."
+      description: "Utilizadas para mostrarte anuncios relevantes basados en tus intereses y hábitos de navegación. Incluye el uso de datos de usuario para personalización publicitaria."
     },
     {
       title: "Cookies de funcionalidad",
       key: "functionality",
-      description: "Permiten recordar tus preferencias como el idioma, la región o el inicio de sesión. Estas cookies hacen que tu experiencia sea más fluida al mantener tus ajustes entre visitas y ofrecer funciones personalizadas."
+      description: "Permiten recordar tus preferencias como el idioma, la región o el inicio de sesión. Estas cookies hacen que tu experiencia sea más fluida al mantener tus ajustes entre visitas."
     },
     {
       title: "Cookies de personalización",
       key: "personalization",
-      description: "Nos ayudan a adaptar el contenido que ves según tus intereses. Esto incluye recomendaciones de productos, sugerencias personalizadas y contenido adaptado a tu perfil y preferencias de navegación."
+      description: "Nos ayudan a adaptar el contenido que ves según tus intereses. Esto incluye recomendaciones de productos, sugerencias personalizadas y contenido adaptado a tu perfil."
     }
   ];
 

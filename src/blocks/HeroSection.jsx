@@ -11,27 +11,6 @@ import Button from "./../components/Button";
 import GlassCard from "./../components/GlassCard";
 
 const HeroSection = () => {
-  const features = [
-    {
-      icon: <Globe className="w-5 h-5" />,
-      title: "Navegación Activa",
-      description:
-        "Durante la navegación activa los usuarios están activamente resolviéndose un problema o situación, es el momento clave para comunicarse con ellos.",
-    },
-    {
-      icon: <Youtube className="w-5 h-5" />,
-      title: "Activación Omnicanal",
-      description:
-        "Históricamente, los consumidores se han informado en Google y periódicos especializados. Esto está cambiando, plataformas como Youtube o Tiktok se están convirtiendo en buscadores.",
-    },
-    {
-      icon: <Sparkles className="w-5 h-5" />,
-      title: "Inteligencia Artificial: Simulación y Realidad",
-      description:
-        "Simulamos a tus consumidores para adelantarnos a sus necesidades, validamos nuestras simulación con datos reales para posicionar tu publicidad.",
-    },
-  ];
-
   return (
     <section className="relative min-h-[90vh] pt-12 md:pt-24 flex items-center bg-gradient-to-b from-white to-accent-cream/10 overflow-hidden">
       {/* Background Pattern */}
@@ -45,7 +24,7 @@ const HeroSection = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-glass-light to-glass-medium backdrop-blur-md border border-white/30 text-sm text-neutral-dark/90 shadow-lg hover:shadow-xl transition-all duration-300">
               <Sparkles className="w-4 h-4 text-secondary-DEFAULT animate-pulse" />
               <span className="font-medium">
-                Comprensión del <b>Consumidor</b> basada en IA
+                <b>Navegación Activa</b> en campañas publicitarias digitales
               </span>
             </div>
 
@@ -132,40 +111,69 @@ const HeroSection = () => {
           </div>
 
           {/* Right Content */}
-          <div className="relative">
-            <GlassCard variant="feature" className="p-10 backdrop-blur-md">
-              <div className="space-y-8">
+          <div className="hidden md:block relative">
+            <GlassCard
+              variant="feature"
+              className="p-6 md:p-10 backdrop-blur-md"
+            >
+              <div className="space-y-6 md:space-y-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-neutral-dark mb-2">
-                    Características de nuestra tecnología
+                  <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-primary-light via-secondary-DEFAULT to-primary-light bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                    Navegación Activa
                   </h3>
                   <p className="text-neutral-DEFAULT/80">
-                    Advia se adelanta a las necesidades de los consumidores
-                    emparejando distintas capacidades tecnológicas:
+                    Entendemos los momentos cruciales donde tus clientes toman
+                    decisiones y cómo tu marca puede ser la respuesta. Tener
+                    presencia en la navegación activa te permite trabajar la
+                    consideración en un momento clave para la toma de decisión
+                    futura.
                   </p>
                 </div>
-                <div className="space-y-8">
-                  {features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start gap-4 group p-4 rounded-lg hover:bg-glass-light transition-all duration-300"
-                    >
-                      <div className="p-2 bg-secondary-DEFAULT/10 rounded-lg group-hover:bg-secondary-DEFAULT/20 transition-colors">
-                        {feature.icon}
-                      </div>
-                      <div className="space-y-2">
-                        <h4 className="font-semibold text-neutral-dark group-hover:text-secondary-DEFAULT transition-colors">
-                          <b>{feature.title}</b>
-                        </h4>
-                        <p className="text-sm text-neutral-DEFAULT/80">
-                          {feature.description}
-                        </p>
-                      </div>
+                <div className="space-y-6 md:space-y-8">
+                  {/* Navegación Activa Block */}
+                  <div className="flex items-start gap-4 group p-3 md:p-4 rounded-lg md:hover:bg-glass-light md:bg-white/30 transition-all duration-300">
+                    <div className="hidden md:block p-2 bg-secondary-DEFAULT/10 rounded-lg group-hover:bg-secondary-DEFAULT/20 transition-colors">
+                      <Globe className="w-6 h-6 text-secondary-DEFAULT" />
                     </div>
-                  ))}
-                </div>
+                    <div className="space-y-2">
+                      <h4 className="text-lg font-semibold text-neutral-dark group-hover:text-secondary-DEFAULT transition-colors">
+                        <b>
+                          Vera, tecnología que anticipa el comportamiento del
+                          consumidor
+                        </b>
+                      </h4>
+                      <p className="text-sm text-neutral-DEFAULT/80">
+                        Nuestra tecnología identifica qué preguntas se plantea
+                        el consumidor, predice a qué artículos y contenidos
+                        navegará al buscar información y posiciona
+                        estratégicamente la publicidad como respuesta natural a
+                        esas necesidades.
+                      </p>
+                    </div>
+                  </div>
 
-                {/* Additional Feature Highlights */}
+                  {/* Cómo lo Hacemos Block */}
+                  <div className="flex items-start gap-4 group p-3 md:p-4 rounded-lg md:hover:bg-glass-light md:bg-white/30 transition-all duration-300">
+                    <div className="hidden md:block p-2 bg-secondary-DEFAULT/10 rounded-lg group-hover:bg-secondary-DEFAULT/20 transition-colors">
+                      <Sparkles className="w-6 h-6 text-secondary-DEFAULT" />
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="text-lg font-semibold text-neutral-dark group-hover:text-secondary-DEFAULT transition-colors">
+                        <b>¿Cómo lo Hacemos?</b>
+                      </h4>
+                      <p className="text-sm text-neutral-DEFAULT/80">
+                        <b>Vera</b> es un una tecnología
+                        <b> multi-agente</b> para simular potenciales clientes
+                        de la marca y darles capacidades de búsqueda en
+                        internet, creando así{" "}
+                        <b>consumidores digitales de la marca</b>. Simulamos
+                        miles de ellos, observamos como se comportan y llevamos
+                        toda esta información a una activación de medios para
+                        convertir a la marca en la respuesta que necesita.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </GlassCard>
 

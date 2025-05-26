@@ -5,36 +5,22 @@ import { Check } from "lucide-react";
 const MarketingBlock = () => {
   const features = [
     {
-      icon: "https://storage.googleapis.com/public-web-assets-advia/icons/www.png",
-      title: "Activaciones en Open Web",
+      icon: "https://storage.googleapis.com/public-web-assets-advia/icons/google.png",
+      title: "Motores de Búsqueda Web",
       description:
-        "Simulamos la navegación de tus potenciales clientes en Open Web para conectar con ellos cuando están buscando activamente información relevante.",
-      benefits: [
-        "Encuentra al consumidor cuando está receptivo",
-        "Mayor relevancia de impacto",
-        "Coberturas más efectivas",
-      ],
+        "Identificamos todos aquellos articulos y contenido en los que terminan navegando potenciales clientes de la marca cuando utilizan motores de búsqueda.",
     },
     {
       icon: "https://storage.googleapis.com/public-web-assets-advia/icons/youtube_logo.png",
-      title: "Activaciones en YouTube",
+      title: "Plataformas de Vídeo",
       description:
-        "Replicamos el comportamiento de visualización de vídeos informativos de tu audiencia para mostrar tu publicidad en el momento preciso.",
-      benefits: [
-        "Inventario curado en entorno brand safe",
-        "Responde a búsquedas en youtube",
-        "Impactos de alta receptividad",
-      ],
+        "Identificamos los vídeos y canales donde tus potenciales clientes buscan activamente información audiovisual, permitiendo a tu marca ofrecer valor en el momento y formato precisos.",
     },
     {
-      icon: "https://storage.googleapis.com/public-web-assets-advia/icons/tiktok.svg",
-      title: "Activaciones en TikTok",
-      description: "Próximamente...",
-      benefits: [
-        "Navegación en nuevos entornos",
-        "Expansión a nuevas audiencias",
-        "Creatividades adaptadas",
-      ],
+      icon: "https://storage.googleapis.com/public-web-assets-advia/icons/chat-gpt.webp",
+      title: "IA Conversacional y LLMs",
+      description:
+        "Extraemos las fuentes de información sobre las que se construyen las respuestas de los LLMs, brindando a las marcas la oportunidad de posicionarse estratégicamente en dichos contenidos.",
     },
   ];
 
@@ -45,12 +31,16 @@ const MarketingBlock = () => {
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-neutral-dark tracking-tight mb-6">
-            Simulación <span className="text-primary-light">Navegacional</span>
+            Conectamos en sus Fuentes de{" "}
+            <span className="text-primary-light">Información Activa</span>
           </h2>
 
           <p className="text-lg text-neutral-DEFAULT/80 max-w-2xl mx-auto">
-            Conectamos con tus clientes potenciales replicando su comportamiento
-            de navegación en las principales plataformas digitales.
+            Comprendemos en profundidad cómo y dónde tus consumidores buscan
+            activamente la información que necesitan. Vera, nuestra tecnología
+            con LLMs, identifica estos momentos y canales clave para posicionar
+            tu marca como una respuesta útil y valiosa, convirtiendo cada
+            interacción en una oportunidad.
           </p>
         </div>
 
@@ -74,24 +64,6 @@ const MarketingBlock = () => {
                     <p className="text-neutral-DEFAULT/80 text-sm leading-relaxed">
                       {feature.description}
                     </p>
-                  </div>
-
-                  {/* Benefits Section */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-bold text-neutral-dark mb-3 text-center">
-                      Beneficios Principales
-                    </h4>
-                    <ul className="space-y-2 flex flex-col items-center">
-                      {feature.benefits.map((benefit, idx) => (
-                        <li
-                          key={idx}
-                          className="flex items-center text-sm text-neutral-DEFAULT/80"
-                        >
-                          <Check className="w-4 h-4 text-secondary-DEFAULT mr-2" />
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
               </GlassCard>

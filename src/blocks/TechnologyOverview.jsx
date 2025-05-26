@@ -1,6 +1,5 @@
 import React from "react";
 import { Brain, Wand2, BarChart3, Users } from "lucide-react";
-import ValueCard from "../components/ValueCard";
 
 const TechnologyOverview = () => {
   const technologyFeatures = [
@@ -37,29 +36,37 @@ const TechnologyOverview = () => {
 
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-20">
-          <h1 className="text-6xl md:text-7xl font-bold text-neutral-dark mb-6">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-neutral-dark mb-6">
             Tecnología <span className="text-primary-light">Disruptiva</span>
           </h1>
-          <h2 className="text-5xl md:text-6xl font-bold text-neutral-dark mb-12">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-neutral-dark mb-12">
             para Resultados Excepcionales
           </h2>
-          <p className="text-xl md:text-2xl text-neutral-DEFAULT/80 max-w-4xl mx-auto mb-16">
+          <p className="text-lg sm:text-xl md:text-2xl text-neutral-DEFAULT/80 max-w-4xl mx-auto mb-16">
             Nuestra plataforma integra cuatro pilares tecnológicos fundamentales
             que revolucionan la forma en que las marcas conectan con sus
             consumidores, garantizando resultados medibles y escalables.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {technologyFeatures.map((feature, index) => (
-            <ValueCard
+            <div
               key={index}
-              icon={feature.icon}
-              title={feature.title}
-              subtitle={feature.subtitle}
-              index={index}
-              className="h-full"
-            />
+              className="flex flex-col items-center text-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out h-full"
+            >
+              <div className="p-3 bg-primary-light/10 rounded-full mb-4 inline-flex items-center justify-center w-16 h-16">
+                {React.cloneElement(feature.icon, {
+                  className: "w-8 h-8 text-primary-light",
+                })}
+              </div>
+              <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                {feature.title}
+              </h3>
+              <p className="text-sm text-neutral-DEFAULT/80 leading-relaxed">
+                {feature.subtitle}
+              </p>
+            </div>
           ))}
         </div>
       </div>

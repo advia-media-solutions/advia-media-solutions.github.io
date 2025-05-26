@@ -83,8 +83,8 @@ const Products = () => {
         "https://storage.googleapis.com/public-web-assets-advia/Images/youtube.jpeg",
       imageAlt: "Simulación en YouTube",
       stats: [
-        { value: "Próximamente", label: "En desarrollo" },
-        { value: "2025 H1", label: "Lanzamiento" },
+        { value: "3.9x", label: "Mayor Afinidad" },
+        { value: "4.3x", label: "Eficiencia Navegación Activa" },
       ],
       benefits: [
         "Mayor precisión en el targeting",

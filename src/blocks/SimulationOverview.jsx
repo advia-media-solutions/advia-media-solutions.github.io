@@ -7,7 +7,7 @@ const SimulationOverview = () => {
   const simulationFeatures = [
     {
       icon: <Brain className="w-full h-full" />,
-      title: "Gen-AI",
+      title: "Vera",
       subtitle:
         "Nuestro motor de IA generativa analiza y comprende los patrones de navegación del usuario",
     },
@@ -33,8 +33,8 @@ const SimulationOverview = () => {
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-20">
           <h1 className="text-6xl md:text-7xl font-bold text-neutral-dark mb-6">
-            Simulación del{" "}
-            <span className="text-primary-light">Consumidor</span>
+            Campañas para capitalizar{" "}
+            <span className="text-primary-light">Navegación Activa</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-neutral-DEFAULT/80 max-w-4xl mx-auto mb-16">

@@ -71,7 +71,7 @@ const HeroSection = () => {
 
             {/* Main Heading con tipografía original */}
             <div className="space-y-8 text-center md:text-left">
-              <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-bold text-gray-900 tracking-tight leading-[1.1] relative">
+              <h1 className="text-5xl xs:text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 tracking-tight leading-[1.1] relative">
                 <span className="block">Turning ads</span>
                 <span className="block mt-1 md:mt-2">
                   <span>into </span>

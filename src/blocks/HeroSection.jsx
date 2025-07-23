@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -34,6 +35,7 @@ const VeraLogo = ({ className, size = "medium" }) => {
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
@@ -101,14 +103,20 @@ const HeroSection = () => {
 
             {/* CTA Buttons mejorados */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 md:pt-8 justify-center md:justify-start">
-              <button className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-white bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-orange-500 hover:to-yellow-400 shadow-2xl hover:shadow-orange-400/30 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 overflow-hidden">
+              <button 
+                onClick={() => navigate('/about')}
+                className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-white bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-orange-500 hover:to-yellow-400 shadow-2xl hover:shadow-orange-400/30 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 overflow-hidden"
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative flex items-center gap-3 justify-center">
                   Sobre Advia
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </button>
-              <button className="group px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-gray-700 bg-white/80 hover:bg-white backdrop-blur-xl border border-gray-200/50 hover:border-orange-300/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+              <button 
+                onClick={() => navigate('/products')}
+                className="group px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-gray-700 bg-white/80 hover:bg-white backdrop-blur-xl border border-gray-200/50 hover:border-orange-300/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+              >
                 <div className="flex items-center gap-3 justify-center">
                   Productos
                   <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />

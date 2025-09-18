@@ -14,7 +14,7 @@ import NotFound from "./pages/404";
 import CookieConsent from "./components/CookieConsent";
 import Contact from "./pages/Contact";
 import Technology from "./pages/Technology";
-import Impulsa from "./pages/Impulsa";
+import Blog from "./pages/Blog";
 import PageHelmet from "./components/Helmet";
 import { initializeGTM } from "./utils/gtm";
 
@@ -37,6 +37,7 @@ export default function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blog/*" element={<Blog />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

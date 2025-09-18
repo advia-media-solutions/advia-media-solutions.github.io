@@ -1,0 +1,53 @@
+const BASE_URL = "https://cms-300604277248.europe-west1.run.app/api";
+
+class BlogApiService {
+  async getArticles() {
+    return this.fetchData("/articles?sort[0]=createdAt:desc");
+  }
+
+  async getArticleBySlug(slug) {
+    const response = await this.fetchData(
+      `/articles?filters[slug][$eq]=${slug}`
+    );
+    return response.data.length > 0 ? response.data[0] : null;
+  }
+
+  async getArticleById(documentId) {
+    const response = await fetch(`${BASE_URL}/articles/${documentId}`);
+
+    if (!response.ok) {
+      throw new Error(
+        `Error fetching article ${documentId}: ${response.statusText}`
+      );
+    }
+
+    const data = await response.json();
+    return data || null;
+  }
+
+  async getCategories() {
+    return this.fetchData("/categories");
+  }
+
+  async getAuthors() {
+    return this.fetchData("/authors");
+  }
+
+  async getArticlesByCategory(categoryId) {
+    return this.fetchData(
+      `/articles?filters[categories][id][$eq]=${categoryId}`
+    );
+  }
+
+  async fetchData(endpoint) {
+    const response = await fetch(`${BASE_URL}${endpoint}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+}
+
+export const blogApiService = new BlogApiService();

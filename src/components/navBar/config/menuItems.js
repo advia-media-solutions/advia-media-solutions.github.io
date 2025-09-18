@@ -6,6 +6,7 @@ import {
   Wand2,
   Rocket,
   Paperclip,
+  BookOpen,
 } from "lucide-react";
 import React from "react";
 
@@ -29,6 +30,11 @@ export const menuItems = [
     to: "/about",
     label: "Nosotros",
     icon: <Users className="w-5 h-5" />,
+  },
+  {
+    to: "/blog",
+    label: "Blog",
+    icon: <BookOpen className="w-5 h-5" />,
   },
   /*{
     to: '/impulsa',

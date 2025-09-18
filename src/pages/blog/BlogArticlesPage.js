@@ -25,7 +25,7 @@ const BlogArticlesPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600 mx-auto"></div>
@@ -38,7 +38,7 @@ const BlogArticlesPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-600 text-xl mb-4">
@@ -57,7 +57,9 @@ const BlogArticlesPage = () => {
     <section className="py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">Todos los Artículos</h1>
+          <h1 className="text-4xl font-bold text-gray-900">
+            Todos los Artículos
+          </h1>
           <p className="text-lg text-gray-600 mt-2">
             Explora nuestra colección completa de artículos
           </p>

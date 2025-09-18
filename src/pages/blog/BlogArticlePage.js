@@ -63,8 +63,12 @@ const BlogArticlePage = () => {
                       href={href}
                       {...props}
                       className="text-orange-600 hover:text-orange-700 underline"
-                      target={href?.startsWith('http') ? '_blank' : undefined}
-                      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      target={href?.startsWith("http") ? "_blank" : undefined}
+                      rel={
+                        href?.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                     >
                       {children}
                     </a>
@@ -110,7 +114,7 @@ const BlogArticlePage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600 mx-auto"></div>
@@ -123,7 +127,7 @@ const BlogArticlePage = () => {
 
   if (error || !article) {
     return (
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-600 text-xl mb-4">

@@ -28,7 +28,7 @@ const BlogHomePage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600 mx-auto"></div>
@@ -41,7 +41,7 @@ const BlogHomePage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-600 text-xl mb-4">

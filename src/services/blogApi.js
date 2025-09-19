@@ -21,16 +21,11 @@ class BlogApiService {
   }
 
   async getArticleById(documentId) {
-    const response = await fetch(`${BASE_URL}/articles/${documentId}`);
+    const response = await this.fetchData(
+      `/articles/${documentId}?populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
+    );
 
-    if (!response.ok) {
-      throw new Error(
-        `Error fetching article ${documentId}: ${response.statusText}`
-      );
-    }
-
-    const data = await response.json();
-    return data || null;
+    return response.data || null;
   }
 
   async getCategories() {

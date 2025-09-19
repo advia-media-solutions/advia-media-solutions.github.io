@@ -2,7 +2,9 @@ const BASE_URL = "https://cms-300604277248.europe-west1.run.app/api";
 
 class BlogApiService {
   async getArticles() {
-    return this.fetchData("/articles?sort[0]=createdAt:desc");
+    return this.fetchData(
+      "/articles?sort[0]=publishedAt:desc&pagination[pageSize]=1&populate[author]=true&populate[category]=true&populate[cover]=true"
+    );
   }
 
   async getArticleBySlug(slug) {

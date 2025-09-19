@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { blogApiService } from "../../services/blogApi";
 import BlogArticleCard from "../../components/blog/BlogArticleCard";
+import Pagination from "../../components/Pagination";
 
 const BlogArticlesPage = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [pagination, setPagination] = useState(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
         setIsLoading(true);
-        const response = await blogApiService.getArticles();
+        const response = await blogApiService.getArticles(9, currentPage);
         setArticles(response.data || []);
+        setPagination(response.meta?.pagination || null);
+        setTotalPages(response.meta?.pagination?.pageCount || 1);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -21,7 +27,12 @@ const BlogArticlesPage = () => {
     };
 
     fetchArticles();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (isLoading) {
     return (
@@ -66,11 +77,19 @@ const BlogArticlesPage = () => {
         </div>
 
         {articles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article) => (
-              <BlogArticleCard key={article.id} article={article} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {articles.map((article) => (
+                <BlogArticleCard key={article.id} article={article} />
+              ))}
+            </div>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </>
         ) : (
           <div className="text-center text-gray-600 py-12">
             <div className="text-xl mb-4">📚</div>

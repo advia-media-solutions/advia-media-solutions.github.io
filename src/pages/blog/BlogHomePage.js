@@ -13,8 +13,7 @@ const BlogHomePage = () => {
     const fetchArticles = async () => {
       try {
         setIsLoading(true);
-        const response = await blogApiService.getArticles();
-        console.log("🚀 ~ fetchArticles ~ response:", response);
+        const response = await blogApiService.getArticlesForHomepage();
         setArticles(response.data || []);
       } catch (err) {
         setError(err.message);

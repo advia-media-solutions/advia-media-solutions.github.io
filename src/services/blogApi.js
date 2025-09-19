@@ -1,9 +1,15 @@
-const BASE_URL = "https://cms-300604277248.europe-west1.run.app/api";
+const BASE_URL = "https://cms.advia.tech/api";
 
 class BlogApiService {
-  async getArticles() {
+  async getArticles(pageSize = 7, page = 1) {
     return this.fetchData(
-      "/articles?sort[0]=publishedAt:desc&pagination[pageSize]=1&populate[author]=true&populate[category]=true&populate[cover]=true"
+      `/articles?sort[0]=publishedAt:desc&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate[author]=true&populate[category]=true&populate[cover]=true`
+    );
+  }
+
+  async getArticlesForHomepage() {
+    return this.fetchData(
+      "/articles?sort[0]=publishedAt:desc&pagination[pageSize]=7&populate[author]=true&populate[category]=true&populate[cover]=true"
     );
   }
 

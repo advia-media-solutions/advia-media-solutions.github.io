@@ -173,8 +173,11 @@ const BlogArticlePage = () => {
             )}
           </div>
 
-          <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-            {article.title}
+          <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight tracking-tight leading-[1.1] relative">
+            <span className="bg-gradient-to-r from-orange-400 via-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent bg-[length:300%_auto] animate-gradient">
+              {article.title}
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
           </h1>
 
           {article.description && (

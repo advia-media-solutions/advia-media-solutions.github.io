@@ -63,7 +63,12 @@ const BlogHomePage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Title */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">Blog ADVIA</h1>
+          <h1 className="text-4xl font-bold text-gray-900 tracking-tight leading-[1.1] relative">
+            <span className="bg-gradient-to-r from-orange-400 via-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent bg-[length:300%_auto] animate-gradient">
+              Blog ADVIA
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
+          </h1>
           <p className="text-lg text-gray-600 mt-2">
             Últimas noticias y artículos sobre marketing digital e innovación
           </p>
@@ -76,8 +81,11 @@ const BlogHomePage = () => {
         {remainingArticles.length > 0 ? (
           <>
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">
-                Más Artículos
+              <h2 className="text-2xl font-bold text-gray-900 tracking-tight leading-[1.1] relative">
+                <span className="bg-gradient-to-r from-orange-400 via-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent bg-[length:300%_auto] animate-gradient">
+                  Más Artículos
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">

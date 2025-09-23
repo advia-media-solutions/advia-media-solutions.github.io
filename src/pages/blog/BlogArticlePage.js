@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -145,8 +146,48 @@ const BlogArticlePage = () => {
     );
   }
 
+  const getImageUrl = () => {
+    if (!article?.cover) return "https://www.advia.tech/og-default.jpg";
+    
+    const coverUrl = article.cover.formats?.large?.url || article.cover.url;
+    return coverUrl.startsWith('http') ? coverUrl : `https://www.advia.tech${coverUrl}`;
+  };
+
+  const getCurrentUrl = () => {
+    return `https://www.advia.tech/blog/article/${id}`;
+  };
+
   return (
-    <article className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
+    <>
+      <Helmet>
+        <title>{article.title} | Blog Advia</title>
+        <meta name="description" content={article.description || "Artículo del blog de Advia sobre marketing digital y navegación activa."} />
+        
+        {/* Open Graph meta tags */}
+        <meta property="og:title" content={article.title} />
+        <meta property="og:description" content={article.description || "Artículo del blog de Advia sobre marketing digital y navegación activa."} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={getCurrentUrl()} />
+        <meta property="og:image" content={getImageUrl()} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Advia" />
+        <meta property="article:published_time" content={article.createdAt} />
+        {article.updatedAt && <meta property="article:modified_time" content={article.updatedAt} />}
+        {article.author?.name && <meta property="article:author" content={article.author.name} />}
+        {article.category?.name && <meta property="article:section" content={article.category.name} />}
+        
+        {/* Twitter Card meta tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={article.title} />
+        <meta name="twitter:description" content={article.description || "Artículo del blog de Advia sobre marketing digital y navegación activa."} />
+        <meta name="twitter:image" content={getImageUrl()} />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href={getCurrentUrl()} />
+      </Helmet>
+      
+      <article className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
       {/* Fondo limpio con patrón sutil */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
@@ -237,7 +278,8 @@ const BlogArticlePage = () => {
           </Link>
         </div>
       </div>
-    </article>
+      </article>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ const Blog = () => {
       <Routes>
         <Route path="/" element={<BlogHomePage />} />
         <Route path="/articles" element={<BlogArticlesPage />} />
-        <Route path="/article/:slug/:id" element={<BlogArticlePage />} />
+        <Route path="/article/:slug" element={<BlogArticlePage />} />
       </Routes>
     </div>
   );

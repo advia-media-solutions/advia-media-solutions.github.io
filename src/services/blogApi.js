@@ -15,7 +15,7 @@ class BlogApiService {
 
   async getArticleBySlug(slug) {
     const response = await this.fetchData(
-      `/articles?filters[slug][$eq]=${slug}`
+      `/articles?filters[slug][$eq]=${slug}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
     );
     return response.data.length > 0 ? response.data[0] : null;
   }

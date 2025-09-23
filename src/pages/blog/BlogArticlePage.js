@@ -9,7 +9,7 @@ import "highlight.js/styles/github.css";
 import { blogApiService } from "../../services/blogApi";
 
 const BlogArticlePage = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +18,7 @@ const BlogArticlePage = () => {
     const fetchArticle = async () => {
       try {
         setIsLoading(true);
-        const articleData = await blogApiService.getArticleById(id);
+        const articleData = await blogApiService.getArticleBySlug(slug);
         setArticle(articleData);
       } catch (err) {
         setError(err.message);
@@ -27,13 +27,13 @@ const BlogArticlePage = () => {
       }
     };
 
-    if (id) {
+    if (slug) {
       fetchArticle();
     } else {
-      setError("No se proporcionó slug o ID del artículo");
+      setError("No se proporcionó slug del artículo");
       setIsLoading(false);
     }
-  }, [id]);
+  }, [slug]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("es-ES", {
@@ -148,24 +148,38 @@ const BlogArticlePage = () => {
 
   const getImageUrl = () => {
     if (!article?.cover) return "https://www.advia.tech/og-default.jpg";
-    
+
     const coverUrl = article.cover.formats?.large?.url || article.cover.url;
-    return coverUrl.startsWith('http') ? coverUrl : `https://www.advia.tech${coverUrl}`;
+    return coverUrl.startsWith("http")
+      ? coverUrl
+      : `https://www.advia.tech${coverUrl}`;
   };
 
   const getCurrentUrl = () => {
-    return `https://www.advia.tech/blog/article/${id}`;
+    return `https://www.advia.tech/blog/article/${slug}`;
   };
 
   return (
     <>
       <Helmet>
         <title>{article.title} | Blog Advia</title>
-        <meta name="description" content={article.description || "Artículo del blog de Advia sobre marketing digital y navegación activa."} />
-        
+        <meta
+          name="description"
+          content={
+            article.description ||
+            "Artículo del blog de Advia sobre marketing digital y navegación activa."
+          }
+        />
+
         {/* Open Graph meta tags */}
         <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.description || "Artículo del blog de Advia sobre marketing digital y navegación activa."} />
+        <meta
+          property="og:description"
+          content={
+            article.description ||
+            "Artículo del blog de Advia sobre marketing digital y navegación activa."
+          }
+        />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={getCurrentUrl()} />
         <meta property="og:image" content={getImageUrl()} />
@@ -173,111 +187,123 @@ const BlogArticlePage = () => {
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="Advia" />
         <meta property="article:published_time" content={article.createdAt} />
-        {article.updatedAt && <meta property="article:modified_time" content={article.updatedAt} />}
-        {article.author?.name && <meta property="article:author" content={article.author.name} />}
-        {article.category?.name && <meta property="article:section" content={article.category.name} />}
-        
+        {article.updatedAt && (
+          <meta property="article:modified_time" content={article.updatedAt} />
+        )}
+        {article.author?.name && (
+          <meta property="article:author" content={article.author.name} />
+        )}
+        {article.category?.name && (
+          <meta property="article:section" content={article.category.name} />
+        )}
+
         {/* Twitter Card meta tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={article.title} />
-        <meta name="twitter:description" content={article.description || "Artículo del blog de Advia sobre marketing digital y navegación activa."} />
+        <meta
+          name="twitter:description"
+          content={
+            article.description ||
+            "Artículo del blog de Advia sobre marketing digital y navegación activa."
+          }
+        />
         <meta name="twitter:image" content={getImageUrl()} />
-        
+
         {/* Canonical URL */}
         <link rel="canonical" href={getCurrentUrl()} />
       </Helmet>
-      
-      <article className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
-      {/* Fondo limpio con patrón sutil */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
-      </div>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Breadcrumb */}
-        <nav className="mb-8">
-          <div className="flex items-center space-x-2 text-sm text-gray-500">
-            <Link to="/blog" className="hover:text-orange-600">
-              Blog
-            </Link>
-            <span>/</span>
-            <span className="text-gray-900">{article.title}</span>
-          </div>
-        </nav>
 
-        {/* Article Header */}
-        <header className="mb-8">
-          <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-            <time dateTime={article.createdAt}>
-              {formatDate(article.createdAt)}
-            </time>
-            {article.author && <span>Por {article.author.name}</span>}
-            {article.category && (
-              <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-medium">
-                {article.category.name}
-              </span>
+      <article className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
+        {/* Fondo limpio con patrón sutil */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+        </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Breadcrumb */}
+          <nav className="mb-8">
+            <div className="flex items-center space-x-2 text-sm text-gray-500">
+              <Link to="/blog" className="hover:text-orange-600">
+                Blog
+              </Link>
+              <span>/</span>
+              <span className="text-gray-900">{article.title}</span>
+            </div>
+          </nav>
+
+          {/* Article Header */}
+          <header className="mb-8">
+            <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <time dateTime={article.createdAt}>
+                {formatDate(article.createdAt)}
+              </time>
+              {article.author && <span>Por {article.author.name}</span>}
+              {article.category && (
+                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full font-medium">
+                  {article.category.name}
+                </span>
+              )}
+            </div>
+
+            <h1 className="text-4xl font-bold text-black mb-6 leading-tight tracking-tight leading-[1.1]">
+              {article.title}
+            </h1>
+
+            {article.description && (
+              <p className="text-xl text-gray-600 leading-relaxed mb-8">
+                {article.description}
+              </p>
+            )}
+          </header>
+
+          {/* Featured Image */}
+          {article.cover && (
+            <div className="mb-8">
+              <div className="aspect-video overflow-hidden rounded-lg">
+                <img
+                  src={article.cover.formats?.large?.url || article.cover.url}
+                  alt={article.cover.alternativeText || article.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Article Content */}
+          <div className="mb-8">
+            {article.blocks ? (
+              renderBlocks(article.blocks)
+            ) : (
+              <div className="prose prose-lg max-w-none">
+                <p className="text-gray-600">
+                  Contenido del artículo no disponible.
+                </p>
+              </div>
             )}
           </div>
 
-          <h1 className="text-4xl font-bold text-black mb-6 leading-tight tracking-tight leading-[1.1]">
-            {article.title}
-          </h1>
-
-          {article.description && (
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              {article.description}
-            </p>
-          )}
-        </header>
-
-        {/* Featured Image */}
-        {article.cover && (
-          <div className="mb-8">
-            <div className="aspect-video overflow-hidden rounded-lg">
-              <img
-                src={article.cover.formats?.large?.url || article.cover.url}
-                alt={article.cover.alternativeText || article.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Article Content */}
-        <div className="mb-8">
-          {article.blocks ? (
-            renderBlocks(article.blocks)
-          ) : (
-            <div className="prose prose-lg max-w-none">
-              <p className="text-gray-600">
-                Contenido del artículo no disponible.
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* Back to Blog */}
-        <div className="border-t border-gray-200 pt-8">
-          <Link
-            to="/blog"
-            className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium"
-          >
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          {/* Back to Blog */}
+          <div className="border-t border-gray-200 pt-8">
+            <Link
+              to="/blog"
+              className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Volver al blog
-          </Link>
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Volver al blog
+            </Link>
+          </div>
         </div>
-      </div>
       </article>
     </>
   );

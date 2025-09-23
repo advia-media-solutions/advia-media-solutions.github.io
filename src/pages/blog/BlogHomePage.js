@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { blogApiService } from "../../services/blogApi";
 import BlogArticleCard from "../../components/blog/BlogArticleCard";
 import FeaturedBlogArticle from "../../components/blog/FeaturedBlogArticle";
@@ -59,15 +60,16 @@ const BlogHomePage = () => {
   const remainingArticles = articles.slice(1);
 
   return (
-    <section className="py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
+      {/* Fondo limpio con patrón sutil */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Page Title */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 tracking-tight leading-[1.1] relative">
-            <span className="bg-gradient-to-r from-orange-400 via-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent bg-[length:300%_auto] animate-gradient">
-              Blog ADVIA
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
+          <h1 className="text-4xl font-bold text-black tracking-tight leading-[1.1]">
+            Blog ADVIA
           </h1>
           <p className="text-lg text-gray-600 mt-2">
             Últimas noticias y artículos sobre marketing digital e innovación
@@ -81,11 +83,8 @@ const BlogHomePage = () => {
         {remainingArticles.length > 0 ? (
           <>
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight leading-[1.1] relative">
-                <span className="bg-gradient-to-r from-orange-400 via-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent bg-[length:300%_auto] animate-gradient">
-                  Más Artículos
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
+              <h2 className="text-2xl font-bold text-black tracking-tight leading-[1.1]">
+                Más Artículos
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -104,22 +103,13 @@ const BlogHomePage = () => {
         <div className="text-center">
           <Link
             to="/blog/articles"
-            className="inline-flex items-center bg-white border border-orange-500 text-orange-600 hover:bg-orange-50 px-6 py-3 rounded-lg font-medium transition-colors"
+            className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-white bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-orange-500 hover:to-yellow-400 shadow-2xl hover:shadow-orange-400/30 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 overflow-hidden inline-block"
           >
-            Ver Todos los Artículos
-            <svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative flex items-center gap-3 justify-center">
+              Ver Todos los Artículos
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </div>
           </Link>
         </div>
       </div>

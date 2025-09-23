@@ -23,7 +23,7 @@ const BlogArticleCard = ({ article }) => {
           <img
             src={article.cover.formats?.medium?.url || article.cover.url}
             alt={article.cover.alternativeText || article.title}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover"
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">

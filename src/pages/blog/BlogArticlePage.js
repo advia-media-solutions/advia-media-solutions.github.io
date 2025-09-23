@@ -115,7 +115,7 @@ const BlogArticlePage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">Cargando artículo...</p>
@@ -128,7 +128,7 @@ const BlogArticlePage = () => {
   if (error || !article) {
     return (
       <div className="min-h-screen py-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-red-600 text-xl mb-4">
               {error || "Artículo no encontrado"}
@@ -146,8 +146,12 @@ const BlogArticlePage = () => {
   }
 
   return (
-    <article className="py-32">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <article className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
+      {/* Fondo limpio con patrón sutil */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-25" />
+      </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb */}
         <nav className="mb-8">
           <div className="flex items-center space-x-2 text-sm text-gray-500">
@@ -173,11 +177,8 @@ const BlogArticlePage = () => {
             )}
           </div>
 
-          <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight tracking-tight leading-[1.1] relative">
-            <span className="bg-gradient-to-r from-orange-400 via-yellow-300 via-orange-400 to-yellow-300 bg-clip-text text-transparent bg-[length:300%_auto] animate-gradient">
-              {article.title}
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
+          <h1 className="text-4xl font-bold text-black mb-6 leading-tight tracking-tight leading-[1.1]">
+            {article.title}
           </h1>
 
           {article.description && (

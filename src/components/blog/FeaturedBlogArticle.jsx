@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const FeaturedBlogArticle = ({ article }) => {
@@ -42,7 +42,7 @@ const FeaturedBlogArticle = ({ article }) => {
 
           <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
             <Link
-              to={`/blog/article/${article.slug}`}
+              href={`/blog/article/${article.slug}`}
               className="hover:text-orange-600 transition-colors"
             >
               {article.title}
@@ -56,7 +56,7 @@ const FeaturedBlogArticle = ({ article }) => {
           )}
 
           <Link
-            to={`/blog/article/${article.slug}`}
+            href={`/blog/article/${article.slug}`}
             className="group px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-gray-700 bg-white/80 hover:bg-white backdrop-blur-xl border border-gray-200/50 hover:border-orange-300/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 inline-block"
           >
             <div className="flex items-center gap-3 justify-center">

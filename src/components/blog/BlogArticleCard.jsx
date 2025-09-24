@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const BlogArticleCard = ({ article }) => {
   const formatDate = (dateString) => {
@@ -47,7 +47,7 @@ const BlogArticleCard = ({ article }) => {
       <div className="p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
           <Link
-            to={`/blog/article/${article.slug}`}
+            href={`/blog/article/${article.slug}`}
             className="hover:text-orange-600 transition-colors"
           >
             {article.title}
@@ -69,7 +69,7 @@ const BlogArticleCard = ({ article }) => {
           </div>
 
           <Link
-            to={`/blog/article/${article.slug}`}
+            href={`/blog/article/${article.slug}`}
             className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium text-sm"
           >
             Leer más

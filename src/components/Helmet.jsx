@@ -1,9 +1,9 @@
 import React from "react";
-import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const PageHelmet = () => {
-  const location = useLocation();
+  const router = useRouter();
 
   // Define titles for each route
   const getTitleForRoute = (pathname) => {
@@ -66,28 +66,35 @@ const PageHelmet = () => {
   };
 
   return (
-    <Helmet>
-      <title>{getTitleForRoute(location.pathname)}</title>
+    <Head>
+      <title>{getTitleForRoute(router.pathname || "/")}</title>
       <meta
         name="description"
-        content={getDescriptionForRoute(location.pathname)}
+        content={getDescriptionForRoute(router.pathname || "/")}
       />
-      <meta property="og:title" content={getTitleForRoute(location.pathname)} />
+      <meta
+        property="og:title"
+        content={getTitleForRoute(router.pathname || "/")}
+      />
       <meta
         property="og:description"
-        content={getDescriptionForRoute(location.pathname)}
+        content={getDescriptionForRoute(router.pathname || "/")}
       />
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content={`https://www.advia.tech${location.pathname}`}
+        content={`https://www.advia.tech${
+          router.asPath || router.pathname || "/"
+        }`}
       />
       <meta name="twitter:card" content="summary_large_image" />
       <link
         rel="canonical"
-        href={`https://www.advia.tech${location.pathname}`}
+        href={`https://www.advia.tech${
+          router.asPath || router.pathname || "/"
+        }`}
       />
-    </Helmet>
+    </Head>
   );
 };
 

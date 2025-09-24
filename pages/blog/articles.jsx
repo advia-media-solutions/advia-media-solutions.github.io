@@ -4,3 +4,7 @@ import BlogArticlesPage from "../../src/pages/blog/BlogArticlesPage";
 export default function BlogArticles() {
   return <BlogArticlesPage />;
 }
+
+export async function getServerSideProps() {
+  return { props: {} };
+}

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { X } from "lucide-react";
 import Logo from "../Logo";
@@ -9,9 +10,8 @@ import Button from "../Button";
 import { Mail } from "lucide-react";
 import { preserveUtmParams } from "../../utils/urlUtils";
 
-
 const MobileNav = ({ isOpen, onClose }) => {
-  const location = useLocation();
+  const router = useRouter();
 
   // Handle body scroll when menu is open
   useEffect(() => {
@@ -73,7 +73,7 @@ const MobileNav = ({ isOpen, onClose }) => {
                         className: "w-5 h-5 mr-3",
                       }),
                     }}
-                    location={location}
+                    location={{ pathname: router.pathname }}
                     onClick={onClose}
                     className="w-full py-3 text-base"
                   />

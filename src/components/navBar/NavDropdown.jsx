@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import PropTypes from "prop-types";
 import { preserveUtmParams } from "../../utils/urlUtils";
@@ -27,7 +27,9 @@ const NavDropdown = ({ item, openDropdown, setOpenDropdown }) => {
           {item.dropdown.map((dropdownItem) => (
             <Link
               key={dropdownItem.to}
-              to={dropdownItem.enabled ? preserveUtmParams(dropdownItem.to) : "#"}
+              href={
+                dropdownItem.enabled ? preserveUtmParams(dropdownItem.to) : "#"
+              }
               className={`block px-4 py-3 ${
                 dropdownItem.enabled
                   ? "text-neutral-dark hover:bg-neutral-light"

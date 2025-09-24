@@ -1,17 +1,12 @@
 import React from "react";
-import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const PageHelmet = () => {
-  const location = useLocation();
+  const router = useRouter();
 
   // Define titles for each route
   const getTitleForRoute = (pathname) => {
-    // Check for blog article pattern
-    if (pathname.startsWith("/blog/article/")) {
-      return "Artículo del Blog | Advia";
-    }
-
     switch (pathname) {
       case "/":
         return "Turning ads into Answers";
@@ -33,18 +28,11 @@ const PageHelmet = () => {
         return "Aviso Legal | Advia";
       case "/blog":
         return "Blog | Advia";
-      default:
-        return "Página no encontrada | Advia";
     }
   };
 
   // Get meta description for each route
   const getDescriptionForRoute = (pathname) => {
-    // Check for blog article pattern
-    if (pathname.startsWith("/blog/article/")) {
-      return "Lee nuestros artículos especializados sobre marketing digital, tecnología y navegación activa en el blog de Advia.";
-    }
-
     switch (pathname) {
       case "/":
         return "Optimiza tus campañas publicitarias con la tecnología de navegación activa de Advia. Soluciones de marketing digital basadas en IA para mejor retorno de inversión.";
@@ -60,34 +48,39 @@ const PageHelmet = () => {
         return "Contacta con Advia para transformar tu estrategia de marketing digital. Estamos aquí para ayudarte.";
       case "/blog":
         return "Descubre nuestros artículos y noticias sobre marketing digital y tecnología.";
-      default:
-        return "Advia Media Solutions - Tecnología de navegación activa para optimizar tus campañas de marketing digital.";
     }
   };
 
   return (
-    <Helmet>
-      <title>{getTitleForRoute(location.pathname)}</title>
+    <Head>
+      <title>{getTitleForRoute(router.pathname || "/")}</title>
       <meta
         name="description"
-        content={getDescriptionForRoute(location.pathname)}
+        content={getDescriptionForRoute(router.pathname || "/")}
       />
-      <meta property="og:title" content={getTitleForRoute(location.pathname)} />
+      <meta
+        property="og:title"
+        content={getTitleForRoute(router.pathname || "/")}
+      />
       <meta
         property="og:description"
-        content={getDescriptionForRoute(location.pathname)}
+        content={getDescriptionForRoute(router.pathname || "/")}
       />
       <meta property="og:type" content="website" />
       <meta
         property="og:url"
-        content={`https://www.advia.tech${location.pathname}`}
+        content={`https://www.advia.tech${
+          router.asPath || router.pathname || "/"
+        }`}
       />
       <meta name="twitter:card" content="summary_large_image" />
       <link
         rel="canonical"
-        href={`https://www.advia.tech${location.pathname}`}
+        href={`https://www.advia.tech${
+          router.asPath || router.pathname || "/"
+        }`}
       />
-    </Helmet>
+    </Head>
   );
 };
 

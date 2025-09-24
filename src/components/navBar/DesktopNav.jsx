@@ -1,5 +1,6 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { Mail } from "lucide-react";
 import NavDropdown from "./NavDropdown";
@@ -8,9 +9,8 @@ import Button from "../Button";
 import { menuItems } from "./config/menuItems";
 import { preserveUtmParams } from "../../utils/urlUtils";
 
-
 const DesktopNav = ({ openDropdown, setOpenDropdown }) => {
-  const location = useLocation();
+  const router = useRouter();
 
   return (
     <div className="hidden md:flex items-center space-x-4">
@@ -23,7 +23,11 @@ const DesktopNav = ({ openDropdown, setOpenDropdown }) => {
             setOpenDropdown={setOpenDropdown}
           />
         ) : (
-          <NavItem key={item.label} item={item} location={location} />
+          <NavItem
+            key={item.label}
+            item={item}
+            location={{ pathname: router.pathname }}
+          />
         )
       )}
       <div className="flex items-center gap-6 pl-2 border-l border-neutral-200">

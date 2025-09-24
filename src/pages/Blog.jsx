@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+// No longer used in Next.js; kept for potential reuse
 import BlogHomePage from "./blog/BlogHomePage";
 import BlogArticlesPage from "./blog/BlogArticlesPage";
 import BlogArticlePage from "./blog/BlogArticlePage";

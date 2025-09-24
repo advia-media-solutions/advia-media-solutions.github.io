@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -35,7 +35,7 @@ const VeraLogo = ({ className, size = "medium" }) => {
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     setIsVisible(true);
@@ -82,7 +82,7 @@ const HeroSection = () => {
                       answers
                     </span>
                     {/* Efecto de brillo */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></div>
+                    <span className="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-yellow-300/30 to-orange-400/30 -skew-y-1 transform rounded-2xl blur-xl scale-110 animate-pulse"></span>
                   </span>
                 </span>
               </h1>
@@ -95,7 +95,7 @@ const HeroSection = () => {
                   <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
                     los momentos relevantes
                   </span>
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-400 to-yellow-300 transform scale-x-0 animate-pulse"></div>
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-400 to-yellow-300 transform scale-x-0 animate-pulse"></span>
                 </span>
                 .
               </p>
@@ -103,8 +103,8 @@ const HeroSection = () => {
 
             {/* CTA Buttons mejorados */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 md:pt-8 justify-center md:justify-start">
-              <button 
-                onClick={() => navigate('/about')}
+              <button
+                onClick={() => router.push("/about")}
                 className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-white bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-orange-500 hover:to-yellow-400 shadow-2xl hover:shadow-orange-400/30 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -113,8 +113,8 @@ const HeroSection = () => {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </button>
-              <button 
-                onClick={() => navigate('/products')}
+              <button
+                onClick={() => router.push("/products")}
                 className="group px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-gray-700 bg-white/80 hover:bg-white backdrop-blur-xl border border-gray-200/50 hover:border-orange-300/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex items-center gap-3 justify-center">
@@ -191,7 +191,7 @@ const HeroSection = () => {
                         Navegación Activa
                       </span>
                       {/* Efecto de brillo similar a answers */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 via-yellow-300/20 to-orange-400/20 -skew-y-1 transform rounded-xl blur-lg scale-110 animate-pulse"></div>
+                      <span className="absolute inset-0 bg-gradient-to-r from-orange-400/20 via-yellow-300/20 to-orange-400/20 -skew-y-1 transform rounded-xl blur-lg scale-110 animate-pulse"></span>
                     </h3>
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                       Entendemos los momentos cruciales donde tus clientes toman

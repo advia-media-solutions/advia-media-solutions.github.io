@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { preserveUtmParams } from "../../utils/urlUtils";
 
 const NavItem = ({ item, location, onClick, className = "" }) => {
-  const navigate = useNavigate();
-  
+  const router = useRouter();
+
   if (!item.to) return null;
 
   const handleClick = (e) => {
@@ -13,20 +14,24 @@ const NavItem = ({ item, location, onClick, className = "" }) => {
     if (onClick) {
       onClick();
     }
-    
+
     const preservedUrl = preserveUtmParams(item.to);
-    navigate(preservedUrl);
+    router.push(preservedUrl);
   };
 
-  const isActive = location.pathname === item.to;
+  const isActive = location?.pathname === item.to;
 
   return (
     <Link
-      to={preserveUtmParams(item.to)}
+      href={preserveUtmParams(item.to)}
       className={`
         px-4 py-2 rounded-lg flex items-center
         text-neutral-dark transition-all
-        ${isActive ? "bg-primary-light/10 text-primary-light" : "hover:bg-neutral-100"}
+        ${
+          isActive
+            ? "bg-primary-light/10 text-primary-light"
+            : "hover:bg-neutral-100"
+        }
         ${className}
       `}
       onClick={handleClick}

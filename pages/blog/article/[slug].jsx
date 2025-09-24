@@ -1,42 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { Helmet } from "react-helmet";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-import { blogApiService } from "../../services/blogApi";
 
-const BlogArticlePage = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-  const [article, setArticle] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        setIsLoading(true);
-        const articleData = await blogApiService.getArticleBySlug(slug);
-        setArticle(articleData);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (slug) {
-      fetchArticle();
-    } else {
-      setError("No se proporcionó slug del artículo");
-      setIsLoading(false);
-    }
-  }, [slug]);
-
+const BlogArticle = ({ article, error }) => {
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("es-ES", {
       year: "numeric",
@@ -115,40 +86,7 @@ const BlogArticlePage = () => {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen py-32">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Cargando artículo...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !article) {
-    return (
-      <div className="min-h-screen py-32">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="text-red-600 text-xl mb-4">
-              {error || "Artículo no encontrado"}
-            </div>
-            <Link
-              to="/blog"
-              className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium"
-            >
-              ← Volver al blog
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const getImageUrl = () => {
+  const getImageUrl = (article) => {
     if (!article?.cover) return "https://www.advia.tech/og-default.jpg";
 
     const coverUrl = article.cover.formats?.large?.url || article.cover.url;
@@ -157,14 +95,45 @@ const BlogArticlePage = () => {
       : `https://www.advia.tech${coverUrl}`;
   };
 
-  const getCurrentUrl = () => {
-    return `https://www.advia.tech/blog/article/${slug}`;
-  };
+  if (error || !article) {
+    return (
+      <>
+        <Head>
+          <title>Artículo no encontrado | Blog Advia</title>
+          <meta
+            name="description"
+            content="El artículo solicitado no fue encontrado."
+          />
+        </Head>
+        <div className="min-h-screen py-32">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <div className="text-red-600 text-xl mb-4">
+                {error || "Artículo no encontrado"}
+              </div>
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium"
+              >
+                ← Volver al blog
+              </Link>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  const imageUrl = getImageUrl(article);
+  const currentUrl = `https://www.advia.tech/blog/article/${article.slug}`;
+
+  console.log(article.title);
+  console.log(article.description);
 
   return (
     <>
-      <Helmet>
-        <title>{article.title} | Blog Advia</title>
+      <Head>
+        <title>{`${article.title} | Blog Advia`}</title>
         <meta
           name="description"
           content={
@@ -183,8 +152,8 @@ const BlogArticlePage = () => {
           }
         />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={getCurrentUrl()} />
-        <meta property="og:image" content={getImageUrl()} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:image" content={imageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="Advia" />
@@ -209,11 +178,11 @@ const BlogArticlePage = () => {
             "Artículo del blog de Advia sobre marketing digital y navegación activa."
           }
         />
-        <meta name="twitter:image" content={getImageUrl()} />
+        <meta name="twitter:image" content={imageUrl} />
 
         {/* Canonical URL */}
-        <link rel="canonical" href={getCurrentUrl()} />
-      </Helmet>
+        <link rel="canonical" href={currentUrl} />
+      </Head>
 
       <article className="relative py-32 bg-gradient-to-b from-white to-gray-50/30 overflow-hidden">
         {/* Fondo limpio con patrón sutil */}
@@ -311,4 +280,40 @@ const BlogArticlePage = () => {
   );
 };
 
-export default BlogArticlePage;
+export async function getServerSideProps(context) {
+  const { slug } = context.params;
+
+  try {
+    const response = await fetch(
+      `https://cms.advia.tech/api/articles?filters[slug][$eq]=${slug}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error fetching article: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const article = data.data.length > 0 ? data.data[0] : null;
+
+    if (!article) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        article,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching article:", error);
+    return {
+      props: {
+        error: error.message,
+      },
+    };
+  }
+}
+
+export default BlogArticle;

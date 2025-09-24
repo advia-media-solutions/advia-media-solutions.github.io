@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { blogApiService } from '../../services/blogApi';
-import BlogArticleCard from '../../components/blog/BlogArticleCard';
-import FeaturedBlogArticle from '../../components/blog/FeaturedBlogArticle';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { blogApiService } from "../../services/blogApi";
+import BlogArticleCard from "../../components/blog/BlogArticleCard";
+import FeaturedBlogArticle from "../../components/blog/FeaturedBlogArticle";
 
 const BlogHomePage = () => {
   const [articles, setArticles] = useState([]);
@@ -44,8 +44,12 @@ const BlogHomePage = () => {
       <div className="min-h-screen py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="text-red-600 text-xl mb-4">Error al cargar artículos</div>
-            <p className="text-gray-600">{error}. Por favor, inténtalo de nuevo más tarde.</p>
+            <div className="text-red-600 text-xl mb-4">
+              Error al cargar artículos
+            </div>
+            <p className="text-gray-600">
+              {error}. Por favor, inténtalo de nuevo más tarde.
+            </p>
           </div>
         </div>
       </div>
@@ -64,10 +68,12 @@ const BlogHomePage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Page Title */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-black tracking-tight leading-[1.1]">Blog ADVIA</h1>
+          <h1 className="text-4xl font-bold text-black tracking-tight leading-[1.1]">
+            Blog ADVIA
+          </h1>
           <p className="text-lg text-gray-600 mt-2">
-            Novedades y noticias sobre Advia y la Navegación Activa. Explora con nosotros cómo
-            convertir la publicidad en respuestas
+            Novedades y noticias sobre Advia y la Navegación Activa. Explora con
+            nosotros cómo convertir la publicidad en respuestas
           </p>
         </div>
 
@@ -83,7 +89,7 @@ const BlogHomePage = () => {
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {remainingArticles.slice(0, 6).map(article => (
+              {remainingArticles.slice(0, 6).map((article) => (
                 <BlogArticleCard key={article.id} article={article} />
               ))}
             </div>
@@ -97,7 +103,7 @@ const BlogHomePage = () => {
 
         <div className="text-center">
           <Link
-            to="/blog/articles"
+            href="/blog/articles"
             className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-medium text-white bg-gradient-to-r from-orange-400 to-yellow-300 hover:from-orange-500 hover:to-yellow-400 shadow-2xl hover:shadow-orange-400/30 transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 overflow-hidden inline-block"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

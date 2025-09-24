@@ -1,15 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Link from "next/link";
 
 const Button = ({
   to,
   children,
   icon,
-  className = '',
-  variant = 'default',
-  size = 'md',
+  className = "",
+  variant = "default",
+  size = "md",
   padding,
-  rounded = 'rounded-xl',
+  rounded = "rounded-xl",
   type,
   id,
   onClick,
@@ -21,9 +21,9 @@ const Button = ({
 }) => {
   // Size classes using only Tailwind core utilities
   const sizeClasses = {
-    sm: padding || 'px-4 py-2 text-sm',
-    md: padding || 'px-6 py-3 text-base',
-    lg: padding || 'px-8 py-4 text-lg',
+    sm: padding || "px-4 py-2 text-sm",
+    md: padding || "px-6 py-3 text-base",
+    lg: padding || "px-8 py-4 text-lg",
   };
 
   // Variant classes using only Tailwind core utilities
@@ -70,7 +70,9 @@ const Button = ({
     ${rounded}
     ${variantClasses[variant]}
     ${className}
-  `.replace(/\s+/g, ' ').trim();
+  `
+    .replace(/\s+/g, " ")
+    .trim();
 
   const content = (
     <>
@@ -90,8 +92,14 @@ const Button = ({
           <div className="animate-spin h-5 w-5 border-2 border-gray-900 rounded-full border-t-transparent" />
         ) : (
           <>
-            {icon && <span className="transition-transform duration-300 group-hover:scale-110">{icon}</span>}
-            <span className="transition-transform duration-300 group-hover:scale-105">{children}</span>
+            {icon && (
+              <span className="transition-transform duration-300 group-hover:scale-110">
+                {icon}
+              </span>
+            )}
+            <span className="transition-transform duration-300 group-hover:scale-105">
+              {children}
+            </span>
           </>
         )}
       </div>
@@ -105,8 +113,8 @@ const Button = ({
   const handleClick = (e) => {
     if (event) {
       window.dataLayer?.push({
-        'event': event,
-        'event_from_code': event
+        event: event,
+        event_from_code: event,
       });
     }
     // Call the original onClick if it exists
@@ -116,12 +124,7 @@ const Button = ({
   // Handle disabled state
   if (loading || disabled) {
     return (
-      <button 
-        disabled 
-        className={buttonClasses} 
-        id={id}
-        type={type}
-      >
+      <button disabled className={buttonClasses} id={id} type={type}>
         {content}
       </button>
     );
@@ -130,13 +133,13 @@ const Button = ({
   // Handle link variant
   if (to) {
     const linkProps = {
-      to,
+      href: to,
       id,
       className: buttonClasses,
       onClick: handleClick,
       ...(newTab && { target: "_blank", rel: "noopener noreferrer" }),
     };
-    
+
     return <Link {...linkProps}>{content}</Link>;
   }
 
@@ -147,7 +150,7 @@ const Button = ({
     onClick: handleClick,
     className: buttonClasses,
     disabled,
-    ...(gtmEvent && { 'data-gtm-event': gtmEvent }),
+    ...(gtmEvent && { "data-gtm-event": gtmEvent }),
     ...(newTab && { target: "_blank", rel: "noopener noreferrer" }),
   };
 

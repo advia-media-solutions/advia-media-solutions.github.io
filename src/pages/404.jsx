@@ -1,6 +1,6 @@
 import React from "react";
 import { HomeIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const NotFound = () => {
   return (
@@ -40,7 +40,7 @@ const NotFound = () => {
 
           {/* Single CTA Button */}
           <Link
-            to="/"
+            href="/"
             className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center gap-3 px-8 py-4 rounded-full text-neutral-dark font-medium group"
           >
             <HomeIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />

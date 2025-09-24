@@ -1,15 +1,16 @@
 // src/components/FooterComponent.jsx
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { Mail, MapPin, Linkedin } from "lucide-react";
 
 const Footer = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const currentYear = new Date().getFullYear();
 
   const handleLinkClick = (link) => {
     if (link.isProduct) {
-      navigate(link.to);
+      router.push(link.to);
       setTimeout(() => {
         const element = document.getElementById(link.to.split("#")[1]);
         if (element) {
@@ -22,7 +23,7 @@ const Footer = () => {
         }
       }, 100);
     } else {
-      navigate(link.to);
+      router.push(link.to);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -112,7 +113,7 @@ const Footer = () => {
                   {section.links.map((link, index) => (
                     <li key={index}>
                       <Link
-                        to={link.to}
+                        href={link.to}
                         onClick={(e) => {
                           e.preventDefault();
                           handleLinkClick(link);

@@ -1,10 +1,10 @@
 // Constants for consent management
-const CONSENT_STORAGE_KEY = 'cookieConsent';
+const CONSENT_STORAGE_KEY = "cookieConsent";
 const DEFAULT_CONSENT_STATE = {
   necessary: true,
   analytics: false,
   advertising: false,
-  hasUserChosen: false
+  hasUserChosen: false,
 };
 
 /**
@@ -12,33 +12,34 @@ const DEFAULT_CONSENT_STATE = {
  * @param {string} containerId - GTM container ID
  */
 export const initializeGTM = (containerId) => {
+  if (typeof window === "undefined") return;
   if (!containerId) {
-    console.error('GTM container ID is required');
+    console.error("GTM container ID is required");
     return;
   }
 
   window.dataLayer = window.dataLayer || [];
-  
+
   // Push initial denied consent state
   window.dataLayer.push({
-    event: 'consent_update',
-    'analytics_storage': 'denied',
-    'ad_storage': 'denied'
+    event: "consent_update",
+    analytics_storage: "denied",
+    ad_storage: "denied",
   });
 
   // Load GTM script
-  const script = document.createElement('script');
+  const script = document.createElement("script");
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
   document.head.appendChild(script);
-    
+
   // Check if user has previously chosen preferences
   const storedConsent = getStoredConsent();
   if (storedConsent.hasUserChosen) {
     window.dataLayer.push({
-      event: 'consent_update',
-      'analytics_storage': storedConsent.analytics ? 'granted' : 'denied',
-      'ad_storage': storedConsent.advertising ? 'granted' : 'denied'
+      event: "consent_update",
+      analytics_storage: storedConsent.analytics ? "granted" : "denied",
+      ad_storage: storedConsent.advertising ? "granted" : "denied",
     });
   }
 };
@@ -48,12 +49,13 @@ export const initializeGTM = (containerId) => {
  * @param {Object} consentState - User consent preferences
  */
 export const updateGTMConsent = (consentState) => {
+  if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
-  
+
   window.dataLayer.push({
-    event: 'consent_update',
-    'analytics_storage': consentState.analytics ? 'granted' : 'denied',
-    'ad_storage': consentState.advertising ? 'granted' : 'denied'
+    event: "consent_update",
+    analytics_storage: consentState.analytics ? "granted" : "denied",
+    ad_storage: consentState.advertising ? "granted" : "denied",
   });
 };
 
@@ -62,6 +64,7 @@ export const updateGTMConsent = (consentState) => {
  * @returns {Object} Consent preferences
  */
 export const getStoredConsent = () => {
+  if (typeof window === "undefined") return DEFAULT_CONSENT_STATE;
   try {
     const stored = localStorage.getItem(CONSENT_STORAGE_KEY);
     if (!stored) return DEFAULT_CONSENT_STATE;
@@ -69,7 +72,7 @@ export const getStoredConsent = () => {
     const parsedConsent = JSON.parse(stored);
     return parsedConsent.hasUserChosen ? parsedConsent : DEFAULT_CONSENT_STATE;
   } catch (error) {
-    console.error('Error reading stored consent:', error);
+    console.error("Error reading stored consent:", error);
     return DEFAULT_CONSENT_STATE;
   }
 };
@@ -79,18 +82,22 @@ export const getStoredConsent = () => {
  * @param {Object} consentState - User consent preferences
  */
 export const setConsent = (consentState) => {
+  if (typeof window === "undefined") return;
   try {
     const consentWithChoice = {
       ...consentState,
-      hasUserChosen: true
+      hasUserChosen: true,
     };
 
     // Store consent in localStorage
-    localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(consentWithChoice));
-    
+    localStorage.setItem(
+      CONSENT_STORAGE_KEY,
+      JSON.stringify(consentWithChoice)
+    );
+
     // Update GTM consent state
     updateGTMConsent(consentWithChoice);
   } catch (error) {
-    console.error('Error storing consent:', error);
+    console.error("Error storing consent:", error);
   }
 };

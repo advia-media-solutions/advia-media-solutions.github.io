@@ -1,16 +1,16 @@
 // src/hooks/useScrollToTop.js
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export const useScrollToTop = () => {
-  const location = useLocation();
+  const router = useRouter();
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
-  }, [location.pathname]); // Se ejecutará cada vez que cambie la ruta
+  }, [router.pathname, router.asPath]); // Se ejecutará cada vez que cambie la ruta
 };
 
 export default useScrollToTop;

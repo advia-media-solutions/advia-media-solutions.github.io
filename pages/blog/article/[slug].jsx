@@ -127,6 +127,9 @@ const BlogArticle = ({ article, error }) => {
   const imageUrl = getImageUrl(article);
   const currentUrl = `https://www.advia.tech/blog/article/${article.slug}`;
 
+  console.log(article.title);
+  console.log(article.description);
+
   return (
     <>
       <Head>

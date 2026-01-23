@@ -1,5 +1,6 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 class MyDocument extends Document {
   render() {
@@ -16,6 +17,59 @@ class MyDocument extends Document {
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
             rel="stylesheet"
+          />
+          <Script
+            id="advia-client"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.advia_ad_id = "advia-website";
+
+                (function loadAdviaClient() {
+                  const cachebuster = Date.now().toString(36);
+                  const script = document.createElement("script");
+                  script.src = \`https://cdn.advia.tech/js-client/index.js?cb=\${cachebuster}\`;
+                  document.head.appendChild(script);
+                })();
+              `,
+            }}
+          />
+          <Script
+            id="advia-impression"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                const client = window.AdviaClientInstance;
+                if (client) {
+                  if (client.isReady()) {
+                    console.log("Advia Client is ready, sending impression event.");
+                    client.sendCustomEvent("impression", "lifecycle", {
+                      timestamp: Date.now(),
+                      placement: window.location.href,
+                      adId: client.getAdId()
+                    });
+                  } else {
+                    client.once("ready", () => {
+                      console.log("Advia Client became ready, sending impression event.");
+                      client.sendCustomEvent("impression", "lifecycle", {
+                        timestamp: Date.now(),
+                        placement: window.location.href,
+                        adId: client.getAdId()
+                      });
+                    });
+                  }
+                } else {
+                  window.addEventListener("advia:client-ready", (event) => {
+                console.log("Advia Client loaded via event, sending impression event.");
+                if (!window.AdviaClientInstance) return;
+                    window.AdviaClientInstance.sendCustomEvent("impression", "lifecycle", {
+                      timestamp: Date.now(),
+                      placement: window.location.href,
+                      adId: window.AdviaClientInstance.getAdId()
+                    });
+                });}
+              `,
+            }}
           />
         </Head>
         <body>

@@ -155,11 +155,18 @@ const CookieConsent = () => {
                 </p>
               </div>
 
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-center gap-3 mt-4">
+                <Button
+                  onClick={handleRejectAll}
+                  variant="secondary"
+                  className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-16 py-3 rounded"
+                >
+                  No Acepto
+                </Button>
                 <Button
                   onClick={handleAcceptAll}
                   variant="primary"
-                  className="bg-blue-600 hover:bg-blue-700 text-black px-16 py-3 rounded w-96"
+                  className="bg-blue-600 hover:bg-blue-700 text-black px-16 py-3 rounded"
                 >
                   Aceptar
                 </Button>
@@ -230,20 +237,29 @@ const CookieConsent = () => {
               ))}
             </div>
 
-            <div className="flex justify-end gap-3 mt-6">
+            <div className="flex justify-between mt-6">
               <Button
-                onClick={handleAcceptAll}
-                variant="primary"
-                className="bg-blue-600 hover:bg-blue-700 text-black px-6 py-2 rounded"
+                onClick={handleRejectAll}
+                variant="secondary"
+                className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-6 py-2 rounded"
               >
-                Aceptar todas
+                Rechazar todas
               </Button>
-              <Button
-                onClick={handleSaveConfiguration}
-                className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
-              >
-                Guardar
-              </Button>
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleAcceptAll}
+                  variant="primary"
+                  className="bg-blue-600 hover:bg-blue-700 text-black px-6 py-2 rounded"
+                >
+                  Aceptar todas
+                </Button>
+                <Button
+                  onClick={handleSaveConfiguration}
+                  className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  Guardar
+                </Button>
+              </div>
             </div>
           </div>
         )}

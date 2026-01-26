@@ -1,3 +1,5 @@
+import { initializeTcfApi, triggerConsentChange } from './tcfApiMock';
+
 // Constants for consent management
 const CONSENT_STORAGE_KEY = "cookieConsent";
 const DEFAULT_CONSENT_STATE = {
@@ -32,6 +34,9 @@ export const initializeGTM = (containerId) => {
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
   document.head.appendChild(script);
+
+  // Initialize mock __tcfapi
+  initializeTcfApi();
 
   // Check if user has previously chosen preferences
   const storedConsent = getStoredConsent();
@@ -97,6 +102,9 @@ export const setConsent = (consentState) => {
 
     // Update GTM consent state
     updateGTMConsent(consentWithChoice);
+
+    // Trigger __tcfapi event listeners
+    triggerConsentChange();
   } catch (error) {
     console.error("Error storing consent:", error);
   }

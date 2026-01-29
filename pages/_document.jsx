@@ -74,10 +74,10 @@ class MyDocument extends Document {
         </Head>
         <body>
           {/* Advia tracking pixel */}
-          <img 
-            src="https://events.advia.tech/v1/track?enc=true&data=c9zOnhkBnRTvNOSr4YgYY0P9n4UCGxBJewigAxllHh3Ps6XIIpBeNtP9NZkrk9mVRDKyACUXNKbPrVxKYQYKglofgo76ybNneLrE7ZxqCvHsdbjSM0k5FANEJz3RGn3ZfCqtbyLE71pkcF24ZEVj0pNIB7sU0OmOHA7lraK.9976e69b"
+          <img
+            src="https://events.advia.tech/v1/track?data=2Wvrdo3xgV87dwbfhbGRvYggjDsfbgRdnnjVixgjiIkMMWQfbIWUnBJOkl9jd770s0qi41FTaAReSIs2aRw9gyf4FguMzp8zaQb3q9zHK8E4ptnHMrcCbwE7rvfX13EcpzWIQGOhWR8yrhGDXuJQyusZEXrPlvzyywazdC.a8e9a38a"
             alt=""
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             width="1"
             height="1"
           />

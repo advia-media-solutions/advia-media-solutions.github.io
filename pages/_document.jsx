@@ -77,7 +77,6 @@ class MyDocument extends Document {
           <img
             src="https://events.advia.tech/v1/track?data=2Wvrdo3xgV87dwbfhbGRvYggjDsfbgRdnnjVixgjiIkMMWQfbIWUnBJOkl9jd770s0qi41FTaAReSIs2aRw9gyf4FguMzp8zaQb3q9zHK8E4ptnHMrcCbwE7rvfX13EcpzWIQGOhWR8yrhGDXuJQyusZEXrPlvzyywazdC.a8e9a38a"
             alt=""
-            style={{ display: "none" }}
             width="1"
             height="1"
           />

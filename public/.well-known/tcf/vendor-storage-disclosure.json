@@ -1,0 +1,13 @@
+{
+  "disclosures": [],
+  "domains": [
+    {
+      "domain": "cdn.advia.tech",
+      "use": "creative assets"
+    },
+    {
+      "domain": "events.advia.tech",
+      "use": "Event tracking"
+    }
+  ]
+}

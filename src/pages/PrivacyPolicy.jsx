@@ -1,9 +1,6 @@
 import React from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
 const PrivacyPolicy = () => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-
   return (
     <div className="min-h-screen pt-24 pb-12">
       {/* Background Elements */}
@@ -25,12 +22,26 @@ const PrivacyPolicy = () => {
             </span>
           </h1>
           <p className="text-neutral-DEFAULT/70 italic">
-            Servicio Ad Server de Advia
+            Servicio Ad Server de Advia · Advia Ad Server Service
           </p>
+          <div className="flex items-center gap-2 text-sm">
+            <a
+              href="#es"
+              className="px-3 py-1 rounded-full border border-neutral-DEFAULT/20 text-neutral-dark hover:bg-neutral-DEFAULT/5 transition-colors"
+            >
+              Español
+            </a>
+            <a
+              href="#en"
+              className="px-3 py-1 rounded-full border border-neutral-DEFAULT/20 text-neutral-dark hover:bg-neutral-DEFAULT/5 transition-colors"
+            >
+              English
+            </a>
+          </div>
         </div>
 
         {/* Content Sections */}
-        <div className="max-w-4xl mx-auto space-y-12">
+        <div id="es" className="max-w-4xl mx-auto space-y-12 scroll-mt-24">
           {/* Responsable / Cabecera */}
           <section className="space-y-4 animate-fadeIn">
             <div className="space-y-2 text-neutral-DEFAULT/80 leading-relaxed">
@@ -509,26 +520,8 @@ const PrivacyPolicy = () => {
             </div>
           </section>
 
-          {/* Ver más información */}
+          {/* 11. Decisiones automatizadas */}
           <section className="space-y-4 animate-fadeIn">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 text-primary-light hover:text-primary-dark transition-colors"
-            >
-              <span className="font-medium">
-                {isExpanded ? "Ver menos información" : "Ver más información"}
-              </span>
-              {isExpanded ? (
-                <ChevronUp className="w-4 h-4" />
-              ) : (
-                <ChevronDown className="w-4 h-4" />
-              )}
-            </button>
-
-            {isExpanded && (
-              <div className="space-y-12 animate-fadeIn pt-4">
-                {/* 11. Decisiones automatizadas */}
-                <section className="space-y-4">
                   <h2 className="text-2xl font-bold text-neutral-dark">
                     11. Decisiones automatizadas
                   </h2>
@@ -729,10 +722,670 @@ const PrivacyPolicy = () => {
                         para las autoridades de control que así lo requieran.
                       </p>
                     </div>
-                  </div>
-                </section>
+            </div>
+          </section>
+        </div>
+
+        {/* Language divider */}
+        <div className="max-w-4xl mx-auto my-16 flex items-center gap-4">
+          <div className="flex-1 h-px bg-neutral-DEFAULT/20" />
+          <span className="text-sm uppercase tracking-widest text-neutral-DEFAULT/60">
+            English version
+          </span>
+          <div className="flex-1 h-px bg-neutral-DEFAULT/20" />
+        </div>
+
+        {/* English Content */}
+        <div id="en" className="max-w-4xl mx-auto space-y-12 scroll-mt-24">
+          <div className="space-y-6 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-neutral-dark tracking-tight">
+              Privacy{" "}
+              <span className="relative inline-block">
+                <span className="bg-gradient-to-r from-primary-light via-secondary-DEFAULT to-primary-light bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                  Policy
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-DEFAULT/20 to-secondary-light/20 -skew-y-2 transform rounded-lg blur-[2px]"></div>
+              </span>
+            </h2>
+          </div>
+
+          {/* Controller header */}
+          <section className="space-y-4 animate-fadeIn">
+            <div className="space-y-2 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                <strong>Data controller:</strong> ADVIA MEDIA SOLUTIONS, S.L.
+              </p>
+              <p>
+                <strong>Tax ID (NIF):</strong> B19456417
+              </p>
+              <p>
+                <strong>Registered address:</strong> Calle Naciones, 10 – Local,
+                28006, Madrid (Spain)
+              </p>
+              <p>
+                <strong>Activity:</strong> Advertising, public relations and
+                similar services (CNAE 7311)
+              </p>
+              <p>
+                <strong>Privacy contact and rights exercise:</strong>{" "}
+                <a
+                  href="mailto:privacy@advia.tech"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  privacy@advia.tech
+                </a>
+              </p>
+              <p>
+                <strong>Last update:</strong> 2026-04-22 ·{" "}
+                <strong>Version:</strong> 1.0
+              </p>
+            </div>
+          </section>
+
+          {/* 1. Introduction */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              1. Introduction
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                This Privacy Policy describes how ADVIA MEDIA SOLUTIONS, S.L.
+                ("Advia", "we") processes personal data within its advertising
+                ad server service, when end-user browsers interact with the
+                advertising creatives that Advia hosts and serves.
+              </p>
+              <p>
+                Advia acts as a <strong>technical intermediary</strong> between
+                DSPs (Demand-Side Platforms) and publishers participating in
+                the{" "}
+                <strong>
+                  IAB Europe Transparency & Consent Framework (TCF)
+                </strong>
+                . Advia does not maintain a direct relationship with the end
+                user: the user-facing point of contact for transparency and
+                consent management is the <strong>publisher's CMP</strong>{" "}
+                where the ad is served.
+              </p>
+              <p>
+                This policy is addressed to the <strong>end user</strong> whose
+                activity may generate data processed by Advia during ad
+                delivery and measurement.
+              </p>
+            </div>
+          </section>
+
+          {/* 2. TCF */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              2. Participation in IAB Europe TCF
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              ADVIA MEDIA SOLUTIONS, S.L. participates in the IAB Europe
+              Transparency & Consent Framework and complies with its
+              Specifications and Policies. The identification number of ADVIA
+              MEDIA SOLUTIONS, S.L. within the framework is{" "}
+              <strong>[VENDOR_ID pending assignment by IAB Europe]</strong>.
+            </p>
+          </section>
+
+          {/* 3. What Advia's ad server does */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              3. What Advia's ad server does
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                Advia generates ad tags (VAST/JavaScript) pointing to creatives
+                hosted on its infrastructure. When a DSP wins an ad auction,
+                the user's browser executes the corresponding ad tag script,
+                which loads the creative from Advia's servers.
+              </p>
+              <p>During creative delivery and execution, Advia may:</p>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>Receive and respond to technical requests (ad requests).</li>
+                <li>Deliver the creative files to the user's browser.</li>
+                <li>
+                  Parse the TC String provided by the publisher's CMP to verify
+                  the legal basis applicable to each processing activity.
+                </li>
+                <li>
+                  Propagate the TC String intact and unmodified to third-party
+                  pixels activated by the creative (verification vendors such
+                  as Adloox, DoubleVerify, IAS, Moat, and retargeting ad
+                  servers).
+                </li>
+                <li>
+                  Log creative lifecycle events (impression, click, viewable,
+                  video play and similar) to report campaign performance to
+                  the advertiser.
+                </li>
+              </ul>
+              <h3 className="text-xl font-semibold text-neutral-dark mt-6 mb-2">
+                What Advia does NOT do
+              </h3>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>
+                  Does not deploy first-party cookies nor access information
+                  stored on the user's device (localStorage, IndexedDB, mobile
+                  ad IDs, etc.).
+                </li>
+                <li>
+                  Does not build audiences, user profiles or persistent device
+                  identifiers.
+                </li>
+                <li>
+                  Does not use profiles to decide which ad to serve (the
+                  decision is made by the DSP upstream).
+                </li>
+                <li>Does not perform active device fingerprinting.</li>
+                <li>
+                  Does not process precise geolocation (latitude/longitude with
+                  more than two decimals or radius below 500 m).
+                </li>
+                <li>
+                  Does not cross-reference data with external sources (offline,
+                  CRM, loyalty, etc.).
+                </li>
+                <li>Does not link devices of the same user (cross-device mapping).</li>
+                <li>
+                  Does not process authentication identifiers (emails, phone
+                  numbers, derived hashes).
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 4. Categories of data */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              4. Categories of data processed
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-neutral-DEFAULT/80 leading-relaxed border-collapse">
+                <thead>
+                  <tr className="border-b border-neutral-DEFAULT/20">
+                    <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                      Category
+                    </th>
+                    <th className="py-2 font-semibold text-neutral-dark">
+                      Processing
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="align-top">
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">Public IP address</td>
+                    <td className="py-3">
+                      Received by the HTTP server to route the response;
+                      processed on the fly and discarded after the response.
+                      Not stored.
+                    </td>
+                  </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">User Agent</td>
+                    <td className="py-3">
+                      Logged only when the TCF consent check is favourable, to
+                      enable device/browser breakdown in performance reporting
+                      to the advertiser.
+                    </td>
+                  </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">URL/referer</td>
+                    <td className="py-3">
+                      URL of the page where the ad is served (context).
+                    </td>
+                  </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">Ad interactions</td>
+                    <td className="py-3">
+                      Impression, click, viewable, video play and similar
+                      events.
+                    </td>
+                  </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">TC String (CMP privacy signal)</td>
+                    <td className="py-3">
+                      Parsed in memory to verify the applicable legal basis and
+                      propagated intact to third parties. Not persisted.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="py-3 pr-4">Ephemeral internal identifiers</td>
+                    <td className="py-3">
+                      A <code>journeyId</code> is generated per impression,
+                      inside the creative's iframe, to correlate events from
+                      the same impression. Does not persist between executions,
+                      is not a device identifier and does not allow
+                      re-identifying the user.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* 5. Purposes and legal basis */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              5. Purposes and legal basis
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Advia declares the following purposes within the TCF, with the
+              corresponding legal basis under Art. 6 of the General Data
+              Protection Regulation (GDPR):
+            </p>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Purpose 7 – Measure advertising performance
+                </h3>
+                <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
+                  <li>
+                    <strong>Legal basis:</strong> Consent or legitimate
+                    interest (Art. 6(1)(a) or 6(1)(f) GDPR).
+                  </li>
+                  <li>
+                    <strong>Description:</strong> Log creative lifecycle events
+                    to report aggregated campaign performance to advertisers.
+                  </li>
+                  <li>
+                    <strong>Retention:</strong> 90 days (raw data). After this
+                    period, raw data is deleted; only aggregated per-campaign
+                    metrics without personal data are kept.
+                  </li>
+                </ul>
               </div>
-            )}
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Special Purpose 2 – Deliver and present advertising and content
+                </h3>
+                <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
+                  <li>
+                    <strong>Legal basis:</strong> Legitimate interest (Art.
+                    6(1)(f) GDPR). The TCF classifies this as a Special Purpose
+                    with no right to object via the framework, as it is
+                    indispensable for the technical delivery of content.
+                  </li>
+                  <li>
+                    <strong>Description:</strong> Receive and respond to ad
+                    requests, deliver creative files to the browser, and
+                    respond to user interaction with the ad.
+                  </li>
+                  <li>
+                    <strong>Retention:</strong> 90 days (aligned with Purpose
+                    7; IP is not stored).
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Special Purpose 3 – Save and communicate privacy choices
+                </h3>
+                <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
+                  <li>
+                    <strong>Legal basis:</strong> Legitimate interest (Art.
+                    6(1)(f) GDPR). The TCF classifies this as a Special Purpose
+                    with no right to object via the framework, since its
+                    purpose is precisely to respect the user's privacy choices.
+                  </li>
+                  <li>
+                    <strong>Description:</strong> Verify and propagate TCF
+                    signals (TC String) so that the advertising ecosystem
+                    correctly applies the user's privacy choices.
+                  </li>
+                  <li>
+                    <strong>Retention:</strong> 0 days (the TC String is
+                    processed in memory and discarded after propagation).
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Remaining TCF Purposes
+                </h3>
+                <p className="text-neutral-DEFAULT/80 leading-relaxed">
+                  Advia <strong>does not declare</strong> Purposes 1, 2, 3, 4,
+                  5, 6, 8, 9, 10 and 11, as it does not carry out any of the
+                  processing activities covered by those purposes (device
+                  storage, ad selection, profiling, content personalisation,
+                  editorial content measurement, audience insights, product
+                  development or content selection).
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* 6. Recipients */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              6. Data recipients
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                Advia does not sell or disclose personal data to third parties.
+                During creative execution, Advia propagates the{" "}
+                <strong>TC String intact and unmodified</strong> to third-party
+                pixels activated by the creative (viewability and quality
+                verification vendors such as Adloox, DoubleVerify, IAS, Moat,
+                and retargeting ad servers integrated by the advertiser), so
+                that each of them can apply their own compliance rules based on
+                the user's privacy signal.
+              </p>
+              <p>
+                Each of those third parties acts as an independent data
+                controller with respect to the data it processes.
+              </p>
+            </div>
+          </section>
+
+          {/* 7. International transfers */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              7. International transfers
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Advia processes data on infrastructure located within the
+              European Economic Area. If any of the third-party pixels
+              activated by the creative performs international transfers, each
+              of those third parties is responsible for declaring and complying
+              with the applicable safeguards (Art. 44 et seq. GDPR).
+            </p>
+          </section>
+
+          {/* 8. Retention periods */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              8. Retention periods
+            </h2>
+            <ul className="space-y-2 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
+              <li>
+                <strong>Performance events (Purpose 7, SP2):</strong> 90 days
+                raw, then deleted; only aggregated per-campaign metrics without
+                personal data or user-linked identifiers are kept.
+              </li>
+              <li>
+                <strong>TC String (SP3):</strong> not persisted — processed in
+                memory and discarded after propagation.
+              </li>
+              <li>
+                <strong>IP address:</strong> not stored — processed on the fly
+                during the HTTP response.
+              </li>
+            </ul>
+          </section>
+
+          {/* 9. Cookies */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              9. Cookies and storage on the user's device
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                Advia <strong>does not use first-party cookies</strong> nor
+                access information stored on the user's device (localStorage,
+                IndexedDB, mobile ad IDs or other client-side storage
+                mechanisms). The journeyId is generated ephemerally within the
+                creative's iframe and does not persist between executions nor
+                is stored on the device.
+              </p>
+              <p>
+                This means Advia does not perform any operation falling within
+                the scope of Art. 22.2 of Spanish Law 34/2002 on Information
+                Society Services (LSSI-CE) nor Art. 5(3) of Directive
+                2002/58/EC (ePrivacy).
+              </p>
+            </div>
+          </section>
+
+          {/* 10. User rights */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              10. User rights
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                Under the GDPR and Spanish Organic Law 3/2018 on Personal Data
+                Protection and guarantee of digital rights (LOPDGDD), the user
+                has the following rights regarding their personal data:
+              </p>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>Access (Art. 15 GDPR)</li>
+                <li>Rectification (Art. 16 GDPR)</li>
+                <li>Erasure ("right to be forgotten", Art. 17 GDPR)</li>
+                <li>Restriction of processing (Art. 18 GDPR)</li>
+                <li>Data portability (Art. 20 GDPR)</li>
+                <li>
+                  <strong>Objection (Art. 21 GDPR)</strong> — including, where
+                  processing is based on legitimate interest, the right to
+                  object at any time.
+                </li>
+                <li>
+                  Withdraw consent at any time, where processing is based on
+                  consent.
+                </li>
+              </ul>
+              <p>
+                <strong>Exercise channel:</strong> users may exercise these
+                rights by sending an email to{" "}
+                <a
+                  href="mailto:privacy@advia.tech"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  privacy@advia.tech
+                </a>
+                , duly identifying themselves.
+              </p>
+              <p>
+                <strong>Granular management via CMP:</strong> for TCF-based
+                processing, the most direct way to manage your choices (consent
+                or objection per Vendor and per Purpose) is via the{" "}
+                <strong>
+                  publisher's CMP (Consent Management Platform)
+                </strong>{" "}
+                where the ad is served.
+              </p>
+              <p>
+                <strong>Complaint to the supervisory authority:</strong> if you
+                consider that the processing of your data does not comply with
+                regulations, you may lodge a complaint with the{" "}
+                <strong>Spanish Data Protection Agency (AEPD)</strong> — C/
+                Jorge Juan, 6, 28001 Madrid —{" "}
+                <a
+                  href="https://www.aepd.es"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  www.aepd.es
+                </a>
+                .
+              </p>
+            </div>
+          </section>
+
+          {/* 11. Automated decision-making */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              11. Automated decision-making
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Advia does not make automated decisions with legal or significant
+              effects on the user (Art. 22 GDPR). No user profiling is carried
+              out.
+            </p>
+          </section>
+
+          {/* 12. Minors */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              12. Minors
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Advia does not direct its service to minors nor intentionally
+              process personal data of minors. If unintentional processing of
+              minors' data were identified, it would be deleted in accordance
+              with the mechanisms set out in this policy.
+            </p>
+          </section>
+
+          {/* 13. Policy modifications */}
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              13. Policy modifications
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              This policy may be updated to reflect changes in processing
+              practices, in the applicable legal framework or in TCF
+              obligations. The current version will always be the one published
+              at this URL, with the date of the last update indicated.
+            </p>
+          </section>
+
+          {/* 14. Legitimate Interest */}
+          <section id="legitimate-interest" className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              14. Legitimate Interest
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              This section describes the legitimate interests that Advia
+              pursues under Art. 6(1)(f) GDPR for the processing activities
+              declared in the TCF, along with the summary of the Legitimate
+              Interest Assessment (LIA) outcome for each.
+            </p>
+
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  14.1 Purpose 7 – Measure advertising performance
+                </h3>
+                <div className="space-y-3 text-neutral-DEFAULT/80 leading-relaxed">
+                  <p>
+                    <strong>Legitimate interest pursued:</strong> report
+                    aggregated campaign performance (impressions, clicks,
+                    viewability, video plays) to advertisers, which constitutes
+                    the main service provided by the ad server and a condition
+                    of competitiveness in the market.
+                  </p>
+                  <p>
+                    <strong>Why it is necessary:</strong> without this
+                    measurement Advia could not report performance to
+                    advertisers nor offer the device/browser breakdown that is
+                    standard in the industry. There are no less intrusive
+                    alternatives compatible with this purpose: measurement
+                    without User Agent prevents breakdown; statistical sampling
+                    breaks per-impression billing; 100% anonymous aggregation
+                    makes it impossible to distinguish individual impressions.
+                  </p>
+                  <p>
+                    <strong>Why user rights do not prevail:</strong> processing
+                    is designed with minimisation by default (no IP stored, no
+                    cookies, no persistent identifiers, no fingerprinting). The
+                    journeyId is ephemeral and regenerated per impression. User
+                    Agent is only logged when the CMP allows it. Retention is
+                    limited to 90 days. The processing is consistent with the
+                    reasonable expectations of any user browsing a
+                    TCF-participating publisher: all digital advertising is
+                    measured to count the number of ads served and their
+                    performance — a universal and consolidated industry
+                    practice, expressly described in TCF Purpose 7.
+                  </p>
+                  <p>
+                    <strong>Right to object:</strong> the user may object to
+                    this processing at any time, either via the publisher's CMP
+                    (granular management per Vendor and Purpose), or by
+                    contacting{" "}
+                    <a
+                      href="mailto:privacy@advia.tech"
+                      className="text-primary-light hover:text-primary-dark transition-colors"
+                    >
+                      privacy@advia.tech
+                    </a>
+                    .
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  14.2 Special Purpose 2 – Deliver and present advertising
+                </h3>
+                <div className="space-y-3 text-neutral-DEFAULT/80 leading-relaxed">
+                  <p>
+                    <strong>Legitimate interest pursued:</strong> technically
+                    operate the ad server — receive ad requests, deliver
+                    creatives to the user's browser and respond to their
+                    interactions.
+                  </p>
+                  <p>
+                    <strong>Why it is necessary:</strong> without this
+                    technical delivery the service does not exist. It is the
+                    minimum and universal processing performed by any ad server
+                    in the digital ecosystem, and its data (primarily the IP to
+                    route the HTTP response) is technically indispensable.
+                  </p>
+                  <p>
+                    <strong>Why user rights do not prevail:</strong> IP is not
+                    stored (only processed on the fly to respond to the
+                    request). No cookies are used, no identifiers are created,
+                    no data is cross-referenced with external sources. The
+                    processing is inherent to the operation of the internet and
+                    consistent with any browser interaction with a web server.
+                    The TCF classifies this as a Special Purpose with no right
+                    to object via the framework, recognising its indispensable
+                    nature.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  14.3 Special Purpose 3 – Save and communicate privacy choices
+                </h3>
+                <div className="space-y-3 text-neutral-DEFAULT/80 leading-relaxed">
+                  <p>
+                    <strong>Legitimate interest pursued:</strong> verify and
+                    propagate TCF signals (TC String) along the advertising
+                    chain so that Advia and the rest of the ecosystem respect
+                    the user's privacy choices.
+                  </p>
+                  <p>
+                    <strong>Why it is necessary:</strong> without this
+                    processing, Advia could not verify its legal basis before
+                    applying conditional processing (e.g. User Agent logging
+                    under Purpose 7) nor guarantee that other ecosystem vendors
+                    receive the privacy signal without loss of information.
+                  </p>
+                  <p>
+                    <strong>Why user rights do not prevail:</strong> the only
+                    data processed is the TC String itself (which contains no
+                    user identifiers, only their preferences), processed in
+                    memory and discarded after propagation. The processing is
+                    directly favourable to the data subject: its purpose is to
+                    respect and propagate their privacy choices. The TCF
+                    classifies this as a Special Purpose with no right to
+                    object via the framework, since it would not make sense to
+                    object to respecting one's own preferences.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Internal documentation
+                </h3>
+                <p className="text-neutral-DEFAULT/80 leading-relaxed">
+                  The full Legitimate Interest Assessments (LIAs) with the
+                  three mandatory tests (Purpose test, Necessity test,
+                  Balancing test) are kept internally by Advia as an
+                  accountability record under Art. 5.2 and 24 GDPR, and are
+                  available to supervisory authorities upon request.
+                </p>
+              </div>
+            </div>
           </section>
         </div>
       </div>

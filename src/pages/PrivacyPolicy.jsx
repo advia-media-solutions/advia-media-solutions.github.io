@@ -118,9 +118,7 @@ const PrivacyPolicy = () => {
               Transparency & Consent Framework y cumple con sus Especificaciones
               y Políticas. El número de identificación de ADVIA MEDIA SOLUTIONS,
               S.L. dentro del framework es{" "}
-              <strong>
-                [VENDOR_ID pendiente de asignación por IAB Europe]
-              </strong>
+              <strong>1586</strong>
               .
             </p>
           </section>
@@ -822,7 +820,7 @@ const PrivacyPolicy = () => {
               Transparency & Consent Framework and complies with its
               Specifications and Policies. The identification number of ADVIA
               MEDIA SOLUTIONS, S.L. within the framework is{" "}
-              <strong>[VENDOR_ID pending assignment by IAB Europe]</strong>.
+              <strong>1586</strong>.
             </p>
           </section>
 

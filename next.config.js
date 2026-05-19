@@ -11,7 +11,9 @@ const nextConfig = {
           { key: "Access-Control-Allow-Origin", value: "*" },
           { key: "Access-Control-Allow-Methods", value: "GET, HEAD, OPTIONS" },
           { key: "Access-Control-Allow-Headers", value: "*" },
+          { key: "Access-Control-Allow-Credentials", value: "false" },
           { key: "Access-Control-Max-Age", value: "86400" },
+          { key: "Cache-Control", value: "public, max-age=86400, must-revalidate" },
         ],
       },
     ];

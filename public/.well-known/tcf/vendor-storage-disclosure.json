@@ -1,13 +1,18 @@
 {
-  "disclosures": [],
-  "domains": [
+  "disclosures": [
     {
-      "domain": "cdn.advia.tech",
-      "use": "creative assets"
-    },
-    {
-      "domain": "events.advia.tech",
-      "use": "Event tracking"
+      "identifier": "advia_uid",
+      "type": "cookie",
+      "maxAgeSeconds": 31536000,
+      "cookieRefresh": true,
+      "domains": ["*.advia.tech"],
+      "purposes": [1, 7]
     }
+  ],
+  "domains": [
+    { "domain": "cdn.advia.tech", "use": "Creative assets" },
+    { "domain": "events.advia.tech", "use": "Event tracking" },
+    { "domain": "a.advia.tech", "use": "Ad serving" },
+    { "domain": "d.advia.tech", "use": "Ad serving" }
   ]
 }

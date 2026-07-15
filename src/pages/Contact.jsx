@@ -59,7 +59,7 @@ const Contact = () => {
                     innovación y la tecnología se encuentran.
                   </p>
                   <div className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neutral-light text-neutral-dark/90 font-medium">
-                    C. de Moreno Nieto, 2, Arganzuela, 28005 Madrid
+                    Paseo de la Castellana 154, 8 Izquierda, 28046 Madrid
                   </div>
                 </div>
               </div>

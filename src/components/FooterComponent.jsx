@@ -78,7 +78,7 @@ const Footer = () => {
     { icon: <Mail className="w-5 h-5" />, text: "contacto@advia.tech" },
     {
       icon: <MapPin className="w-5 h-5" />,
-      text: "C. de Moreno Nieto, 2, Arganzuela, 28005 Madrid",
+      text: "Paseo de la Castellana 154, 8 Izquierda, 28046 Madrid",
     },
   ];
 

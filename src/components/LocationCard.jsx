@@ -4,9 +4,8 @@ import GlassCard from './GlassCard';
 
 const LocationCard = () => {
   const location = {
-    name: "Google for Startups Campus",
-    address: "C. de Moreno Nieto, 2",
-    city: "Arganzuela, 28005 Madrid",
+    address: "Paseo de la Castellana 154, 8 Izquierda",
+    city: "28046 Madrid",
     coordinates: {
       lat: 40.41271712474577,
       lng: -3.7171392163822223
@@ -22,7 +21,7 @@ const LocationCard = () => {
   };
 
   const handleNavigate = () => {
-    window.open(`https://www.google.com/maps/search/?api=1&query=Google+for+Startups+Campus+Madrid`, '_blank');
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${location.address}, ${location.city}`)}`, '_blank');
   };
 
   return (
@@ -31,7 +30,7 @@ const LocationCard = () => {
         {/* Header with campus name */}
         <div className="text-center mb-12">
           <h3 className="text-2xl md:text-3xl font-bold text-corporate-dark mb-3">
-            {location.name}
+            Advia
           </h3>
           <div className="h-1 w-24 bg-gradient-to-r from-corporate-orange to-corporate-coral mx-auto rounded-full" />
         </div>

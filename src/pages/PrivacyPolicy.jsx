@@ -101,9 +101,17 @@ const PrivacyPolicy = () => {
                 <strong>CMP del publisher</strong> donde se sirve el anuncio.
               </p>
               <p>
-                Esta política está dirigida al <strong>usuario final</strong>{" "}
-                cuya actividad puede generar datos procesados por Advia durante
-                la entrega y medición de anuncios.
+                Las secciones 2 a 14 de esta política están dirigidas al{" "}
+                <strong>usuario final</strong> cuya actividad puede generar
+                datos procesados por Advia durante la entrega y medición de
+                anuncios, es decir, al usuario que navega por el sitio de un
+                publisher donde Advia sirve un anuncio.
+              </p>
+              <p>
+                La <strong>sección 15</strong> cubre un supuesto distinto: los
+                visitantes de este mismo sitio web, <code>advia.tech</code>,
+                donde Advia actúa como responsable del tratamiento por derecho
+                propio y no en su calidad de vendor del TCF.
               </p>
             </div>
           </section>
@@ -882,6 +890,98 @@ const PrivacyPolicy = () => {
               </div>
             </div>
           </section>
+
+          {/* 15. Visitantes de advia.tech */}
+          <section
+            id="visitantes-web"
+            className="space-y-4 animate-fadeIn scroll-mt-24"
+          >
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              15. Visitantes de este sitio web (advia.tech)
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                Esta sección se aplica únicamente a quienes navegan por{" "}
+                <code>advia.tech</code>, el sitio corporativo de Advia. Aquí
+                Advia es responsable del tratamiento por derecho propio; nada de
+                lo descrito en esta sección forma parte de su actividad como
+                vendor 1586 del TCF ni se declara en el framework.
+              </p>
+
+              <h3 className="text-xl font-semibold text-neutral-dark mt-6 mb-2">
+                Medición de tráfico del sitio
+              </h3>
+              <p>
+                En cada petición de página, el servidor de advia.tech envía una
+                llamada de medición a <code>events.advia.tech</code>. Esta
+                llamada se realiza{" "}
+                <strong>de servidor a servidor, no desde su navegador</strong>,
+                y transmite únicamente dos datos:
+              </p>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>
+                  El <strong>User Agent</strong> de su navegador (tipo de
+                  navegador, versión y sistema operativo).
+                </li>
+                <li>
+                  La <strong>URL de la página solicitada</strong> dentro de
+                  advia.tech.
+                </li>
+              </ul>
+              <p>
+                <strong>Su dirección IP no se transmite.</strong> Al originarse
+                la llamada en el servidor y no en su navegador,{" "}
+                <code>events.advia.tech</code> recibe la IP de salida de la
+                infraestructura de alojamiento, no la suya.
+              </p>
+              <p>
+                <strong>Finalidad:</strong> conocer el volumen y la distribución
+                del tráfico del sitio corporativo (páginas más visitadas,
+                reparto por navegador y dispositivo) para mantenerlo y
+                mejorarlo.
+              </p>
+              <p>
+                <strong>Base legal:</strong> interés legítimo (Art. 6.1.f RGPD).
+                El interés perseguido es entender el uso del propio sitio
+                corporativo. El tratamiento es mínimo — dos campos, sin IP, sin
+                identificador de usuario y sin posibilidad de reconstruir una
+                sesión o reconocer a un visitante recurrente — por lo que no
+                prevalecen los derechos y libertades del interesado.
+              </p>
+              <p>
+                <strong>No implica almacenamiento en su dispositivo:</strong>{" "}
+                esta medición no escribe ni lee cookies, localStorage ni ningún
+                otro dato en su equipo, por lo que queda fuera del ámbito del
+                Art. 22.2 de la Ley 34/2002 (LSSI-CE) y del Art. 5(3) de la
+                Directiva 2002/58/CE (ePrivacy). Las cookies que sí utiliza este
+                sitio web se describen en la{" "}
+                <a
+                  href="/cookies-policy"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  Política de Cookies
+                </a>
+                , y se gestionan mediante el banner de consentimiento.
+              </p>
+              <p>
+                <strong>Conservación:</strong> 90 días en bruto. Transcurrido
+                ese plazo los registros se eliminan y solo se conservan métricas
+                agregadas del sitio sin datos personales.
+              </p>
+              <p>
+                <strong>Sus derechos:</strong> son los descritos en la sección
+                10, incluido el derecho de oposición del Art. 21 RGPD, que puede
+                ejercer en cualquier momento escribiendo a{" "}
+                <a
+                  href="mailto:privacy@advia.tech"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  privacy@advia.tech
+                </a>
+                .
+              </p>
+            </div>
+          </section>
         </div>
 
         {/* Language divider */}
@@ -964,9 +1064,16 @@ const PrivacyPolicy = () => {
                 the ad is served.
               </p>
               <p>
-                This policy is addressed to the <strong>end user</strong> whose
-                activity may generate data processed by Advia during ad delivery
-                and measurement.
+                Sections 2 to 14 of this policy are addressed to the{" "}
+                <strong>end user</strong> whose activity may generate data
+                processed by Advia during ad delivery and measurement — that is,
+                the user browsing a publisher's site where Advia serves an ad.
+              </p>
+              <p>
+                <strong>Section 15</strong> covers a different situation:
+                visitors to this website itself, <code>advia.tech</code>, where
+                Advia acts as a controller in its own right and not in its
+                capacity as a TCF vendor.
               </p>
             </div>
           </section>
@@ -1706,6 +1813,97 @@ const PrivacyPolicy = () => {
                   authorities upon request.
                 </p>
               </div>
+            </div>
+          </section>
+
+          {/* 15. advia.tech website visitors */}
+          <section
+            id="website-visitors"
+            className="space-y-4 animate-fadeIn scroll-mt-24"
+          >
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              15. Visitors to this website (advia.tech)
+            </h2>
+            <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
+              <p>
+                This section applies only to people browsing{" "}
+                <code>advia.tech</code>, Advia's corporate website. Here Advia is
+                a controller in its own right; nothing described in this section
+                forms part of its activity as TCF vendor 1586, nor is it
+                declared in the framework.
+              </p>
+
+              <h3 className="text-xl font-semibold text-neutral-dark mt-6 mb-2">
+                Website traffic measurement
+              </h3>
+              <p>
+                On each page request, the advia.tech server sends a measurement
+                call to <code>events.advia.tech</code>. This call is made{" "}
+                <strong>server to server, not from your browser</strong>, and
+                transmits only two pieces of data:
+              </p>
+              <ul className="space-y-2 list-disc pl-5">
+                <li>
+                  Your browser's <strong>User Agent</strong> (browser type,
+                  version and operating system).
+                </li>
+                <li>
+                  The <strong>URL of the requested page</strong> within
+                  advia.tech.
+                </li>
+              </ul>
+              <p>
+                <strong>Your IP address is not transmitted.</strong> As the call
+                originates on the server and not in your browser,{" "}
+                <code>events.advia.tech</code> receives the hosting
+                infrastructure's egress IP, not yours.
+              </p>
+              <p>
+                <strong>Purpose:</strong> to understand the volume and
+                distribution of corporate site traffic (most visited pages,
+                browser and device breakdown) in order to maintain and improve
+                it.
+              </p>
+              <p>
+                <strong>Legal basis:</strong> legitimate interest (Art. 6(1)(f)
+                GDPR). The interest pursued is understanding the use of our own
+                corporate site. The processing is minimal — two fields, no IP,
+                no user identifier and no ability to reconstruct a session or
+                recognise a returning visitor — so the data subject's rights and
+                freedoms do not override it.
+              </p>
+              <p>
+                <strong>No storage on your device:</strong> this measurement
+                neither writes nor reads cookies, localStorage or any other data
+                on your equipment, so it falls outside the scope of Art. 22.2 of
+                Spanish Law 34/2002 (LSSI-CE) and Art. 5(3) of Directive
+                2002/58/EC (ePrivacy). The cookies this website does use are
+                described in the{" "}
+                <a
+                  href="/cookies-policy"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  Cookies Policy
+                </a>
+                , and are managed through the consent banner.
+              </p>
+              <p>
+                <strong>Retention:</strong> 90 days raw. After that period the
+                records are deleted and only aggregated site metrics without
+                personal data are kept.
+              </p>
+              <p>
+                <strong>Your rights:</strong> those described in section 10,
+                including the right to object under Art. 21 GDPR, which you may
+                exercise at any time by writing to{" "}
+                <a
+                  href="mailto:privacy@advia.tech"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  privacy@advia.tech
+                </a>
+                .
+              </p>
             </div>
           </section>
         </div>

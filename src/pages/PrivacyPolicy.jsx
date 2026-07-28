@@ -915,8 +915,8 @@ const PrivacyPolicy = () => {
                 En cada petición de página, el servidor de advia.tech envía una
                 llamada de medición a <code>events.advia.tech</code>. Esta
                 llamada se realiza{" "}
-                <strong>de servidor a servidor, no desde su navegador</strong>,
-                y transmite únicamente dos datos:
+                <strong>de servidor a servidor, no desde su navegador</strong>.
+                Los únicos datos que se registran para la medición son dos:
               </p>
               <ul className="space-y-2 list-disc pl-5">
                 <li>
@@ -929,10 +929,13 @@ const PrivacyPolicy = () => {
                 </li>
               </ul>
               <p>
-                <strong>Su dirección IP no se transmite.</strong> Al originarse
-                la llamada en el servidor y no en su navegador,{" "}
-                <code>events.advia.tech</code> recibe la IP de salida de la
-                infraestructura de alojamiento, no la suya.
+                <strong>Dirección IP:</strong> la petición llega a{" "}
+                <code>events.advia.tech</code> acompañada de una dirección IP,
+                como ocurre en cualquier comunicación por internet. Advia{" "}
+                <strong>no la trata como dato de negocio</strong>: no
+                interviene en la medición, no se asocia a los registros de
+                tráfico ni se conserva junto a ellos. Es el mismo criterio
+                descrito en las secciones 4 y 8 para el ad server.
               </p>
               <p>
                 <strong>Finalidad:</strong> conocer el volumen y la distribución
@@ -943,10 +946,13 @@ const PrivacyPolicy = () => {
               <p>
                 <strong>Base legal:</strong> interés legítimo (Art. 6.1.f RGPD).
                 El interés perseguido es entender el uso del propio sitio
-                corporativo. El tratamiento es mínimo — dos campos, sin IP, sin
-                identificador de usuario y sin posibilidad de reconstruir una
-                sesión o reconocer a un visitante recurrente — por lo que no
-                prevalecen los derechos y libertades del interesado.
+                corporativo. El tratamiento es mínimo: se registran dos campos,
+                sin identificador de usuario y sin posibilidad de reconstruir
+                una sesión ni de reconocer a un visitante recurrente. La
+                dirección IP, aunque acompaña técnicamente a la petición, no se
+                trata como dato de negocio ni se conserva asociada a la
+                medición. Por ello no prevalecen los derechos y libertades del
+                interesado.
               </p>
               <p>
                 <strong>No implica almacenamiento en su dispositivo:</strong>{" "}
@@ -1839,8 +1845,8 @@ const PrivacyPolicy = () => {
               <p>
                 On each page request, the advia.tech server sends a measurement
                 call to <code>events.advia.tech</code>. This call is made{" "}
-                <strong>server to server, not from your browser</strong>, and
-                transmits only two pieces of data:
+                <strong>server to server, not from your browser</strong>. The
+                only data recorded for the measurement is two fields:
               </p>
               <ul className="space-y-2 list-disc pl-5">
                 <li>
@@ -1853,10 +1859,13 @@ const PrivacyPolicy = () => {
                 </li>
               </ul>
               <p>
-                <strong>Your IP address is not transmitted.</strong> As the call
-                originates on the server and not in your browser,{" "}
-                <code>events.advia.tech</code> receives the hosting
-                infrastructure's egress IP, not yours.
+                <strong>IP address:</strong> the request reaches{" "}
+                <code>events.advia.tech</code> accompanied by an IP address, as
+                happens in any communication over the internet. Advia{" "}
+                <strong>does not process it as business data</strong>: it plays
+                no part in the measurement, is not associated with the traffic
+                records and is not retained alongside them. This is the same
+                approach described in sections 4 and 8 for the ad server.
               </p>
               <p>
                 <strong>Purpose:</strong> to understand the volume and
@@ -1867,10 +1876,13 @@ const PrivacyPolicy = () => {
               <p>
                 <strong>Legal basis:</strong> legitimate interest (Art. 6(1)(f)
                 GDPR). The interest pursued is understanding the use of our own
-                corporate site. The processing is minimal — two fields, no IP,
-                no user identifier and no ability to reconstruct a session or
-                recognise a returning visitor — so the data subject's rights and
-                freedoms do not override it.
+                corporate site. The processing is minimal: two fields are
+                recorded, with no user identifier and no ability to reconstruct
+                a session or recognise a returning visitor. The IP address,
+                although it technically accompanies the request, is not
+                processed as business data nor retained in association with the
+                measurement. The data subject's rights and freedoms therefore do
+                not override it.
               </p>
               <p>
                 <strong>No storage on your device:</strong> this measurement

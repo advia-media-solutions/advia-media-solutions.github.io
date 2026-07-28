@@ -70,8 +70,8 @@ const PrivacyPolicy = () => {
                 </a>
               </p>
               <p>
-                <strong>Última actualización:</strong> 2026-04-22 ·{" "}
-                <strong>Versión:</strong> 1.0
+                <strong>Última actualización:</strong> 2026-07-28 ·{" "}
+                <strong>Versión:</strong> 2.0
               </p>
             </div>
           </section>
@@ -159,19 +159,29 @@ const PrivacyPolicy = () => {
                   similares) para reportar el rendimiento de la campaña al
                   anunciante.
                 </li>
+                <li>
+                  Establecer y leer la cookie <code>advia_uid</code>, previo
+                  consentimiento del usuario señalizado en la TC String (Purpose
+                  1), para deduplicar impresiones en el reporting de alcance.
+                  Ver la sección 9.
+                </li>
               </ul>
               <h3 className="text-xl font-semibold text-neutral-dark mt-6 mb-2">
                 Qué NO hace Advia
               </h3>
               <ul className="space-y-2 list-disc pl-5">
                 <li>
-                  No despliega cookies propias ni accede a información
-                  almacenada en el dispositivo del usuario (localStorage,
-                  IndexedDB, mobile ad IDs, etc.).
+                  No accede a información almacenada en el dispositivo del
+                  usuario por mecanismos distintos de la cookie{" "}
+                  <code>advia_uid</code> descrita en la sección 9: no utiliza
+                  localStorage, IndexedDB ni mobile ad IDs.
                 </li>
                 <li>
-                  No crea audiencias, perfiles de usuario ni identificadores de
-                  dispositivo persistentes.
+                  No crea audiencias ni perfiles de usuario. El identificador{" "}
+                  <code>advia_uid</code> se emplea únicamente para deduplicar
+                  impresiones y poder reportar el alcance de la campaña
+                  (usuarios únicos); no se utiliza para perfilar, personalizar,
+                  seleccionar anuncios ni realizar seguimiento entre sitios.
                 </li>
                 <li>
                   No utiliza perfiles para seleccionar qué anuncio servir (la
@@ -259,6 +269,22 @@ const PrivacyPolicy = () => {
                       y propagada íntegra a terceros. No se persiste.
                     </td>
                   </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">
+                      Identificador pseudónimo persistente (
+                      <code>advia_uid</code>)
+                    </td>
+                    <td className="py-3">
+                      Valor aleatorio almacenado en una cookie propia en{" "}
+                      <code>*.advia.tech</code> con una duración de 1 año,
+                      refrescada en cada uso. Solo se establece y se lee previo
+                      consentimiento (Purpose 1). Su única finalidad es
+                      deduplicar impresiones para poder reportar al anunciante
+                      métricas de usuarios únicos y alcance dentro del Purpose
+                      7. No se cruza con otras fuentes ni permite identificar al
+                      usuario fuera del dominio de Advia.
+                    </td>
+                  </tr>
                   <tr>
                     <td className="py-3 pr-4">
                       Identificadores internos efímeros
@@ -290,17 +316,59 @@ const PrivacyPolicy = () => {
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Purpose 1 – Almacenar o acceder a información en un
+                  dispositivo
+                </h3>
+                <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
+                  <li>
+                    <strong>Base legal:</strong> Consentimiento (Art. 6.1.a
+                    RGPD), recabado por el CMP del publisher y señalizado en la
+                    TC String. Al tratarse de almacenamiento en el equipo
+                    terminal del usuario, aplica además el Art. 22.2 de la Ley
+                    34/2002 (LSSI-CE) y el Art. 5(3) de la Directiva 2002/58/CE
+                    (ePrivacy).
+                  </li>
+                  <li>
+                    <strong>Descripción:</strong> Establecer y leer la cookie{" "}
+                    <code>advia_uid</code> — un identificador pseudónimo
+                    aleatorio — con la única finalidad de deduplicar impresiones
+                    y poder reportar usuarios únicos y alcance dentro del
+                    Purpose 7.
+                  </li>
+                  <li>
+                    <strong>Sin consentimiento no hay cookie:</strong> si la TC
+                    String no señaliza consentimiento para el Purpose 1 y para
+                    Advia como vendor, la cookie no se establece ni se lee, y la
+                    medición se realiza sin deduplicación.
+                  </li>
+                  <li>
+                    <strong>Retención:</strong> la cookie tiene una duración de
+                    1 año en el dispositivo, refrescada en cada uso. Los datos
+                    de evento asociados se conservan 90 días en servidor.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
                   Purpose 7 – Medir el rendimiento de la publicidad
                 </h3>
                 <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
                   <li>
-                    <strong>Base legal:</strong> Consentimiento o interés
-                    legítimo (Art. 6.1.a o 6.1.f RGPD).
+                    <strong>Base legal:</strong> Interés legítimo (Art. 6.1.f
+                    RGPD) por defecto. El TCF clasifica este propósito como{" "}
+                    <em>flexible</em> para Advia, por lo que el publisher puede
+                    exigir consentimiento (Art. 6.1.a RGPD) en su lugar; en ese
+                    caso Advia aplica la base legal que indique la TC String.
                   </li>
                   <li>
                     <strong>Descripción:</strong> Registrar eventos del ciclo de
                     vida de la creatividad para reportar a los anunciantes el
-                    rendimiento agregado de sus campañas.
+                    rendimiento agregado de sus campañas. Cuando existe
+                    consentimiento para el Purpose 1, el identificador{" "}
+                    <code>advia_uid</code> permite además reportar la dimensión
+                    de usuarios únicos y alcance sin contar dos veces el mismo
+                    navegador.
                   </li>
                   <li>
                     <strong>Retención:</strong> 90 días (datos en bruto).
@@ -366,12 +434,12 @@ const PrivacyPolicy = () => {
                   Resto de Purposes del TCF
                 </h3>
                 <p className="text-neutral-DEFAULT/80 leading-relaxed">
-                  Advia <strong>no declara</strong> los Purposes 1, 2, 3, 4, 5,
-                  6, 8, 9, 10 y 11, al no realizar ninguno de los tratamientos
-                  cubiertos por esos propósitos (almacenamiento en dispositivo,
-                  selección de anuncios, perfilado, personalización de
-                  contenido, mediciones de contenido editorial, audience
-                  insights, desarrollo de productos o selección de contenido).
+                  Advia <strong>no declara</strong> los Purposes 2, 3, 4, 5, 6,
+                  8, 9, 10 y 11, al no realizar ninguno de los tratamientos
+                  cubiertos por esos propósitos (selección de anuncios,
+                  perfilado, personalización de contenido, mediciones de
+                  contenido editorial, audience insights, desarrollo de
+                  productos o selección de contenido).
                 </p>
               </div>
             </div>
@@ -427,6 +495,15 @@ const PrivacyPolicy = () => {
                 identificadores asociados al usuario.
               </li>
               <li>
+                <strong>Cookie advia_uid (Purpose 1):</strong> 1 año de duración
+                en el dispositivo del usuario, refrescada en cada uso. Conviene
+                distinguir los dos plazos: la cookie persiste en el navegador
+                hasta 1 año, mientras que los registros de evento que ese
+                identificador permite deduplicar se eliminan a los 90 días. El
+                usuario puede retirar el consentimiento o borrar la cookie en
+                cualquier momento.
+              </li>
+              <li>
                 <strong>TC String (SP3):</strong> no se persiste — se procesa en
                 memoria y se descarta tras la propagación.
               </li>
@@ -445,18 +522,86 @@ const PrivacyPolicy = () => {
             </h2>
             <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
               <p>
-                Advia <strong>no utiliza cookies propias</strong> ni accede a
-                información almacenada en el dispositivo del usuario
-                (localStorage, IndexedDB, mobile ad IDs u otros mecanismos de
-                almacenamiento cliente). El journeyId se genera efímeramente
-                dentro del iframe del creativo y no persiste entre ejecuciones
-                ni se almacena en el dispositivo.
+                Advia utiliza <strong>una única cookie propia</strong>. Es el
+                único mecanismo de almacenamiento en el dispositivo que emplea:
+                no utiliza localStorage, IndexedDB, mobile ad IDs ni ningún otro
+                mecanismo de almacenamiento cliente.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-neutral-DEFAULT/80 leading-relaxed border-collapse">
+                  <thead>
+                    <tr className="border-b border-neutral-DEFAULT/20">
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Identificador
+                      </th>
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Tipo
+                      </th>
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Dominio
+                      </th>
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Duración
+                      </th>
+                      <th className="py-2 font-semibold text-neutral-dark">
+                        Finalidad
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="align-top">
+                    <tr>
+                      <td className="py-3 pr-4">
+                        <code>advia_uid</code>
+                      </td>
+                      <td className="py-3 pr-4">Cookie</td>
+                      <td className="py-3 pr-4">
+                        <code>*.advia.tech</code>
+                      </td>
+                      <td className="py-3 pr-4">
+                        1 año (31.536.000 s), refrescada en cada uso
+                      </td>
+                      <td className="py-3">
+                        Purposes 1 y 7 — deduplicar impresiones para reportar
+                        usuarios únicos y alcance de la campaña.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Esta declaración se publica también en formato legible por
+                máquina, conforme a las Especificaciones del TCF, en{" "}
+                <a
+                  href="https://advia.tech/.well-known/tcf/vendor-storage-disclosure.json"
+                  className="text-primary-light hover:text-primary-dark transition-colors break-all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  advia.tech/.well-known/tcf/vendor-storage-disclosure.json
+                </a>
+                , la URL registrada por Advia en la Global Vendor List.
               </p>
               <p>
-                Esto significa que Advia no realiza ninguna operación que caiga
-                dentro del ámbito del Art. 22.2 de la Ley 34/2002 de Servicios
-                de la Sociedad de la Información (LSSI-CE) ni del Art. 5(3) de
-                la Directiva 2002/58/CE (ePrivacy).
+                El <code>journeyId</code> no es almacenamiento en el
+                dispositivo: se genera efímeramente dentro del iframe del
+                creativo, no persiste entre ejecuciones y no se escribe en el
+                navegador.
+              </p>
+              <p>
+                Al tratarse de almacenamiento y acceso a información en el
+                equipo terminal del usuario, esta cookie está sujeta al{" "}
+                <strong>
+                  Art. 22.2 de la Ley 34/2002 de Servicios de la Sociedad de la
+                  Información (LSSI-CE)
+                </strong>{" "}
+                y al{" "}
+                <strong>Art. 5(3) de la Directiva 2002/58/CE (ePrivacy)</strong>
+                . Advia requiere{" "}
+                <strong>consentimiento previo del usuario</strong>, recabado por
+                el CMP del publisher y señalizado en la TC String, antes de
+                establecerla o leerla. Si no hay consentimiento, la cookie no se
+                establece ni se lee. El usuario puede retirar el consentimiento
+                en cualquier momento a través del mismo CMP.
               </p>
             </div>
           </section>
@@ -575,7 +720,11 @@ const PrivacyPolicy = () => {
               Esta sección describe los intereses legítimos que Advia persigue
               al amparo del Art. 6.1.f RGPD para los tratamientos declarados en
               el TCF, junto con el resumen del resultado del Legitimate Interest
-              Assessment (LIA) realizado para cada uno.
+              Assessment (LIA) realizado para cada uno. El Purpose 1
+              (almacenamiento y acceso a información en el dispositivo) queda
+              fuera del alcance de esta sección: se basa en{" "}
+              <strong>consentimiento</strong>, no en interés legítimo — ver la
+              sección 5.
             </p>
 
             <div className="space-y-8">
@@ -607,11 +756,19 @@ const PrivacyPolicy = () => {
                       Por qué no prevalecen los derechos del usuario:
                     </strong>{" "}
                     el tratamiento se diseña con minimización por defecto (sin
-                    IP almacenada, sin cookies, sin identificadores
-                    persistentes, sin fingerprinting). El journeyId es efímero y
-                    se regenera en cada impresión. El User Agent solo se
-                    registra cuando el CMP lo permite. La retención se limita a
-                    90 días. El tratamiento es consistente con las expectativas
+                    IP almacenada, sin fingerprinting, sin cruce con fuentes
+                    externas). El journeyId es efímero y se regenera en cada
+                    impresión. El User Agent solo se registra cuando el CMP lo
+                    permite. La retención se limita a 90 días. El único
+                    identificador persistente es <code>advia_uid</code>: un
+                    valor pseudónimo y aleatorio, limitado al dominio de Advia,
+                    que exige consentimiento previo (Purpose 1), no se cruza con
+                    otras fuentes y se emplea exclusivamente para evitar contar
+                    dos veces el mismo navegador en las cifras de alcance — no
+                    para perfilar, personalizar ni seguir al usuario entre
+                    sitios. Si el usuario no consiente, la medición sigue
+                    funcionando sin él. El tratamiento es consistente con las
+                    expectativas
                     razonables de cualquier usuario que navega por un publisher
                     adherido al TCF: toda la publicidad digital se mide para
                     contabilizar el número de anuncios servidos y su rendimiento
@@ -658,8 +815,12 @@ const PrivacyPolicy = () => {
                     </strong>{" "}
                     Advia no procesa la IP del usuario como dato de negocio (la
                     IP únicamente la ve el transporte de red a nivel de CDN).
-                    No se usan cookies, ni se crean identificadores, ni se
-                    cruzan datos con fuentes externas. El tratamiento es
+                    La entrega de la creatividad no depende de la cookie{" "}
+                    <code>advia_uid</code> ni de ningún otro identificador: se
+                    realiza igual con o sin consentimiento, y el almacenamiento
+                    en el dispositivo se ampara en su propia base legal
+                    (consentimiento, Purpose 1 — ver la sección 5). No se cruzan
+                    datos con fuentes externas. El tratamiento es
                     inherente al funcionamiento de internet y consistente con
                     cualquier interacción del navegador con un servidor web. El
                     TCF clasifica este tratamiento como Special Purpose sin
@@ -773,8 +934,8 @@ const PrivacyPolicy = () => {
                 </a>
               </p>
               <p>
-                <strong>Last update:</strong> 2026-04-22 ·{" "}
-                <strong>Version:</strong> 1.0
+                <strong>Last update:</strong> 2026-07-28 ·{" "}
+                <strong>Version:</strong> 2.0
               </p>
             </div>
           </section>
@@ -856,19 +1017,28 @@ const PrivacyPolicy = () => {
                   video play and similar) to report campaign performance to the
                   advertiser.
                 </li>
+                <li>
+                  Set and read the <code>advia_uid</code> cookie, subject to
+                  prior user consent signalled in the TC String (Purpose 1), to
+                  deduplicate impressions in reach reporting. See section 9.
+                </li>
               </ul>
               <h3 className="text-xl font-semibold text-neutral-dark mt-6 mb-2">
                 What Advia does NOT do
               </h3>
               <ul className="space-y-2 list-disc pl-5">
                 <li>
-                  Does not deploy first-party cookies nor access information
-                  stored on the user's device (localStorage, IndexedDB, mobile
-                  ad IDs, etc.).
+                  Does not access information stored on the user's device
+                  through any mechanism other than the <code>advia_uid</code>{" "}
+                  cookie described in section 9: it does not use localStorage,
+                  IndexedDB or mobile ad IDs.
                 </li>
                 <li>
-                  Does not build audiences, user profiles or persistent device
-                  identifiers.
+                  Does not build audiences or user profiles. The{" "}
+                  <code>advia_uid</code> identifier is used solely to
+                  deduplicate impressions so that campaign reach (unique users)
+                  can be reported; it is not used for profiling,
+                  personalisation, ad selection or cross-site tracking.
                 </li>
                 <li>
                   Does not use profiles to decide which ad to serve (the
@@ -952,6 +1122,22 @@ const PrivacyPolicy = () => {
                       propagated intact to third parties. Not persisted.
                     </td>
                   </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-3 pr-4">
+                      Persistent pseudonymous identifier (<code>advia_uid</code>
+                      )
+                    </td>
+                    <td className="py-3">
+                      Random value stored in a first-party cookie on{" "}
+                      <code>*.advia.tech</code> with a 1-year lifetime,
+                      refreshed on each use. Only set and read subject to prior
+                      consent (Purpose 1). Its sole purpose is to deduplicate
+                      impressions so that unique-user and reach metrics can be
+                      reported to the advertiser under Purpose 7. It is not
+                      joined with other sources and does not allow identifying
+                      the user outside Advia's domain.
+                    </td>
+                  </tr>
                   <tr>
                     <td className="py-3 pr-4">
                       Ephemeral internal identifiers
@@ -983,16 +1169,56 @@ const PrivacyPolicy = () => {
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                  Purpose 1 – Store and/or access information on a device
+                </h3>
+                <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
+                  <li>
+                    <strong>Legal basis:</strong> Consent (Art. 6(1)(a) GDPR),
+                    collected by the publisher's CMP and signalled in the TC
+                    String. As this involves storage on the user's terminal
+                    equipment, Art. 22.2 of Spanish Law 34/2002 (LSSI-CE) and
+                    Art. 5(3) of Directive 2002/58/EC (ePrivacy) also apply.
+                  </li>
+                  <li>
+                    <strong>Description:</strong> Set and read the{" "}
+                    <code>advia_uid</code> cookie — a random pseudonymous
+                    identifier — for the sole purpose of deduplicating
+                    impressions so that unique users and reach can be reported
+                    under Purpose 7.
+                  </li>
+                  <li>
+                    <strong>No consent, no cookie:</strong> if the TC String
+                    does not signal consent for Purpose 1 and for Advia as a
+                    vendor, the cookie is neither set nor read, and measurement
+                    runs without deduplication.
+                  </li>
+                  <li>
+                    <strong>Retention:</strong> the cookie has a 1-year lifetime
+                    on the device, refreshed on each use. The associated event
+                    data is kept for 90 days server-side.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-neutral-dark mb-2">
                   Purpose 7 – Measure advertising performance
                 </h3>
                 <ul className="space-y-1 text-neutral-DEFAULT/80 leading-relaxed list-disc pl-5">
                   <li>
-                    <strong>Legal basis:</strong> Consent or legitimate interest
-                    (Art. 6(1)(a) or 6(1)(f) GDPR).
+                    <strong>Legal basis:</strong> Legitimate interest (Art.
+                    6(1)(f) GDPR) by default. The TCF classifies this purpose as{" "}
+                    <em>flexible</em> for Advia, so the publisher may require
+                    consent (Art. 6(1)(a) GDPR) instead; in that case Advia
+                    applies the legal basis indicated by the TC String.
                   </li>
                   <li>
                     <strong>Description:</strong> Log creative lifecycle events
                     to report aggregated campaign performance to advertisers.
+                    Where consent for Purpose 1 exists, the{" "}
+                    <code>advia_uid</code> identifier additionally allows
+                    reporting the unique-user and reach dimension without
+                    counting the same browser twice.
                   </li>
                   <li>
                     <strong>Retention:</strong> 90 days (raw data). After this
@@ -1054,12 +1280,12 @@ const PrivacyPolicy = () => {
                   Remaining TCF Purposes
                 </h3>
                 <p className="text-neutral-DEFAULT/80 leading-relaxed">
-                  Advia <strong>does not declare</strong> Purposes 1, 2, 3, 4,
-                  5, 6, 8, 9, 10 and 11, as it does not carry out any of the
-                  processing activities covered by those purposes (device
-                  storage, ad selection, profiling, content personalisation,
-                  editorial content measurement, audience insights, product
-                  development or content selection).
+                  Advia <strong>does not declare</strong> Purposes 2, 3, 4, 5,
+                  6, 8, 9, 10 and 11, as it does not carry out any of the
+                  processing activities covered by those purposes (ad
+                  selection, profiling, content personalisation, editorial
+                  content measurement, audience insights, product development
+                  or content selection).
                 </p>
               </div>
             </div>
@@ -1114,6 +1340,14 @@ const PrivacyPolicy = () => {
                 personal data or user-linked identifiers are kept.
               </li>
               <li>
+                <strong>advia_uid cookie (Purpose 1):</strong> 1-year lifetime
+                on the user's device, refreshed on each use. The two periods are
+                distinct: the cookie persists in the browser for up to 1 year,
+                while the event records it deduplicates are deleted after 90
+                days. The user may withdraw consent or delete the cookie at any
+                time.
+              </li>
+              <li>
                 <strong>TC String (SP3):</strong> not persisted — processed in
                 memory and discarded after propagation.
               </li>
@@ -1132,18 +1366,84 @@ const PrivacyPolicy = () => {
             </h2>
             <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
               <p>
-                Advia <strong>does not use first-party cookies</strong> nor
-                access information stored on the user's device (localStorage,
-                IndexedDB, mobile ad IDs or other client-side storage
-                mechanisms). The journeyId is generated ephemerally within the
-                creative's iframe and does not persist between executions nor is
-                stored on the device.
+                Advia uses <strong>a single first-party cookie</strong>. It is
+                the only device storage mechanism Advia employs: it does not use
+                localStorage, IndexedDB, mobile ad IDs or any other client-side
+                storage mechanism.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-neutral-DEFAULT/80 leading-relaxed border-collapse">
+                  <thead>
+                    <tr className="border-b border-neutral-DEFAULT/20">
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Identifier
+                      </th>
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Type
+                      </th>
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Domain
+                      </th>
+                      <th className="py-2 pr-4 font-semibold text-neutral-dark">
+                        Lifetime
+                      </th>
+                      <th className="py-2 font-semibold text-neutral-dark">
+                        Purpose
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="align-top">
+                    <tr>
+                      <td className="py-3 pr-4">
+                        <code>advia_uid</code>
+                      </td>
+                      <td className="py-3 pr-4">Cookie</td>
+                      <td className="py-3 pr-4">
+                        <code>*.advia.tech</code>
+                      </td>
+                      <td className="py-3 pr-4">
+                        1 year (31,536,000 s), refreshed on each use
+                      </td>
+                      <td className="py-3">
+                        Purposes 1 and 7 — deduplicate impressions to report
+                        unique users and campaign reach.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                This disclosure is also published in machine-readable form, as
+                required by the TCF Specifications, at{" "}
+                <a
+                  href="https://advia.tech/.well-known/tcf/vendor-storage-disclosure.json"
+                  className="text-primary-light hover:text-primary-dark transition-colors break-all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  advia.tech/.well-known/tcf/vendor-storage-disclosure.json
+                </a>
+                , the URL Advia has registered in the Global Vendor List.
               </p>
               <p>
-                This means Advia does not perform any operation falling within
-                the scope of Art. 22.2 of Spanish Law 34/2002 on Information
-                Society Services (LSSI-CE) nor Art. 5(3) of Directive 2002/58/EC
-                (ePrivacy).
+                The <code>journeyId</code> is not device storage: it is
+                generated ephemerally within the creative's iframe, does not
+                persist between executions and is never written to the browser.
+              </p>
+              <p>
+                As it involves storing and accessing information on the user's
+                terminal equipment, this cookie falls within the scope of{" "}
+                <strong>
+                  Art. 22.2 of Spanish Law 34/2002 on Information Society
+                  Services (LSSI-CE)
+                </strong>{" "}
+                and{" "}
+                <strong>Art. 5(3) of Directive 2002/58/EC (ePrivacy)</strong>.
+                Advia requires <strong>prior user consent</strong>, collected by
+                the publisher's CMP and signalled in the TC String, before
+                setting or reading it. Without consent, the cookie is neither
+                set nor read. The user may withdraw consent at any time through
+                the same CMP.
               </p>
             </div>
           </section>
@@ -1260,7 +1560,10 @@ const PrivacyPolicy = () => {
               This section describes the legitimate interests that Advia pursues
               under Art. 6(1)(f) GDPR for the processing activities declared in
               the TCF, along with the summary of the Legitimate Interest
-              Assessment (LIA) outcome for each.
+              Assessment (LIA) outcome for each. Purpose 1 (storing and
+              accessing information on a device) is outside the scope of this
+              section: it relies on <strong>consent</strong>, not legitimate
+              interest — see section 5.
             </p>
 
             <div className="space-y-8">
@@ -1289,10 +1592,18 @@ const PrivacyPolicy = () => {
                   <p>
                     <strong>Why user rights do not prevail:</strong> processing
                     is designed with minimisation by default (no IP stored, no
-                    cookies, no persistent identifiers, no fingerprinting). The
+                    fingerprinting, no joining with external sources). The
                     journeyId is ephemeral and regenerated per impression. User
                     Agent is only logged when the CMP allows it. Retention is
-                    limited to 90 days. The processing is consistent with the
+                    limited to 90 days. The only persistent identifier is{" "}
+                    <code>advia_uid</code>: a pseudonymous, random value
+                    confined to Advia's own domain, requiring prior consent
+                    (Purpose 1), never joined with other sources and used
+                    exclusively to avoid counting the same browser twice in
+                    reach figures — not to profile, personalise or track the
+                    user across sites. If the user does not consent, measurement
+                    still works without it. The processing is consistent with
+                    the
                     reasonable expectations of any user browsing a
                     TCF-participating publisher: all digital advertising is
                     measured to count the number of ads served and their
@@ -1336,8 +1647,11 @@ const PrivacyPolicy = () => {
                   <p>
                     <strong>Why user rights do not prevail:</strong> Advia does
                     not process the user's IP as business data (the IP is only
-                    seen by network transport at CDN level). No cookies are
-                    used, no identifiers are created, no data is
+                    seen by network transport at CDN level). Creative delivery
+                    does not depend on the <code>advia_uid</code> cookie or on
+                    any other identifier: it works the same with or without
+                    consent, and device storage rests on its own legal basis
+                    (consent, Purpose 1 — see section 5). No data is
                     cross-referenced with external sources. The processing is
                     inherent to the operation of the internet and consistent
                     with any browser interaction with a web server. The TCF

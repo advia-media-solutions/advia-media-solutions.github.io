@@ -217,7 +217,10 @@ const OptOut = ({ optedOut = false, upstreamError = false }) => {
               <p>
                 La exclusión se registra en una cookie llamada{" "}
                 <code>advia_optout</code>, establecida en el dominio{" "}
-                <code>.advia.tech</code> con una duración de 2 años.
+                <code>.advia.tech</code> con una duración de 1 año. Se renueva
+                cada vez que su navegador solicita un anuncio de Advia mientras
+                siga excluido, de modo que la exclusión no caduca antes que
+                aquello que suprime.
               </p>
               <p>
                 Su contenido íntegro es el carácter <code>1</code>. No contiene
@@ -422,7 +425,9 @@ const OptOut = ({ optedOut = false, upstreamError = false }) => {
               <p>
                 The opt-out is recorded in a cookie named{" "}
                 <code>advia_optout</code>, set on the <code>.advia.tech</code>{" "}
-                domain with a 2-year lifetime.
+                domain with a 1-year lifetime. It is refreshed every time your
+                browser requests an Advia ad while you remain opted out, so the
+                opt-out never expires sooner than what it suppresses.
               </p>
               <p>
                 Its entire contents are the character <code>1</code>. It carries

@@ -11,8 +11,8 @@
     {
       "identifier": "advia_optout",
       "type": "cookie",
-      "maxAgeSeconds": 63072000,
-      "cookieRefresh": false,
+      "maxAgeSeconds": 31536000,
+      "cookieRefresh": true,
       "domains": ["*.advia.tech"],
       "purposes": [],
       "optOut": true,

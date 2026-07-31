@@ -144,7 +144,7 @@ const CookiePolicy = () => {
                       establece si usted lo solicita.
                     </td>
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
-                      2 años
+                      1 año, renovada mientras siga excluido
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-DEFAULT/10">

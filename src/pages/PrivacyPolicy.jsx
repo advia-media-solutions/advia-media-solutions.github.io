@@ -627,7 +627,9 @@ const PrivacyPolicy = () => {
                       <td className="py-3 pr-4">
                         <code>*.advia.tech</code>
                       </td>
-                      <td className="py-3 pr-4">2 años (63.072.000 s)</td>
+                      <td className="py-3 pr-4">
+                        1 año (31.536.000 s), refrescada mientras siga excluido
+                      </td>
                       <td className="py-3">
                         Registrar que este navegador se ha excluido. Su
                         contenido íntegro es el valor <code>1</code>: no
@@ -1699,7 +1701,10 @@ const PrivacyPolicy = () => {
                       <td className="py-3 pr-4">
                         <code>*.advia.tech</code>
                       </td>
-                      <td className="py-3 pr-4">2 years (63,072,000 s)</td>
+                      <td className="py-3 pr-4">
+                        1 year (31,536,000 s), refreshed while you remain opted
+                        out
+                      </td>
                       <td className="py-3">
                         Record that this browser has opted out. Its entire
                         contents are the value <code>1</code>: it carries no

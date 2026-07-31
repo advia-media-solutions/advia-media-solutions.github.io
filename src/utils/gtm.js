@@ -1,5 +1,3 @@
-import { initializeTcfApi, triggerConsentChange } from './tcfApiMock';
-
 // Constants for consent management
 const CONSENT_STORAGE_KEY = "cookieConsent";
 const DEFAULT_CONSENT_STATE = {
@@ -34,9 +32,6 @@ export const initializeGTM = (containerId) => {
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
   document.head.appendChild(script);
-
-  // Initialize mock __tcfapi
-  initializeTcfApi();
 
   // Check if user has previously chosen preferences
   const storedConsent = getStoredConsent();
@@ -102,10 +97,22 @@ export const setConsent = (consentState) => {
 
     // Update GTM consent state
     updateGTMConsent(consentWithChoice);
-
-    // Trigger __tcfapi event listeners
-    triggerConsentChange();
   } catch (error) {
     console.error("Error storing consent:", error);
   }
+};
+
+/**
+ * Withdraws consent for every non-necessary category.
+ * Used by the /opt-out page so an objection to ad tracking also covers this
+ * site's own analytics and advertising cookies.
+ */
+export const revokeSiteConsent = () => {
+  setConsent({
+    necessary: true,
+    analytics: false,
+    advertising: false,
+    functionality: false,
+    personalization: false,
+  });
 };

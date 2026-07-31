@@ -7,12 +7,14 @@ import Logo from "./Logo";
 const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  // Non-necessary categories start unchecked: pre-ticked boxes are not valid
+  // consent (Art. 4.11 GDPR; Planet49, C-673/17).
   const [tempConsent, setTempConsent] = useState({
     necessary: true,
-    analytics: true,
-    advertising: true,
-    functionality: true,
-    personalization: true,
+    analytics: false,
+    advertising: false,
+    functionality: false,
+    personalization: false,
     hasUserChosen: false,
   });
 
@@ -22,10 +24,10 @@ const CookieConsent = () => {
       setIsVisible(true);
       setTempConsent({
         necessary: true,
-        analytics: true,
-        advertising: true,
-        functionality: true,
-        personalization: true,
+        analytics: false,
+        advertising: false,
+        functionality: false,
+        personalization: false,
         hasUserChosen: false,
       });
     }

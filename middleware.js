@@ -7,13 +7,22 @@ export function middleware(request) {
   const userAgent = request.headers.get('user-agent') || '';
   const requestedUrl = request.url;
 
-  // Fire-and-forget synthetic tracking call
-  fetch(TRACKING_URL, {
-    headers: {
-      'User-Agent': userAgent,
-      Referer: requestedUrl,
-    },
-  }).catch(() => {});
+  // Art. 21 GDPR objection to the traffic measurement described in section 15
+  // of the privacy policy. The opt-out gate on events.advia.tech does not
+  // cover this call: it is server-to-server and carries no browser cookie, so
+  // the check has to happen here. The cookie is never forwarded upstream — the
+  // whole call is suppressed, so opting out cannot itself become a signal.
+  const optedOut = request.cookies.get('advia_optout')?.value === '1';
+
+  if (!optedOut) {
+    // Fire-and-forget synthetic tracking call
+    fetch(TRACKING_URL, {
+      headers: {
+        'User-Agent': userAgent,
+        Referer: requestedUrl,
+      },
+    }).catch(() => {});
+  }
 
   return NextResponse.next();
 }
@@ -22,11 +31,12 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except:
+     * - api/opt-out (setting a privacy choice must not emit a tracking event)
      * - _next/static (static files)
      * - _next/image (image optimization)
      * - favicon.ico, robots.txt, manifest.json
      * - static asset extensions (svg, png, jpg, jpeg, gif, webp, ico, css, js)
      */
-    '/((?!_next/static|_next/image|favicon\\.ico|robots\\.txt|manifest\\.json|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)',
+    '/((?!api/opt-out|_next/static|_next/image|favicon\\.ico|robots\\.txt|manifest\\.json|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)',
   ],
 };

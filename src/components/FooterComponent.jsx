@@ -61,6 +61,7 @@ const Footer = () => {
       links: [
         { label: "Política de Cookies", to: "/cookies-policy" },
         { label: "Política de Privacidad", to: "/privacy-policy" },
+        { label: "Exclusión publicitaria", to: "/opt-out" },
         { label: "Aviso Legal", to: "/legal-notice" },
       ],
     },

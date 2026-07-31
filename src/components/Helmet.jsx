@@ -24,6 +24,8 @@ const PageHelmet = () => {
         return "Política de Privacidad | Advia";
       case "/cookies-policy":
         return "Política de Cookies | Advia";
+      case "/opt-out":
+        return "Exclusión publicitaria (opt-out) | Advia";
       case "/legal-notice":
         return "Aviso Legal | Advia";
       case "/blog":
@@ -46,6 +48,8 @@ const PageHelmet = () => {
         return "Programa Impulsa de Advia: potenciando el crecimiento de startups y empresas innovadoras.";
       case "/contact":
         return "Contacta con Advia para transformar tu estrategia de marketing digital. Estamos aquí para ayudarte.";
+      case "/opt-out":
+        return "Excluye tu navegador del registro de eventos publicitarios de Advia y de la medición de tráfico de advia.tech. Puedes revertirlo en cualquier momento.";
       case "/blog":
         return "Descubre nuestros artículos y noticias sobre marketing digital y tecnología.";
     }

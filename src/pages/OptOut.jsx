@@ -153,29 +153,48 @@ const OptOut = ({ optedOut = false, upstreamError = false }) => {
             </h2>
             <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
               <p>
-                Al excluirse, Advia deja de registrar los eventos publicitarios
-                asociados a este navegador. La comprobación se realiza en el
-                servidor, antes de que la petición se procese: no se decodifican
-                los identificadores, no se construye ningún registro y no se
-                almacena ninguna fila. La supresión afecta tanto a las
-                impresiones como a los clics.
+                Advia es un ad server: entrega anuncios en las páginas de otros
+                editores, no en este sitio. Su elección aquí se aplica a{" "}
+                <strong>
+                  todos los anuncios que Advia le sirva en cualquier sitio web
+                </strong>
+                , no solo a advia.tech.
               </p>
               <p>
-                La exclusión cubre además dos cosas de este sitio web:{" "}
-                <strong>la medición de tráfico de advia.tech</strong> descrita
-                en el apartado 15 de la{" "}
-                <a
-                  href="/privacy-policy#visitantes-web"
-                  className="text-primary-light hover:text-primary-dark transition-colors"
-                >
-                  Política de Privacidad
-                </a>{" "}
-                (ejercicio del derecho de oposición del Art. 21 RGPD), y{" "}
-                <strong>
-                  las cookies analíticas y publicitarias del propio sitio
-                </strong>
-                , cuyo consentimiento se revoca automáticamente.
+                Cubre tres cosas:
               </p>
+              <ul className="space-y-3 list-disc pl-5">
+                <li>
+                  <strong>
+                    Los anuncios que Advia entrega en sitios de terceros.
+                  </strong>{" "}
+                  Advia deja de registrar los eventos publicitarios asociados a
+                  este navegador, tanto las impresiones como los clics. La
+                  comprobación se realiza en el servidor, antes de que la
+                  petición se procese: no se decodifican los identificadores, no
+                  se construye ningún registro y no se almacena ninguna fila. El
+                  anuncio se sigue mostrando y sigue funcionando al hacer clic
+                  (véase el apartado 2).
+                </li>
+                <li>
+                  <strong>La medición de tráfico de advia.tech</strong>,
+                  descrita en el apartado 15 de la{" "}
+                  <a
+                    href="/privacy-policy#visitantes-web"
+                    className="text-primary-light hover:text-primary-dark transition-colors"
+                  >
+                    Política de Privacidad
+                  </a>
+                  . Es el ejercicio del derecho de oposición del Art. 21 RGPD:
+                  la llamada de medición no llega a enviarse.
+                </li>
+                <li>
+                  <strong>
+                    Las cookies analíticas y publicitarias de este sitio web
+                  </strong>
+                  , cuyo consentimiento se revoca automáticamente.
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -362,26 +381,42 @@ const OptOut = ({ optedOut = false, upstreamError = false }) => {
             </h2>
             <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
               <p>
-                Once you opt out, Advia stops recording the ad events associated
-                with this browser. The check runs server-side, before the
-                request is processed: identifiers are never decoded, no payload
-                is built and no row is stored. Suppression covers both
-                impressions and clicks.
+                Advia is an ad server: it delivers ads on other publishers'
+                pages, not on this site. Your choice here applies to{" "}
+                <strong>
+                  every ad Advia serves you, on any website
+                </strong>{" "}
+                — not just advia.tech.
               </p>
-              <p>
-                It also covers two things on this website:{" "}
-                <strong>the advia.tech traffic measurement</strong> described in
-                section 15 of the{" "}
-                <a
-                  href="/privacy-policy#website-visitors"
-                  className="text-primary-light hover:text-primary-dark transition-colors"
-                >
-                  Privacy Policy
-                </a>{" "}
-                (exercising the right to object under Art. 21 GDPR), and{" "}
-                <strong>this site's own analytics and advertising cookies</strong>
-                , whose consent is withdrawn automatically.
-              </p>
+              <p>It covers three things:</p>
+              <ul className="space-y-3 list-disc pl-5">
+                <li>
+                  <strong>The ads Advia delivers on third-party sites.</strong>{" "}
+                  Advia stops recording the ad events associated with this
+                  browser, both impressions and clicks. The check runs
+                  server-side, before the request is processed: identifiers are
+                  never decoded, no payload is built and no row is stored. The
+                  ad still renders and still clicks through (see section 2).
+                </li>
+                <li>
+                  <strong>The advia.tech traffic measurement</strong>, described
+                  in section 15 of the{" "}
+                  <a
+                    href="/privacy-policy#website-visitors"
+                    className="text-primary-light hover:text-primary-dark transition-colors"
+                  >
+                    Privacy Policy
+                  </a>
+                  . This is the right to object under Art. 21 GDPR in practice:
+                  the measurement call is never sent.
+                </li>
+                <li>
+                  <strong>
+                    This website's own analytics and advertising cookies
+                  </strong>
+                  , whose consent is withdrawn automatically.
+                </li>
+              </ul>
             </div>
           </section>
 

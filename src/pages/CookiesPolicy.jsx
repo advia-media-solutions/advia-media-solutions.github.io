@@ -119,30 +119,106 @@ const CookiePolicy = () => {
                       Técnica
                     </td>
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
-                      __hs_cookie_cat_pref
+                      <code>cookieConsent</code> (localStorage)
                     </td>
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
-                      Almacena el consentimiento del usuario
+                      Almacena sus preferencias de consentimiento para que no se
+                      le vuelva a preguntar. No es una cookie: se guarda en el
+                      almacenamiento local del navegador.
                     </td>
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
-                      6 meses
+                      Hasta que borre los datos del navegador
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-DEFAULT/10">
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
-                      Analítica
+                      Técnica
                     </td>
-                    <td className="py-4 px-4 text-neutral-DEFAULT/80">_ga</td>
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
-                      Análisis de patrones de tráfico
+                      <code>advia_optout</code>
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      Registra que este navegador se ha excluido del registro de
+                      eventos publicitarios. Su contenido íntegro es el valor{" "}
+                      <code>1</code>: no contiene ningún identificador. Solo se
+                      establece si usted lo solicita.
                     </td>
                     <td className="py-4 px-4 text-neutral-DEFAULT/80">
                       2 años
                     </td>
                   </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      Analítica (previo consentimiento)
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      <code>_ga</code>, <code>_ga_*</code>
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      Google Analytics, cargado a través de Google Tag Manager.
+                      Análisis de patrones de tráfico del sitio. Solo se
+                      establecen si acepta las cookies de análisis.
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      2 años
+                    </td>
+                  </tr>
+                  <tr className="border-b border-neutral-DEFAULT/10">
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      Publicitaria (previo consentimiento)
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      <code>advia_uid</code>
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">
+                      Identificador pseudónimo del ad server de Advia, empleado
+                      para deduplicar impresiones. Se establece en{" "}
+                      <code>*.advia.tech</code> y se describe en detalle en la{" "}
+                      <a
+                        href="/privacy-policy"
+                        className="text-primary-light hover:text-primary-dark transition-colors"
+                      >
+                        Política de Privacidad
+                      </a>
+                      .
+                    </td>
+                    <td className="py-4 px-4 text-neutral-DEFAULT/80">1 año</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
+          </section>
+
+          <section className="space-y-4 animate-fadeIn">
+            <h2 className="text-2xl font-bold text-neutral-dark">
+              Cómo excluirse
+            </h2>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Puede excluirse del registro de sus eventos publicitarios y de la
+              medición de tráfico de este sitio, de forma inmediata y sin
+              facilitar ningún dato, en{" "}
+              <a
+                href="/opt-out"
+                className="text-primary-light hover:text-primary-dark transition-colors"
+              >
+                advia.tech/opt-out
+              </a>
+              . La misma página permite revertir la exclusión.
+            </p>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Además, puede configurar su navegador para bloquear o eliminar
+              cookies, y gestionar la publicidad basada en intereses del sector
+              en{" "}
+              <a
+                href="https://www.youronlinechoices.eu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-light hover:text-primary-dark transition-colors"
+              >
+                www.youronlinechoices.eu
+              </a>
+              .
+            </p>
           </section>
 
           <section className="space-y-4 animate-fadeIn">

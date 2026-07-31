@@ -70,8 +70,8 @@ const PrivacyPolicy = () => {
                 </a>
               </p>
               <p>
-                <strong>Última actualización:</strong> 2026-07-28 ·{" "}
-                <strong>Versión:</strong> 2.0
+                <strong>Última actualización:</strong> 2026-07-31 ·{" "}
+                <strong>Versión:</strong> 2.1
               </p>
             </div>
           </section>
@@ -128,6 +128,18 @@ const PrivacyPolicy = () => {
               S.L. dentro del framework es{" "}
               <strong>1586</strong>
               .
+            </p>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Con independencia del TCF, Advia ofrece un mecanismo de exclusión
+              propio en{" "}
+              <a
+                href="/opt-out"
+                className="text-primary-light hover:text-primary-dark transition-colors"
+              >
+                advia.tech/opt-out
+              </a>
+              . No es un CMP y no modifica su TC String: es un canal adicional y
+              directo, descrito en detalle en esa página.
             </p>
           </section>
 
@@ -354,6 +366,18 @@ const PrivacyPolicy = () => {
                     1 año en el dispositivo, refrescada en cada uso. Los datos
                     de evento asociados se conservan 90 días en servidor.
                   </li>
+                  <li>
+                    <strong>Retirada del consentimiento:</strong> además del CMP
+                    del publisher, puede excluirse de forma directa e inmediata
+                    en{" "}
+                    <a
+                      href="/opt-out"
+                      className="text-primary-light hover:text-primary-dark transition-colors"
+                    >
+                      advia.tech/opt-out
+                    </a>
+                    .
+                  </li>
                 </ul>
               </div>
 
@@ -509,7 +533,14 @@ const PrivacyPolicy = () => {
                 hasta 1 año, mientras que los registros de evento que ese
                 identificador permite deduplicar se eliminan a los 90 días. El
                 usuario puede retirar el consentimiento o borrar la cookie en
-                cualquier momento.
+                cualquier momento desde{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>{" "}
+                o a través del CMP del publisher.
               </li>
               <li>
                 <strong>TC String (SP3):</strong> no se persiste — se procesa en
@@ -530,10 +561,25 @@ const PrivacyPolicy = () => {
             </h2>
             <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
               <p>
-                Advia utiliza <strong>una única cookie propia</strong>. Es el
-                único mecanismo de almacenamiento en el dispositivo que emplea:
-                no utiliza localStorage, IndexedDB, mobile ad IDs ni ningún otro
-                mecanismo de almacenamiento cliente.
+                En el contexto del ad server, Advia utiliza{" "}
+                <strong>dos cookies propias</strong>: un identificador sujeto a
+                consentimiento (<code>advia_uid</code>) y un registro de
+                exclusión estrictamente necesario (<code>advia_optout</code>).
+                Son el único mecanismo de almacenamiento en el dispositivo que
+                emplea el ad server: no utiliza localStorage, IndexedDB, mobile
+                ad IDs ni ningún otro mecanismo de almacenamiento cliente.
+              </p>
+              <p>
+                El sitio web corporativo advia.tech es un contexto distinto y sí
+                utiliza almacenamiento cliente para recordar sus preferencias de
+                cookies; se describe en la{" "}
+                <a
+                  href="/cookies-policy"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  Política de Cookies
+                </a>{" "}
+                y en la sección 15.
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-neutral-DEFAULT/80 leading-relaxed border-collapse">
@@ -573,6 +619,31 @@ const PrivacyPolicy = () => {
                         usuarios únicos y alcance de la campaña.
                       </td>
                     </tr>
+                    <tr>
+                      <td className="py-3 pr-4">
+                        <code>advia_optout</code>
+                      </td>
+                      <td className="py-3 pr-4">Cookie</td>
+                      <td className="py-3 pr-4">
+                        <code>*.advia.tech</code>
+                      </td>
+                      <td className="py-3 pr-4">2 años (63.072.000 s)</td>
+                      <td className="py-3">
+                        Registrar que este navegador se ha excluido. Su
+                        contenido íntegro es el valor <code>1</code>: no
+                        contiene ningún identificador. Cookie técnica, exenta de
+                        consentimiento conforme al Art. 22.2 LSSI-CE y al Art.
+                        5(3) ePrivacy. Se establece únicamente si el usuario la
+                        solicita en{" "}
+                        <a
+                          href="/opt-out"
+                          className="text-primary-light hover:text-primary-dark transition-colors"
+                        >
+                          advia.tech/opt-out
+                        </a>
+                        .
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -609,7 +680,15 @@ const PrivacyPolicy = () => {
                 el CMP del publisher y señalizado en la TC String, antes de
                 establecerla o leerla. Si no hay consentimiento, la cookie no se
                 establece ni se lee. El usuario puede retirar el consentimiento
-                en cualquier momento a través del mismo CMP.
+                en cualquier momento a través del mismo CMP o, de forma directa,
+                en{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>
+                .
               </p>
             </div>
           </section>
@@ -652,6 +731,20 @@ const PrivacyPolicy = () => {
                   privacy@advia.tech
                 </a>
                 , identificándose debidamente.
+              </p>
+              <p>
+                <strong>Exclusión inmediata y sin identificación:</strong> puede
+                oponerse al registro de sus eventos publicitarios, y retirar el
+                consentimiento para la cookie <code>advia_uid</code>, en{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>
+                . Es un mecanismo de autoservicio, gratuito, de efecto inmediato
+                y que no requiere que nos facilite ningún dato. La misma página
+                permite revertir la exclusión.
               </p>
               <p>
                 <strong>Gestión granular vía CMP:</strong> para los tratamientos
@@ -785,16 +878,27 @@ const PrivacyPolicy = () => {
                   </p>
                   <p>
                     <strong>Derecho de oposición:</strong> el usuario puede
-                    oponerse a este tratamiento en cualquier momento, bien vía
-                    el CMP del publisher (gestión granular por Vendor y
-                    Purpose), bien contactando con{" "}
+                    oponerse a este tratamiento en cualquier momento y de forma
+                    inmediata en{" "}
+                    <a
+                      href="/opt-out"
+                      className="text-primary-light hover:text-primary-dark transition-colors"
+                    >
+                      advia.tech/opt-out
+                    </a>
+                    , sin necesidad de identificarse ni de facilitar dato
+                    alguno; también vía el CMP del publisher (gestión granular
+                    por Vendor y Purpose) o contactando con{" "}
                     <a
                       href="mailto:privacy@advia.tech"
                       className="text-primary-light hover:text-primary-dark transition-colors"
                     >
                       privacy@advia.tech
                     </a>
-                    .
+                    . La existencia de una vía de exclusión gratuita, de un
+                    clic y sin identificación se ha tenido en cuenta en la
+                    ponderación anterior: reduce el impacto del tratamiento
+                    sobre quien no desea ser medido.
                   </p>
                 </div>
               </div>
@@ -967,7 +1071,17 @@ const PrivacyPolicy = () => {
                 >
                   Política de Cookies
                 </a>
-                , y se gestionan mediante el banner de consentimiento.
+                , y se gestionan mediante el banner de consentimiento. La
+                excepción es la cookie de exclusión <code>advia_optout</code>,
+                que solo se establece si usted la solicita en{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>{" "}
+                y que, por ser estrictamente necesaria para recordar su
+                negativa, no requiere consentimiento.
               </p>
               <p>
                 <strong>Conservación:</strong> 90 días en bruto. Transcurrido
@@ -976,8 +1090,18 @@ const PrivacyPolicy = () => {
               </p>
               <p>
                 <strong>Sus derechos:</strong> son los descritos en la sección
-                10, incluido el derecho de oposición del Art. 21 RGPD, que puede
-                ejercer en cualquier momento escribiendo a{" "}
+                10, incluido el derecho de oposición del Art. 21 RGPD. Puede
+                ejercerlo de forma inmediata en{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>
+                : si su navegador presenta la cookie de exclusión, esta medición
+                no llega a realizarse — la llamada al servicio de medición se
+                suprime por completo, no se envía y no se registra nada.
+                También puede escribir a{" "}
                 <a
                   href="mailto:privacy@advia.tech"
                   className="text-primary-light hover:text-primary-dark transition-colors"
@@ -1040,8 +1164,8 @@ const PrivacyPolicy = () => {
                 </a>
               </p>
               <p>
-                <strong>Last update:</strong> 2026-07-28 ·{" "}
-                <strong>Version:</strong> 2.0
+                <strong>Last update:</strong> 2026-07-31 ·{" "}
+                <strong>Version:</strong> 2.1
               </p>
             </div>
           </section>
@@ -1095,6 +1219,18 @@ const PrivacyPolicy = () => {
               Specifications and Policies. The identification number of ADVIA
               MEDIA SOLUTIONS, S.L. within the framework is{" "}
               <strong>1586</strong>.
+            </p>
+            <p className="text-neutral-DEFAULT/80 leading-relaxed">
+              Independently of the TCF, Advia offers its own opt-out mechanism
+              at{" "}
+              <a
+                href="/opt-out"
+                className="text-primary-light hover:text-primary-dark transition-colors"
+              >
+                advia.tech/opt-out
+              </a>
+              . It is not a CMP and does not alter your TC String: it is an
+              additional, direct channel, described in full on that page.
             </p>
           </section>
 
@@ -1310,6 +1446,17 @@ const PrivacyPolicy = () => {
                     on the device, refreshed on each use. The associated event
                     data is kept for 90 days server-side.
                   </li>
+                  <li>
+                    <strong>Withdrawing consent:</strong> besides the
+                    publisher's CMP, you can opt out directly and immediately at{" "}
+                    <a
+                      href="/opt-out"
+                      className="text-primary-light hover:text-primary-dark transition-colors"
+                    >
+                      advia.tech/opt-out
+                    </a>
+                    .
+                  </li>
                 </ul>
               </div>
 
@@ -1458,7 +1605,14 @@ const PrivacyPolicy = () => {
                 distinct: the cookie persists in the browser for up to 1 year,
                 while the event records it deduplicates are deleted after 90
                 days. The user may withdraw consent or delete the cookie at any
-                time.
+                time at{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>{" "}
+                or through the publisher's CMP.
               </li>
               <li>
                 <strong>TC String (SP3):</strong> not persisted — processed in
@@ -1479,10 +1633,25 @@ const PrivacyPolicy = () => {
             </h2>
             <div className="space-y-4 text-neutral-DEFAULT/80 leading-relaxed">
               <p>
-                Advia uses <strong>a single first-party cookie</strong>. It is
-                the only device storage mechanism Advia employs: it does not use
+                In the ad server context, Advia uses{" "}
+                <strong>two first-party cookies</strong>: a consent-gated
+                identifier (<code>advia_uid</code>) and a strictly necessary
+                opt-out record (<code>advia_optout</code>). They are the only
+                device storage mechanism the ad server employs: it does not use
                 localStorage, IndexedDB, mobile ad IDs or any other client-side
                 storage mechanism.
+              </p>
+              <p>
+                The corporate website advia.tech is a separate context and does
+                use client-side storage to remember your cookie preferences;
+                this is described in the{" "}
+                <a
+                  href="/cookies-policy"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  Cookies Policy
+                </a>{" "}
+                and in section 15.
               </p>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-neutral-DEFAULT/80 leading-relaxed border-collapse">
@@ -1522,6 +1691,30 @@ const PrivacyPolicy = () => {
                         unique users and campaign reach.
                       </td>
                     </tr>
+                    <tr>
+                      <td className="py-3 pr-4">
+                        <code>advia_optout</code>
+                      </td>
+                      <td className="py-3 pr-4">Cookie</td>
+                      <td className="py-3 pr-4">
+                        <code>*.advia.tech</code>
+                      </td>
+                      <td className="py-3 pr-4">2 years (63,072,000 s)</td>
+                      <td className="py-3">
+                        Record that this browser has opted out. Its entire
+                        contents are the value <code>1</code>: it carries no
+                        identifier. A technical cookie, exempt from consent
+                        under Art. 22.2 LSSI-CE and Art. 5(3) ePrivacy. It is
+                        only set if the user requests it at{" "}
+                        <a
+                          href="/opt-out"
+                          className="text-primary-light hover:text-primary-dark transition-colors"
+                        >
+                          advia.tech/opt-out
+                        </a>
+                        .
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -1556,7 +1749,14 @@ const PrivacyPolicy = () => {
                 the publisher's CMP and signalled in the TC String, before
                 setting or reading it. Without consent, the cookie is neither
                 set nor read. The user may withdraw consent at any time through
-                the same CMP.
+                the same CMP or, directly, at{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>
+                .
               </p>
             </div>
           </section>
@@ -1598,6 +1798,20 @@ const PrivacyPolicy = () => {
                   privacy@advia.tech
                 </a>
                 , duly identifying themselves.
+              </p>
+              <p>
+                <strong>Immediate opt-out, no identification required:</strong>{" "}
+                you can object to your ad events being recorded, and withdraw
+                consent for the <code>advia_uid</code> cookie, at{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>
+                . It is a self-service mechanism: free, effective immediately,
+                and requiring no personal details from you. The same page lets
+                you reverse the choice.
               </p>
               <p>
                 <strong>Granular management via CMP:</strong> for TCF-based
@@ -1725,16 +1939,26 @@ const PrivacyPolicy = () => {
                   </p>
                   <p>
                     <strong>Right to object:</strong> the user may object to
-                    this processing at any time, either via the publisher's CMP
-                    (granular management per Vendor and Purpose), or by
-                    contacting{" "}
+                    this processing at any time and with immediate effect at{" "}
+                    <a
+                      href="/opt-out"
+                      className="text-primary-light hover:text-primary-dark transition-colors"
+                    >
+                      advia.tech/opt-out
+                    </a>
+                    , without identifying themselves or providing any data;
+                    also via the publisher's CMP (granular management per Vendor
+                    and Purpose), or by contacting{" "}
                     <a
                       href="mailto:privacy@advia.tech"
                       className="text-primary-light hover:text-primary-dark transition-colors"
                     >
                       privacy@advia.tech
                     </a>
-                    .
+                    . The availability of a free, one-click, no-identification
+                    opt-out has been taken into account in the balancing test
+                    above: it reduces the impact of the processing on anyone who
+                    does not wish to be measured.
                   </p>
                 </div>
               </div>
@@ -1897,7 +2121,17 @@ const PrivacyPolicy = () => {
                 >
                   Cookies Policy
                 </a>
-                , and are managed through the consent banner.
+                , and are managed through the consent banner. The exception is
+                the <code>advia_optout</code> cookie, which is only set if you
+                request it at{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>{" "}
+                and which, being strictly necessary to remember your refusal,
+                requires no consent.
               </p>
               <p>
                 <strong>Retention:</strong> 90 days raw. After that period the
@@ -1906,8 +2140,18 @@ const PrivacyPolicy = () => {
               </p>
               <p>
                 <strong>Your rights:</strong> those described in section 10,
-                including the right to object under Art. 21 GDPR, which you may
-                exercise at any time by writing to{" "}
+                including the right to object under Art. 21 GDPR. You can
+                exercise it immediately at{" "}
+                <a
+                  href="/opt-out"
+                  className="text-primary-light hover:text-primary-dark transition-colors"
+                >
+                  advia.tech/opt-out
+                </a>
+                : if your browser presents the opt-out cookie this measurement
+                does not take place — the call to the measurement service is
+                suppressed entirely, never sent and nothing recorded. You may
+                also write to{" "}
                 <a
                   href="mailto:privacy@advia.tech"
                   className="text-primary-light hover:text-primary-dark transition-colors"

@@ -107,7 +107,7 @@ function TarjetaFactor({ factor }) {
 
 export default function NavegacionActiva() {
   return (
-    <Pagina>
+    <Pagina activo="Navegación Activa">
       <Seo
         path="/navegacion-activa"
         title="Navegación Activa — el momento en que alguien busca para decidir | Advia"
@@ -115,7 +115,6 @@ export default function NavegacionActiva() {
       />
 
       <Hero
-        activo="Navegación Activa"
         eyebrow="El concepto"
         xl
         titular={

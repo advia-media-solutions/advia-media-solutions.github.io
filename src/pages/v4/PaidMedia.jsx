@@ -91,7 +91,7 @@ function PanelCanal({ canal }) {
 
 export default function PaidMedia() {
   return (
-    <Pagina>
+    <Pagina activo="Productos">
       <Seo
         path="/products/paid-media"
         title="Navegación Activa en Paid Media — campañas dentro del recorrido de decisión | Advia"
@@ -99,7 +99,6 @@ export default function PaidMedia() {
       />
 
       <Hero
-        activo="Productos"
         miga="Navegación Activa en Paid Media"
         eyebrow="Donde la respuesta se compra"
         titular={

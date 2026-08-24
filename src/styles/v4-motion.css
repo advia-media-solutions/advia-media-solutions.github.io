@@ -1,0 +1,203 @@
+/* ============================================================================
+   ADVIA · web v4 — capa de movimiento
+
+   Tres reglas que gobiernan todo lo de aquí:
+   1. El movimiento explica algo. Una sección entra porque la estás leyendo; una
+      barra crece porque es una cuota; una ruta se traza porque es un recorrido.
+      Nada se mueve solo por moverse.
+   2. Todo sale de los tokens de motion (--motion-*, --ease-*). Sin duraciones
+      inventadas.
+   3. `prefers-reduced-motion` no degrada la página: la deja en su estado final.
+      El contenido nunca depende de que la animación llegue a ejecutarse — si el
+      JS no corre, `.v4-reveal` se muestra igual (ver §5).
+   ============================================================================ */
+
+/* ─────────────────── 1. Entradas por scroll ─────────────────── */
+.v4-js .v4-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--motion-slow) var(--ease-emphasis),
+              transform var(--motion-slow) var(--ease-emphasis);
+  will-change: opacity, transform;
+}
+.v4-js .v4-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Escalonado de los hijos directos: el ojo baja por la sección en orden. */
+.v4-js .v4-stagger > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--motion-slow) var(--ease-emphasis),
+              transform var(--motion-slow) var(--ease-emphasis);
+}
+.v4-js .v4-stagger[data-visible="true"] > * { opacity: 1; transform: none; }
+.v4-js .v4-stagger[data-visible="true"] > *:nth-child(1) { transition-delay: 0ms; }
+.v4-js .v4-stagger[data-visible="true"] > *:nth-child(2) { transition-delay: 70ms; }
+.v4-js .v4-stagger[data-visible="true"] > *:nth-child(3) { transition-delay: 140ms; }
+.v4-js .v4-stagger[data-visible="true"] > *:nth-child(4) { transition-delay: 210ms; }
+.v4-js .v4-stagger[data-visible="true"] > *:nth-child(5) { transition-delay: 280ms; }
+.v4-js .v4-stagger[data-visible="true"] > *:nth-child(n + 6) { transition-delay: 350ms; }
+
+/* ─────────────────── 2. Hero ─────────────────── */
+/* El titular entra una sola vez, al cargar: no espera al scroll. */
+.v4-hero__body > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: v4-entra var(--motion-slow) var(--ease-emphasis) forwards;
+}
+.v4-hero__body > *:nth-child(1) { animation-delay: 80ms; }
+.v4-hero__body > *:nth-child(2) { animation-delay: 160ms; }
+.v4-hero__body > *:nth-child(3) { animation-delay: 240ms; }
+.v4-hero__body > *:nth-child(4) { animation-delay: 320ms; }
+.v4-hero__body > *:nth-child(5) { animation-delay: 400ms; }
+.v4-banda { animation: v4-entra var(--motion-slow) var(--ease-emphasis) 520ms both; }
+
+@keyframes v4-entra {
+  to { opacity: 1; transform: none; }
+}
+
+/* El campo 3D vive detrás de todo el hero y nunca intercepta el ratón. */
+.v4-hero__campo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-standard);
+}
+.v4-hero__campo[data-listo="true"] { opacity: 1; }
+.v4-hero__campo canvas { display: block; width: 100%; height: 100%; }
+
+/* Velo de legibilidad: el campo se apaga sobre la columna de texto. Sin esto,
+   las rutas cruzan el titular y compiten con él. La pieza sigue viéndose
+   entera a la derecha, que es donde tiene sitio. */
+.v4-hero__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    var(--brand-graphite) 0%,
+    color-mix(in srgb, var(--brand-graphite) 88%, transparent) 34%,
+    color-mix(in srgb, var(--brand-graphite) 40%, transparent) 56%,
+    transparent 72%
+  );
+}
+/* Con el campo activo, la retícula estática se atenúa en vez de desaparecer:
+   sigue dando estructura y sigue estando en el DOM para quien no ve el canvas. */
+.v4-hero[data-campo="true"] .v4-hero__trama { opacity: 0.45; }
+
+/* ─────────────────── 3. Secuencia trazada ─────────────────── */
+/* El hilo se dibuja de izquierda a derecha y las paradas aparecen en orden:
+   es literalmente el recorrido construyéndose. */
+.v4-js .v4-secuencia__hilo {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms var(--ease-emphasis);
+}
+.v4-js [data-visible="true"] .v4-secuencia__hilo { transform: scaleX(1); }
+
+.v4-js .v4-secuencia__dot {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity var(--motion-base) var(--ease-emphasis),
+              transform var(--motion-base) var(--ease-emphasis);
+}
+.v4-js [data-visible="true"] .v4-secuencia__dot { opacity: 1; transform: none; }
+.v4-js [data-visible="true"] .v4-secuencia__dot:nth-child(1) { transition-delay: 120ms; }
+.v4-js [data-visible="true"] .v4-secuencia__dot:nth-child(2) { transition-delay: 320ms; }
+.v4-js [data-visible="true"] .v4-secuencia__dot:nth-child(3) { transition-delay: 520ms; }
+.v4-js [data-visible="true"] .v4-secuencia__dot:nth-child(4) { transition-delay: 720ms; }
+.v4-js [data-visible="true"] .v4-secuencia__dot:nth-child(n + 5) { transition-delay: 920ms; }
+
+.v4-js .v4-secuencia__label { opacity: 0; transform: translateY(10px); transition: opacity var(--motion-slow) var(--ease-emphasis), transform var(--motion-slow) var(--ease-emphasis); }
+.v4-js [data-visible="true"] .v4-secuencia__label { opacity: 1; transform: none; }
+.v4-js [data-visible="true"] .v4-secuencia__label:nth-child(1) { transition-delay: 200ms; }
+.v4-js [data-visible="true"] .v4-secuencia__label:nth-child(2) { transition-delay: 400ms; }
+.v4-js [data-visible="true"] .v4-secuencia__label:nth-child(3) { transition-delay: 600ms; }
+.v4-js [data-visible="true"] .v4-secuencia__label:nth-child(4) { transition-delay: 800ms; }
+.v4-js [data-visible="true"] .v4-secuencia__label:nth-child(n + 5) { transition-delay: 1000ms; }
+
+/* Columna de pasos: el hilo vertical crece con la lectura. */
+.v4-js .v4-paso__hilo { transform: scaleY(0); transform-origin: top center; transition: transform 700ms var(--ease-emphasis); }
+.v4-js [data-visible="true"] .v4-paso__hilo { transform: scaleY(1); }
+.v4-js [data-visible="true"] .v4-paso:nth-child(2) .v4-paso__hilo { transition-delay: 200ms; }
+.v4-js [data-visible="true"] .v4-paso:nth-child(3) .v4-paso__hilo { transition-delay: 400ms; }
+
+/* ─────────────────── 4. Datos que crecen ─────────────────── */
+/* La barra crece hasta su cuota. El ancho lo pone el componente en --v4-ancho. */
+.v4-js .v4-barra__valor {
+  width: 0;
+  transition: width 1100ms var(--ease-emphasis);
+}
+.v4-js [data-visible="true"] .v4-barra__valor { width: var(--v4-ancho); }
+.v4-js [data-visible="true"] .v4-dato:nth-child(2) .v4-barra__valor { transition-delay: 80ms; }
+.v4-js [data-visible="true"] .v4-dato:nth-child(3) .v4-barra__valor { transition-delay: 160ms; }
+.v4-js [data-visible="true"] .v4-dato:nth-child(4) .v4-barra__valor { transition-delay: 240ms; }
+.v4-js [data-visible="true"] .v4-dato:nth-child(5) .v4-barra__valor { transition-delay: 320ms; }
+
+.v4-js .v4-columna__barra { height: 0; transition: height 1000ms var(--ease-emphasis); }
+.v4-js [data-visible="true"] .v4-columna__barra { height: var(--v4-alto); }
+.v4-js [data-visible="true"] .v4-columna:nth-child(2) .v4-columna__barra { transition-delay: 90ms; }
+.v4-js [data-visible="true"] .v4-columna:nth-child(3) .v4-columna__barra { transition-delay: 180ms; }
+.v4-js [data-visible="true"] .v4-columna:nth-child(4) .v4-columna__barra { transition-delay: 270ms; }
+.v4-js [data-visible="true"] .v4-columna:nth-child(5) .v4-columna__barra { transition-delay: 360ms; }
+
+/* ─────────────────── 5. Micro-interacciones ─────────────────── */
+.v4-btn { transition: background var(--motion-base) var(--ease-standard),
+                      color var(--motion-base) var(--ease-standard),
+                      border-color var(--motion-base) var(--ease-standard),
+                      transform var(--motion-fast) var(--ease-standard); }
+.v4-btn:hover { transform: translateY(-1px); }
+.v4-btn:active { transform: none; }
+
+/* La flecha de la puerta se despega en diagonal: sugiere el salto de página. */
+.v4-door .v4-icon { transition: transform var(--motion-base) var(--ease-emphasis); }
+.v4-door:hover .v4-icon { transform: translate(3px, -3px); }
+
+.v4-fila { transition: background var(--motion-base) var(--ease-standard); }
+.v4-fila:hover { background: var(--v4-chip); }
+
+.v4-card { transition: border-color var(--motion-base) var(--ease-standard),
+                       transform var(--motion-base) var(--ease-standard); }
+.v4-card[data-size="lg"]:hover { transform: translateY(-2px); }
+
+.v4-pregunta { transition: border-color var(--motion-base) var(--ease-standard),
+                           color var(--motion-base) var(--ease-standard); }
+.v4-pregunta:hover { border-color: var(--accent-gold); color: var(--v4-fg); }
+
+/* Nav: se compacta y gana fondo al despegarse del hero. */
+.v4-nav { transition: background var(--motion-base) var(--ease-standard),
+                      border-color var(--motion-base) var(--ease-standard); }
+.v4-nav__inner { transition: height var(--motion-base) var(--ease-standard); }
+/* La nav es sticky desde el principio (así no hay salto de layout al fijarse);
+   al despegarse del hero gana translucidez y borde. */
+.v4-nav[data-fijada="true"] {
+  background: color-mix(in srgb, var(--brand-graphite) 86%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--border-on-graphite-strong);
+}
+.v4-nav[data-fijada="true"] .v4-nav__inner { height: 60px; }
+
+/* ─────────────────── 6. Sin movimiento ─────────────────── */
+/* Estado final, no ausencia de contenido. Todo visible, nada en tránsito. */
+@media (prefers-reduced-motion: reduce) {
+  .v4-reveal,
+  .v4-stagger > *,
+  .v4-hero__body > *,
+  .v4-banda,
+  .v4-secuencia__label,
+  .v4-secuencia__dot {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .v4-secuencia__hilo { transform: scaleX(1) !important; transition: none !important; }
+  .v4-paso__hilo { transform: scaleY(1) !important; transition: none !important; }
+  .v4-barra__valor { width: var(--v4-ancho) !important; transition: none !important; }
+  .v4-columna__barra { height: var(--v4-alto) !important; transition: none !important; }
+  .v4-btn:hover, .v4-card[data-size="lg"]:hover { transform: none; }
+  .v4-hero__campo { display: none; }
+}

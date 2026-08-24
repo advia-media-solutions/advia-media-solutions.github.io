@@ -24,7 +24,7 @@ const VALORES = [
 
 export default function Nosotros() {
   return (
-    <Pagina>
+    <Pagina activo="Nosotros">
       <Seo
         path="/about"
         title="Nosotros — por qué existe Advia | Advia"
@@ -32,7 +32,6 @@ export default function Nosotros() {
       />
 
       <Hero
-        activo="Nosotros"
         eyebrow="Nosotros"
         titular={
           <>

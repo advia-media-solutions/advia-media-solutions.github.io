@@ -22,6 +22,18 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&family=Ubuntu+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap"
             rel="stylesheet"
           />
+          {/*
+            Marca el documento antes del primer pintado. Las entradas por scroll
+            de v4-motion.css esconden el bloque hasta que el observador lo revela,
+            y eso solo puede pasar si hay JS. Sin esta clase no se aplica ninguna
+            regla que oculte: la página se sirve completa a quien no ejecuta JS
+            —crawlers y LLMs incluidos—, que es justo lo que vendemos.
+          */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: "document.documentElement.classList.add('v4-js');",
+            }}
+          />
         </Head>
         <body>
           <Main />

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "../src/index.css";
 import "../src/styles/tokens.css";
 import "../src/styles/v4.css";
+import "../src/styles/v4-motion.css";
 import NavBar from "../src/components/NavBar";
 import Footer from "../src/components/FooterComponent";
 import CookieConsent from "../src/components/CookieConsent";

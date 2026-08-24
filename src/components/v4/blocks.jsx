@@ -104,7 +104,7 @@ export function PanelDatos({ caption, meta, items, nota, neutraSalvo }) {
                 <div
                   className="v4-barra__valor"
                   data-neutra={neutra ? "true" : undefined}
-                  style={{ width: `${item.ancho}%` }}
+                  style={{ "--v4-ancho": `${item.ancho}%` }}
                 />
               </div>
               <Label tono="faint">{item.etiqueta}</Label>
@@ -166,7 +166,7 @@ export function Columnas({ items, destacada }) {
             <div
               className="v4-columna__barra"
               data-destacada={esDestacada ? "true" : undefined}
-              style={{ height: `${item.alto}%` }}
+              style={{ "--v4-alto": `${item.alto}%` }}
             />
             <span className="v4-body v4-strong" style={{ fontWeight: "inherit" }}>
               {item.nombre}

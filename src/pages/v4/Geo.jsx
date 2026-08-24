@@ -56,7 +56,7 @@ function RespuestaSimulada() {
 
 export default function Geo() {
   return (
-    <Pagina>
+    <Pagina activo="Productos">
       <Seo
         path="/products/geo"
         title="Visibilidad Intencional en IA: GEO — tu marca en la respuesta de la IA | Advia"
@@ -64,7 +64,6 @@ export default function Geo() {
       />
 
       <Hero
-        activo="Productos"
         miga="Visibilidad Intencional en IA: GEO"
         eyebrow="Donde la respuesta se fabrica"
         xl

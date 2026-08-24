@@ -136,6 +136,7 @@ export default function Home() {
       />
 
       <Hero
+        campo
         eyebrow="Advia · Navegación Activa"
         xl
         titular={

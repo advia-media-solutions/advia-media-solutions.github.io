@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Logo from "./Logo";
+import Reveal from "./Reveal";
 import { ArrowOutward, Label, Trama } from "./primitives";
+
+/**
+ * El campo 3D se carga aparte y solo en cliente: three.js no debe entrar en el
+ * bundle inicial ni ejecutarse en el servidor. Mientras llega (o si nunca
+ * llega), el hero ya está completo con su retícula SVG y su velo.
+ */
+const HeroField = dynamic(() => import("./HeroField"), { ssr: false });
 
 /**
  * Chasis de página: nav, hero, secciones, cierre y footer.
@@ -20,8 +29,22 @@ export const NAV_ITEMS = [
 ];
 
 export function Nav({ activo }) {
+  const [fijada, setFijada] = useState(false);
+
+  useEffect(() => {
+    const alHacerScroll = () => setFijada(window.scrollY > 40);
+    alHacerScroll();
+    window.addEventListener("scroll", alHacerScroll, { passive: true });
+    return () => window.removeEventListener("scroll", alHacerScroll);
+  }, []);
+
   return (
-    <nav className="v4-nav" aria-label="Principal">
+    <nav
+      className="v4-nav v4-surface"
+      data-surface="graphite"
+      data-fijada={fijada ? "true" : undefined}
+      aria-label="Principal"
+    >
       <div className="v4-nav__inner">
         <Link href="/" aria-label="Advia · inicio">
           <Logo variant="light" />
@@ -53,7 +76,7 @@ export function Section({ surface = "page", className = "", children }) {
   const clase = `v4-surface v4-sec ${className}`.trim();
   return (
     <section className={clase} data-surface={surface}>
-      <div className="v4-wrap">{children}</div>
+      <Reveal className="v4-wrap">{children}</Reveal>
     </section>
   );
 }
@@ -103,12 +126,17 @@ export function Miga({ hoja }) {
  * Hero oscuro: velo dorado radial, retícula fina y banda opcional a sangre.
  * `titular` admite JSX para marcar la palabra clave con <Key>.
  */
-export function Hero({ activo, eyebrow, titular, lede, xl, miga, acciones, banda }) {
+export function Hero({ eyebrow, titular, lede, xl, miga, acciones, banda, campo }) {
   return (
-    <header className="v4-surface v4-hero" data-surface="graphite">
+    <header
+      className="v4-surface v4-hero"
+      data-surface="graphite"
+      data-campo={campo ? "true" : undefined}
+    >
       <div className="v4-hero__veil" aria-hidden="true" />
+      {campo ? <HeroField /> : null}
+      {campo ? <div className="v4-hero__scrim" aria-hidden="true" /> : null}
       <Trama />
-      <Nav activo={activo} />
       <div className="v4-hero__body" data-banda={banda ? "true" : undefined}>
         {miga ? <Miga hoja={miga} /> : null}
         <Label tono="gold">{eyebrow}</Label>
@@ -136,14 +164,14 @@ export function Banda({ caption, nota, children }) {
 export function Cierre({ titular, lede, cta, doors }) {
   return (
     <section className="v4-surface v4-sec v4-cierre" data-surface="graphite">
-      <div className="v4-wrap">
+      <Reveal className="v4-wrap">
         <h2 className="v4-heading" style={{ maxWidth: "940px" }}>
           {titular}
         </h2>
         {lede ? <p className="v4-lede v4-mt-5">{lede}</p> : null}
         {cta ? <div className="v4-btn-row v4-mt-10">{cta}</div> : null}
         {doors ? <div className="v4-door-row v4-mt-10">{doors}</div> : null}
-      </div>
+      </Reveal>
     </section>
   );
 }
@@ -219,9 +247,10 @@ export function Footer() {
 }
 
 /** Envoltorio de página v4: aísla el árbol del chrome antiguo. */
-export function Pagina({ children }) {
+export function Pagina({ activo, children }) {
   return (
     <div className="v4">
+      <Nav activo={activo} />
       {children}
       <Footer />
     </div>

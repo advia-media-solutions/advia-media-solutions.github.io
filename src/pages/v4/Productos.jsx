@@ -45,7 +45,7 @@ const PUENTE = [
 
 export default function Productos() {
   return (
-    <Pagina>
+    <Pagina activo="Productos">
       <Seo
         path="/products"
         title="Productos — dónde se compra la presencia y dónde se fabrica | Advia"
@@ -53,7 +53,6 @@ export default function Productos() {
       />
 
       <Hero
-        activo="Productos"
         eyebrow="Las activaciones"
         titular={
           <>

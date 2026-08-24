@@ -150,7 +150,7 @@ function Ciclo() {
 
 export default function Tecnologia() {
   return (
-    <Pagina>
+    <Pagina activo="Tecnología">
       <Seo
         path="/technology"
         title="Vera — cómo predecimos dónde va a buscar tu consumidor | Advia"
@@ -158,7 +158,6 @@ export default function Tecnologia() {
       />
 
       <Hero
-        activo="Tecnología"
         eyebrow="La máquina"
         titular={
           <>

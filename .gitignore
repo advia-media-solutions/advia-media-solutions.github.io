@@ -29,3 +29,9 @@ yarn-error.log*
 *.svg
 *.png
 *.md
+
+# Canvas de diseño (artboards de trabajo del rediseño v4)
+web-v4-design/advia-web-v4.html
+
+# Carpeta sincronizada de la app de wireframing (no es fuente del proyecto)
+Website redesign wireframing/

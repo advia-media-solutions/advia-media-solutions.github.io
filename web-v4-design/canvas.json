@@ -1,0 +1,132 @@
+{
+  "pages": [
+    {
+      "id": "web",
+      "name": "Web v4 · las 7 páginas"
+    },
+    {
+      "id": "archivo",
+      "name": "Archivo · v1"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "page": "web",
+      "title": "Inicio",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 5000
+    },
+    {
+      "file": "NavegacionActiva.dc.html",
+      "page": "web",
+      "title": "Navegación Activa",
+      "x": 1600,
+      "y": 0,
+      "w": 1440,
+      "h": 5600
+    },
+    {
+      "file": "Tecnologia.dc.html",
+      "page": "web",
+      "title": "Tecnología · Vera",
+      "x": 3200,
+      "y": 0,
+      "w": 1440,
+      "h": 5700
+    },
+    {
+      "file": "Productos.dc.html",
+      "page": "web",
+      "title": "Productos · hub",
+      "x": 4800,
+      "y": 0,
+      "w": 1440,
+      "h": 4000
+    },
+    {
+      "file": "PaidMedia.dc.html",
+      "page": "web",
+      "title": "Productos › Paid Media",
+      "x": 0,
+      "y": 5940,
+      "w": 1440,
+      "h": 5000
+    },
+    {
+      "file": "Geo.dc.html",
+      "page": "web",
+      "title": "Productos › GEO",
+      "x": 1600,
+      "y": 5940,
+      "w": 1440,
+      "h": 6500
+    },
+    {
+      "file": "Nosotros.dc.html",
+      "page": "web",
+      "title": "Nosotros",
+      "x": 3200,
+      "y": 5940,
+      "w": 1440,
+      "h": 4300
+    },
+    {
+      "file": "HomeV1.dc.html",
+      "page": "archivo",
+      "title": "Inicio v1 (superada)",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 4600
+    }
+  ],
+  "annotations": [
+    {
+      "id": "giro",
+      "page": "web",
+      "x": 4800,
+      "y": 4300,
+      "w": 620,
+      "text": "EL GIRO, APLICADO A LAS SIETE\n\nLa unidad de valor es LA RESPUESTA. El formato — anuncio, artículo, review, cita de un LLM — es consecuencia de dónde ocurre la pregunta.\n\nDónde se nota página a página:\n· Inicio · scroll 4: las cuatro superficies, y qué forma toma la respuesta en cada una.\n· Navegación Activa: «para que una marca sea relevante tiene que ayudar», y el scroll de calidad ahora se titula «qué hace buena a una respuesta».\n· Tecnología: el mapa deja de ser de sitios y pasa a ser un MAPA DE PREGUNTAS. El pre/post mide «si la respuesta sirvió».\n· Productos: el puente ya no reparte anuncios, reparte respuestas: donde hay inventario se compra, donde no, se fabrica.\n· Paid Media: «tu marca dentro de la respuesta que ya estaba leyendo».\n· Nosotros: fundamos Advia para trabajar desde el lado de QUIEN BUSCA.\n\nEl lema aguanta intacto y el marco de Pablo también."
+    },
+    {
+      "id": "ritmo",
+      "page": "web",
+      "x": 4800,
+      "y": 5200,
+      "w": 620,
+      "text": "CÓMO SE EVITA EL EFECTO BLOG\n\nSiete dispositivos de composición que rotan, y nunca dos iguales seguidos:\n\n01 Hero oscuro con velo dorado, retícula fina y banda a sangre al pie\n02 Split 3fr/2fr — texto contra panel\n03 Split 2fr/3fr invertido — pasos contra datos\n04 Filas editoriales — índice · concepto · desarrollo · etiqueta\n05 Secuencia horizontal con hilo y paradas\n06 Par contrastado — un bloque marfil, uno grafito\n07 Declaración ancha con nota analítica lateral\n\nY tres superficies que alternan: marfil, marfil hundido y grafito. Todas las páginas abren y cierran en oscuro; el medio respira en claro."
+    },
+    {
+      "id": "sistema",
+      "page": "web",
+      "x": 4800,
+      "y": 6100,
+      "w": 620,
+      "text": "AUDITORÍA DEL DESIGN SYSTEM · las 7 pasan\n\n· Cero hex y cero rgba sueltos fuera del bloque de tokens\n· Cero font-size, border-radius o font-family fuera de la escala\n· Botón primario siempre oro plano + texto marfil. Ningún degradado en botón\n· Todas las cifras en Ubuntu Mono, formato europeo\n· Ningún dato inventado: 39 huecos [ --- ] visibles\n· Logo pegado verbatim del snippet, nunca redibujado\n· Iconos de Material Symbols Outlined, sin emoji\n\nLos builders quedan en web-v4-design/: cualquier cambio se re-siembra sin rehacer nada a mano."
+    },
+    {
+      "id": "pendiente",
+      "page": "web",
+      "x": 4800,
+      "y": 7000,
+      "w": 620,
+      "text": "LO QUE SIGUE ABIERTO\n\n1. Las preguntas del hero de Inicio son ILUSTRATIVAS. Si Vera puede servir preguntas reales agregadas por categoría, ese bloque pasa de bonito a demoledor. Es lo primero que pediría.\n2. El lema. Si el giro tiene que ir más lejos, la palanca es «Turning ads into answers» — regla raíz del manual de voz, decisión de Pablo y Julia.\n3. --fs-kpi-display en tokens.css: hoy la escala mono se corta en 28px y no existe el recurso de dato de portada.\n4. Ilustraciones de la escena del metro: dos placeholders marcados en Navegación Activa.\n5. Verticales, formatos por canal y cifras agregadas de viewability/VTR.\n6. Móvil: esta tanda es escritorio a 1440. Siguiente paso natural."
+    },
+    {
+      "id": "archivo-nota",
+      "page": "archivo",
+      "x": 1600,
+      "y": 0,
+      "w": 560,
+      "text": "La home v1, guardada como referencia.\n\nSistema bien aplicado y dirección de arte inexistente: el mismo ritmo en cada scroll, el grafito solo de cierre, sin geometría de marca ni contraste de escala. Y el mensaje todavía giraba alrededor del anuncio.\n\nSe queda aquí para poder comparar, no para volver."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "web"
+  }
+}

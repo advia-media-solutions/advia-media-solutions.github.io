@@ -1,0 +1,485 @@
+/* ============================================================================
+   ADVIA · web v4 — capa de componentes sobre tokens.css
+   Regla dura: aquí no hay un solo color, tamaño ni radio suelto. Todo var().
+   tokens.css manda; este archivo solo compone.
+
+   Cada sección expone un juego de variables de superficie (--v4-fg, --v4-muted…)
+   para que un mismo bloque funcione sobre marfil o sobre grafito sin duplicarse.
+   ============================================================================ */
+
+/* ─────────────────────────── 1. Base ─────────────────────────── */
+.v4 {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+}
+.v4 *,
+.v4 *::before,
+.v4 *::after { box-sizing: border-box; }
+
+.v4 h1, .v4 h2, .v4 h3, .v4 p { margin: 0; }
+/* El enlace de cuerpo va en oro, pero con especificidad CERO: `:where()` no
+   suma, así que cualquier componente (.v4-btn, .v4-nav__link, .v4-door…) manda
+   sobre esta regla sin tener que pelearla. Sin esto, el texto del botón
+   primario sale oro sobre oro y desaparece. */
+:where(.v4) a { color: var(--text-accent); text-decoration: none; }
+:where(.v4) a:hover { color: var(--gold-ambar); }
+.v4 a:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring-shadow);
+  border-radius: var(--radius-sm);
+}
+
+/* ────────────────────── 2. Superficies ────────────────────── */
+.v4-surface {
+  background: var(--surface-page);
+  --v4-fg: var(--text-primary);
+  --v4-muted: var(--text-secondary);
+  --v4-faint: var(--text-tertiary);
+  --v4-line: var(--border-subtle);
+  --v4-line-strong: var(--border-default);
+  --v4-panel: var(--surface-card);
+  --v4-panel-line: var(--border-subtle);
+  --v4-chip: var(--surface-sunken);
+  --v4-track: var(--surface-sunken);
+  --v4-halo: var(--gold-crema);
+}
+.v4-surface[data-surface="inset"] { background: var(--surface-inset); }
+.v4-surface[data-surface="graphite"] {
+  background: var(--brand-graphite);
+  --v4-fg: var(--brand-ivory);
+  --v4-muted: var(--neutral-400);
+  --v4-faint: var(--neutral-500);
+  --v4-line: var(--border-on-graphite);
+  --v4-line-strong: var(--border-on-graphite-strong);
+  --v4-panel: var(--surface-on-graphite);
+  --v4-panel-line: var(--border-on-graphite-strong);
+  --v4-chip: var(--surface-on-graphite);
+  --v4-track: var(--surface-on-graphite);
+  --v4-halo: var(--surface-on-graphite);
+}
+
+.v4-sec { padding: var(--web-section-pad-y) var(--web-section-pad-x); }
+.v4-wrap { max-width: var(--web-content-width); margin: 0 auto; }
+
+/* ────────────────────── 3. Tipografía ────────────────────── */
+.v4-display-xl {
+  font-size: var(--fs-display-xl);
+  line-height: var(--lh-display-xl);
+  font-weight: var(--fw-regular);
+  color: var(--v4-fg);
+  text-wrap: pretty;
+}
+.v4-display-l {
+  font-size: var(--fs-display-l);
+  line-height: var(--lh-display-l);
+  font-weight: var(--fw-light);
+  color: var(--v4-fg);
+  text-wrap: pretty;
+}
+.v4-heading {
+  font-size: var(--fs-heading);
+  line-height: var(--lh-heading);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+  text-wrap: pretty;
+}
+.v4-subheading {
+  font-size: var(--fs-subheading);
+  line-height: var(--lh-subheading);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+  text-wrap: pretty;
+}
+.v4-lede {
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  color: var(--v4-muted);
+  max-width: 720px;
+}
+.v4-body { font-size: var(--fs-body-m); line-height: var(--lh-body-m); color: var(--v4-muted); }
+.v4-body-s { font-size: var(--fs-body-s); line-height: var(--lh-body-s); color: var(--v4-muted); }
+.v4-strong { color: var(--v4-fg); font-weight: var(--fw-bold); }
+
+.v4-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+}
+.v4-label--gold { color: var(--accent-gold); }
+.v4-label--faint { color: var(--v4-faint); }
+
+.v4-mono { font-family: var(--font-mono); font-size: var(--fs-code-m); line-height: var(--lh-code-m); }
+.v4-kpi {
+  font-family: var(--font-kpi);
+  font-size: var(--fs-kpi);
+  line-height: var(--lh-kpi);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tr-kpi);
+}
+/* Palabra clave dorada. Solo sobre dato o mecanismo (Tono y Voz §8). */
+.v4-key { color: var(--accent-gold); font-weight: var(--fw-semibold); }
+.v4-hueco { font-family: var(--font-mono); color: var(--v4-faint); }
+
+/* ────────────────────── 4. Acciones ────────────────────── */
+.v4-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-button);
+  line-height: var(--lh-button);
+  font-weight: var(--fw-bold);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--motion-base) var(--ease-standard),
+              color var(--motion-base) var(--ease-standard);
+}
+/* Botón primario: oro PLANO. Nunca degradado, nunca borde (DS §5.2). */
+.v4-btn--primary { background: var(--accent-gold); color: var(--text-on-gold); }
+.v4-btn--primary:hover { background: var(--gold-ambar); color: var(--text-on-gold); }
+.v4-btn--ghost { border-color: var(--v4-line-strong); color: var(--v4-fg); }
+.v4-btn--ghost:hover { border-color: var(--accent-gold); color: var(--v4-fg); }
+.v4-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+
+.v4-door {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent-gold);
+  font-size: var(--fs-button);
+  line-height: var(--lh-button);
+  font-weight: var(--fw-bold);
+}
+.v4-door:hover { color: var(--gold-ambar); }
+.v4-door-row { display: flex; flex-wrap: wrap; gap: var(--space-10); }
+.v4-icon { width: 16px; height: 16px; fill: currentColor; display: block; flex: none; }
+
+/* ────────────────────── 5. Rejillas ────────────────────── */
+.v4-split { display: grid; grid-template-columns: 3fr 2fr; gap: var(--space-16); align-items: center; }
+.v4-split[data-cols="2-3"] { grid-template-columns: 2fr 3fr; }
+.v4-split[data-cols="1-1"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.v4-split[data-align="start"] { align-items: start; }
+
+.v4-grid { display: grid; gap: var(--space-6); }
+.v4-grid[data-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.v4-grid[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.v4-grid[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
+.v4-grid[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-5); align-items: end; }
+.v4-stack { display: flex; flex-direction: column; gap: var(--space-6); }
+
+/* ────────────────────── 6. Cabecera de sección ────────────────────── */
+.v4-cabecera > * + * { margin-top: var(--space-5); }
+.v4-cabecera .v4-lede { margin-top: var(--space-6); }
+
+/* ────────────────────── 7. Hero ────────────────────── */
+.v4-hero { position: relative; overflow: hidden; }
+.v4-hero__veil,
+.v4-hero__trama { position: absolute; inset: 0; pointer-events: none; }
+.v4-hero__veil { background: radial-gradient(70% 60% at 12% 0%, var(--gold-veil) 0%, transparent 70%); }
+.v4-hero__body {
+  position: relative;
+  z-index: 2;
+  max-width: var(--web-content-width);
+  margin: 0 auto;
+  padding: var(--space-20) var(--web-section-pad-x) var(--space-20);
+}
+.v4-hero__body[data-banda="true"] { padding-bottom: 0; }
+.v4-hero__body > * + * { margin-top: var(--space-8); }
+.v4-hero__body .v4-btn-row { margin-top: var(--space-10); }
+.v4-hero h1 { max-width: 1000px; }
+
+.v4-miga { display: flex; align-items: center; gap: var(--space-3); }
+
+.v4-banda {
+  position: relative;
+  z-index: 2;
+  margin-top: var(--space-20);
+  border-top: 1px solid var(--v4-line);
+  background: var(--v4-panel);
+}
+.v4-banda__inner {
+  max-width: var(--web-content-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--web-section-pad-x);
+}
+.v4-banda__inner > * + * { margin-top: var(--space-5); }
+
+/* ────────────────────── 8. Chips ────────────────────── */
+.v4-chips { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.v4-chip {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+  background: var(--v4-chip);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+}
+.v4-pregunta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+  color: var(--v4-faint);
+  border: 1px solid var(--v4-line-strong);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+}
+.v4-pregunta[data-destacada="true"] { color: var(--v4-fg); border-color: var(--accent-gold); }
+.v4-punto {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent-gold);
+  flex: none;
+}
+
+/* ────────────────────── 9. Tarjetas y paneles ────────────────────── */
+.v4-card {
+  background: var(--v4-panel);
+  border: 1px solid var(--v4-panel-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+}
+.v4-card[data-size="lg"] {
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+}
+.v4-card[data-kpi="true"] { border-radius: var(--radius-kpi); }
+.v4-card[data-destacada="true"] { border-color: var(--accent-gold); }
+.v4-card[data-invertida="true"] {
+  background: var(--brand-graphite);
+  border-color: var(--brand-graphite);
+  --v4-fg: var(--brand-ivory);
+  --v4-muted: var(--neutral-400);
+  --v4-faint: var(--neutral-500);
+  --v4-line: var(--border-on-graphite);
+}
+.v4-card > * + * { margin-top: var(--space-3); }
+.v4-card .v4-door { margin-top: var(--space-4); }
+
+.v4-panel { background: var(--v4-panel); border: 1px solid var(--v4-panel-line); border-radius: var(--radius-2xl); padding: var(--space-8); }
+.v4-panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+.v4-panel__nota { margin-top: var(--space-6); }
+
+/* Nota analítica: barra dorada recta a la izquierda (DS §10.7b). */
+.v4-nota {
+  background: var(--v4-chip);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  padding: var(--space-5) var(--space-6);
+}
+/* Callout: una idea, centrada, keyword dorada (DS §10.7). */
+.v4-callout {
+  background: var(--v4-panel);
+  border: 1px solid var(--v4-panel-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-10);
+  max-width: 900px;
+}
+.v4-callout .v4-label { margin-top: var(--space-4); }
+
+.v4-placeholder {
+  background: var(--v4-chip);
+  border: 1px dashed var(--v4-line-strong);
+  border-radius: var(--radius-lg);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  text-align: center;
+}
+
+/* ────────────────────── 10. Filas editoriales ────────────────────── */
+.v4-fila {
+  display: grid;
+  grid-template-columns: auto 3fr 4fr auto;
+  gap: var(--space-8);
+  align-items: center;
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--v4-line);
+}
+.v4-fila__num { font-family: var(--font-mono); font-size: var(--fs-code-m); line-height: var(--lh-code-m); color: var(--accent-gold); }
+.v4-fila__eco { border-left: 2px solid var(--accent-gold); padding-left: var(--space-5); }
+.v4-fila__eco p { margin-top: var(--space-2); font-size: var(--fs-body-l); line-height: var(--lh-body-l); color: var(--v4-fg); }
+.v4-fila__cuerpo p { margin-top: var(--space-1); }
+
+.v4-linea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--v4-line);
+}
+
+/* ────────────────────── 11. Secuencia y pasos ────────────────────── */
+.v4-secuencia { position: relative; padding-top: var(--space-2); }
+.v4-secuencia__hilo { position: absolute; left: 9px; right: 9px; top: 17px; height: 1px; background: var(--v4-line-strong); }
+.v4-secuencia__dots { position: relative; display: grid; gap: var(--space-6); }
+.v4-secuencia__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: var(--accent-gold);
+  box-shadow: 0 0 0 6px var(--v4-halo);
+}
+.v4-secuencia__labels { display: grid; gap: var(--space-6); margin-top: var(--space-5); }
+.v4-secuencia__label { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+.v4-secuencia__label .v4-chip { align-self: flex-start; }
+.v4-secuencia__label p { font-size: var(--fs-body-l); line-height: var(--lh-body-l); color: var(--v4-fg); }
+
+.v4-paso { display: grid; grid-template-columns: auto 1fr; gap: var(--space-5); padding-bottom: var(--space-8); }
+.v4-paso__riel { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.v4-paso__bola { width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--accent-gold); flex: none; }
+.v4-paso__hilo { flex-grow: 1; width: 1px; background: var(--v4-line-strong); }
+.v4-paso p { margin-top: var(--space-2); }
+
+/* ────────────────────── 12. Barras de datos ────────────────────── */
+.v4-barra { display: flex; align-items: center; gap: var(--space-3); }
+.v4-barra__pista { flex-grow: 1; height: 6px; border-radius: var(--radius-sm); background: var(--v4-track); }
+.v4-barra__valor { height: 6px; border-radius: var(--radius-sm); background: var(--chart-1-gradient); }
+.v4-barra__valor[data-neutra="true"] { background: var(--series-primary); }
+.v4-dato { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 0; border-top: 1px solid var(--v4-line); }
+.v4-dato__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
+
+.v4-columna { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-3); height: 280px; }
+.v4-columna__barra { border-radius: var(--radius-md); background: var(--series-primary); }
+.v4-columna__barra[data-destacada="true"] { background: var(--chart-1-gradient); }
+
+/* ────────────────────── 13. Funnel ────────────────────── */
+.v4-funnel { display: flex; gap: var(--space-2); }
+.v4-funnel__seg { padding: var(--space-6); border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: var(--space-2); background: var(--v4-chip); }
+.v4-funnel__seg:first-child { border-start-start-radius: var(--radius-lg); border-end-start-radius: var(--radius-lg); }
+.v4-funnel__seg:last-child { border-start-end-radius: var(--radius-lg); border-end-end-radius: var(--radius-lg); }
+.v4-funnel__seg[data-destacado="true"] {
+  background: var(--brand-graphite);
+  --v4-fg: var(--brand-ivory);
+  --v4-muted: var(--neutral-400);
+  --v4-faint: var(--accent-gold);
+}
+
+/* ────────────────────── 14. Nav y footer ────────────────────── */
+.v4-nav { position: relative; z-index: 3; border-bottom: 1px solid var(--v4-line); }
+.v4-nav__inner {
+  max-width: var(--web-content-width);
+  margin: 0 auto;
+  padding: 0 var(--web-section-pad-x);
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+.v4-nav__links { display: flex; align-items: center; gap: var(--space-6); }
+.v4-nav__link { font-size: var(--fs-body-m); line-height: var(--lh-body-m); color: var(--v4-muted); }
+.v4-nav__link:hover { color: var(--v4-fg); }
+.v4-nav__link[aria-current="page"] {
+  color: var(--v4-fg);
+  font-weight: var(--fw-semibold);
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid var(--accent-gold);
+}
+.v4-nav__cta { padding: var(--space-3) var(--space-6); }
+.v4-nav__toggle { display: none; }
+
+.v4-footer { border-top: 1px solid var(--v4-line); padding: var(--space-16) var(--web-section-pad-x) var(--space-12); }
+.v4-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10); align-items: start; }
+.v4-footer__links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); }
+.v4-footer__group { display: flex; flex-direction: column; gap: var(--space-3); }
+.v4-footer__group a { color: var(--v4-fg); font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+.v4-footer__group a:hover { color: var(--accent-gold); }
+.v4-footer__legal {
+  margin-top: var(--space-12);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--v4-line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+.v4-footer__legal a { color: var(--v4-faint); }
+
+/* ────────────────────── 15. Utilidades de ritmo ────────────────────── */
+.v4-mt-5 { margin-top: var(--space-5); }
+.v4-mt-8 { margin-top: var(--space-8); }
+.v4-mt-10 { margin-top: var(--space-10); }
+.v4-mt-12 { margin-top: var(--space-12); }
+.v4-mt-16 { margin-top: var(--space-16); }
+.v4-cierre { padding-top: 112px; padding-bottom: 112px; }
+.v4-hero--xl .v4-hero__body { padding-top: var(--space-20); }
+
+/* ────────────────────── 16. Responsive (DS §3.3: dos breakpoints) ────────────────────── */
+@media (max-width: 900px) {
+  .v4-sec { padding: var(--space-16) var(--space-5); }
+  .v4-hero__body,
+  .v4-banda__inner,
+  .v4-nav__inner,
+  .v4-footer { padding-left: var(--space-5); padding-right: var(--space-5); }
+  .v4-footer { padding-top: var(--space-12); }
+
+  .v4-display-xl { font-size: var(--fs-display-l); line-height: var(--lh-display-l); }
+  .v4-display-l { font-size: var(--fs-heading); line-height: var(--lh-heading); }
+  .v4-heading { font-size: var(--fs-subheading); line-height: var(--lh-subheading); }
+
+  .v4-split,
+  .v4-split[data-cols="2-3"],
+  .v4-split[data-cols="1-1"],
+  .v4-grid[data-cols="2"],
+  .v4-grid[data-cols="3"],
+  .v4-grid[data-cols="4"],
+  .v4-footer__cols { grid-template-columns: 1fr; gap: var(--space-8); }
+  .v4-grid[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2); }
+  .v4-columna { height: 200px; }
+
+  /* La rejilla editorial y la secuencia se apilan en vertical */
+  .v4-fila { grid-template-columns: auto 1fr; gap: var(--space-4); }
+  .v4-fila__eco,
+  .v4-fila__tag { grid-column: 2; }
+  .v4-secuencia__hilo { display: none; }
+  .v4-secuencia__dots { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .v4-secuencia__labels { grid-template-columns: 1fr !important; gap: var(--space-8); }
+
+  .v4-funnel { flex-direction: column; }
+  .v4-nav__links { display: none; }
+  .v4-nav__toggle { display: inline-flex; }
+  .v4-cierre { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+}
+
+@media (max-width: 640px) {
+  .v4-display-xl { font-size: var(--fs-heading); line-height: var(--lh-heading); }
+  .v4-btn-row { flex-direction: column; align-items: stretch; }
+  .v4-btn { width: 100%; }
+  .v4-grid[data-cols="5"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+  .v4-footer__links { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+
+/* ────────────────────── 17. Accesibilidad ────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .v4 *,
+  .v4 *::before,
+  .v4 *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,13 +1,13 @@
 import React from "react";
-import Tecnologia from "../src/pages/v4/Tecnologia";
+import Geo from "../../src/pages/v4/Geo";
 
-export default function TechnologyPage() {
-  return <Tecnologia />;
+export default function GeoPage() {
+  return <Geo />;
 }
 
 // Marca la ruta como v4: _app se salta el chrome antiguo (NavBar/Footer/gradiente)
 // porque estas páginas traen su propia nav oscura y su propio footer.
-TechnologyPage.v4 = true;
+GeoPage.v4 = true;
 
 export async function getServerSideProps() {
   return { props: {} };

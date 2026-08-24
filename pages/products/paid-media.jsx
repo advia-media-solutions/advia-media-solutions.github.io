@@ -1,13 +1,13 @@
 import React from "react";
-import Tecnologia from "../src/pages/v4/Tecnologia";
+import PaidMedia from "../../src/pages/v4/PaidMedia";
 
-export default function TechnologyPage() {
-  return <Tecnologia />;
+export default function PaidMediaPage() {
+  return <PaidMedia />;
 }
 
 // Marca la ruta como v4: _app se salta el chrome antiguo (NavBar/Footer/gradiente)
 // porque estas páginas traen su propia nav oscura y su propio footer.
-TechnologyPage.v4 = true;
+PaidMediaPage.v4 = true;
 
 export async function getServerSideProps() {
   return { props: {} };

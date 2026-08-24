@@ -168,7 +168,7 @@ def rinde():
 
 
 paid = (
-    k.hero("Productos", "Navegación Activa en Paid Media",
+    k.hero("Productos", "Donde la respuesta se compra",
            "Tu marca dentro de la respuesta que ya estaba " + k.key_dark("leyendo") + ".",
            "Campañas en Open Web y YouTube colocadas sobre las fuentes que Vera ha visto en el "
            "recorrido de decisión de tu target.",
@@ -268,7 +268,7 @@ def estanterias():
 
 
 geo = (
-    k.hero("Productos", "Visibilidad Intencional en IA: GEO",
+    k.hero("Productos", "Donde la respuesta se fabrica",
            "Tu marca en la " + k.key_dark("respuesta") + " de la IA.",
            "Cuando alguien pregunta por tu categoría, el modelo contesta con un puñado de marcas "
            "y unas cuantas fuentes. Trabajamos para que estés entre ellas.",

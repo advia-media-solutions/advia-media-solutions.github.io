@@ -41,13 +41,13 @@ export function Nav({ activo }) {
   return (
     <nav
       className="v4-nav v4-surface"
-      data-surface="graphite"
+      data-surface="page"
       data-fijada={fijada ? "true" : undefined}
       aria-label="Principal"
     >
       <div className="v4-nav__inner">
         <Link href="/" aria-label="Advia · inicio">
-          <Logo variant="light" />
+          <Logo variant="dark" />
         </Link>
         <div className="v4-nav__links">
           {NAV_ITEMS.map((item) => (
@@ -130,7 +130,7 @@ export function Hero({ eyebrow, titular, lede, xl, miga, acciones, banda, campo 
   return (
     <header
       className="v4-surface v4-hero"
-      data-surface="graphite"
+      data-surface="page"
       data-campo={campo ? "true" : undefined}
     >
       <div className="v4-hero__veil" aria-hidden="true" />
@@ -139,7 +139,7 @@ export function Hero({ eyebrow, titular, lede, xl, miga, acciones, banda, campo 
       <Trama />
       <div className="v4-hero__body" data-banda={banda ? "true" : undefined}>
         {miga ? <Miga hoja={miga} /> : null}
-        <Label tono="gold">{eyebrow}</Label>
+        <Label>{eyebrow}</Label>
         <h1 className={xl ? "v4-display-xl" : "v4-display-l"}>{titular}</h1>
         <p className="v4-lede">{lede}</p>
         {acciones ? <div className="v4-btn-row">{acciones}</div> : null}

@@ -16,6 +16,10 @@ import * as THREE from "three";
  * - DPR capado y geometría fija: no crece con el tamaño de la ventana.
  * - Es puramente decorativo (aria-hidden). El contenido del hero vive en el DOM
  *   y la retícula SVG sigue ahí para quien no vea el canvas.
+ *
+ * Sobre marfil (que es la superficie por defecto de Advia) el trazo va en
+ * grafito y sin mezcla aditiva: el additive suma hacia el blanco y sobre fondo
+ * claro se lava hasta desaparecer.
  */
 
 const PARADAS = 10;
@@ -134,7 +138,7 @@ export default function HeroField() {
     const nodo = contenedor.current;
     const azar = crearAzar(20260824);
     const oro = leerColor("--accent-gold", "#FAAD33");
-    const marfil = leerColor("--brand-ivory", "#FCFDFD");
+    const trazo = leerColor("--brand-graphite", "#292929");
 
     const escena = new THREE.Scene();
     const camara = new THREE.PerspectiveCamera(46, 1, 0.1, 200);
@@ -153,13 +157,12 @@ export default function HeroField() {
     const texturaPunto = crearTexturaPunto();
     const geoParadas = new THREE.BufferGeometry().setFromPoints(paradas);
     const matParadas = new THREE.PointsMaterial({
-      size: 1.5,
+      size: 2.1,
       map: texturaPunto,
       color: oro,
       transparent: true,
-      opacity: 0.95,
+      opacity: 0.9,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
       sizeAttenuation: true,
     });
     grupo.add(new THREE.Points(geoParadas, matParadas));
@@ -174,11 +177,11 @@ export default function HeroField() {
     const geoPolvo = new THREE.BufferGeometry();
     geoPolvo.setAttribute("position", new THREE.BufferAttribute(posPolvo, 3));
     const matPolvo = new THREE.PointsMaterial({
-      size: 0.11,
+      size: 0.13,
       map: texturaPunto,
-      color: marfil,
+      color: trazo,
       transparent: true,
-      opacity: 0.26,
+      opacity: 0.16,
       depthWrite: false,
       sizeAttenuation: true,
     });
@@ -188,7 +191,7 @@ export default function HeroField() {
     const recorridos = generarRecorridos(paradas, azar).map((r) => {
       const geo = new THREE.BufferGeometry().setFromPoints(r.puntos);
       const mat = new THREE.LineBasicMaterial({
-        color: marfil,
+        color: trazo,
         transparent: true,
         opacity: 0,
         depthWrite: false,
@@ -236,10 +239,10 @@ export default function HeroField() {
         const ciclo = (((ahora - inicio) / CICLO_MS + r.desfase) % 1 + 1) % 1;
         const { dibujado, opacidad } = faseDelRecorrido(ciclo);
         r.geo.setDrawRange(0, Math.floor(dibujado * PUNTOS_POR_RECORRIDO));
-        r.mat.opacity = opacidad * 0.22;
+        r.mat.opacity = opacidad * 0.15;
       });
 
-      matParadas.opacity = 0.85 + Math.sin(t * 0.9) * 0.12;
+      matParadas.opacity = 0.92 + Math.sin(t * 0.9) * 0.08;
       render.render(escena, camara);
     };
 

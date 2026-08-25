@@ -78,9 +78,9 @@
   pointer-events: none;
   background: linear-gradient(
     100deg,
-    var(--brand-graphite) 0%,
-    color-mix(in srgb, var(--brand-graphite) 88%, transparent) 34%,
-    color-mix(in srgb, var(--brand-graphite) 40%, transparent) 56%,
+    var(--surface-page) 0%,
+    color-mix(in srgb, var(--surface-page) 88%, transparent) 34%,
+    color-mix(in srgb, var(--surface-page) 40%, transparent) 56%,
     transparent 72%
   );
 }
@@ -174,9 +174,9 @@
 /* La nav es sticky desde el principio (así no hay salto de layout al fijarse);
    al despegarse del hero gana translucidez y borde. */
 .v4-nav[data-fijada="true"] {
-  background: color-mix(in srgb, var(--brand-graphite) 86%, transparent);
+  background: color-mix(in srgb, var(--surface-page) 88%, transparent);
   backdrop-filter: blur(14px);
-  border-bottom-color: var(--border-on-graphite-strong);
+  border-bottom-color: var(--border-default);
 }
 .v4-nav[data-fijada="true"] .v4-nav__inner { height: 60px; }
 

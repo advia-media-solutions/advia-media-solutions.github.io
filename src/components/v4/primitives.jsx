@@ -118,7 +118,7 @@ export function Trama() {
           y1="0"
           x2={x}
           y2="1200"
-          style={{ stroke: "var(--brand-ivory)", strokeWidth: 1, opacity: 0.05 }}
+          style={{ stroke: "var(--v4-fg)", strokeWidth: 1, opacity: 0.055 }}
         />
       ))}
     </svg>

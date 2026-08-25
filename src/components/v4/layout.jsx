@@ -28,7 +28,7 @@ export const NAV_ITEMS = [
   { label: "Blog", href: "/blog" },
 ];
 
-export function Nav({ activo }) {
+export function Nav({ activo, sobreOscuro }) {
   const [fijada, setFijada] = useState(false);
 
   useEffect(() => {
@@ -41,13 +41,13 @@ export function Nav({ activo }) {
   return (
     <nav
       className="v4-nav v4-surface"
-      data-surface="page"
+      data-surface={sobreOscuro && !fijada ? "graphite" : "page"}
       data-fijada={fijada ? "true" : undefined}
       aria-label="Principal"
     >
       <div className="v4-nav__inner">
         <Link href="/" aria-label="Advia · inicio">
-          <Logo variant="dark" />
+          <Logo variant={sobreOscuro && !fijada ? "light" : "dark"} />
         </Link>
         <div className="v4-nav__links">
           {NAV_ITEMS.map((item) => (
@@ -126,15 +126,15 @@ export function Miga({ hoja }) {
  * Hero oscuro: velo dorado radial, retícula fina y banda opcional a sangre.
  * `titular` admite JSX para marcar la palabra clave con <Key>.
  */
-export function Hero({ eyebrow, titular, lede, xl, miga, acciones, banda, campo }) {
+export function Hero({ eyebrow, titular, lede, xl, miga, acciones, banda, campo, oscuro }) {
   return (
     <header
       className="v4-surface v4-hero"
-      data-surface="page"
+      data-surface={oscuro ? "graphite" : "page"}
       data-campo={campo ? "true" : undefined}
     >
       <div className="v4-hero__veil" aria-hidden="true" />
-      {campo ? <HeroField /> : null}
+      {campo ? <HeroField tono={oscuro ? "oscuro" : "claro"} /> : null}
       {campo ? <div className="v4-hero__scrim" aria-hidden="true" /> : null}
       <Trama />
       <div className="v4-hero__body" data-banda={banda ? "true" : undefined}>
@@ -247,10 +247,10 @@ export function Footer() {
 }
 
 /** Envoltorio de página v4: aísla el árbol del chrome antiguo. */
-export function Pagina({ activo, children }) {
+export function Pagina({ activo, heroOscuro, children }) {
   return (
     <div className="v4">
-      <Nav activo={activo} />
+      <Nav activo={activo} sobreOscuro={heroOscuro} />
       {children}
       <Footer />
     </div>

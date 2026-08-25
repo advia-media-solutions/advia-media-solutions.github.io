@@ -34,6 +34,9 @@
 /* ────────────────────── 2. Superficies ────────────────────── */
 .v4-surface {
   background: var(--surface-page);
+  --v4-bg: var(--surface-page);
+  --v4-band: var(--surface-inset);
+  --v4-eyebrow: var(--text-secondary);
   --v4-fg: var(--text-primary);
   --v4-muted: var(--text-secondary);
   --v4-faint: var(--text-tertiary);
@@ -45,9 +48,13 @@
   --v4-track: var(--surface-sunken);
   --v4-halo: var(--gold-crema);
 }
-.v4-surface[data-surface="inset"] { background: var(--surface-inset); }
+.v4-surface[data-surface="inset"] { background: var(--surface-inset); --v4-bg: var(--surface-inset); }
 .v4-surface[data-surface="graphite"] {
   background: var(--brand-graphite);
+  --v4-bg: var(--brand-graphite);
+  --v4-band: var(--surface-on-graphite);
+  /* Sobre grafito el oro luce y se lee; sobre marfil, a 11px, no. */
+  --v4-eyebrow: var(--accent-gold);
   --v4-fg: var(--brand-ivory);
   --v4-muted: var(--neutral-400);
   --v4-faint: var(--neutral-500);
@@ -178,7 +185,7 @@
 .v4-cabecera .v4-lede { margin-top: var(--space-6); }
 
 /* ────────────────────── 7. Hero ────────────────────── */
-.v4-hero { position: relative; overflow: hidden; background: var(--surface-page); }
+.v4-hero { position: relative; overflow: hidden; }
 .v4-hero__veil,
 .v4-hero__trama { position: absolute; inset: 0; pointer-events: none; }
 .v4-hero__veil { background: radial-gradient(70% 60% at 12% 0%, var(--gold-veil) 0%, transparent 70%); }
@@ -191,6 +198,7 @@
 }
 .v4-hero__body[data-banda="true"] { padding-bottom: 0; }
 .v4-hero__body > * + * { margin-top: var(--space-8); }
+.v4-hero__body > .v4-label { color: var(--v4-eyebrow); }
 .v4-hero__body .v4-btn-row { margin-top: var(--space-10); }
 .v4-hero h1 { max-width: 1000px; }
 
@@ -201,7 +209,7 @@
   z-index: 2;
   margin-top: var(--space-20);
   border-top: 1px solid var(--v4-line);
-  background: var(--v4-chip);
+  background: var(--v4-band);
 }
 .v4-banda__inner {
   max-width: var(--web-content-width);
@@ -373,6 +381,10 @@
 .v4-funnel__seg:last-child { border-start-end-radius: var(--radius-lg); border-end-end-radius: var(--radius-lg); }
 .v4-funnel__seg[data-destacado="true"] {
   background: var(--brand-graphite);
+  --v4-bg: var(--brand-graphite);
+  --v4-band: var(--surface-on-graphite);
+  /* Sobre grafito el oro luce y se lee; sobre marfil, a 11px, no. */
+  --v4-eyebrow: var(--accent-gold);
   --v4-fg: var(--brand-ivory);
   --v4-muted: var(--neutral-400);
   --v4-faint: var(--accent-gold);
@@ -383,7 +395,6 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background: var(--surface-page);
   border-bottom: 1px solid var(--v4-line);
 }
 .v4-nav__inner {

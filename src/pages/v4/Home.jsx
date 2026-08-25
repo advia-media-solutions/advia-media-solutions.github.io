@@ -128,7 +128,7 @@ function PanelMomento() {
 
 export default function Home() {
   return (
-    <Pagina>
+    <Pagina heroOscuro>
       <Seo
         path="/"
         title="Advia — Turning ads into answers"
@@ -136,6 +136,7 @@ export default function Home() {
       />
 
       <Hero
+        oscuro
         campo
         eyebrow="Advia · Navegación Activa"
         xl

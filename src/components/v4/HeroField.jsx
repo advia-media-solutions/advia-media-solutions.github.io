@@ -17,10 +17,34 @@ import * as THREE from "three";
  * - Es puramente decorativo (aria-hidden). El contenido del hero vive en el DOM
  *   y la retícula SVG sigue ahí para quien no vea el canvas.
  *
- * Sobre marfil (que es la superficie por defecto de Advia) el trazo va en
- * grafito y sin mezcla aditiva: el additive suma hacia el blanco y sobre fondo
- * claro se lava hasta desaparecer.
+ * El campo se adapta al fondo, y no es solo cambiar el color del trazo:
+ * - Sobre GRAFITO manda la ruta. Trazo marfil y mezcla aditiva, que sobre
+ *   oscuro hace que las paradas brillen.
+ * - Sobre MARFIL manda la parada. Trazo grafito muy tenue y sin additive: el
+ *   additive suma hacia el blanco y sobre claro se lava hasta desaparecer.
  */
+
+/** Ajustes por fondo. Cambian jerarquía, no solo color. */
+const TONOS = {
+  oscuro: {
+    trazo: ["--brand-ivory", "#FCFDFD"],
+    aditivo: true,
+    tamParada: 1.5,
+    opacidadRuta: 0.22,
+    tamPolvo: 0.11,
+    opacidadPolvo: 0.26,
+    baseParada: 0.85,
+  },
+  claro: {
+    trazo: ["--brand-graphite", "#292929"],
+    aditivo: false,
+    tamParada: 2.1,
+    opacidadRuta: 0.15,
+    tamPolvo: 0.13,
+    opacidadPolvo: 0.16,
+    baseParada: 0.92,
+  },
+};
 
 const PARADAS = 10;
 const RECORRIDOS = 26;
@@ -128,7 +152,7 @@ function faseDelRecorrido(t) {
   return { dibujado: 0, opacidad: 0 };
 }
 
-export default function HeroField() {
+export default function HeroField({ tono = "claro" }) {
   const contenedor = useRef(null);
   const [listo, setListo] = useState(false);
 
@@ -137,8 +161,9 @@ export default function HeroField() {
 
     const nodo = contenedor.current;
     const azar = crearAzar(20260824);
+    const ajuste = TONOS[tono] || TONOS.claro;
     const oro = leerColor("--accent-gold", "#FAAD33");
-    const trazo = leerColor("--brand-graphite", "#292929");
+    const trazo = leerColor(ajuste.trazo[0], ajuste.trazo[1]);
 
     const escena = new THREE.Scene();
     const camara = new THREE.PerspectiveCamera(46, 1, 0.1, 200);
@@ -157,12 +182,13 @@ export default function HeroField() {
     const texturaPunto = crearTexturaPunto();
     const geoParadas = new THREE.BufferGeometry().setFromPoints(paradas);
     const matParadas = new THREE.PointsMaterial({
-      size: 2.1,
+      size: ajuste.tamParada,
       map: texturaPunto,
       color: oro,
       transparent: true,
       opacity: 0.9,
       depthWrite: false,
+      blending: ajuste.aditivo ? THREE.AdditiveBlending : THREE.NormalBlending,
       sizeAttenuation: true,
     });
     grupo.add(new THREE.Points(geoParadas, matParadas));
@@ -177,11 +203,11 @@ export default function HeroField() {
     const geoPolvo = new THREE.BufferGeometry();
     geoPolvo.setAttribute("position", new THREE.BufferAttribute(posPolvo, 3));
     const matPolvo = new THREE.PointsMaterial({
-      size: 0.13,
+      size: ajuste.tamPolvo,
       map: texturaPunto,
       color: trazo,
       transparent: true,
-      opacity: 0.16,
+      opacity: ajuste.opacidadPolvo,
       depthWrite: false,
       sizeAttenuation: true,
     });
@@ -239,10 +265,10 @@ export default function HeroField() {
         const ciclo = (((ahora - inicio) / CICLO_MS + r.desfase) % 1 + 1) % 1;
         const { dibujado, opacidad } = faseDelRecorrido(ciclo);
         r.geo.setDrawRange(0, Math.floor(dibujado * PUNTOS_POR_RECORRIDO));
-        r.mat.opacity = opacidad * 0.15;
+        r.mat.opacity = opacidad * ajuste.opacidadRuta;
       });
 
-      matParadas.opacity = 0.92 + Math.sin(t * 0.9) * 0.08;
+      matParadas.opacity = ajuste.baseParada + Math.sin(t * 0.9) * 0.08;
       render.render(escena, camara);
     };
 
@@ -285,7 +311,7 @@ export default function HeroField() {
       render.dispose();
       if (render.domElement.parentNode === nodo) nodo.removeChild(render.domElement);
     };
-  }, []);
+  }, [tono]);
 
   return (
     <div

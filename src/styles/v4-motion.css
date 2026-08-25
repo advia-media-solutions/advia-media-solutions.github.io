@@ -78,9 +78,9 @@
   pointer-events: none;
   background: linear-gradient(
     100deg,
-    var(--surface-page) 0%,
-    color-mix(in srgb, var(--surface-page) 88%, transparent) 34%,
-    color-mix(in srgb, var(--surface-page) 40%, transparent) 56%,
+    var(--v4-bg) 0%,
+    color-mix(in srgb, var(--v4-bg) 88%, transparent) 34%,
+    color-mix(in srgb, var(--v4-bg) 40%, transparent) 56%,
     transparent 72%
   );
 }

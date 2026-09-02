@@ -35,3 +35,9 @@ web-v4-design/advia-web-v4.html
 
 # Carpeta sincronizada de la app de wireframing (no es fuente del proyecto)
 Website redesign wireframing/
+
+# Material de consulta del design system y prototipos sueltos de la esfera:
+# se miran para construir, pero no son fuente de la web.
+Advia-Library.html
+advia-esfera-desmonta.html
+advia-esfera-facetada*.html

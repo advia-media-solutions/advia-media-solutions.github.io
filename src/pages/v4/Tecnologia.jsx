@@ -1,22 +1,12 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
-import { Banda, Cabecera, Cierre, Grid, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import { Boton, Chips, Door, Key, Label } from "../../components/v4/primitives";
+import EscenaConstruccion from "../../components/v4/EscenaConstruccion";
+import { Cabecera, Cierre, Grid, Hero, Pagina, Section, Split } from "../../components/v4/layout";
+import { Boton, Door, Key, Label } from "../../components/v4/primitives";
 import { Filas, PanelDatos } from "../../components/v4/blocks";
 
-/** Tecnología · Vera, el cómo (how, parte 2). */
 
-const AGENTE = [
-  "Sociodemo",
-  "Interés",
-  "Contexto de decisión",
-  "Buscadores",
-  "Plataformas",
-  "LLMs",
-  "Sites",
-  "Vídeos",
-  "Fuentes",
-];
+/** Tecnología · Vera, el cómo (how, parte 2). */
 
 const BUILD = [
   {
@@ -158,50 +148,35 @@ export default function Tecnologia() {
       />
 
       <Hero
-        eyebrow="La máquina"
         titular={
           <>
-            Cómo sabemos qué va a preguntar tu consumidor, y <Key>dónde</Key>.
+            Cómo sabemos qué va a preguntar tu consumidor, y <Key>dónde</Key>
           </>
         }
         lede="Vera simula miles de consumidores que recorren la decisión antes que él. No adivinamos intenciones: observamos recorridos y los cualificamos parada a parada."
-        banda={
-          <Banda
-            caption="Qué lleva dentro cada agente"
-            nota="Miles de agentes humanizados por análisis, no una persona inventada."
-          >
-            <Chips items={AGENTE} />
-          </Banda>
-        }
       />
 
       <Section>
         <Cabecera
-          eyebrow="Cómo se construye"
           titular={
             <>
-              Un rol, unas herramientas, y todo lo que hicieron por el <Key>camino</Key>.
+              Un rol, unas herramientas, y todo lo que hicieron por el <Key>camino</Key>
             </>
           }
         />
         <div className="v4-mt-12">
-          <Filas items={BUILD} />
+          <EscenaConstruccion pasos={BUILD} />
         </div>
-        <p className="v4-label v4-label--faint v4-mt-8">
-          Las tres piezas se construyen una a una con el scroll y se colapsan en el mapa. Este es
-          el estado final, y el fallback estático para crawlers y LLMs.
-        </p>
       </Section>
 
       <Section surface="graphite">
         <Split cols="2-3" align="start">
           <div>
             <Cabecera
-              eyebrow="El resultado"
               ancho="100%"
               titular={
                 <>
-                  Un mapa de preguntas que, además, es <Key>comprable</Key>.
+                  Un mapa de preguntas que es <Key>accionable</Key>
                 </>
               }
               lede="Cada parada del recorrido es una fuente donde se puede estar. Eso convierte el análisis en inventario."
@@ -221,10 +196,9 @@ export default function Tecnologia() {
 
       <Section>
         <Cabecera
-          eyebrow="Dónde encaja en un plan de medios"
           titular={
             <>
-              Intención × impacto: Advia ocupa el cuadrante <Key>vacío</Key>.
+              Intención × impacto: Advia ocupa el cuadrante <Key>vacío</Key>
             </>
           }
           lede="El search llega con intención, pero con poco espacio para la marca. El display tiene espacio de sobra, pero llega sin que nadie preguntara nada."
@@ -234,10 +208,9 @@ export default function Tecnologia() {
 
       <Section surface="inset">
         <Cabecera
-          eyebrow="Antes y después"
           titular={
             <>
-              Es un <Key>ciclo</Key>, no un informe.
+              Es un <Key>ciclo</Key>, no un informe
             </>
           }
           lede="Antes de invertir ves qué va a preguntar tu target y dónde. Después, si la respuesta sirvió y qué cambiar en la siguiente."
@@ -245,39 +218,10 @@ export default function Tecnologia() {
         <Ciclo />
       </Section>
 
-      <Section>
-        <Split align="start">
-          <Cabecera
-            eyebrow="Brand safety por diseño"
-            ancho="100%"
-            titular={
-              <>
-                La seguridad es consecuencia del <Key>método</Key>, no una lista negra.
-              </>
-            }
-            lede="Los agentes solo recorren entornos relevantes a la decisión. Lo que no forma parte del recorrido no llega al mapa, así que tampoco llega al plan."
-          />
-          <div className="v4-stack" style={{ gap: "var(--space-4)" }}>
-            <div className="v4-card" data-destacada="true">
-              <Label tono="gold">Entra en el mapa</Label>
-              <p className="v4-body">
-                Los entornos que el agente visita de verdad al resolver su decisión.
-              </p>
-            </div>
-            <div className="v4-card">
-              <Label tono="faint">No aparece</Label>
-              <p className="v4-body">
-                Todo lo demás. No hace falta excluirlo: nunca estuvo en el recorrido.
-              </p>
-            </div>
-          </div>
-        </Split>
-      </Section>
-
       <Cierre
         titular={
           <>
-            Ver <Key>Vera</Key> en acción.
+            Ver <Key>Vera</Key> en acción
           </>
         }
         lede="Te enseñamos el mapa de preguntas de tu target sobre una categoría real, con las fuentes y el forecast por KPI."

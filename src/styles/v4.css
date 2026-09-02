@@ -13,6 +13,9 @@
   color: var(--text-primary);
   background: var(--surface-page);
   -webkit-font-smoothing: antialiased;
+  /* Alto del carril del nav en reposo (12 + 68 + 12). El nav flota SOBRE el
+     hero, así que el hero lo descuenta del flujo y lo devuelve como padding. */
+  --v4-nav-alto: 92px;
 }
 .v4 *,
 .v4 *::before,
@@ -32,10 +35,15 @@
 }
 
 /* ────────────────────── 2. Superficies ────────────────────── */
+/* El contraste entre página y panel es lo que hace que una card FLOTE.
+   Sobre claro la página va al marfil frío (--surface-inset) y el panel al
+   blanco elevado, con sombra en vez de borde. Sobre grafito no hay sombra
+   (tokens.css la anula en oscuro): ahí el layering lo hace el desplazamiento
+   de fondo, que es la regla del sistema. */
 .v4-surface {
-  background: var(--surface-page);
-  --v4-bg: var(--surface-page);
-  --v4-band: var(--surface-inset);
+  background: var(--surface-inset);
+  --v4-bg: var(--surface-inset);
+  --v4-band: var(--surface-page);
   --v4-eyebrow: var(--text-secondary);
   --v4-fg: var(--text-primary);
   --v4-muted: var(--text-secondary);
@@ -43,47 +51,72 @@
   --v4-line: var(--border-subtle);
   --v4-line-strong: var(--border-default);
   --v4-panel: var(--surface-card);
-  --v4-panel-line: var(--border-subtle);
+  --v4-panel-line: transparent;
+  --v4-panel-shadow: var(--card-shadow);
+  --v4-panel-shadow-hover: var(--elevation-3);
   --v4-chip: var(--surface-sunken);
   --v4-track: var(--surface-sunken);
   --v4-halo: var(--gold-crema);
 }
+/* `page` = marfil plano, para secciones que deben leerse como lienzo y no
+   como bandeja (heros claros, cierres sobre marfil). */
+.v4-surface[data-surface="page"] {
+  background: var(--surface-page);
+  --v4-bg: var(--surface-page);
+  --v4-band: var(--surface-inset);
+}
 .v4-surface[data-surface="inset"] { background: var(--surface-inset); --v4-bg: var(--surface-inset); }
+/* Las superficies grafito llevan además `data-theme="dark"`, así que los roles
+   de texto los resuelve el bloque oscuro de tokens.css. Es lo que sube los
+   grises secundario/terciario a #CFCFCF/#9E9E9E (tanda 2026-08): a #A5A5A5 y
+   #7A7A7A sobre grafito el cuerpo se leía a duras penas. --v4-fg se queda en el
+   marfil de marca, que es invariante y no depende de que el atributo esté.
+
+   Antes esto apuntaba a --surface-on-graphite y --border-on-graphite*, que no
+   existen en tokens.css (ni existieron nunca): panel, chip, pista y línea se
+   quedaban sin valor y la card no llegaba a flotar sobre el grafito. */
 .v4-surface[data-surface="graphite"] {
   background: var(--brand-graphite);
   --v4-bg: var(--brand-graphite);
-  --v4-band: var(--surface-on-graphite);
+  --v4-band: var(--surface-sunken);
   /* Sobre grafito el oro luce y se lee; sobre marfil, a 11px, no. */
   --v4-eyebrow: var(--accent-gold);
   --v4-fg: var(--brand-ivory);
-  --v4-muted: var(--neutral-400);
-  --v4-faint: var(--neutral-500);
-  --v4-line: var(--border-on-graphite);
-  --v4-line-strong: var(--border-on-graphite-strong);
-  --v4-panel: var(--surface-on-graphite);
-  --v4-panel-line: var(--border-on-graphite-strong);
-  --v4-chip: var(--surface-on-graphite);
-  --v4-track: var(--surface-on-graphite);
-  --v4-halo: var(--surface-on-graphite);
+  --v4-muted: var(--text-secondary);
+  --v4-faint: var(--text-tertiary);
+  --v4-line: var(--border-subtle);
+  --v4-line-strong: var(--border-default);
+  --v4-panel: var(--surface-raised);
+  --v4-panel-line: var(--border-default);
+  /* En oscuro no hay sombra (DS): el panel se separa por fondo y borde. */
+  --v4-panel-shadow: none;
+  --v4-panel-shadow-hover: none;
+  --v4-chip: var(--surface-raised);
+  --v4-track: var(--surface-raised);
+  --v4-halo: var(--brand-graphite);
 }
 
 .v4-sec { padding: var(--web-section-pad-y) var(--web-section-pad-x); }
 .v4-wrap { max-width: var(--web-content-width); margin: 0 auto; }
 
 /* ────────────────────── 3. Tipografía ────────────────────── */
+/* El wireframe pide un hero más denso y compacto. Se consigue sin salirse de
+   la escala: tamaño de token, peso de la escala de pesos (§2.2) y balance de
+   líneas. El tracking negativo del wireframe (-2.6px) NO se porta: lo prohíbe
+   §6.1.7 y haría falta bump de tokens.css. */
 .v4-display-xl {
   font-size: var(--fs-display-xl);
   line-height: var(--lh-display-xl);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-semibold);
   color: var(--v4-fg);
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 .v4-display-l {
   font-size: var(--fs-display-l);
   line-height: var(--lh-display-l);
   font-weight: var(--fw-light);
   color: var(--v4-fg);
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 .v4-heading {
   font-size: var(--fs-heading);
@@ -111,14 +144,31 @@
 
 .v4-label {
   font-family: var(--font-mono);
-  font-size: var(--fs-code-xs);
-  line-height: var(--lh-code-xs);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--v4-muted);
 }
 .v4-label--gold { color: var(--accent-gold); }
+/* A 10px sobre marfil el oro no se lee — lo dice el propio DS. Cuando el rótulo
+   ES la semántica (esto es lo activo, esto es lo nuestro), el oro se va al
+   fondo con el velo del sistema y el texto vuelve al color de superficie:
+   misma carga semántica, ya legible sobre claro y sobre grafito. */
+.v4-label--activo {
+  display: inline-block;
+  color: var(--v4-fg);
+  background: var(--gold-veil);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+}
 .v4-label--faint { color: var(--v4-faint); }
+/* Rótulo al escalón mono medio: para cuando el label ES el enunciado de la
+   sección y no una etiqueta de servicio. */
+.v4-label--m {
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+}
 
 .v4-mono { font-family: var(--font-mono); font-size: var(--fs-code-m); line-height: var(--lh-code-m); }
 .v4-kpi {
@@ -186,19 +236,75 @@
 
 /* ────────────────────── 7. Hero ────────────────────── */
 .v4-hero { position: relative; overflow: hidden; }
-.v4-hero__veil,
-.v4-hero__trama { position: absolute; inset: 0; pointer-events: none; }
+.v4-hero__veil { position: absolute; inset: 0; pointer-events: none; }
+/* El lienzo vive DENTRO del hero. Antes era fijo y cubría la ventana entera,
+   porque las bolas se desprendían y se repartían por toda la página; retirado
+   ese recorrido, la pieza ilustra el hero y nada más, así que se recorta a él.
+   Va por debajo del cuerpo del hero (z-index 2), que es el texto, y nunca
+   intercepta el ratón. */
+.v4-hero__pieza {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-hero__pieza[data-listo="true"] { opacity: 1; }
+.v4-hero__pieza canvas { display: block; width: 100%; height: 100%; }
+.v4-hero[data-pieza="true"] .v4-hero__body { max-width: var(--web-content-width); }
+.v4-hero[data-pieza="true"] h1 { max-width: 680px; }
+.v4-hero[data-pieza="true"] .v4-lede { max-width: 560px; }
+
+/* Todo hero ocupa la ventana. El nav flota encima con margen negativo, así que
+   aquí se reserva su alto como padding y el cuerpo se centra en lo que queda:
+   el bloque cae ópticamente centrado, no empujado hacia abajo. Con banda, el
+   cuerpo se centra en el hueco que ella deja y la banda queda a pie de portada. */
+.v4-hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: var(--v4-nav-alto);
+}
+.v4-hero .v4-hero__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .v4-hero__veil { background: radial-gradient(70% 60% at 12% 0%, var(--gold-veil) 0%, transparent 70%); }
 .v4-hero__body {
   position: relative;
   z-index: 2;
   max-width: var(--web-content-width);
   margin: 0 auto;
-  padding: var(--space-20) var(--web-section-pad-x) var(--space-20);
+  padding: calc(var(--v4-nav-alto) + var(--space-16)) var(--web-section-pad-x)
+           var(--space-20);
 }
 .v4-hero__body[data-banda="true"] { padding-bottom: 0; }
+/* Ritmo de la cabecera. El titular es display-xl: 98/108 de interlineado, así
+   que un margen que basta entre dos párrafos aquí se come el propio leading y
+   el bloque se lee apelmazado. Cada salto va a su distancia, de mayor a menor
+   según lo que separe: la navegación del contenido, el rótulo del titular, y el
+   titular de su bajada. */
 .v4-hero__body > * + * { margin-top: var(--space-8); }
-.v4-hero__body > .v4-label { color: var(--v4-eyebrow); }
+/* La miga es navegación, no cabecera: respira aparte. */
+.v4-hero__body > .v4-miga + * { margin-top: var(--space-12); }
+/* El rótulo enuncia el titular, así que va pegado a él y no a media distancia. */
+.v4-hero__body > .v4-label + h1 { margin-top: var(--space-5); }
+.v4-hero__body > h1 + .v4-lede { margin-top: var(--space-10); }
+/* En el hero el rótulo no es una etiqueta de servicio: es la entrada al
+   titular, y a 12px se perdía. Sube al escalón de dato. */
+.v4-hero__body > .v4-label {
+  color: var(--v4-eyebrow);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+}
 .v4-hero__body .v4-btn-row { margin-top: var(--space-10); }
 .v4-hero h1 { max-width: 1000px; }
 
@@ -222,8 +328,8 @@
 .v4-chips { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 .v4-chip {
   font-family: var(--font-mono);
-  font-size: var(--fs-code-xs);
-  line-height: var(--lh-code-xs);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--v4-muted);
@@ -256,8 +362,11 @@
 .v4-card {
   background: var(--v4-panel);
   border: 1px solid var(--v4-panel-line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: var(--space-8);
+  box-shadow: var(--v4-panel-shadow);
+  transition: box-shadow var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard);
 }
 .v4-card[data-size="lg"] {
   border-radius: var(--radius-2xl);
@@ -265,20 +374,31 @@
   display: flex;
   flex-direction: column;
 }
+/* Solo las cards que son puerta (contienen enlace) reaccionan al hover. */
+.v4-card:has(a:hover) {
+  box-shadow: var(--v4-panel-shadow-hover);
+  transform: translateY(-2px);
+}
 .v4-card[data-kpi="true"] { border-radius: var(--radius-kpi); }
 .v4-card[data-destacada="true"] { border-color: var(--accent-gold); }
 .v4-card[data-invertida="true"] {
   background: var(--brand-graphite);
   border-color: var(--brand-graphite);
   --v4-fg: var(--brand-ivory);
-  --v4-muted: var(--neutral-400);
-  --v4-faint: var(--neutral-500);
-  --v4-line: var(--border-on-graphite);
+  --v4-muted: var(--text-secondary);
+  --v4-faint: var(--text-tertiary);
+  --v4-line: var(--border-subtle);
 }
 .v4-card > * + * { margin-top: var(--space-3); }
 .v4-card .v4-door { margin-top: var(--space-4); }
 
-.v4-panel { background: var(--v4-panel); border: 1px solid var(--v4-panel-line); border-radius: var(--radius-2xl); padding: var(--space-8); }
+.v4-panel {
+  background: var(--v4-panel);
+  border: 1px solid var(--v4-panel-line);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  box-shadow: var(--v4-panel-shadow);
+}
 .v4-panel__head {
   display: flex;
   align-items: baseline;
@@ -289,6 +409,15 @@
 .v4-panel__nota { margin-top: var(--space-6); }
 
 /* Nota analítica: barra dorada recta a la izquierda (DS §10.7b). */
+.v4-nota__meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-faint);
+  margin-top: var(--space-4);
+}
 .v4-nota {
   background: var(--v4-chip);
   border-left: 4px solid var(--accent-gold);
@@ -299,9 +428,10 @@
 .v4-callout {
   background: var(--v4-panel);
   border: 1px solid var(--v4-panel-line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   padding: var(--space-10);
   max-width: 900px;
+  box-shadow: var(--v4-panel-shadow);
 }
 .v4-callout .v4-label { margin-top: var(--space-4); }
 
@@ -318,13 +448,29 @@
 }
 
 /* ────────────────────── 10. Filas editoriales ────────────────────── */
-.v4-fila {
+/* Las pistas las define el contenedor y cada fila las hereda con `subgrid`.
+   Sin esto cada article resolvía sus `auto` por su cuenta y el hilo dorado del
+   eco caía a una x distinta en cada fila. */
+.v4-filas {
   display: grid;
   grid-template-columns: auto 3fr 4fr auto;
-  gap: var(--space-8);
+  column-gap: var(--space-8);
+}
+.v4-fila {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
   align-items: center;
   padding: var(--space-6) 0;
   border-top: 1px solid var(--v4-line);
+}
+/* Ajustada al texto (el chip es `display:block` y se comía la pista entera) y
+   pegada al borde derecho, para que las cuatro caigan a plomo. */
+.v4-fila__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  border-radius: var(--radius-pill);
 }
 .v4-fila__num { font-family: var(--font-mono); font-size: var(--fs-code-m); line-height: var(--lh-code-m); color: var(--accent-gold); }
 .v4-fila__eco { border-left: 2px solid var(--accent-gold); padding-left: var(--space-5); }
@@ -339,6 +485,376 @@
   padding: var(--space-4) 0;
   border-top: 1px solid var(--v4-line);
 }
+
+/* ─────────── 10b. Escena de construcción (pasos + esfera) ─────────── */
+/* La sección ocupa lo que ocupa su contenido: nada de carril alto ni de panel
+   pegado. Ese exceso de alto era scroll vacío que solo servía para animar, y se
+   sentía como una parada obligatoria en mitad de la página. El progreso lo da
+   ahora por dónde va cruzando la sección la pantalla. */
+.v4-escena { position: relative; }
+.v4-escena__panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+  /* Alto reservado: el acordeón abre y cierra dentro de este hueco, así que
+     ningún paso empuja al resto ni da tirones de layout al scrollear. */
+  min-height: 420px;
+}
+.v4-escena__pasos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.v4-escena__pieza {
+  position: relative;
+  height: 420px;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-escena__pieza[data-listo="true"] { opacity: 1; }
+.v4-escena__pieza canvas { display: block; width: 100%; height: 100%; }
+
+/* Paso plegable. El cuerpo se abre con grid-template-rows 0fr→1fr, que es la
+   única forma de animar "hasta el alto que ocupe" sin medirlo con JS. */
+.v4-paso-abre {
+  border-top: 1px solid var(--v4-line);
+  padding-top: var(--space-4);
+  transition: opacity var(--motion-slow) var(--ease-standard);
+  opacity: 0.4;
+}
+.v4-paso-abre[data-abierto="true"] { opacity: 1; }
+.v4-paso-abre__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+}
+.v4-paso-abre__head .v4-subheading {
+  transition: color var(--motion-base) var(--ease-standard);
+  color: var(--v4-muted);
+}
+.v4-paso-abre[data-abierto="true"] .v4-paso-abre__head .v4-subheading { color: var(--v4-fg); }
+.v4-paso-abre__cuerpo {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--motion-slow) var(--ease-emphasis);
+}
+.v4-paso-abre[data-abierto="true"] .v4-paso-abre__cuerpo { grid-template-rows: 1fr; }
+.v4-paso-abre__interior { overflow: hidden; min-height: 0; }
+.v4-paso-abre__interior > * { margin-top: var(--space-3); }
+.v4-paso-abre__interior > .v4-chip { display: inline-flex; border-radius: var(--radius-pill); }
+
+/* ─────────── 10c. Recorrido (Navegación Activa) ─────────── */
+/* Las paradas son las bolas de la escena 3D; aquí solo se cuelgan las etiquetas
+   de su posición proyectada. El lienzo manda el tamaño del bloque. */
+.v4-recorrido { position: relative; padding: 0 0 60px; }
+/* Alto para la entradilla arriba y la curva debajo: el cuerpo se ancla junto a
+   la primera y las paradas caen en la segunda, y ambos comparten esta caja. */
+.v4-recorrido__lienzo { position: relative; height: 690px; }
+/* El lienzo sobresale de la caja por los cuatro lados. WebGL no pinta fuera
+   del canvas, así que con el canvas a ras la esfera se cortaba por arriba y por
+   abajo en cuanto se le desprendía una bola. El motor recibe este mismo margen
+   (`sangrado`) y lo descuenta, de modo que la composición no cambia: solo hay
+   más sitio donde dibujar. Sin fondo —el renderer va en alpha— y sin ratón, o
+   este margen se tragaría los clics de las secciones vecinas. */
+.v4-recorrido__pieza {
+  position: absolute;
+  inset: -110px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-recorrido__pieza[data-listo="true"] { opacity: 1; }
+.v4-recorrido__pieza canvas { display: block; width: 100%; height: 100%; }
+
+.v4-recorrido__paradas {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+.v4-parada {
+  position: absolute;
+  left: var(--v4-x, 0);
+  top: var(--v4-y, 0);
+  width: 0;
+  /* Aparece cuando su bola ha aterrizado: la etiqueta no se adelanta al hecho. */
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-parada[data-puesta="true"] { opacity: 1; }
+
+/* Cada parada lleva su propia pose. Alternar arriba/abajo no basta: la curva
+   no es simétrica, y en los tramos tendidos tres fichas seguidas caían a la
+   misma altura y se leían como una línea corrida. La pose se elige por hueco
+   —hacia dónde queda libre el cuadro en ESA parada—, no por turno.
+
+   La constante en las cinco: el chip pegado a la bola y el texto saliendo hacia
+   fuera. Así se sabe de un vistazo qué canal es cada bola, y el texto puede
+   irse lejos sin perder a quién pertenece. */
+.v4-parada__ficha {
+  position: absolute;
+  display: flex;
+  gap: var(--space-3);
+  width: 168px;
+}
+/* En las poses en fila el chip no puede encogerse: es una pastilla, y al
+   comprimirla el texto de dentro se parte. */
+.v4-parada__ficha .v4-chip { flex: none; }
+
+/* 1 · Bajando: hueco arriba a la derecha. Texto sobre el chip. */
+.v4-parada[data-pose="alta"] .v4-parada__ficha {
+  left: var(--space-2);
+  bottom: var(--space-6);
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+/* 2 · Valle: el único hueco es abajo. Texto bajo el chip. */
+.v4-parada[data-pose="baja"] .v4-parada__ficha {
+  left: -42px;   /* -32 de partida, 10 más a la izquierda */
+  top: var(--space-6);
+  flex-direction: column;
+  align-items: flex-start;
+}
+/* 3 · Pico: el chip corona la bola y el texto sale en horizontal, que es por
+   donde hay sitio — encima no queda cuadro. */
+.v4-parada[data-pose="pico"] .v4-parada__ficha {
+  left: var(--space-2);
+  bottom: var(--space-5);
+  flex-direction: row;
+  align-items: center;
+  /* Estrecha a propósito: obliga al texto a partir en dos líneas en vez de
+     alargarse hacia el cuerpo de la esfera, que queda justo a su derecha. El
+     ancho está calzado para que el corte caiga antes de la marca —«vídeo
+     review de / Kia Sportage»—, que se lee mejor que partir el nombre. */
+  width: 176px;
+}
+/* 4 · Tramo tendido: todo a la derecha, a la altura de la bola. */
+.v4-parada[data-pose="dcha"] .v4-parada__ficha {
+  left: 25px;    /* 40 de partida, 15 más a la izquierda */
+  top: calc(var(--space-3) * -1);
+  flex-direction: row;
+  align-items: center;
+  width: 284px;
+}
+/* 5 · Última: sale hacia la izquierda, o se iría fuera del cuadro. */
+.v4-parada[data-pose="izda"] .v4-parada__ficha {
+  right: 15px;   /* 40 de partida, 25 más a la derecha */
+  top: var(--space-5);
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 284px;
+  text-align: right;
+}
+.v4-parada__ficha .v4-body {
+  color: var(--v4-fg);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+}
+
+/* Sin escena 3D (desactivada, o sin WebGL): el recorrido se lee en columna.
+   Mismo tratamiento que en pantallas estrechas. */
+.v4-recorrido[data-plano="true"] .v4-recorrido__lienzo { height: auto; }
+.v4-recorrido[data-plano="true"] .v4-recorrido__paradas {
+  position: static;
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  pointer-events: auto;
+}
+.v4-recorrido[data-plano="true"] .v4-parada { position: static; width: auto; opacity: 1; }
+.v4-recorrido[data-plano="true"] .v4-parada__ficha,
+.v4-recorrido[data-plano="true"] .v4-parada[data-pose] .v4-parada__ficha {
+  position: static;
+  width: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* La constelación: escena 3D con las mismas bolas del recorrido. Alto fijo —el
+   lienzo no tiene contenido que lo empuje— y sin ratón: no hay nada que pulsar.
+   Aparece cuando la escena está montada, para no enseñar un hueco negro. */
+.v4-constelacion { position: relative; height: 390px; }
+.v4-constelacion__pieza {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-constelacion__pieza[data-listo="true"] { opacity: 1; }
+.v4-constelacion__pieza canvas { display: block; width: 100%; height: 100%; }
+
+/* La nota que hace de entradilla: ancho de lectura, no de página. */
+/* La nota entra a media curva, no en el margen: desplazada a la derecha y
+   estrecha, cae bajo el arranque del recorrido en vez de competir con él. */
+.v4-recorrido__nota {
+  position: relative;
+  z-index: 1;
+  max-width: 430px;
+  margin-left: 350px;
+  padding-top: var(--space-10);
+}
+/* La nota mira hacia el recorrido: el filete dorado pasa al lado por el que
+   entra la primera parada y el texto se alinea contra él. */
+.v4-recorrido__nota .v4-nota {
+  border-left: 0;
+  border-right: 4px solid var(--accent-gold);
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  text-align: right;
+}
+.v4-recorrido__nota .v4-nota__meta { font-size: var(--fs-code-m); line-height: var(--lh-code-m); }
+
+/* ────────────────────── 10b. Esquema de ramas ────────────────────── */
+/* El puente de /products: la pieza dibuja el tronco y las cuatro ramas, y la
+   lista pone el contenido. Las alturas las manda la lista; el lienzo se ata a
+   ella, no al revés. */
+.v4-ramas {
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) 1fr;
+  align-items: stretch;
+  gap: var(--space-6);
+}
+.v4-ramas__pieza {
+  position: relative;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-ramas__pieza[data-listo="true"] { opacity: 1; }
+.v4-ramas__pieza > canvas { display: block; width: 100%; height: 100%; }
+/* El cuerpo tiene su propio lienzo: es el motor de la esfera, no un dibujo. */
+.v4-ramas__cuerpo {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 116px;
+  height: 116px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-ramas__cuerpo[data-listo="true"] { opacity: 1; }
+.v4-ramas__cuerpo canvas { display: block; width: 100%; height: 100%; }
+/* El rótulo de la raíz va bajo su bola, en HTML: es texto, no dibujo. */
+.v4-ramas__nodo {
+  position: absolute;
+  left: 0;
+  top: calc(50% + 66px);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+  white-space: nowrap;
+}
+.v4-ramas__lista { list-style: none; }
+.v4-rama {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--v4-line);
+}
+.v4-rama:first-child { border-top: 0; }
+.v4-rama__cuerpo > * + * { margin-top: var(--space-2); }
+.v4-rama__tag[data-via="fabrica"] { background: var(--gold-veil); color: var(--v4-fg); }
+
+/* ────────────────────── 10c. Respuesta generativa ────────────────────── */
+/* El párrafo que se teclea en el hero de GEO. El cursor no parpadea cuando ha
+   terminado: un cursor eterno dice "esto es una animación", y lo que queremos
+   que diga es "esto es una respuesta". */
+.v4-respuesta { max-width: 820px; }
+.v4-respuesta__texto {
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  color: var(--v4-fg);
+  min-height: calc(var(--lh-body-l) * 2);
+}
+.v4-respuesta__marca { color: var(--accent-gold); font-weight: var(--fw-semibold); }
+.v4-respuesta__cursor {
+  display: none;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--accent-gold);
+}
+.v4-respuesta__cursor[data-activo="true"] {
+  display: inline-block;
+  animation: v4-cursor 900ms steps(2, start) infinite;
+}
+@keyframes v4-cursor { 50% { opacity: 0; } }
+/* Las fuentes se citan al final, una a una. */
+.v4-respuesta__fuente {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard);
+}
+.v4-respuesta__fuente[data-visible="true"] { opacity: 1; transform: none; }
+/* Solo para lectores de pantalla y crawlers. */
+.v4-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ────────────────────── 10d. Ciclo ────────────────────── */
+/* El loop de GEO. Anillo a la izquierda, pasos a la derecha; el activo se
+   marca en los dos a la vez, que es lo que convierte la lista en ciclo. */
+.v4-ciclo {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+.v4-ciclo__anillo { width: 260px; height: 260px; overflow: visible; }
+.v4-ciclo__pista {
+  fill: none;
+  stroke: var(--v4-line-strong);
+  stroke-width: 1;
+}
+/* El arco que gira. Va girado -90° porque el trazo de un círculo SVG arranca a
+   las 3 y los nodos arrancan arriba. */
+.v4-ciclo__arco {
+  fill: none;
+  stroke: var(--accent-gold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform-origin: center;
+  transform: rotate(-90deg);
+  transition: stroke-dashoffset var(--motion-slow) var(--ease-standard);
+}
+.v4-ciclo__nodo {
+  fill: var(--v4-chip);
+  stroke: var(--v4-line-strong);
+  stroke-width: 1;
+  transition: r var(--motion-base) var(--ease-standard),
+              fill var(--motion-base) var(--ease-standard);
+}
+.v4-ciclo__nodo[data-activo="true"] { fill: var(--accent-gold); stroke: var(--accent-gold); }
+.v4-ciclo__pasos { list-style: none; display: grid; gap: var(--space-6); }
+.v4-ciclo__paso {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--v4-line);
+  opacity: 0.5;
+  transition: opacity var(--motion-base) var(--ease-standard),
+              border-color var(--motion-base) var(--ease-standard);
+}
+.v4-ciclo__paso[data-activo="true"] { opacity: 1; border-color: var(--accent-gold); }
 
 /* ────────────────────── 11. Secuencia y pasos ────────────────────── */
 .v4-secuencia { position: relative; padding-top: var(--space-2); }
@@ -375,47 +891,162 @@
 .v4-columna__barra[data-destacada="true"] { background: var(--chart-1-gradient); }
 
 /* ────────────────────── 13. Funnel ────────────────────── */
-.v4-funnel { display: flex; gap: var(--space-2); }
-.v4-funnel__seg { padding: var(--space-6); border-radius: var(--radius-sm); display: flex; flex-direction: column; gap: var(--space-2); background: var(--v4-chip); }
-.v4-funnel__seg:first-child { border-start-start-radius: var(--radius-lg); border-end-start-radius: var(--radius-lg); }
-.v4-funnel__seg:last-child { border-start-end-radius: var(--radius-lg); border-end-end-radius: var(--radius-lg); }
-.v4-funnel__seg[data-destacado="true"] {
-  background: var(--brand-graphite);
-  --v4-bg: var(--brand-graphite);
-  --v4-band: var(--surface-on-graphite);
-  /* Sobre grafito el oro luce y se lee; sobre marfil, a 11px, no. */
-  --v4-eyebrow: var(--accent-gold);
-  --v4-fg: var(--brand-ivory);
-  --v4-muted: var(--neutral-400);
-  --v4-faint: var(--accent-gold);
+/* El funnel es un embudo dibujado, no tres cajas en fila: la escena pinta la
+   forma y las etiquetas van encima, cada una en el alto de su tramo. */
+.v4-funnel { position: relative; min-height: 440px; }
+.v4-funnel__pieza {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-funnel__pieza[data-listo="true"] { opacity: 1; }
+.v4-funnel__pieza canvas { display: block; width: 100%; height: 100%; }
+.v4-funnel__tramos {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 440px;
+}
+.v4-funnel__tramo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  padding: var(--space-4);
+}
+.v4-funnel__texto {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-muted);
+  max-width: 420px;
+}
+/* El tramo de Advia es el dato: sobre el oro, texto en grafito y con peso. */
+.v4-funnel__tramo[data-destacado="true"] .v4-funnel__label { color: var(--brand-graphite); }
+.v4-funnel__tramo[data-destacado="true"] .v4-funnel__texto {
+  color: var(--brand-graphite);
+  font-weight: var(--fw-semibold);
 }
 
 /* ────────────────────── 14. Nav y footer ────────────────────── */
-.v4-nav {
+/* La barra no pinta fondo: es solo el carril sticky. Quien se ve es el inner,
+   que arranca plano sobre el hero y al hacer scroll se materializa en la pill
+   del design system (--surface-card + borde 1px + card-shadow, radio full).
+   El estado lo marca `data-fijada`, que pone el componente a partir de 40px. */
+.v4-nav.v4-surface {
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  border-bottom: 1px solid var(--v4-line);
+  background: transparent;
+  padding: var(--space-3) var(--web-section-pad-x);
+  /* Se saca del flujo con margen negativo en vez de `fixed`: así sigue siendo
+     sticky dentro de la página y el hero arranca en y=0, debajo del nav.
+     Sin esto el logo marfil del hero oscuro cae sobre el marfil de página. */
+  margin-bottom: calc(-1 * var(--v4-nav-alto));
+  transition: transform var(--motion-base) var(--ease-standard);
 }
+/* Bajando estorba, así que se retira; al primer gesto hacia arriba vuelve. */
+.v4-nav[data-oculta="true"] { transform: translateY(calc(-100% - var(--space-4))); }
 .v4-nav__inner {
   max-width: var(--web-content-width);
   margin: 0 auto;
-  padding: 0 var(--web-section-pad-x);
-  height: 76px;
+  padding: 0 var(--space-4);
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-8);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  box-shadow: none;
+  transition: height var(--motion-slow) var(--ease-emphasis),
+              padding var(--motion-slow) var(--ease-emphasis),
+              background var(--motion-slow) var(--ease-standard),
+              border-color var(--motion-slow) var(--ease-standard),
+              box-shadow var(--motion-slow) var(--ease-standard);
 }
-.v4-nav__links { display: flex; align-items: center; gap: var(--space-6); }
-.v4-nav__link { font-size: var(--fs-body-m); line-height: var(--lh-body-m); color: var(--v4-muted); }
-.v4-nav__link:hover { color: var(--v4-fg); }
+.v4-nav[data-fijada="true"] .v4-nav__inner {
+  height: 60px;
+  padding: 0 var(--space-8);
+  background: var(--surface-card);
+  border-color: var(--border-gray);
+  box-shadow: var(--card-shadow);
+}
+/* Todo el nav habla un solo idioma: pastilla. El contenedor al fijarse, el CTA
+   y el enlace activo. El activo va con el velo dorado que el DS reserva para
+   estado seleccionado (nav, dropdown, filas), no con un subrayado, que era un
+   tercer lenguaje conviviendo con las otras dos pills. */
+.v4-nav__links { display: flex; align-items: center; gap: var(--space-2); }
+.v4-nav__link {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-muted);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  transition: background var(--motion-fast) var(--ease-standard),
+              color var(--motion-fast) var(--ease-standard);
+}
+.v4-nav__link:hover { color: var(--v4-fg); background: var(--v4-chip); }
 .v4-nav__link[aria-current="page"] {
   color: var(--v4-fg);
   font-weight: var(--fw-semibold);
-  padding-bottom: var(--space-1);
-  border-bottom: 2px solid var(--accent-gold);
+  background: var(--gold-veil);
 }
+.v4-nav__link[aria-current="page"]:hover { background: var(--gold-veil-strong); }
+/* Submenú de Productos: los dos spokes, a un hover o a un tab del hub. */
+.v4-nav__grupo { position: relative; display: flex; }
+.v4-nav__menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  min-width: 280px;
+  margin-top: var(--space-3);
+  padding: var(--space-2);
+  display: grid;
+  gap: 2px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -4px);
+  transition: opacity var(--motion-fast) var(--ease-standard),
+              transform var(--motion-fast) var(--ease-standard),
+              visibility var(--motion-fast);
+}
+/* Puente invisible sobre el hueco: sin él, el menú se cierra al bajar el ratón
+   desde el enlace. */
+.v4-nav__menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-1 * var(--space-3));
+  height: var(--space-3);
+}
+.v4-nav__grupo:hover .v4-nav__menu,
+.v4-nav__grupo:focus-within .v4-nav__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.v4-nav__sub {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  white-space: nowrap;
+}
+.v4-nav__sub:hover { background: var(--surface-sunken); color: var(--text-primary); }
+
 .v4-nav__cta { padding: var(--space-3) var(--space-6); }
 .v4-nav__toggle { display: none; }
 
@@ -436,6 +1067,307 @@
 }
 .v4-footer__legal a { color: var(--v4-faint); }
 
+/* ────────────────────── 14b. Blog ────────────────────── */
+/* El blog es lo único del sitio con cuerpo largo de verdad, y ahí #7A7A7A se
+   queda corto: sobre marfil da 4.21:1, por debajo del AA de 4.5 para texto
+   normal. Sube a neutral-dark (#4D4D4D, 8.30:1) solo aquí y solo sobre
+   superficie clara — sobre grafito el cuerpo sigue siendo el gris claro del
+   tema oscuro, que ahí sí se lee. El resto de la web no se toca. */
+.v4[data-seccion="blog"] .v4-surface:not([data-surface="graphite"]) {
+  --v4-muted: var(--neutral-dark);
+}
+/* Y el cuerpo del artículo usa el escalón de lectura larga (17/27), añadido a
+   tokens.css porque la escala saltaba de 15 a 20. Solo la prosa: fichas y
+   ledes siguen en cuerpo estándar. */
+.v4[data-seccion="blog"] .v4-prosa {
+  font-size: var(--fs-body-reading);
+  line-height: var(--lh-body-reading);
+}
+
+/* El blog es la única parte del sitio con listados y cuerpo largo. Las fichas
+   siguen el patrón de card de la librería (adv-mcard): media a sangre con el
+   badge encima, cuerpo compacto, título en cuerpo grande —no en display— y pie
+   de metadatos separado por filete. Lo que las hace legibles en rejilla es que
+   título y descripción van recortados a un número fijo de líneas: así todas las
+   fichas caen a la misma altura. */
+/* Tras un hero sin banda, la sección de listado no necesita el aire completo. */
+.v4-sec--pegada { padding-top: var(--space-12); }
+
+.v4-articulos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.v4-ficha {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--v4-panel);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: box-shadow var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard);
+}
+.v4-ficha:has(a:hover) {
+  box-shadow: var(--elevation-3);
+  transform: translateY(-2px);
+}
+.v4-ficha__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, var(--surface-sunken), var(--surface-inset));
+  overflow: hidden;
+}
+.v4-ficha__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--motion-slow) var(--ease-standard);
+}
+.v4-ficha:has(a:hover) .v4-ficha__media img { transform: scale(1.03); }
+.v4-ficha__cuerpo {
+  flex: 1;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.v4-ficha__titulo {
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.v4-ficha__desc {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.v4-ficha__pie {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--v4-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+/* La ficha entera es el enlace: un "leer más" por tarjeta multiplicado por seis
+   es ruido, y el título ya dice a dónde se va. */
+.v4-ficha__link { position: absolute; inset: 0; z-index: 1; }
+.v4-ficha__link span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+/* Badge sobre la media (adv-tag): categoría o sello del artículo. */
+.v4-sello {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: 1;
+  color: var(--text-accent);
+  background: var(--gold-crema);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+/* Destacado: la misma card, en horizontal y sin recortes. */
+.v4-destacado {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+}
+.v4-destacado[data-sin-media="true"] { grid-template-columns: 1fr; }
+/* En el destacado la media no puede aportar altura: manda la columna de texto,
+   así que la imagen se ancla absoluta y recorta. */
+.v4-destacado .v4-ficha__media { aspect-ratio: auto; min-height: 360px; }
+.v4-destacado .v4-ficha__media img { position: absolute; inset: 0; }
+.v4-destacado__cuerpo {
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-4);
+}
+.v4-destacado__titulo {
+  font-size: var(--fs-heading);
+  line-height: var(--lh-heading);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+  text-wrap: pretty;
+}
+.v4-destacado__titulo a { color: inherit; }
+.v4-destacado__titulo a:hover { color: var(--accent-gold); }
+.v4-destacado__cuerpo .v4-door { margin-top: var(--space-2); }
+
+/* Prosa del artículo: cuerpo largo sobre los tokens, sin las clases prose de
+   Tailwind que traía la versión anterior. */
+.v4-prosa {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-muted);
+}
+.v4-prosa > * + * { margin-top: var(--space-6); }
+.v4-prosa h2 {
+  font-size: var(--fs-subheading);
+  line-height: var(--lh-subheading);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+  margin-top: var(--space-12);
+}
+.v4-prosa h3 {
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+  margin-top: var(--space-10);
+}
+.v4-prosa strong { color: var(--v4-fg); font-weight: var(--fw-bold); }
+.v4-prosa em { color: var(--v4-fg); }
+.v4-prosa a { color: var(--text-accent); text-decoration: underline; text-underline-offset: 3px; }
+.v4-prosa a:hover { color: var(--accent-gold); }
+.v4-prosa ul { list-style: disc; padding-left: var(--space-6); }
+.v4-prosa ol { list-style: decimal; padding-left: var(--space-6); }
+.v4-prosa li + li { margin-top: var(--space-2); }
+.v4-prosa li::marker { color: var(--accent-gold); }
+/* Las citas del markdown se visten como la nota analítica del sistema
+   (.v4-nota, DS §10.7b): fondo hundido, acento dorado y esquinas abiertas por
+   la izquierda. Mismo tamaño que el resto del cuerpo — lo que la distingue es
+   la caja, no el tamaño. */
+.v4-prosa blockquote {
+  background: var(--v4-chip);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+  padding: var(--space-6) var(--space-8);
+  color: var(--v4-fg);
+}
+.v4-prosa blockquote > * + * { margin-top: var(--space-5); }
+/* La atribución, en cursiva, cierra la cita: se lee como pie, no como cuerpo. */
+.v4-prosa blockquote > p:last-child em {
+  color: var(--v4-muted);
+  font-style: normal;
+  font-size: var(--fs-body-m);
+}
+.v4-prosa code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  background: var(--v4-chip);
+  border-radius: var(--radius-sm);
+  padding: 2px var(--space-2);
+}
+.v4-prosa pre {
+  background: var(--v4-chip);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  overflow-x: auto;
+}
+.v4-prosa pre code { background: none; padding: 0; }
+.v4-prosa img { width: 100%; height: auto; border-radius: var(--radius-lg); }
+.v4-prosa hr { border: 0; border-top: 1px solid var(--v4-line); margin: var(--space-10) 0; }
+.v4-prosa table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
+.v4-prosa th,
+.v4-prosa td {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--v4-line);
+}
+.v4-prosa th { color: var(--v4-fg); font-weight: var(--fw-bold); }
+
+/* Artículo: ancho de contenido completo (§3.3). El cuerpo ocupa los 1120; lo
+   que se reparte en el split canónico 3fr/2fr es la portada con los datos del
+   artículo, que es el grid que el sistema da para "contenido + panel". */
+/* La meta del artículo va con la cabecera, bajo el lede. */
+.v4-hero__body .v4-meta { margin-top: var(--space-6); }
+.v4-articulo__portada {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--v4-chip);
+}
+.v4-articulo__portada img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.v4-articulo__pie {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--v4-line);
+}
+
+.v4-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.v4-meta__sep { color: var(--v4-faint); }
+.v4-sello--fijo { position: static; align-self: center; }
+
+/* Paginación (adv-pagination): número en mono, activa en sólido. */
+.v4-paginacion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-16);
+}
+.v4-paginacion button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  color: var(--v4-muted);
+  background: var(--v4-panel);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--ease-standard),
+              color var(--motion-fast) var(--ease-standard);
+}
+.v4-paginacion button:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  color: var(--v4-fg);
+}
+.v4-paginacion button:disabled { opacity: 0.4; cursor: default; }
+.v4-paginacion button[aria-current="page"] {
+  background: var(--v4-fg);
+  border-color: var(--v4-fg);
+  color: var(--surface-page);
+  font-weight: var(--fw-bold);
+}
+
+/* Carga y error: sin spinner. El estado se dice, que es lo que además leen los
+   lectores de pantalla. */
+.v4-estado { padding: var(--space-16) 0; }
+.v4-skel {
+  background: var(--v4-chip);
+  border-radius: var(--radius-sm);
+  animation: v4-shimmer 1.4s var(--ease-standard) infinite;
+}
+.v4-skel--media { aspect-ratio: 16 / 10; border-radius: 0; }
+.v4-skel--titulo { height: 20px; width: 70%; }
+.v4-skel--linea { height: 12px; }
+@keyframes v4-shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
 /* ────────────────────── 15. Utilidades de ritmo ────────────────────── */
 .v4-mt-5 { margin-top: var(--space-5); }
 .v4-mt-8 { margin-top: var(--space-8); }
@@ -443,7 +1375,6 @@
 .v4-mt-12 { margin-top: var(--space-12); }
 .v4-mt-16 { margin-top: var(--space-16); }
 .v4-cierre { padding-top: 112px; padding-bottom: 112px; }
-.v4-hero--xl .v4-hero__body { padding-top: var(--space-20); }
 
 /* ────────────────────── 16. Responsive (DS §3.3: dos breakpoints) ────────────────────── */
 @media (max-width: 900px) {
@@ -458,6 +1389,18 @@
   .v4-display-l { font-size: var(--fs-heading); line-height: var(--lh-heading); }
   .v4-heading { font-size: var(--fs-subheading); line-height: var(--lh-subheading); }
 
+  .v4-ciclo { grid-template-columns: 1fr; gap: var(--space-8); justify-items: center; }
+  .v4-ciclo__paso { opacity: 1; }
+
+  .v4-ramas { grid-template-columns: 1fr; gap: var(--space-6); }
+  .v4-ramas__pieza { display: none; }
+  .v4-rama { grid-template-columns: 1fr; gap: var(--space-3); }
+
+  .v4-articulos { grid-template-columns: 1fr; }
+  .v4-destacado { grid-template-columns: 1fr; }
+  .v4-destacado .v4-ficha__media { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
+  .v4-destacado__cuerpo { padding: var(--space-8); }
+
   .v4-split,
   .v4-split[data-cols="2-3"],
   .v4-split[data-cols="1-1"],
@@ -469,14 +1412,50 @@
   .v4-columna { height: 200px; }
 
   /* La rejilla editorial y la secuencia se apilan en vertical */
-  .v4-fila { grid-template-columns: auto 1fr; gap: var(--space-4); }
+  .v4-filas { grid-template-columns: auto 1fr; column-gap: var(--space-4); }
+  .v4-fila { row-gap: var(--space-4); }
   .v4-fila__eco,
   .v4-fila__tag { grid-column: 2; }
   .v4-secuencia__hilo { display: none; }
   .v4-secuencia__dots { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
   .v4-secuencia__labels { grid-template-columns: 1fr !important; gap: var(--space-8); }
 
-  .v4-funnel { flex-direction: column; }
+  .v4-funnel__pieza { display: none; }
+  .v4-funnel__tramo { align-items: flex-start; text-align: left; border-top: 1px solid var(--v4-line); }
+  /* Sin sitio para dos columnas, la escena deja de ser escena: los pasos se
+     leen abiertos, en vertical, y la pieza no se monta. */
+  .v4-hero__pieza { display: none; }
+  .v4-hero[data-pieza="true"] h1,
+  .v4-hero[data-pieza="true"] .v4-lede { max-width: none; }
+  /* Sin ancho, la curva amontona las fichas: el recorrido se lee en columna y
+     la escena 3D no se monta. */
+  .v4-recorrido { padding: 0; }
+  .v4-recorrido__lienzo { height: auto; }
+  .v4-recorrido__pieza { display: none; }
+  .v4-recorrido__nota { max-width: none; margin-left: 0; }
+  .v4-recorrido__nota .v4-nota {
+    border-right: 0;
+    border-left: 4px solid var(--accent-gold);
+    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+    text-align: left;
+  }
+  .v4-recorrido__paradas { position: static; display: grid; gap: var(--space-8); pointer-events: auto; }
+  .v4-parada { position: static; width: auto; opacity: 1; }
+  .v4-parada__ficha,
+  .v4-parada[data-pose] .v4-parada__ficha {
+    position: static;
+    width: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .v4-cabecera--cita .v4-lede { margin-left: 0; text-align: left; padding-right: 0; }
+  .v4-esfera-suelta { display: none; }
+  .v4-escena__panel { grid-template-columns: 1fr; gap: var(--space-8); min-height: 0; }
+  .v4-escena__pieza { display: none; }
+  .v4-paso-abre { opacity: 1; }
+  .v4-paso-abre__cuerpo { grid-template-rows: 1fr; }
+  .v4-paso-abre .v4-subheading { color: var(--v4-fg); }
   .v4-nav__links { display: none; }
   .v4-nav__toggle { display: inline-flex; }
   .v4-cierre { padding-top: var(--space-16); padding-bottom: var(--space-16); }

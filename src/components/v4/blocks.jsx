@@ -12,7 +12,7 @@ import { Hueco, Label } from "./primitives";
 /** Filas editoriales: índice · concepto · eco · etiqueta. */
 export function Filas({ items }) {
   return (
-    <div>
+    <div className="v4-filas">
       {items.map((item) => (
         <article key={item.num} className="v4-fila">
           <span className="v4-fila__num">{item.num}</span>
@@ -144,7 +144,12 @@ export function Bloques({ children }) {
 
 export function Bloque({ label, titulo, texto, invertida, children }) {
   return (
-    <article className="v4-card" data-size="lg" data-invertida={invertida ? "true" : undefined}>
+    <article
+      className="v4-card"
+      data-size="lg"
+      data-invertida={invertida ? "true" : undefined}
+      data-theme={invertida ? "dark" : undefined}
+    >
       <Label tono={invertida ? "gold" : undefined}>{label}</Label>
       <h3 className="v4-subheading">{titulo}</h3>
       <p className="v4-body" style={{ flexGrow: 1 }}>
@@ -193,22 +198,3 @@ export function TarjetaKpi({ label, valor, desc }) {
 }
 
 /** Funnel: tres tramos, el nuestro en grafito. */
-export function Funnel({ segmentos }) {
-  return (
-    <div className="v4-funnel v4-mt-12">
-      {segmentos.map((seg) => (
-        <div
-          key={seg.label}
-          className="v4-funnel__seg"
-          data-destacado={seg.destacado ? "true" : undefined}
-          style={{ flexGrow: seg.peso }}
-        >
-          <Label tono="faint">{seg.label}</Label>
-          <span className="v4-body v4-strong" style={{ fontWeight: "var(--fw-semibold)" }}>
-            {seg.texto}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}

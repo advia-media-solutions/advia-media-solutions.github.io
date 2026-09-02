@@ -1,47 +1,19 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
 import Constelacion from "../../components/v4/Constelacion";
-import { Banda, Cabecera, Cierre, Grid, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import { Cita, Door, Hueco, Key, Label, Nota, Placeholder } from "../../components/v4/primitives";
-import { Secuencia } from "../../components/v4/blocks";
+import { Banda, Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
+import Recorrido from "../../components/v4/Recorrido";
+
+import { Cita, Door, Key, Label, Nota, Placeholder } from "../../components/v4/primitives";
 
 /** Navegación Activa · el concepto (how, parte 1). */
 
 const RECORRIDO = [
-  { chip: "ChatGPT", texto: "«¿qué SUV híbrido rinde mejor en ciudad?»" },
-  { chip: "Web abierta", texto: "«consumo real del modelo que me gusta»" },
-  { chip: "YouTube", texto: "«review larga, con la familia dentro»" },
-  { chip: "Vuelve a buscar", texto: "«mantenimiento y garantía a cinco años»" },
-];
-
-const FACTORES = [
-  {
-    titulo: "Intencionalidad",
-    pregunta: "¿Llegó buscando, o le llegó sin pedirlo?",
-    subs: [
-      ["Clasificación del contenido", "Cómo se clasifica esta página en los motores de búsqueda."],
-      ["Volumen de búsqueda", "Qué volumen total de búsquedas relevantes conducen aquí."],
-      ["Variedad de búsqueda", "Cuántas búsquedas distintas conducen aquí."],
-    ],
-  },
-  {
-    titulo: "Credibilidad",
-    pregunta: "¿Le vale como fuente para lo que está decidiendo?",
-    subs: [
-      ["Medio especializado", "Si la pieza aparece en un medio del sector."],
-      ["Profundidad del medio", "Cuántas piezas suyas responden preguntas relevantes."],
-      ["Reputación del editor", "Qué peso tiene ese editor en la categoría."],
-    ],
-  },
-  {
-    titulo: "Experiencia",
-    pregunta: "¿La respuesta encaja con lo que estaba preguntando?",
-    subs: [
-      ["Encaje del mensaje", "Si lo que dice la marca responde a esa duda concreta."],
-      ["Encaje del contenido", "Si la pieza responde de verdad a la pregunta."],
-      ["Privacidad", "Si el impacto respeta la privacidad de quien lo recibe."],
-    ],
-  },
+  { chip: "ChatGPT", texto: "«¿cuáles son los mejores SUV híbridos?»" },
+  { chip: "Open Web", texto: "«prestaciones Kia Sportage vs Hyundai Tucson»" },
+  { chip: "YouTube", texto: "«vídeo review de Kia Sportage»" },
+  { chip: "Open Web", texto: "«coches chinos SUV»" },
+  { chip: "YouTube", texto: "«Omoda vs MG vs BYD»" },
 ];
 
 function ContrasteHero() {
@@ -69,39 +41,14 @@ function ContrasteHero() {
             borderLeft: `2px solid ${c.destacada ? "var(--accent-gold)" : "var(--v4-line-strong)"}`,
           }}
         >
-          <Label tono={c.destacada ? "gold" : "faint"}>{c.label}</Label>
+          <Label tono={c.destacada ? "gold" : "faint"} tamano="m">
+            {c.label}
+          </Label>
           <div className="v4-subheading v4-mt-5">{c.titulo}</div>
           <p className="v4-body v4-mt-5">{c.texto}</p>
         </div>
       ))}
     </div>
-  );
-}
-
-function TarjetaFactor({ factor }) {
-  return (
-    <article className="v4-card" data-kpi="true">
-      <div className="v4-dato__head">
-        <span className="v4-subheading">{factor.titulo}</span>
-        <span className="v4-kpi" style={{ color: "var(--accent-gold)" }}>
-          <Hueco />
-        </span>
-      </div>
-      <p className="v4-body">{factor.pregunta}</p>
-      <div>
-        {factor.subs.map(([nombre, desc]) => (
-          <div
-            key={nombre}
-            style={{ padding: "var(--space-4) 0", borderTop: "1px solid var(--v4-line)" }}
-          >
-            <div className="v4-body v4-strong" style={{ fontWeight: "var(--fw-semibold)" }}>
-              {nombre}
-            </div>
-            <div className="v4-body-s">{desc}</div>
-          </div>
-        ))}
-      </div>
-    </article>
   );
 }
 
@@ -115,16 +62,14 @@ export default function NavegacionActiva() {
       />
 
       <Hero
-        eyebrow="El concepto"
-        xl
         titular={
           <>
-            Hay dos formas de <Key>navegar</Key>.
+            Hay dos formas de <Key>navegar</Key>
           </>
         }
         lede="En una te entretienen y el algoritmo elige por ti. En la otra buscas algo concreto, y existe una respuesta que te sirve."
         banda={
-          <Banda caption="Las dos formas">
+          <Banda>
             <ContrasteHero />
           </Banda>
         }
@@ -134,10 +79,9 @@ export default function NavegacionActiva() {
         <Split align="start">
           <div>
             <Cabecera
-              eyebrow="Pasiva vs. activa"
               titular={
                 <>
-                  La escena del <Key>metro</Key>.
+                  La escena del <Key>metro</Key>
                 </>
               }
               lede="Dos momentos de la misma persona, con cinco minutos de diferencia. En el primero no hay nada que responder; en el segundo, sí."
@@ -165,12 +109,11 @@ export default function NavegacionActiva() {
         </Split>
       </Section>
 
-      <Section surface="inset">
+      <Section surface="graphite">
         <Cabecera
-          eyebrow="Por qué importa"
           titular={
             <>
-              Para que una marca sea relevante tiene que <Key>ayudar</Key> a quien la ve.
+              Para que la publicidad sea relevante tiene que <Key>ayudar</Key> a quien la ve
             </>
           }
           lede="Y solo puedes ayudar a alguien cuando está intentando decidir algo."
@@ -183,30 +126,32 @@ export default function NavegacionActiva() {
       </Section>
 
       <Section>
-        <Cabecera
-          eyebrow="Así busca una persona"
-          titular={
-            <>
-              Nadie planifica para <Key>ese recorrido</Key>.
-            </>
-          }
-          lede="Mujer, 35 años, quiere cambiar de coche. Su decisión no ocurre en un canal: ocurre en cuatro preguntas que ningún plan de medios contempla."
-        />
-        <div className="v4-mt-16">
-          <Secuencia nodos={RECORRIDO} />
+        <div className="v4-recorrido__cabeza">
+          <Cabecera
+            titular={
+              <>
+                Nadie planifica para <Key animado={false}>ese recorrido</Key>
+              </>
+            }
+          />
+
         </div>
-        <p className="v4-label v4-label--faint v4-mt-10">
-          La secuencia se construye punto a punto con el scroll. Este es el estado final, y el
-          fallback estático que leen los crawlers y los LLMs.
-        </p>
+        <Recorrido
+          paradas={RECORRIDO}
+          nota={
+            <Nota meta="Su decisión no ocurre en un canal: ocurre en cinco preguntas que ningún plan de medios contempla.">
+              <span className="v4-strong">Mujer de 35 años</span> quiere cambiar a un coche más
+              eficiente.
+            </Nota>
+          }
+        />
       </Section>
 
-      <Section surface="graphite">
+      <Section surface="inset">
         <Cabecera
-          eyebrow="Y así buscan todas"
           titular={
             <>
-              Los caminos son infinitos, pero las paradas son <Key>finitas</Key>.
+              Los caminos son infinitos, pero las paradas son <Key>finitas</Key>
             </>
           }
           lede="Cada recorrido es único; las paradas se repiten. Por eso se pueden predecir, y por eso una anécdota se convierte en un volumen de audiencia planificable."
@@ -216,31 +161,11 @@ export default function NavegacionActiva() {
         </div>
       </Section>
 
-      <Section>
-        <Cabecera
-          eyebrow="Qué hace buena a una respuesta"
-          titular={
-            <>
-              La atención dice cuánto te miran. Falta saber si te estaban <Key>buscando</Key>.
-            </>
-          }
-          lede="Un formato que bloquea la navegación retiene mucha atención y aun así interrumpe. Valoramos cada impacto desde la perspectiva de quien lo recibe, con tres factores puntuados de 0 a 100."
-        />
-        <Grid cols={3} className="v4-mt-12">
-          {FACTORES.map((f) => (
-            <TarjetaFactor key={f.titulo} factor={f} />
-          ))}
-        </Grid>
-        <p className="v4-label v4-label--faint v4-mt-8">
-          Los rangos por factor se calculan por campaña. Cifras agregadas pendientes de dato real.
-        </p>
-      </Section>
-
       <Cierre
         titular={
           <>
             Predecimos dónde va a buscar tu consumidor y ponemos ahí la <Key>respuesta</Key> de
-            tu marca.
+            tu marca
           </>
         }
         doors={

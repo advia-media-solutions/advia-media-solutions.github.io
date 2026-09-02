@@ -67,6 +67,11 @@
   --gold-ambar:           #FBC05F;   /* Ámbar                                   */
   --gold-ambar-oscuro:    #FAAD33;   /* Ámbar oscuro (= accent gold)            */
 
+  /* Velo dorado — fondo de estado activo/seleccionado (nav, dropdown, filas,
+     tabla líder). Translúcido: funciona igual en tema claro y oscuro. (2026-08) */
+  --gold-veil:            color-mix(in srgb, var(--accent-gold) 14%, transparent);
+  --gold-veil-strong:     color-mix(in srgb, var(--accent-gold) 22%, transparent);
+
   /* Gradiente oficial (Atomic Design · DSv1): 2 stops, cream → #FAAD33.
      El manual de marca usa #EB9F40 como stop final, pero el Atomic Design
      manda en tokens de UI → #FAAD33. */
@@ -82,7 +87,7 @@
   --neutral-400:          #A5A5A5;   /* grey-light · ghost buttons, placeholders   */
   --neutral-light:        #BCBCBC;   /* neutral/light-gray (Figma)                 */
   --neutral-dark:         #4D4D4D;   /* neutral/dark-gray (Figma)                  */
-  --border-gray:          #CDCDCD;   /* primary/border-gray (Figma) · bordes 1px   */
+  --border-gray:          #E3E3E3;   /* borde de card/tabla · suavizado 2026-08 (antes #CDCDCD) */
   --card-border:          #5A5A5A;   /* neutral/card-border (Figma)                */
 }
 
@@ -115,7 +120,11 @@
   --border-subtle:      rgba(41,41,41,0.08);
   --border-default:     rgba(41,41,41,0.14);
   --border-strong:      rgba(41,41,41,0.24);
-  --divider:            var(--accent-gold);
+  /* El divisor de acento es la barra del §8c: gradiente, no dorado plano.
+     OJO: es un GRADIENTE, así que solo vale como `background`. Para una línea
+     de 1px que separe filas o cards, eso es un borde y va con --border-*. */
+  --divider:            var(--accent-bar-gradient);
+  --divider-height:     6px;                      /* spec §9.2 · 240×6 */
 
   --wordmark-fill:      var(--wordmark-fill-light);
 
@@ -130,8 +139,8 @@
 
   /* Elevación — MANDA el Figma (Advia/Elevation) */
   --elevation-1:        0 1px 3px 0 rgba(0,0,0,0.08);        /* elevation-1 · #00000014 */
-  --elevation-2:        0 4px 12px 0 rgba(0,0,0,0.12);       /* elevation-2 · #0000001F */
-  --elevation-3:        0 8px 24px 0 rgba(0,0,0,0.18);       /* elevation-3 · #0000002E */
+  --elevation-2:        0 3px 8px 0 rgba(0,0,0,0.07);        /* elevation-2 · suavizado 2026-08 */
+  --elevation-3:        0 6px 16px 0 rgba(0,0,0,0.10);       /* elevation-3 · suavizado 2026-08 */
   --card-shadow:        2px 2px 8px 0 rgba(110,110,110,0.18);/* card-shadow · #6E6E6E2E */
   --focus-ring-color:   #FCF2D7;                             /* input-focus             */
   --focus-ring-shadow:  2px 2px 4px 0 var(--focus-ring-color),
@@ -160,8 +169,8 @@
   --surface-inset:      #242424;
 
   --text-primary:       var(--brand-ivory);   /* marfil de marca */
-  --text-secondary:     #A5A5A5;               /* neutral-400 */
-  --text-tertiary:      #7A7A7A;               /* neutral-500 */
+  --text-secondary:     #CFCFCF;               /* dark: gris claro legible (subido 2026-08) */
+  --text-tertiary:      #9E9E9E;               /* dark: gris medio legible (subido 2026-08) */
   --text-accent:        var(--accent-gold);
   --text-accent-panel:  #6B8FD4;                  /* azul elevado para legibilidad */
   --text-on-gold:       var(--brand-ivory);
@@ -170,7 +179,9 @@
   --border-subtle:      rgba(252,253,253,0.06);
   --border-default:     rgba(252,253,253,0.10);
   --border-strong:      rgba(252,253,253,0.18);
-  --divider:            var(--accent-gold);
+  /* Mismo gradiente en oscuro: el extremo translúcido se funde con el grafito
+     igual que se funde con el marfil en claro. */
+  --divider:            var(--accent-bar-gradient);
 
   --wordmark-fill:      var(--wordmark-fill-dark);
 
@@ -227,6 +238,10 @@
   --fs-heading:     42px;  --lh-heading:      50px;  /* Bold    · título de página    */
   --fs-subheading:  28px;  --lh-subheading:   36px;  /* Bold    · subtítulos / cards  */
   --fs-body-l:      20px;  --lh-body-l:       30px;  /* Regular · intro / destacado   */
+  /* Escalón de lectura larga (2026-09). La escala saltaba de 15 a 20: 15 se
+     queda corto en un artículo y 20 es tamaño de intro, no de cuerpo corrido.
+     Solo para prosa extensa — el cuerpo estándar de la web sigue siendo 15. */
+  --fs-body-reading: 17px;  --lh-body-reading: 27px;  /* Regular · prosa de artículo   */
   --fs-body-m:      15px;  --lh-body-m:       23px;  /* Regular · cuerpo estándar     */
   --fs-body-s:      12px;  --lh-body-s:       19px;  /* Regular · notas al pie        */
   --fs-label:       11px;  --lh-label:        13px;  /* Medium · etiquetas/tags · UPPER (PDF LABEL UI) */
@@ -236,6 +251,10 @@
   --font-kpi:         var(--font-mono);
   /* Escala mono/code — MANDA el PDF (Atomic p10): CODE XS 10 · M 15 · L 28 */
   --fs-code-xs:  10px;  --lh-code-xs:  14px;  /* Regular · código inline, datos mínimos */
+  /* Escalón de rótulo (2026-09). A 10px, un rótulo en mayúsculas y con tracking
+     se lee a duras penas en pantalla; 15 es tamaño de dato, no de etiqueta.
+     Este es el cuerpo por defecto de labels, chips y metadatos de la web. */
+  --fs-code-s:   12px;  --lh-code-s:   16px;  /* Regular · rótulos y metadatos  */
   --fs-code-m:   15px;  --lh-code-m:   22px;  /* Regular · metadatos, datos tabulares   */
   --fs-code-l:   28px;  --lh-code-l:   34px;  /* Regular · código / versión destacada   */
   /* Aliases retro-compat (mono-* → escala code) */
@@ -319,15 +338,15 @@
   --chart-1-from:  #FAAD33;  --chart-1-to:  #FECB7B;
   --chart-2-from:  #4B7AC1;  --chart-2-to:  #04398A;
   --chart-3-from:  #10B981;  --chart-3-to:  #059669;
-  --chart-4-from:  #69B1E1;  --chart-4-to:  #035896;
+  --chart-4-from:  #8CA3B4;  --chart-4-to:  #4A6377;   /* Sky agrisado: se separa de Blue y Cyan */
   --chart-5-from:  #8B5CF6;  --chart-5-to:  #6D28D9;
   --chart-6-from:  #F57171;  --chart-6-to:  #9B1A1A;
   --chart-7-from:  #F471B6;  --chart-7-to:  #C21E77;
-  --chart-8-from:  #FBBF24;  --chart-8-to:  #D97706;
+  --chart-8-from:  #FAB351;  --chart-8-to:  #C2410C;   /* Orange: arranca cálido y cierra en quemado */
   --chart-9-from:  #22D3EE;  --chart-9-to:  #0891B2;
   --chart-10-from: #A3E635;  --chart-10-to: #65A30D;
   --chart-11-from: #E879F9;  --chart-11-to: #A00CD3;
-  --chart-12-from: #818CF8;  --chart-12-to: #4F46E5;
+  --chart-12-from: #5A5AA6;  --chart-12-to: #1F2455;   /* Indigo tinta: se separa de Violet y Blue */
 
   /* Sólido por serie (= stop claro) */
   --chart-1:  var(--chart-1-from);   --chart-2:  var(--chart-2-from);
@@ -357,8 +376,9 @@
 [data-theme="dark"] {
   --chart-3-from:  #3BDEA8;  --chart-3-to:  #067E59;
   --chart-5-from:  #AB90EA;  --chart-5-to:  #5F1BCA;
-  --chart-8-from:  #FBA124;  --chart-8-to:  #C85509;
+  --chart-8-from:  #FB8B3C;  --chart-8-to:  #C2410C;
   --chart-10-from: #8AE672;  /* --chart-10-to se mantiene #65A30D */
+  --chart-12-from: #7B7BC6;  --chart-12-to: #33377E;
 }
 
 /* ============================================================================
@@ -392,7 +412,9 @@
 /* ============================================================================
    8c. BARRA DE ACENTO DE DECK/HERO  (v0.2 · spec oficial)
    240×6px sobre lienzo 1360 · #FEECAD @12% → #FAAD33 @100% · izq→der.
-   Solo portadas/aperturas de deck y títulos; nunca en UI ni cards.
+   Portadas/aperturas de deck y títulos. En UI, el único uso permitido es el
+   DIVISOR DE ACENTO (`--divider`, 6px de alto): mismo gradiente, mismo grosor.
+   Sigue prohibida como adorno en cards, botones o fondos.
    ============================================================================ */
 :root {
   --accent-bar-gradient:
@@ -418,3 +440,4 @@
   --z-modal:     1300;
   --z-toast:     1400;
 }
+

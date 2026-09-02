@@ -3,12 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 /**
  * Marca un bloque como visible cuando entra en pantalla, una sola vez.
  *
- * El CSS de v4-motion hace el resto. Dos decisiones deliberadas:
+ * El CSS de v4-motion escalona los hijos directos del bloque. Dos decisiones
+ * deliberadas:
  * - No se re-oculta al salir: releer una página no debería re-animarla.
  * - Si no hay IntersectionObserver, marca visible de inmediato. Degradar nunca
  *   significa esconder contenido.
  */
-export default function Reveal({ as: Tag = "div", className = "", stagger, children, ...resto }) {
+export default function Reveal({ as: Tag = "div", className = "", children, ...resto }) {
   const nodo = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -28,16 +29,18 @@ export default function Reveal({ as: Tag = "div", className = "", stagger, child
           observador.disconnect();
         }
       },
-      // Se adelanta un poco al viewport: el bloque empieza a entrar antes de
-      // que llegues a él. Con un umbral tardío, un scroll rápido deja la
-      // pantalla en blanco durante la transición.
-      { threshold: 0.02, rootMargin: "0px 0px 12% 0px" }
+      // El margen es NEGATIVO a propósito: el bloque tiene que haber entrado de
+      // verdad en pantalla para dispararse. Con un margen positivo se adelanta
+      // al viewport y la animación termina antes de que llegues a mirarla —
+      // que es lo que pasaba. El 14% es el punto en el que aún queda recorrido
+      // por ver sin que un scroll rápido te deje delante de un hueco.
+      { threshold: 0, rootMargin: "0px 0px -14% 0px" }
     );
     observador.observe(elemento);
     return () => observador.disconnect();
   }, [visible]);
 
-  const clases = [stagger ? "v4-stagger" : "v4-reveal", className].filter(Boolean).join(" ");
+  const clases = ["v4-reveal", className].filter(Boolean).join(" ");
 
   return (
     <Tag ref={nodo} className={clases} data-visible={visible ? "true" : undefined} {...resto}>

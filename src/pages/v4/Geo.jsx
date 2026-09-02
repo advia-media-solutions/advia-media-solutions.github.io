@@ -2,16 +2,28 @@ import React from "react";
 import Seo from "../../components/v4/Seo";
 import { Banda, Cabecera, Cierre, Grid, Hero, Pagina, Section, Split } from "../../components/v4/layout";
 import { Boton, Cita, Key, Nota } from "../../components/v4/primitives";
-import { Columnas, PanelDatos, Secuencia } from "../../components/v4/blocks";
+import { Columnas, PanelDatos } from "../../components/v4/blocks";
+import Ciclo from "../../components/v4/Ciclo";
+import RespuestaIA from "../../components/v4/RespuestaIA";
 
 /** Productos › Visibilidad Intencional en IA: GEO · donde la presencia se fabrica. */
 
-const MEDIOS = [
-  { nombre: "TV", desc: "Te da visibilidad, pero le da igual el momento.", destacado: false },
-  { nombre: "Search", desc: "Llega cuando ya has decidido.", destacado: false },
+/* Lo que ha cambiado en el consumo de información, contado sin comparar con
+   otros medios: la comparación con la TV desconcertaba más que aclaraba. */
+const CAMBIO = [
   {
-    nombre: "Motores generativos",
-    desc: "Visibilidad dentro del momento de decidir.",
+    nombre: "Pregunta, no busca",
+    desc: "Una consulta en lenguaje natural sustituye a diez pestañas abiertas.",
+    destacado: false,
+  },
+  {
+    nombre: "Se fía",
+    desc: "La respuesta no parece publicidad, así que pesa como el consejo de alguien que sabe.",
+    destacado: false,
+  },
+  {
+    nombre: "Y decide con ella",
+    desc: "Elige entre el puñado de marcas que el modelo nombra. Si no estás, no compites.",
     destacado: true,
   },
 ];
@@ -36,24 +48,6 @@ const ESTANTERIAS = [
   { nombre: "Autoritario", alto: 80 },
 ];
 
-function RespuestaSimulada() {
-  return (
-    <div style={{ maxWidth: "820px" }}>
-      <p className="v4-lede" style={{ color: "var(--v4-fg)", maxWidth: "none" }}>
-        Para ese uso, las opciones más recomendadas son <Key>[tu marca]</Key>, junto con otras dos
-        alternativas del mismo segmento…
-      </p>
-      <div className="v4-chips v4-mt-5">
-        {[1, 2, 3].map((n) => (
-          <span key={n} className="v4-chip">
-            fuente {n}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function Geo() {
   return (
     <Pagina activo="Productos">
@@ -66,16 +60,20 @@ export default function Geo() {
       <Hero
         miga="Visibilidad Intencional en IA: GEO"
         eyebrow="Donde la respuesta se fabrica"
-        xl
         titular={
           <>
-            Tu marca en la <Key>respuesta</Key> de la IA.
+            Tu marca en la <Key>respuesta</Key> de la IA
           </>
         }
         lede="Cuando alguien pregunta por tu categoría, el modelo contesta con un puñado de marcas y unas cuantas fuentes. Trabajamos para que estés entre ellas."
         banda={
           <Banda caption="Simulación de respuesta generativa">
-            <RespuestaSimulada />
+            <RespuestaIA
+              antes="Para ese uso, las opciones más recomendadas son "
+              marca="[tu marca]"
+              despues=", junto con Toyota y Kia, del mismo segmento. Las tres cubren bien lo que buscas y comparten un consumo contenido…"
+              fuentes={["motorpasion.com", "youtube.com", "km77.com"]}
+            />
           </Banda>
         }
       />
@@ -85,13 +83,13 @@ export default function Geo() {
           eyebrow="Visibilidad Intencional"
           titular={
             <>
-              La visibilidad de la TV, exactamente en el momento en que alguien <Key>decide</Key>.
+              La IA es el consejero del que todo el mundo se <Key>fía</Key>
             </>
           }
-          lede="A eso lo llamamos Visibilidad Intencional, y es lo que abren los motores generativos: un sitio donde se ve tu marca justo mientras se está eligiendo."
+          lede="El consumo de información ha cambiado de raíz: tu consumidor pregunta a un modelo y actúa sobre lo que le contesta. Estar dentro de esa recomendación es lo que llamamos Visibilidad Intencional, y es la posición que decide quién entra en la lista y quién no."
         />
         <Grid cols={3} className="v4-mt-12">
-          {MEDIOS.map((m) => (
+          {CAMBIO.map((m) => (
             <article
               key={m.nombre}
               className="v4-card"
@@ -114,22 +112,15 @@ export default function Geo() {
 
       <Section surface="graphite">
         <Cabecera
-          eyebrow="El paquete completo"
           titular={
             <>
-              No vendemos un dashboard: cerramos el <Key>ciclo</Key>.
+              No vendemos un dashboard: cerramos el <Key>ciclo</Key>
             </>
           }
           lede="Medimos cómo estás, decidimos dónde merece la pena pelear y creamos el contenido que el modelo cita."
         />
         <div className="v4-mt-16">
-          <Secuencia nodos={LOOP} />
-        </div>
-        <div className="v4-mt-10">
-          <Nota>
-            Y volvemos a medir. El ciclo se cierra sobre sí mismo: cada pieza publicada cambia lo
-            que el modelo cita, y esa variación es la que medimos en la vuelta siguiente.
-          </Nota>
+          <Ciclo pasos={LOOP} />
         </div>
       </Section>
 
@@ -140,7 +131,7 @@ export default function Geo() {
             ancho="100%"
             titular={
               <>
-                Del Share of Search al <Key>Share of Answer</Key>.
+                Del Share of Search al <Key>Share of Answer</Key>
               </>
             }
             lede="Cuánto apareces, en qué posición, frente a quién y por qué factores."
@@ -160,7 +151,7 @@ export default function Geo() {
           eyebrow="Diseñamos la estrategia"
           titular={
             <>
-              Medir no mueve nada. Decidimos <Key>en qué factores merece la pena pelear</Key>.
+              Medir no mueve nada. Decidimos <Key>en qué factores merece la pena pelear</Key>
             </>
           }
           lede="Entendemos por qué tu presencia es la que es, factor a factor, y concentramos el esfuerzo ahí. No hace falta salir primero en todo."
@@ -176,11 +167,10 @@ export default function Geo() {
 
       <Section>
         <Cabecera
-          eyebrow="GEO va más allá del SEO"
           titular={
             <>
               Solo una fracción pequeña de las fuentes que cita la IA son de tu web. Hacen falta
-              las <Key>cinco estanterías</Key>.
+              las <Key>cinco estanterías</Key>
             </>
           }
           lede="Editorial, social, owned, multimedia y contenido autoritario. La propia es la que menos pesa, y es justo la única que la mayoría trabaja."
@@ -197,7 +187,7 @@ export default function Geo() {
           eyebrow="Creamos el contenido"
           titular={
             <>
-              El <Key>loop</Key> es el producto.
+              El <Key>loop</Key> es el producto
             </>
           }
           lede="AI-Readable Content: contenido editorial diseñado para que los modelos lo citen, publicado donde la IA se informa. Después volvemos a medir, y el reparto de fuentes dice si funcionó."
@@ -210,7 +200,7 @@ export default function Geo() {
       <Cierre
         titular={
           <>
-            Pide un análisis de tu <Key>visibilidad en IA</Key>.
+            Pide un análisis de tu <Key>visibilidad en IA</Key>
           </>
         }
         lede="Te enseñamos cuánto apareces hoy en las respuestas de tu categoría, frente a quién y por qué factores."

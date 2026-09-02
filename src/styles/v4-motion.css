@@ -13,80 +13,109 @@
    ============================================================================ */
 
 /* ─────────────────── 1. Entradas por scroll ─────────────────── */
-.v4-js .v4-reveal {
+/* Un bloque no entra de una pieza: entran sus partes, en el orden en que se
+   leen. Eso es lo que hace que el scroll se sienta ordenado y no como un
+   parpadeo — el ojo tiene tiempo de posarse en cada pieza antes de la
+   siguiente. Recorrido y duración van por encima de --motion-slow (320ms), que
+   es escala de micro-interacción: a esa velocidad la entrada no se lee como
+   movimiento, se lee como un salto. */
+.v4 {
+  --v4-entrada: 640ms;
+  --v4-entrada-y: 26px;
+  --v4-escalon: 90ms;
+  --v4-letra-paso: 34ms;
+}
+
+.v4-js .v4-reveal > * {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity var(--motion-slow) var(--ease-emphasis),
-              transform var(--motion-slow) var(--ease-emphasis);
+  transform: translateY(var(--v4-entrada-y));
+  transition: opacity var(--v4-entrada) var(--ease-emphasis) var(--v4-retardo, 0ms),
+              transform var(--v4-entrada) var(--ease-emphasis) var(--v4-retardo, 0ms);
   will-change: opacity, transform;
 }
-.v4-js .v4-reveal[data-visible="true"] {
+.v4-js .v4-reveal[data-visible="true"] > * {
   opacity: 1;
   transform: none;
+  will-change: auto;
+}
+.v4-js .v4-reveal > *:nth-child(2) { --v4-retardo: calc(var(--v4-escalon) * 1); }
+.v4-js .v4-reveal > *:nth-child(3) { --v4-retardo: calc(var(--v4-escalon) * 2); }
+.v4-js .v4-reveal > *:nth-child(4) { --v4-retardo: calc(var(--v4-escalon) * 3); }
+.v4-js .v4-reveal > *:nth-child(n + 5) { --v4-retardo: calc(var(--v4-escalon) * 4); }
+
+/* La palabra clave se escribe sola, letra a letra, en cuanto su bloque entra.
+   Arranca a mitad de la subida del titular (--v4-entrada * 0.45), no al final:
+   así el texto ya está llegando cuando la palabra empieza a formarse, y las dos
+   cosas se leen como un mismo gesto y no como dos animaciones seguidas.
+   `--v4-retardo` se hereda del hijo de .v4-reveal al que pertenece el titular,
+   de modo que la cascada respeta el escalón de la sección. */
+.v4-js .v4-reveal .v4-key__letra,
+.v4-js .v4-hero__body .v4-key__letra {
+  opacity: 0;
+  transition: opacity 260ms var(--ease-standard)
+              calc(var(--v4-retardo, 0ms) + var(--v4-entrada) * 0.45
+                   + var(--v4-letra) * var(--v4-letra-paso));
+}
+.v4-js .v4-reveal[data-visible="true"] .v4-key__letra { opacity: 1; }
+/* El hero no espera al scroll: se escribe al cargar, detrás de su titular. */
+.v4-js .v4-hero__body .v4-key__letra {
+  opacity: 1;
+  animation: v4-entra-letra 260ms var(--ease-standard) both;
+  animation-delay: calc(120ms + var(--v4-escalon) * 1 + var(--v4-entrada) * 0.45
+                        + var(--v4-letra) * var(--v4-letra-paso));
+}
+@keyframes v4-entra-letra {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Escalonado de los hijos directos: el ojo baja por la sección en orden. */
-.v4-js .v4-stagger > * {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity var(--motion-slow) var(--ease-emphasis),
-              transform var(--motion-slow) var(--ease-emphasis);
+/* Donde hay timeline de scroll, la escritura deja de ir por tiempo y se engancha
+   a la rueda: las letras avanzan contigo y retroceden si subes. El reparto por
+   letra lo calcula el componente en --v4-desde/--v4-hasta.
+
+   Solo en las secciones. El hero se ve al cargar, sin scroll que enganchar, así
+   que ahí la escritura sigue siendo por tiempo — es la diferencia entre una
+   portada y un bloque al que llegas leyendo.
+
+   La animación gana en cascada a la declaración `opacity: 1` de [data-visible],
+   así que no hay que anularla: mientras el timeline manda, manda el timeline. */
+@supports (animation-timeline: view()) {
+  /* El timeline lo declara el TITULAR, no la letra. Con `view()` en cada letra,
+     el recorrido que se mide es el de la letra —unos 50px—, así que el rango se
+     consumía en un palmo de scroll y la palabra saltaba de golpe. Colgándolo del
+     titular, el recorrido es el suyo y la escritura ocupa unos 300px de rueda. */
+  .v4-js .v4-reveal :is(h1, h2, h3):has(.v4-key) {
+    view-timeline-name: --v4-clave;
+    view-timeline-axis: block;
+  }
+  /* Solo las letras del titular que DECLARA el timeline. Enganchar aquí a
+     cualquier .v4-key del reveal dejaba sin timeline —y por tanto en opacity 0,
+     con `both`— a las claves que viven en un párrafo, como la del callout. */
+  .v4-js .v4-reveal :is(h1, h2, h3):has(.v4-key) .v4-key__letra {
+    transition: none;
+    animation: v4-entra-letra 1s linear both;
+    animation-timeline: --v4-clave;
+    animation-range: cover var(--v4-desde) cover var(--v4-hasta);
+  }
 }
-.v4-js .v4-stagger[data-visible="true"] > * { opacity: 1; transform: none; }
-.v4-js .v4-stagger[data-visible="true"] > *:nth-child(1) { transition-delay: 0ms; }
-.v4-js .v4-stagger[data-visible="true"] > *:nth-child(2) { transition-delay: 70ms; }
-.v4-js .v4-stagger[data-visible="true"] > *:nth-child(3) { transition-delay: 140ms; }
-.v4-js .v4-stagger[data-visible="true"] > *:nth-child(4) { transition-delay: 210ms; }
-.v4-js .v4-stagger[data-visible="true"] > *:nth-child(5) { transition-delay: 280ms; }
-.v4-js .v4-stagger[data-visible="true"] > *:nth-child(n + 6) { transition-delay: 350ms; }
 
 /* ─────────────────── 2. Hero ─────────────────── */
-/* El titular entra una sola vez, al cargar: no espera al scroll. */
+/* El titular entra al cargar, no espera al scroll. Mismo recorrido y mismo
+   escalón que las secciones: la portada no habla otro idioma que el resto. */
 .v4-hero__body > * {
   opacity: 0;
-  transform: translateY(20px);
-  animation: v4-entra var(--motion-slow) var(--ease-emphasis) forwards;
+  transform: translateY(var(--v4-entrada-y));
+  animation: v4-entra var(--v4-entrada) var(--ease-emphasis) forwards;
 }
-.v4-hero__body > *:nth-child(1) { animation-delay: 80ms; }
-.v4-hero__body > *:nth-child(2) { animation-delay: 160ms; }
-.v4-hero__body > *:nth-child(3) { animation-delay: 240ms; }
-.v4-hero__body > *:nth-child(4) { animation-delay: 320ms; }
-.v4-hero__body > *:nth-child(5) { animation-delay: 400ms; }
-.v4-banda { animation: v4-entra var(--motion-slow) var(--ease-emphasis) 520ms both; }
+.v4-hero__body > *:nth-child(1) { animation-delay: 120ms; }
+.v4-hero__body > *:nth-child(2) { animation-delay: calc(120ms + var(--v4-escalon)); }
+.v4-hero__body > *:nth-child(3) { animation-delay: calc(120ms + var(--v4-escalon) * 2); }
+.v4-hero__body > *:nth-child(4) { animation-delay: calc(120ms + var(--v4-escalon) * 3); }
+.v4-hero__body > *:nth-child(5) { animation-delay: calc(120ms + var(--v4-escalon) * 4); }
 
 @keyframes v4-entra {
   to { opacity: 1; transform: none; }
 }
-
-/* El campo 3D vive detrás de todo el hero y nunca intercepta el ratón. */
-.v4-hero__campo {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 900ms var(--ease-standard);
-}
-.v4-hero__campo[data-listo="true"] { opacity: 1; }
-.v4-hero__campo canvas { display: block; width: 100%; height: 100%; }
-
-/* Velo de legibilidad: el campo se apaga sobre la columna de texto. Sin esto,
-   las rutas cruzan el titular y compiten con él. La pieza sigue viéndose
-   entera a la derecha, que es donde tiene sitio. */
-.v4-hero__scrim {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    var(--v4-bg) 0%,
-    color-mix(in srgb, var(--v4-bg) 88%, transparent) 34%,
-    color-mix(in srgb, var(--v4-bg) 40%, transparent) 56%,
-    transparent 72%
-  );
-}
-/* Con el campo activo, la retícula estática se atenúa en vez de desaparecer:
-   sigue dando estructura y sigue estando en el DOM para quien no ve el canvas. */
-.v4-hero[data-campo="true"] .v4-hero__trama { opacity: 0.45; }
 
 /* ─────────────────── 3. Secuencia trazada ─────────────────── */
 /* El hilo se dibuja de izquierda a derecha y las paradas aparecen en orden:
@@ -167,26 +196,12 @@
                            color var(--motion-base) var(--ease-standard); }
 .v4-pregunta:hover { border-color: var(--accent-gold); color: var(--v4-fg); }
 
-/* Nav: se compacta y gana fondo al despegarse del hero. */
-.v4-nav { transition: background var(--motion-base) var(--ease-standard),
-                      border-color var(--motion-base) var(--ease-standard); }
-.v4-nav__inner { transition: height var(--motion-base) var(--ease-standard); }
-/* La nav es sticky desde el principio (así no hay salto de layout al fijarse);
-   al despegarse del hero gana translucidez y borde. */
-.v4-nav[data-fijada="true"] {
-  background: color-mix(in srgb, var(--surface-page) 88%, transparent);
-  backdrop-filter: blur(14px);
-  border-bottom-color: var(--border-default);
-}
-.v4-nav[data-fijada="true"] .v4-nav__inner { height: 60px; }
-
 /* ─────────────────── 6. Sin movimiento ─────────────────── */
 /* Estado final, no ausencia de contenido. Todo visible, nada en tránsito. */
 @media (prefers-reduced-motion: reduce) {
-  .v4-reveal,
-  .v4-stagger > *,
+  .v4-reveal > *,
+  .v4-key__letra,
   .v4-hero__body > *,
-  .v4-banda,
   .v4-secuencia__label,
   .v4-secuencia__dot {
     opacity: 1 !important;
@@ -199,5 +214,4 @@
   .v4-barra__valor { width: var(--v4-ancho) !important; transition: none !important; }
   .v4-columna__barra { height: var(--v4-alto) !important; transition: none !important; }
   .v4-btn:hover, .v4-card[data-size="lg"]:hover { transform: none; }
-  .v4-hero__campo { display: none; }
 }

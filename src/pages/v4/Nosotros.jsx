@@ -32,10 +32,9 @@ export default function Nosotros() {
       />
 
       <Hero
-        eyebrow="Nosotros"
         titular={
           <>
-            Estábamos convencidos de que la publicidad digital podía <Key>ser mejor</Key>.
+            Estábamos convencidos de que la publicidad digital podía <Key>ser mejor</Key>
           </>
         }
         lede="Veníamos de hacerla desde dentro, y empezamos incómodos con cómo se planificaba."
@@ -43,11 +42,10 @@ export default function Nosotros() {
 
       <Section>
         <Cabecera
-          eyebrow="Por qué existe Advia"
           titular={
             <>
               Casi toda campaña se piensa desde el lado del anunciante. Fundamos Advia para
-              trabajar desde el lado de quien <Key>busca</Key>.
+              trabajar desde el lado de quien <Key>busca</Key>
             </>
           }
           lede="Es lógico que se piense desde el anunciante: es quien paga. Pero el impacto lo recibe otra persona, que en ese momento estaba intentando resolver algo suyo."
@@ -66,7 +64,7 @@ export default function Nosotros() {
           eyebrow="De dónde venimos"
           titular={
             <>
-              Conocemos el ciclo de una campaña <Key>desde dentro</Key>.
+              Conocemos el ciclo de una campaña <Key>desde dentro</Key>
             </>
           }
           lede="Tres fundadores con recorrido en Seedtag y GroupM: el lado del medio y el lado de la agencia, que es donde se ve qué se rompe entre el plan y el resultado."
@@ -83,7 +81,7 @@ export default function Nosotros() {
           eyebrow="Con quién trabajamos"
           titular={
             <>
-              Los grandes grupos de agencias, y los sectores donde <Key>estamos</Key>.
+              Los grandes grupos de agencias, y los sectores donde <Key>estamos</Key>
             </>
           }
         />
@@ -109,7 +107,7 @@ export default function Nosotros() {
           eyebrow="Valores"
           titular={
             <>
-              Cinco cosas que decidimos <Key>antes</Key> de contratar a nadie.
+              Cinco cosas que decidimos <Key>antes</Key> de contratar a nadie
             </>
           }
         />
@@ -134,7 +132,7 @@ export default function Nosotros() {
       <Cierre
         titular={
           <>
-            Cómo trabajamos, y a quién <Key>buscamos</Key>.
+            Cómo trabajamos, y a quién <Key>buscamos</Key>
           </>
         }
         lede="Si te interesa el problema que estamos resolviendo, escríbenos aunque no haya una vacante abierta con tu nombre."

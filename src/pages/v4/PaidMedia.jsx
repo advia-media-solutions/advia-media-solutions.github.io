@@ -5,7 +5,7 @@ import { Boton, Chips, Hueco, Key, Label } from "../../components/v4/primitives"
 import { TarjetaKpi } from "../../components/v4/blocks";
 import Funnel from "../../components/v4/Funnel";
 
-/** Productos › Navegación Activa en Paid Media · donde la presencia se compra. */
+/** Productos › Navegación Activa en Canales Digitales · donde la presencia se compra. */
 
 const TIPOS = [
   {
@@ -152,12 +152,12 @@ export default function PaidMedia() {
     <Pagina activo="Productos">
       <Seo
         path="/products/paid-media"
-        title="Navegación Activa en Paid Media — campañas dentro del recorrido de decisión | Advia"
+        title="Navegación Activa en Canales Digitales — campañas dentro del recorrido de decisión | Advia"
         description="Campañas en Open Web y YouTube colocadas sobre las fuentes que tu consumidor consulta mientras compara y decide."
       />
 
       <Hero
-        miga="Navegación Activa en Paid Media"
+        miga="Navegación Activa en Canales Digitales"
         eyebrow="Donde la respuesta se compra"
         titular={
           <>

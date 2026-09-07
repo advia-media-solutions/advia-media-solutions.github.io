@@ -1,9 +1,10 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
 import EsferaHero from "../../components/v4/EsferaHero";
-import { Cabecera, Cierre, Grid, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import { Boton, Door, Key, Label } from "../../components/v4/primitives";
-import { Bloque, Bloques, Filas } from "../../components/v4/blocks";
+import Recorrido from "../../components/v4/Recorrido";
+import { Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
+import { Boton, Door, Key, Label, Nota } from "../../components/v4/primitives";
+import { Bloque, Bloques } from "../../components/v4/blocks";
 
 /**
  * Inicio · el Golden Circle comprimido (why → how → what).
@@ -13,65 +14,49 @@ import { Bloque, Bloques, Filas } from "../../components/v4/blocks";
  * pregunta. El scroll 4 es el que carga ese giro.
  */
 
-const PASOS_VERA = [
+/* Los dos momentos, uno enfrente del otro. El rótulo lleva filete: es la
+   clave de lectura del bloque —pasiva contra activa—, no un pie de foto, así
+   que se lee antes que el párrafo y no después. */
+const MOMENTOS = [
   {
-    titulo: "Perfil",
-    texto: "Sociodemo, interés y contexto de decisión: eso dirige toda su navegación.",
+    label: "Navegación pasiva",
+    destacado: false,
+    texto:
+      "Esos momentos de entretenimiento en los que scrolleamos redes sociales o leemos " +
+      "nuestras cabeceras favoritas. Somos pasivos al medio: es el editor o un algoritmo " +
+      "quien elige lo que sale en pantalla.",
   },
   {
-    titulo: "Herramientas",
-    texto: "Buscadores, plataformas y LLMs. Cada agente busca como buscaría su perfil real.",
-  },
-  {
-    titulo: "Touchpoints",
-    texto: "Recogemos el recorrido entero y cualificamos cada parada.",
+    label: "Navegación activa",
+    destacado: true,
+    texto:
+      "Frente a una duda, pregunta, situación o frustración, cuando tenemos una decisión " +
+      "que tomar y buscamos información de cara a tomar la mejor decisión. Aquí tu marca " +
+      "puede ser la respuesta que el consumidor necesita.",
   },
 ];
 
-const SUPERFICIES = [
-  {
-    num: "01",
-    titulo: "Web abierta",
-    desc: "Compara opciones, lee análisis y descarta candidatos.",
-    rotulo: "La respuesta toma la forma de",
-    eco: "Un anuncio dentro del artículo que ya estaba leyendo",
-    tag: "Paid Media",
-  },
-  {
-    num: "02",
-    titulo: "Vídeo",
-    desc: "Busca la review larga antes de cerrar.",
-    rotulo: "La respuesta toma la forma de",
-    eco: "Tu marca en el momento en que se decide",
-    tag: "Paid Media",
-  },
-  {
-    num: "03",
-    titulo: "Respuesta de la IA",
-    desc: "Pregunta directamente qué le conviene.",
-    rotulo: "La respuesta toma la forma de",
-    eco: "Una cita del modelo entre las marcas que recomienda",
-    tag: "GEO",
-  },
+/* Las cinco preguntas de una misma decisión: es el recorrido que ningún plan
+   de medios contempla, y el que dibuja el camino de las bolas. */
+const RECORRIDO = [
+  { chip: "ChatGPT", texto: "«¿cuáles son los mejores SUV híbridos?»" },
+  { chip: "Open Web", texto: "«prestaciones Kia Sportage vs Hyundai Tucson»" },
+  { chip: "YouTube", texto: "«vídeo review de Kia Sportage»" },
+  { chip: "Open Web", texto: "«coches chinos SUV»" },
+  { chip: "YouTube", texto: "«Omoda vs MG vs BYD»" },
 ];
 
 function PanelMomento() {
   return (
     <div className="v4-card" data-size="lg">
-      <div>
-        <Label tono="faint">Navegación pasiva</Label>
-        <div className="v4-body v4-strong v4-mt-5">Elige el algoritmo</div>
-        <p className="v4-body">
-          El contenido llega solo. No había pregunta, así que no hay nada que responder.
-        </p>
-      </div>
-      <div style={{ borderTop: "1px solid var(--v4-line)", paddingTop: "var(--space-6)" }}>
-        <Label tono="activo">Navegación activa</Label>
-        <div className="v4-body v4-strong v4-mt-5">Eliges tú</div>
-        <p className="v4-body">
-          Hay una duda concreta y una búsqueda detrás. Aquí una marca puede servir de algo.
-        </p>
-      </div>
+      {MOMENTOS.map((m) => (
+        <div key={m.label} className="v4-momento" data-destacado={m.destacado ? "true" : undefined}>
+          <Label tono={m.destacado ? "gold" : "faint"} tamano="m">
+            {m.label}
+          </Label>
+          <p className="v4-body v4-mt-5">{m.texto}</p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -95,7 +80,7 @@ export default function Home() {
         lede="Cuando alguien busca para decidir, hay una respuesta que le sirve. Trabajamos para que sea la de tu marca, y para que llegue con la forma que admite ese momento."
         acciones={
           <>
-            <Boton href="/contact">Cuéntanos tu objetivo</Boton>
+            <Boton href="/navegacion-activa">Cómo podemos aportarte valor</Boton>
             <Boton href="/about" variant="ghost">
               Por qué existe Advia
             </Boton>
@@ -109,11 +94,10 @@ export default function Home() {
             <Cabecera
               titular={
                 <>
-                  Una marca aporta valor cuando responde a lo que alguien está{" "}
-                  <Key>buscando</Key>
+                  Una marca aporta valor cuando se convierte en la respuesta a la necesidad de
+                  su consumidor, durante su <Key>Navegación Activa</Key>
                 </>
               }
-              lede="A ese momento lo llamamos Navegación Activa."
             />
             <div className="v4-mt-8">
               <Door href="/navegacion-activa">Qué es la Navegación Activa</Door>
@@ -127,24 +111,14 @@ export default function Home() {
         <Cabecera
           titular={
             <>
-              Vera sabe qué va a preguntar tu consumidor, y <Key>dónde</Key>
+              Advia es capaz de identificar esos momentos de Navegación Activa gracias a
+              nuestra tecnología, <Key>Vera</Key>
             </>
           }
-          lede="Miles de consumidores simulados recorren la decisión antes que él. No adivinamos intenciones: observamos recorridos y los cualificamos parada a parada."
+          lede="Vera simula el comportamiento de tu consumidor a través de cientos de consumidores sintéticos. Nos ponemos en la piel de tu consumidor para saber dónde le serás útil."
         />
-        <div className="v4-mt-16">
-          <Grid cols={3}>
-            {PASOS_VERA.map((paso, i) => (
-              <article key={paso.titulo} className="v4-card">
-                <Label tono="gold">{`0${i + 1}`}</Label>
-                <div className="v4-body v4-strong">{paso.titulo}</div>
-                <p className="v4-body">{paso.texto}</p>
-              </article>
-            ))}
-          </Grid>
-          <div className="v4-mt-10">
-            <Door href="/technology">Cómo funciona Vera</Door>
-          </div>
+        <div className="v4-mt-10">
+          <Door href="/technology">Cómo funciona Vera</Door>
         </div>
       </Section>
 
@@ -152,30 +126,31 @@ export default function Home() {
         <Cabecera
           titular={
             <>
-              La respuesta que busca no siempre tiene la misma <Key>forma</Key>
+              Tu consumidor elige a través de muchos canales, tú tienes que estar presente en{" "}
+              <Key>todos ellos</Key>
             </>
           }
-          lede="La misma persona pregunta en sitios distintos, y cada uno admite una forma de respuesta. Nuestro trabajo es que siempre haya una tuya."
+          lede="Distintas preguntas, en distintos momentos y a través de distintos canales. Nuestro trabajo es que tú siempre estés presente."
         />
-        <div className="v4-mt-16">
-          <Filas items={SUPERFICIES} />
-        </div>
-        <p className="v4-lede v4-mt-16">
-          Donde hay inventario, la presencia se compra. Donde no lo hay, se fabrica. Por eso
-          hay dos productos y no uno.
-        </p>
+        <Recorrido
+          paradas={RECORRIDO}
+          nota={
+            <Nota meta="Su decisión no ocurre en un canal: ocurre en cinco preguntas que ningún plan de medios contempla.">
+              <span className="v4-strong">Mujer de 35 años</span> quiere cambiar a un coche más
+              eficiente.
+            </Nota>
+          }
+        />
         <Bloques>
           <Bloque
-            label="Donde la respuesta se compra"
-            titulo="Navegación Activa en Paid Media"
+            titulo="Navegación Activa en Canales Digitales"
             texto="Hay inventario en esa parada, así que se puja por él."
           >
             <Door href="/products/paid-media">Ver el producto</Door>
           </Bloque>
           <Bloque
             invertida
-            label="Donde la respuesta se fabrica"
-            titulo="Visibilidad Intencional en IA: GEO"
+            titulo="Navegación Activa en Entornos Conversacionales"
             texto="No hay inventario que comprar: la única vía es ser la fuente que la IA cita."
           >
             <Door href="/products/geo">Ver el producto</Door>
@@ -186,12 +161,11 @@ export default function Home() {
       <Cierre
         titular={
           <>
-            Cuéntanos tu objetivo y te enseñamos qué está preguntando tu consumidor, y{" "}
-            <Key>dónde puedes responderle</Key>
+            Cuéntanos tu objetivo, convirtamos tu marca en la <Key>respuesta</Key> que el
+            consumidor necesita
           </>
         }
-        lede="Antes de activar nada. Y después no nos vamos: activamos, medimos qué cambió y decidimos la siguiente."
-        cta={<Boton href="/contact">Pedir un análisis precampaña</Boton>}
+        cta={<Boton href="/contact">Conoce Advia</Boton>}
       />
     </Pagina>
   );

@@ -374,6 +374,21 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Los dos momentos de la home, enfrentados dentro de una misma card. El rótulo
+   es la clave de lectura del bloque —pasiva contra activa—, no un pie: por eso
+   lleva filete lateral, y el dorado va sobre el activo, que es el momento del
+   que vive todo el argumento. */
+.v4-momento {
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--v4-line-strong);
+}
+.v4-momento + .v4-momento {
+  margin-top: var(--space-8);
+}
+.v4-momento[data-destacado="true"] {
+  border-left-color: var(--accent-gold);
+}
 /* Solo las cards que son puerta (contienen enlace) reaccionan al hover. */
 .v4-card:has(a:hover) {
   box-shadow: var(--v4-panel-shadow-hover);
@@ -563,6 +578,9 @@
 .v4-recorrido__pieza {
   position: absolute;
   inset: -110px;
+  /* Por delante de la nota: el recorrido pasa POR ENCIMA del bloque de texto.
+     El renderer va en alpha, así que lo único que tapa son las bolas. */
+  z-index: 1;
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--motion-slow) var(--ease-standard);
@@ -573,6 +591,7 @@
 .v4-recorrido__paradas {
   position: absolute;
   inset: 0;
+  z-index: 2;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -628,11 +647,12 @@
   bottom: var(--space-5);
   flex-direction: row;
   align-items: center;
-  /* Estrecha a propósito: obliga al texto a partir en dos líneas en vez de
-     alargarse hacia el cuerpo de la esfera, que queda justo a su derecha. El
-     ancho está calzado para que el corte caiga antes de la marca —«vídeo
-     review de / Kia Sportage»—, que se lee mejor que partir el nombre. */
-  width: 176px;
+  /* Estrecha a propósito: obliga al texto a partir en vez de alargarse hacia el
+     cuerpo de la esfera, que queda justo a su derecha. El ancho está calzado
+     para que caiga en DOS líneas con el corte antes de la marca —«vídeo review
+     de / Kia Sportage»—, que se lee mejor que partir el nombre. Con 176px el
+     chip se comía tanto sitio que la frase salía en tres. */
+  width: 200px;
 }
 /* 4 · Tramo tendido: todo a la derecha, a la altura de la bola. */
 .v4-parada[data-pose="dcha"] .v4-parada__ficha {
@@ -696,10 +716,11 @@
    estrecha, cae bajo el arranque del recorrido en vez de competir con él. */
 .v4-recorrido__nota {
   position: relative;
-  z-index: 1;
-  max-width: 430px;
-  margin-left: 350px;
-  padding-top: var(--space-10);
+  z-index: 0;
+  max-width: 450px;
+  margin-left: 450px;
+  /* space-10 (40px) más el ajuste fino contra la curva de las bolas. */
+  padding-top: calc(var(--space-10) + 10px);
 }
 /* La nota mira hacia el recorrido: el filete dorado pasa al lado por el que
    entra la primera parada y el texto se alinea contra él. */
@@ -709,7 +730,7 @@
   border-radius: var(--radius-xl) 0 0 var(--radius-xl);
   text-align: right;
 }
-.v4-recorrido__nota .v4-nota__meta { font-size: var(--fs-code-m); line-height: var(--lh-code-m); }
+.v4-recorrido__nota .v4-nota__meta { font-size: var(--fs-code-s); line-height: var(--lh-code-s); }
 
 /* ────────────────────── 10b. Esquema de ramas ────────────────────── */
 /* El puente de /products: la pieza dibuja el tronco y las cuatro ramas, y la
@@ -992,12 +1013,12 @@
               color var(--motion-fast) var(--ease-standard);
 }
 .v4-nav__link:hover { color: var(--v4-fg); background: var(--v4-chip); }
+/* La página en la que estás se marca con el peso, no con un fondo: el velo
+   dorado competía con los CTA, que son lo único que debe pedir el clic. */
 .v4-nav__link[aria-current="page"] {
   color: var(--v4-fg);
-  font-weight: var(--fw-semibold);
-  background: var(--gold-veil);
+  font-weight: var(--fw-bold);
 }
-.v4-nav__link[aria-current="page"]:hover { background: var(--gold-veil-strong); }
 /* Submenú de Productos: los dos spokes, a un hover o a un tab del hub. */
 .v4-nav__grupo { position: relative; display: flex; }
 .v4-nav__menu {
@@ -1073,13 +1094,15 @@
    normal. Sube a neutral-dark (#4D4D4D, 8.30:1) solo aquí y solo sobre
    superficie clara — sobre grafito el cuerpo sigue siendo el gris claro del
    tema oscuro, que ahí sí se lee. El resto de la web no se toca. */
-.v4[data-seccion="blog"] .v4-surface:not([data-surface="graphite"]) {
+.v4[data-seccion="blog"] .v4-surface:not([data-surface="graphite"]),
+.v4[data-seccion="documento"] .v4-surface:not([data-surface="graphite"]) {
   --v4-muted: var(--neutral-dark);
 }
 /* Y el cuerpo del artículo usa el escalón de lectura larga (17/27), añadido a
    tokens.css porque la escala saltaba de 15 a 20. Solo la prosa: fichas y
    ledes siguen en cuerpo estándar. */
-.v4[data-seccion="blog"] .v4-prosa {
+.v4[data-seccion="blog"] .v4-prosa,
+.v4[data-seccion="documento"] .v4-prosa {
   font-size: var(--fs-body-reading);
   line-height: var(--lh-body-reading);
 }
@@ -1432,6 +1455,7 @@
   .v4-recorrido { padding: 0; }
   .v4-recorrido__lienzo { height: auto; }
   .v4-recorrido__pieza { display: none; }
+  .v4-optout { margin-left: 0; }
   .v4-recorrido__nota { max-width: none; margin-left: 0; }
   .v4-recorrido__nota .v4-nota {
     border-right: 0;
@@ -1479,3 +1503,91 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ────────────────────── 14c. Documentos ────────────────────── */
+/* Aviso legal, cookies, privacidad y exclusión. Son textos que se leen de
+   arriba abajo y se citan por apartado, así que el ancho lo manda la lectura:
+   la columna canónica de 3fr del grid del sistema (§3.3), no los 1120 enteros,
+   que a este tamaño de letra dan renglones imposibles de seguir. */
+.v4-doc { max-width: 768px; }
+.v4-doc + .v4-doc { margin-top: var(--space-20); padding-top: var(--space-16); border-top: 1px solid var(--v4-line); }
+/* El ancla cae bajo el nav fijo si no se le reserva el hueco. */
+.v4-doc[id] { scroll-margin-top: 96px; }
+.v4-doc > .v4-subheading + .v4-prosa { margin-top: var(--space-8); }
+/* Las tablas de un documento (las cookies, los plazos) necesitan respirar más
+   que las del blog: son cuatro columnas de texto, no dos cifras. */
+.v4-doc .v4-prosa table { font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+
+/* Panel de estado de la exclusión.
+   Es lo único de la página que cambia según el navegador y lo primero que hay
+   que ver, pero no es otra columna: TODO su texto cae en la misma vertical que
+   el documento de abajo. Por eso el filete y su hueco salen hacia el margen con
+   una sangría negativa, en vez de empujar el contenido hacia dentro — que es lo
+   que hacía una card con padding, y lo que rompía la alineación de la página.
+
+   El bilingüe se separa en dos alturas en vez de encadenarse con un punto medio:
+   el español manda y el inglés queda debajo en mono, como metadato. Encadenados
+   en la misma línea se leían como una sola frase rota. */
+.v4-optout {
+  max-width: 768px;
+  padding-left: var(--space-6);
+  margin-left: calc(-1 * (var(--space-6) + 3px));
+  border-left: 3px solid var(--accent-gold);
+}
+.v4-optout > * + * { margin-top: var(--space-4); }
+/* Excluido es un estado en firme, no una alerta: grafito, no dorado. */
+.v4-optout:has(.v4-optout__cabeza[data-fuera="true"]) { border-left-color: var(--v4-fg); }
+.v4-optout__cabeza {
+  padding-bottom: var(--space-6);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--v4-line);
+}
+.v4-optout__rotulo { display: flex; align-items: center; gap: var(--space-3); }
+.v4-optout__punto {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+}
+.v4-optout__cabeza[data-fuera="true"] .v4-optout__punto { background: var(--v4-fg); }
+.v4-optout__valor {
+  margin-top: var(--space-4);
+  font-size: var(--fs-subheading);
+  line-height: var(--lh-subheading);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+}
+/* El inglés, en mono y en el gris de metadato: presente y legible, sin disputarle
+   la línea al español. */
+.v4-optout__en {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-faint);
+}
+.v4-optout__cabeza .v4-optout__en { margin-top: var(--space-2); }
+.v4-optout__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+}
+.v4-optout__pie {
+  margin-top: var(--space-8);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--v4-muted);
+}
+.v4-optout__pie .v4-optout__en { margin-top: var(--space-2); }
+
+/* Aviso de que el cambio no se ha guardado. */
+.v4-aviso {
+  margin-top: var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--v4-chip);
+}
+.v4-aviso > * + * { margin-top: var(--space-3); }

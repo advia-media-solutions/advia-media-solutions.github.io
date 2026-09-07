@@ -2,19 +2,10 @@ import React from "react";
 import Seo from "../../components/v4/Seo";
 import Constelacion from "../../components/v4/Constelacion";
 import { Banda, Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import Recorrido from "../../components/v4/Recorrido";
 
 import { Cita, Door, Key, Label, Nota, Placeholder } from "../../components/v4/primitives";
 
 /** Navegación Activa · el concepto (how, parte 1). */
-
-const RECORRIDO = [
-  { chip: "ChatGPT", texto: "«¿cuáles son los mejores SUV híbridos?»" },
-  { chip: "Open Web", texto: "«prestaciones Kia Sportage vs Hyundai Tucson»" },
-  { chip: "YouTube", texto: "«vídeo review de Kia Sportage»" },
-  { chip: "Open Web", texto: "«coches chinos SUV»" },
-  { chip: "YouTube", texto: "«Omoda vs MG vs BYD»" },
-];
 
 function ContrasteHero() {
   const columnas = [
@@ -123,28 +114,6 @@ export default function NavegacionActiva() {
             «La publicidad pasa, de ser publicidad, a formar parte del <Key>contenido</Key>.»
           </Cita>
         </div>
-      </Section>
-
-      <Section>
-        <div className="v4-recorrido__cabeza">
-          <Cabecera
-            titular={
-              <>
-                Nadie planifica para <Key animado={false}>ese recorrido</Key>
-              </>
-            }
-          />
-
-        </div>
-        <Recorrido
-          paradas={RECORRIDO}
-          nota={
-            <Nota meta="Su decisión no ocurre en un canal: ocurre en cinco preguntas que ningún plan de medios contempla.">
-              <span className="v4-strong">Mujer de 35 años</span> quiere cambiar a un coche más
-              eficiente.
-            </Nota>
-          }
-        />
       </Section>
 
       <Section surface="inset">

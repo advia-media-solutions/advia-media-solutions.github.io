@@ -150,7 +150,7 @@ export function Bloque({ label, titulo, texto, invertida, children }) {
       data-invertida={invertida ? "true" : undefined}
       data-theme={invertida ? "dark" : undefined}
     >
-      <Label tono={invertida ? "gold" : undefined}>{label}</Label>
+      {label ? <Label tono={invertida ? "gold" : undefined}>{label}</Label> : null}
       <h3 className="v4-subheading">{titulo}</h3>
       <p className="v4-body" style={{ flexGrow: 1 }}>
         {texto}

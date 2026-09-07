@@ -6,7 +6,7 @@ import { Columnas, PanelDatos } from "../../components/v4/blocks";
 import Ciclo from "../../components/v4/Ciclo";
 import RespuestaIA from "../../components/v4/RespuestaIA";
 
-/** Productos › Visibilidad Intencional en IA: GEO · donde la presencia se fabrica. */
+/** Productos › Navegación Activa en Entornos Conversacionales · donde la presencia se fabrica. */
 
 /* Lo que ha cambiado en el consumo de información, contado sin comparar con
    otros medios: la comparación con la TV desconcertaba más que aclaraba. */
@@ -53,12 +53,12 @@ export default function Geo() {
     <Pagina activo="Productos">
       <Seo
         path="/products/geo"
-        title="Visibilidad Intencional en IA: GEO — tu marca en la respuesta de la IA | Advia"
+        title="Navegación Activa en Entornos Conversacionales — tu marca en la respuesta de la IA | Advia"
         description="Medimos cómo aparece tu marca en las respuestas de los modelos, decidimos en qué factores pelear y creamos el contenido que la IA cita."
       />
 
       <Hero
-        miga="Visibilidad Intencional en IA: GEO"
+        miga="Navegación Activa en Entornos Conversacionales"
         eyebrow="Donde la respuesta se fabrica"
         titular={
           <>

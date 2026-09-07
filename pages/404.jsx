@@ -1,6 +1,8 @@
 import React from "react";
-import NotFound from "../src/pages/404";
+import NoEncontrada from "../src/pages/v4/NoEncontrada";
 
 export default function NotFoundPage() {
-  return <NotFound />;
+  return <NoEncontrada />;
 }
+
+NotFoundPage.v4 = true;

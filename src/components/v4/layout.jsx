@@ -29,8 +29,8 @@ export const NAV_ITEMS = [
     /* Los dos spokes cuelgan del hub: desde el nav se llega a cualquiera de los
        dos sin pasar por la página intermedia. */
     hijos: [
-      { label: "Navegación Activa en Paid Media", href: "/products/paid-media" },
-      { label: "Visibilidad Intencional en IA: GEO", href: "/products/geo" },
+      { label: "Navegación Activa en Canales Digitales", href: "/products/paid-media" },
+      { label: "Navegación Activa en Entornos Conversacionales", href: "/products/geo" },
     ],
   },
   { label: "Nosotros", href: "/about" },
@@ -264,8 +264,8 @@ const FOOTER_GRUPOS = [
   {
     titulo: "Productos",
     links: [
-      { label: "Paid Media", href: "/products/paid-media" },
-      { label: "GEO", href: "/products/geo" },
+      { label: "Canales Digitales", href: "/products/paid-media" },
+      { label: "Entornos Conversacionales", href: "/products/geo" },
     ],
   },
   {

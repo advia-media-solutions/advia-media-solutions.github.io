@@ -13,25 +13,25 @@ const CANALES = [
   {
     titulo: "Open Web",
     desc: "Hay inventario. La presencia se compra.",
-    tag: "Paid Media",
+    tag: "Canales Digitales",
     via: "compra",
   },
   {
     titulo: "YouTube",
     desc: "Hay inventario. La presencia se compra.",
-    tag: "Paid Media",
+    tag: "Canales Digitales",
     via: "compra",
   },
   {
     titulo: "Redes sociales",
     desc: "Canal de descubrimiento. La presencia se fabrica.",
-    tag: "GEO",
+    tag: "Entornos Conversacionales",
     via: "fabrica",
   },
   {
     titulo: "Respuestas de los LLMs",
     desc: "No hay inventario. La presencia se fabrica.",
-    tag: "GEO",
+    tag: "Entornos Conversacionales",
     via: "fabrica",
   },
 ];
@@ -83,7 +83,7 @@ export default function Productos() {
               ancho="100%"
               titular={
                 <>
-                  Navegación Activa en <Key>Paid Media</Key>
+                  Navegación Activa en <Key>Canales Digitales</Key>
                 </>
               }
               lede="Campañas en Open Web y YouTube colocadas sobre las fuentes que tu consumidor consulta mientras compara."
@@ -108,7 +108,7 @@ export default function Productos() {
               ancho="100%"
               titular={
                 <>
-                  Visibilidad Intencional en IA: <Key>GEO</Key>
+                  Navegación Activa en <Key>Entornos Conversacionales</Key>
                 </>
               }
               lede="No hay inventario que comprar. La única vía es ser la fuente que el modelo cita, y eso se construye."

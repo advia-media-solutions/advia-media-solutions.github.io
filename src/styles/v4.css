@@ -202,6 +202,10 @@
 .v4-btn--primary:hover { background: var(--gold-ambar); color: var(--text-on-gold); }
 .v4-btn--ghost { border-color: var(--v4-line-strong); color: var(--v4-fg); }
 .v4-btn--ghost:hover { border-color: var(--accent-gold); color: var(--v4-fg); }
+/* Grafito: para la llamada que no compite con el CTA principal de la página
+   pero tampoco puede quedarse en un enlace, como los casos de éxito. */
+.v4-btn--dark { background: var(--brand-graphite); color: var(--brand-ivory); }
+.v4-btn--dark:hover { background: #3d3d3d; color: var(--brand-ivory); }
 .v4-btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); }
 
 .v4-door {
@@ -787,6 +791,29 @@
 .v4-rama:first-child { border-top: 0; }
 .v4-rama__cuerpo > * + * { margin-top: var(--space-2); }
 .v4-rama__tag[data-via="fabrica"] { background: var(--gold-veil); color: var(--v4-fg); }
+/* Los canales de cada familia. Entran escalonados con la rama —primero se ve
+   que hay dos grandes bloques, luego con qué se puebla cada uno— y sin
+   movimiento si el sistema lo pide. */
+.v4-rama__canales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+.v4-rama__canal {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard);
+  transition-delay: calc(var(--v4-orden) * 90ms);
+}
+.v4-ramas__pieza[data-listo="true"] ~ .v4-ramas__lista .v4-rama__canal {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v4-rama__canal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ────────────────────── 10c. Respuesta generativa ────────────────────── */
 /* El párrafo que se teclea en el hero de GEO. El cursor no parpadea cuando ha
@@ -1591,3 +1618,167 @@
   background: var(--v4-chip);
 }
 .v4-aviso > * + * { margin-top: var(--space-3); }
+
+/* ────────────────────── 10e. Caminos (boceto) ────────────────────── */
+/* Tres consumidores que llegan al mismo sitio por caminos distintos. Se marca
+   como boceto a propósito: el rótulo lo dice y el trazo discontinuo lo enseña,
+   para que nadie lo lea como pieza terminada mientras se decide la animación. */
+.v4-caminos {
+  margin: var(--space-12) 0 0;
+  padding: var(--space-8);
+  border: 1px dashed var(--v4-line-strong);
+  border-radius: var(--radius-xl);
+}
+.v4-caminos__nota { margin-bottom: var(--space-8); }
+.v4-caminos__cuerpo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-8);
+}
+.v4-caminos__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-6);
+}
+.v4-camino {
+  display: grid;
+  grid-template-columns: minmax(200px, 260px) 1fr;
+  align-items: center;
+  gap: var(--space-6);
+}
+.v4-camino__quien { display: flex; flex-direction: column; gap: var(--space-1); }
+.v4-camino__motivo {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-faint);
+}
+.v4-camino__paradas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.v4-camino__flecha { color: var(--v4-faint); }
+/* La llave que recoge los tres caminos: el destino es común, el camino no. */
+.v4-caminos__destino { display: flex; align-items: center; gap: var(--space-5); }
+.v4-caminos__llave {
+  width: 12px;
+  align-self: stretch;
+  border: 2px solid var(--accent-gold);
+  border-left: 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+@media (max-width: 900px) {
+  .v4-caminos__cuerpo { grid-template-columns: 1fr; }
+  .v4-camino { grid-template-columns: 1fr; gap: var(--space-3); }
+  .v4-caminos__llave { display: none; }
+}
+
+/* ────────────────────── 11c. Agente de ejemplo (boceto) ────────────────────── */
+/* Un agente concreto: ficha a la izquierda, lo que hace a la derecha. Como el
+   boceto de caminos, va en trazo discontinuo y con su rótulo: se lee entero,
+   pero nadie lo confunde con una pieza terminada. */
+.v4-agente {
+  margin: var(--space-12) 0 0;
+  padding: var(--space-8);
+  border: 1px dashed var(--v4-line-strong);
+  border-radius: var(--radius-xl);
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  grid-template-areas:
+    "nota  nota"
+    "ficha flujo"
+    "pie   pie";
+  gap: var(--space-8);
+  align-items: start;
+}
+.v4-agente > figcaption { grid-area: nota; }
+.v4-agente__ficha {
+  grid-area: ficha;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--v4-chip);
+}
+.v4-agente__ficha .v4-subheading { margin-top: var(--space-4); }
+.v4-agente__campos { margin: var(--space-6) 0 0; }
+.v4-agente__campo + .v4-agente__campo { margin-top: var(--space-5); }
+.v4-agente__campo dd { margin: var(--space-2) 0 0; }
+.v4-agente__flujo { grid-area: flujo; }
+.v4-agente__preguntas {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+}
+.v4-agente__pregunta {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--v4-line);
+}
+.v4-agente__num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-faint);
+}
+/* La pregunta cuyo aterrizaje se despliega debajo: se marca, o el bloque de
+   sitios parece colgar de las tres. */
+.v4-agente__pregunta[data-abierta="true"] { border-left: 2px solid var(--accent-gold); padding-left: var(--space-4); }
+.v4-agente__pregunta[data-abierta="true"] .v4-body { color: var(--v4-fg); font-weight: var(--fw-bold); }
+.v4-agente__salida {
+  margin-top: var(--space-8);
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--v4-line-strong);
+}
+.v4-agente__sitios { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.v4-agente__sitios li + li { margin-top: var(--space-2); }
+.v4-agente__sitios li::before { content: "· "; color: var(--accent-gold); }
+.v4-agente__pie {
+  grid-area: pie;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--v4-line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-faint);
+}
+
+@media (max-width: 900px) {
+  .v4-agente {
+    grid-template-columns: 1fr;
+    grid-template-areas: "nota" "ficha" "flujo" "pie";
+  }
+}
+
+/* ────────────────────── 12b. Canales de Paid Media ────────────────────── */
+/* Tres canales, tres columnas iguales. Antes eran dos cards en una rejilla de
+   dos y la tercera se quedaba sola en la fila de abajo; y el pie eran tres
+   líneas de "Formato N [ --- ]", que es un hueco repetido haciéndose pasar por
+   contenido. Ahora el pie es uno solo y honesto. */
+.v4-canal {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-2xl);
+  background: var(--v4-panel);
+  /* El filete superior es lo que los hace serie: tres piezas del mismo sistema
+     y no tres cajas sueltas. */
+  box-shadow: inset 0 3px 0 0 var(--accent-gold);
+  transition: transform var(--motion-base) var(--ease-standard),
+              border-color var(--motion-base) var(--ease-standard);
+}
+.v4-canal:hover { transform: translateY(-2px); border-color: var(--v4-line-strong); }
+.v4-canal__nombre { margin-top: var(--space-5); }
+.v4-canal__desc { margin-top: var(--space-4); flex-grow: 1; }
+.v4-canal__pie {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--v4-line);
+}

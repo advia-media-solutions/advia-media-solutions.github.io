@@ -165,7 +165,7 @@ export default function Recorrido({ paradas, nota }) {
             return (
               <li
                 /* Por índice y no por chip: ahora hay paradas que repiten
-                   fuente ("Open Web" dos veces) y las claves chocarían. */
+                   fuente ("Web" dos veces) y las claves chocarían. */
                 key={`${parada.chip}-${i}`}
                 className="v4-parada"
                 /* La pose la fija el perfil, no el turno: ver POSES. */

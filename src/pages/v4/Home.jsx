@@ -40,9 +40,9 @@ const MOMENTOS = [
    de medios contempla, y el que dibuja el camino de las bolas. */
 const RECORRIDO = [
   { chip: "ChatGPT", texto: "«¿cuáles son los mejores SUV híbridos?»" },
-  { chip: "Open Web", texto: "«prestaciones Kia Sportage vs Hyundai Tucson»" },
+  { chip: "Web", texto: "«prestaciones Kia Sportage vs Hyundai Tucson»" },
   { chip: "YouTube", texto: "«vídeo review de Kia Sportage»" },
-  { chip: "Open Web", texto: "«coches chinos SUV»" },
+  { chip: "Web", texto: "«coches chinos SUV»" },
   { chip: "YouTube", texto: "«Omoda vs MG vs BYD»" },
 ];
 
@@ -67,7 +67,7 @@ export default function Home() {
       <Seo
         path="/"
         title="Advia — Turning ads into answers"
-        description="Predecimos dónde busca tu consumidor para decidir y ponemos ahí la respuesta de tu marca: Open Web, YouTube y respuestas de la IA."
+        description="Predecimos dónde busca tu consumidor para decidir y ponemos ahí la respuesta de tu marca: web, YouTube y respuestas de la IA."
       />
 
       <Hero

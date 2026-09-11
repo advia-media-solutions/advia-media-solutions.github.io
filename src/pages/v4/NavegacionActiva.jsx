@@ -1,24 +1,49 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
+import Caminos from "../../components/v4/Caminos";
 import Constelacion from "../../components/v4/Constelacion";
 import { Banda, Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
 
-import { Cita, Door, Key, Label, Nota, Placeholder } from "../../components/v4/primitives";
+import { Boton, Cita, Door, Key, Label, Nota } from "../../components/v4/primitives";
 
 /** Navegación Activa · el concepto (how, parte 1). */
+
+/* Tres consumidores, tres razones, tres caminos, el mismo producto al final.
+   Los datos van aquí porque son contenido, no relleno del dibujo. */
+const CAMINOS = [
+  {
+    quien: "Mujer, 35",
+    motivo: "quiere gastar menos en combustible",
+    paradas: ["ChatGPT", "Web", "YouTube"],
+  },
+  {
+    quien: "Hombre, 52",
+    motivo: "necesita cinco plazas y maletero",
+    paradas: ["Web", "Redes sociales", "Web"],
+  },
+  {
+    quien: "Mujer, 28",
+    motivo: "su coche ya no pasa la ITV",
+    paradas: ["YouTube", "ChatGPT", "Web"],
+  },
+];
 
 function ContrasteHero() {
   const columnas = [
     {
       label: "Pasiva",
-      titulo: "Te entretienen",
-      texto: "El algoritmo elige qué ves. No había una pregunta, así que no hay nada que responder.",
+      titulo: "Se entretienen",
+      texto:
+        "El algoritmo o los editores eligen por ellos lo que sale en pantalla. No había una " +
+        "pregunta, así que no hay nada que responder.",
       destacada: false,
     },
     {
       label: "Activa",
-      titulo: "Buscas algo",
-      texto: "Hay una duda concreta detrás. Existe una respuesta que te sirve, y puede ser de una marca.",
+      titulo: "Tienen una duda",
+      texto:
+        "Una frustración, una necesidad, una decisión que tomar. Ahí tu marca puede ser la " +
+        "respuesta que necesitan.",
       destacada: true,
     },
   ];
@@ -58,7 +83,7 @@ export default function NavegacionActiva() {
             Hay dos formas de <Key>navegar</Key>
           </>
         }
-        lede="En una te entretienen y el algoritmo elige por ti. En la otra buscas algo concreto, y existe una respuesta que te sirve."
+        lede="En una, los consumidores se entretienen y el algoritmo elige por ellos. En la otra tienen una pregunta concreta, y existe una respuesta que les sirve: conviértete en ella y capitaliza la Navegación Activa."
         banda={
           <Banda>
             <ContrasteHero />
@@ -72,31 +97,21 @@ export default function NavegacionActiva() {
             <Cabecera
               titular={
                 <>
-                  La escena del <Key>metro</Key>
+                  Dos momentos de la misma persona, con cinco minutos de{" "}
+                  <Key>diferencia</Key>
                 </>
               }
-              lede="Dos momentos de la misma persona, con cinco minutos de diferencia. En el primero no hay nada que responder; en el segundo, sí."
+              lede="En el primero no hay nada que responder; en el segundo, sí."
             />
             <div className="v4-mt-8">
-              <Nota>
-                La diferencia no está en el canal ni en el formato: está en quién decide qué se
-                mira. En la navegación pasiva decide el algoritmo. En la activa decide la
-                persona, y su búsqueda deja una pregunta explícita a la que responder.
-              </Nota>
+              <Door href="/blog">Lee nuestro blog</Door>
             </div>
           </div>
-          <div className="v4-stack">
-            <Placeholder>
-              Ilustración · storyboard
-              <br />
-              Esperando el metro, scroll en Instagram
-            </Placeholder>
-            <Placeholder>
-              Ilustración · storyboard
-              <br />
-              Buscando auriculares para correr
-            </Placeholder>
-          </div>
+          <Nota>
+            La diferencia no está en el canal ni en el formato: está en quién decide qué se
+            mira. En la navegación pasiva decide el algoritmo. En la activa decide la persona,
+            y su búsqueda deja una pregunta explícita a la que responder.
+          </Nota>
         </Split>
       </Section>
 
@@ -104,10 +119,11 @@ export default function NavegacionActiva() {
         <Cabecera
           titular={
             <>
-              Para que la publicidad sea relevante tiene que <Key>ayudar</Key> a quien la ve
+              Para que la publicidad sea útil para una marca, antes tiene que ser útil para su{" "}
+              <Key>consumidor</Key>
             </>
           }
-          lede="Y solo puedes ayudar a alguien cuando está intentando decidir algo."
+          lede="Capitalizar la Navegación Activa te posiciona como la respuesta que los consumidores necesitan."
         />
         <div className="v4-mt-12">
           <Cita fuente="Blog · Introducción a la Navegación Activa, I">
@@ -120,29 +136,29 @@ export default function NavegacionActiva() {
         <Cabecera
           titular={
             <>
-              Los caminos son infinitos, pero las paradas son <Key>finitas</Key>
+              La Navegación Activa es <Key>rica</Key>. Cada recorrido es único
             </>
           }
-          lede="Cada recorrido es único; las paradas se repiten. Por eso se pueden predecir, y por eso una anécdota se convierte en un volumen de audiencia planificable."
+          lede="Aunque distintos consumidores acaben en el mismo producto, llegan por razones distintas y navegan por caminos distintos. Todo eso es Navegación Activa, y hay que ser capaz de capitalizarla entera."
         />
         <div className="v4-mt-12">
           <Constelacion />
         </div>
+        <Caminos
+          nota="Boceto · pendiente de animar"
+          destino="Acaban en el mismo coche"
+          consumidores={CAMINOS}
+        />
       </Section>
 
       <Cierre
         titular={
           <>
-            Predecimos dónde va a buscar tu consumidor y ponemos ahí la <Key>respuesta</Key> de
-            tu marca
+            Conoce a <Key>Vera</Key>, el motor de simulación de Navegación Activa de Advia
           </>
         }
-        doors={
-          <>
-            <Door href="/technology">Cómo lo predecimos</Door>
-            <Door href="/products">Qué activamos</Door>
-          </>
-        }
+        cta={<Boton href="/technology">Conoce a Vera</Boton>}
+        doors={<Door href="/products">Qué activamos</Door>}
       />
     </Pagina>
   );

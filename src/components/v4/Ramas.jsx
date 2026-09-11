@@ -143,6 +143,22 @@ export default function Ramas({ raiz, items }) {
             <div className="v4-rama__cuerpo">
               <h3 className="v4-subheading">{item.titulo}</h3>
               <p className="v4-body">{item.desc}</p>
+              {/* Los canales de la familia entran escalonados cuando la rama
+                  llega: primero se entiende que hay dos grandes bloques, y
+                  luego con qué se puebla cada uno. */}
+              {item.canales ? (
+                <div className="v4-rama__canales">
+                  {item.canales.map((canal, i) => (
+                    <span
+                      className="v4-chip v4-rama__canal"
+                      key={canal}
+                      style={{ "--v4-orden": i }}
+                    >
+                      {canal}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </div>
             <span className="v4-chip v4-rama__tag" data-via={item.via}>
               {item.tag}

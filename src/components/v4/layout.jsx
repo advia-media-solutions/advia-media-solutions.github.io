@@ -192,6 +192,7 @@ export function Hero({
   eyebrow,
   eyebrowTamano,
   titular,
+  titularTamano,
   lede,
   pie,
   miga,
@@ -216,7 +217,7 @@ export function Hero({
       <div className="v4-hero__body" data-banda={banda ? "true" : undefined}>
         {miga ? (React.isValidElement(miga) ? miga : <Miga hoja={miga} />) : null}
         {eyebrow ? <Label tamano={eyebrowTamano}>{eyebrow}</Label> : null}
-        <h1 className="v4-display-xl">{titular}</h1>
+        <h1 className={titularTamano === "l" ? "v4-display-l" : "v4-display-xl"}>{titular}</h1>
         <p className="v4-lede">{lede}</p>
         {pie}
         {acciones ? <div className="v4-btn-row">{acciones}</div> : null}

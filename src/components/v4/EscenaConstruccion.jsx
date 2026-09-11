@@ -34,13 +34,14 @@ const REPOSO = 0.16;
  * Ventana útil dentro de la travesía: las paradas ocurren mientras la sección
  * está francamente en pantalla, no cuando asoma por el borde o ya se va.
  *
- * La salida se cierra pronto a propósito. Con el último paso repartido al final
- * del recorrido, el tercero se abría con la escena ya saliendo por arriba: para
- * cuando se abría, estabas leyendo la sección siguiente. Cerrando aquí, los tres
- * pasos caen con la escena centrada en pantalla.
+ * La ventana está calzada entre dos fallos opuestos. Abierta al final (0.78) el
+ * tercer paso se abría con la escena ya saliendo por arriba, y lo leías cuando
+ * estabas en la sección siguiente. Abierta al principio (0.22) arrancaba con el
+ * bloque apenas asomando, y cuando llegabas a mirarlo ya se lo había contado
+ * todo. Con 0.32–0.72 los tres pasos caen mientras la escena cruza el centro.
  */
-const ENTRADA = 0.22;
-const SALIDA = 0.60;
+const ENTRADA = 0.32;
+const SALIDA = 0.72;
 
 function progresoDeForma(p) {
   const tramos = PARADAS.length - 1;

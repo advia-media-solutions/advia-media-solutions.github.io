@@ -1,36 +1,26 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
-import { Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
+import { Cabecera, Cierre, Hero, Pagina, Section } from "../../components/v4/layout";
 import { Boton, Door, Key } from "../../components/v4/primitives";
-import { ListaPanel } from "../../components/v4/blocks";
 import Ramas from "../../components/v4/Ramas";
 
 /** Productos · el hub. Enseña por qué hay dos productos; no los lista. */
 
-/* Los canales del esquema (wireframe §02): dos donde la presencia se compra y
-   dos donde se fabrica. El orden agrupa; el tag remata. */
-const CANALES = [
+/* Dos familias, no cuatro canales sueltos: es la estructura que ordena todo el
+   producto. En una la presencia se compra; en la otra hay que fabricarla —y
+   además se puede comprar, desde que ChatGPT tiene publicidad. */
+const FAMILIAS = [
   {
-    titulo: "Open Web",
-    desc: "Hay inventario. La presencia se compra.",
+    titulo: "Canales digitales convencionales",
+    desc: "Donde ya hay inventario: la presencia se compra.",
+    canales: ["Web", "YouTube", "Redes sociales"],
     tag: "Canales Digitales",
     via: "compra",
   },
   {
-    titulo: "YouTube",
-    desc: "Hay inventario. La presencia se compra.",
-    tag: "Canales Digitales",
-    via: "compra",
-  },
-  {
-    titulo: "Redes sociales",
-    desc: "Canal de descubrimiento. La presencia se fabrica.",
-    tag: "Entornos Conversacionales",
-    via: "fabrica",
-  },
-  {
-    titulo: "Respuestas de los LLMs",
-    desc: "No hay inventario. La presencia se fabrica.",
+    titulo: "Entornos conversacionales",
+    desc: "Donde contesta un modelo: la presencia se fabrica, y en ChatGPT además se compra.",
+    canales: ["Respuesta orgánica", "Publicidad en ChatGPT"],
     tag: "Entornos Conversacionales",
     via: "fabrica",
   },
@@ -63,71 +53,51 @@ export default function Productos() {
               <Key>todos</Key>
             </>
           }
-          lede="En unos la presencia se compra; en otros se fabrica. No es una decisión nuestra: la impone el canal."
+          lede="En unos la presencia se compra; en otros se fabrica."
         />
         <div className="v4-mt-16">
-          <Ramas raiz="Navegación Activa" items={CANALES} />
+          <Ramas raiz="Navegación Activa" items={FAMILIAS} />
         </div>
-        <p className="v4-label v4-label--faint v4-mt-8">
-          Pendiente de confirmar: cómo se activa redes sociales y si la lista de canales se cierra
-          aquí.
-        </p>
       </Section>
 
       <Section surface="graphite">
-        <Split>
-          <div>
-            <Cabecera
-              eyebrow="Donde la respuesta se compra"
-              eyebrowTamano="m"
-              ancho="100%"
-              titular={
-                <>
-                  Navegación Activa en <Key>Canales Digitales</Key>
-                </>
-              }
-              lede="Campañas en Open Web y YouTube colocadas sobre las fuentes que tu consumidor consulta mientras compara."
-            />
-            <div className="v4-mt-8">
-              <Door href="/products/paid-media">Ver el producto</Door>
-            </div>
-          </div>
-          <ListaPanel items={["Territorios", "Producto", "Local"]} />
-        </Split>
+        <Cabecera
+          ancho="100%"
+          titular={
+            <>
+              Navegación Activa en <Key>Canales Digitales</Key>
+            </>
+          }
+          lede="Campañas en web, YouTube y tus redes sociales, colocadas sobre las fuentes que tu consumidor consulta mientras compara."
+        />
+        <div className="v4-mt-8">
+          <Door href="/products/paid-media">Ver el producto</Door>
+        </div>
       </Section>
 
       <Section>
-        <Split cols="2-3">
-          <ListaPanel
-            items={["Medimos cómo estás", "Diseñamos la estrategia", "Creamos el contenido"]}
-          />
-          <div>
-            <Cabecera
-              eyebrow="Donde la respuesta se fabrica"
-              eyebrowTamano="m"
-              ancho="100%"
-              titular={
-                <>
-                  Navegación Activa en <Key>Entornos Conversacionales</Key>
-                </>
-              }
-              lede="No hay inventario que comprar. La única vía es ser la fuente que el modelo cita, y eso se construye."
-            />
-            <div className="v4-mt-8">
-              <Door href="/products/geo">Ver el producto</Door>
-            </div>
-          </div>
-        </Split>
+        <Cabecera
+          ancho="100%"
+          titular={
+            <>
+              Navegación Activa en <Key>Entornos Conversacionales</Key>
+            </>
+          }
+          lede="Paid media en ChatGPT y presencia orgánica en todos los modelos de IA. Vera entiende cómo se posiciona tu marca de manera orgánica en los modelos conversacionales y desarrolla una estrategia de mejora en base a las fuentes que el modelo utiliza."
+        />
+        <div className="v4-mt-8">
+          <Door href="/products/geo">Ver el producto</Door>
+        </div>
       </Section>
 
       <Cierre
         titular={
           <>
-            Precampaña: qué está preguntando tu consumidor, <Key>antes de activar</Key>
+            Capitaliza la Navegación Activa en <Key>todos los canales</Key>
           </>
         }
-        lede="Nos cuentas el objetivo, simulamos el recorrido de tu target y te enseñamos dónde puedes responderle."
-        cta={<Boton href="/contact">Pedir un análisis precampaña</Boton>}
+        lede="Nos cuentas el objetivo, simulamos el recorrido de tu consumidor y te enseñamos dónde puedes responderle."
+        cta={<Boton href="/contact">Entender mi Navegación Activa</Boton>}
       />
     </Pagina>
   );

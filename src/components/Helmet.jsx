@@ -41,7 +41,7 @@ const PageHelmet = () => {
       case "/about":
         return "Descubre cómo Advia está transformando el marketing digital a través de tecnología innovadora y soluciones personalizadas.";
       case "/products":
-        return "Explora nuestros productos de marketing digital: campañas en Open Web, YouTube y TikTok optimizadas con IA.";
+        return "Explora nuestros productos de marketing digital: campañas en web, YouTube y TikTok optimizadas con IA.";
       case "/technology":
         return "Conoce nuestra tecnología de navegación activa y cómo utilizamos la IA para optimizar campañas publicitarias.";
       case "/impulsa":

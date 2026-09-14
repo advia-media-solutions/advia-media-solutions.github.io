@@ -1782,3 +1782,179 @@
   padding-top: var(--space-5);
   border-top: 1px solid var(--v4-line);
 }
+
+/* ────────────────────── 12c. Los tres canales ────────────────────── */
+/* Móvil a la izquierda, argumentos a la derecha: la estructura de las láminas
+   del pitch, con el texto recortado a medida de web. */
+.v4-canales {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: var(--space-16);
+  align-items: center;
+  margin-top: var(--space-12);
+}
+
+/* El teléfono. Marco y pantalla dibujados, sin capturas: las maquetas de dentro
+   son el entorno reducido a sus bloques. */
+.v4-movil {
+  position: relative;
+  aspect-ratio: 9 / 18;
+  padding: 10px;
+  border-radius: 40px;
+  background: var(--brand-graphite);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
+}
+/* El marco es grafito, así que sobre sección grafito necesita separarse del
+   fondo con un filete propio. */
+[data-surface="graphite"] .v4-movil { box-shadow: 0 0 0 1px rgba(252, 253, 253, .16), 0 24px 60px rgba(0, 0, 0, .4); }
+.v4-movil__pantalla {
+  height: 100%;
+  padding: var(--space-5);
+  border-radius: 30px;
+  background: var(--brand-ivory);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: v4-pantalla var(--motion-slow) var(--ease-standard);
+}
+@keyframes v4-pantalla {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.v4-maqueta__barra { height: 6px; border-radius: 3px; background: #E3E6EA; width: 40%; }
+.v4-maqueta__titular { height: 12px; border-radius: 3px; background: #C9CED6; }
+.v4-maqueta__linea { height: 6px; border-radius: 3px; background: #E3E6EA; }
+.v4-maqueta__video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  background: #2F3238;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.v4-maqueta__play {
+  width: 0;
+  height: 0;
+  border-left: 14px solid rgba(252, 253, 253, .92);
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+}
+.v4-maqueta__sugerencias { display: flex; gap: var(--space-2); }
+.v4-maqueta__sugerencias span { flex: 1; height: 26px; border-radius: var(--radius-sm); background: #E3E6EA; }
+.v4-maqueta__post { display: flex; gap: var(--space-3); align-items: center; }
+.v4-maqueta__post > div { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); }
+.v4-maqueta__avatar { width: 22px; height: 22px; border-radius: 50%; background: #C9CED6; flex: none; }
+/* El hueco de la marca: es lo único dorado de la pantalla, y por eso es lo
+   primero que se mira. */
+.v4-maqueta__anuncio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--gold-veil);
+  border: 1px solid var(--accent-gold);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-graphite);
+}
+.v4-maqueta__video .v4-maqueta__anuncio {
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-3);
+  padding: var(--space-2);
+}
+
+/* Pestañas de canal: dicen cuál se está viendo y permiten adelantarse. */
+.v4-canales__tabs { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.v4-canales__tab {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+  background: none;
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-pill);
+  padding: var(--space-2) var(--space-5);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease-standard),
+              border-color var(--motion-fast) var(--ease-standard);
+}
+.v4-canales__tab:hover { color: var(--v4-fg); border-color: var(--accent-gold); }
+.v4-canales__tab[data-activo="true"] {
+  color: var(--v4-fg);
+  border-color: var(--accent-gold);
+  background: var(--gold-veil);
+}
+.v4-canales__puntos { list-style: none; margin: var(--space-10) 0 0; padding: 0; }
+.v4-punto-canal {
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--v4-line);
+  animation: v4-pantalla var(--motion-slow) var(--ease-standard) backwards;
+}
+.v4-punto-canal:nth-child(2) { animation-delay: 80ms; }
+.v4-punto-canal:nth-child(3) { animation-delay: 160ms; }
+.v4-punto-canal .v4-body + .v4-body { margin-top: var(--space-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-movil__pantalla, .v4-punto-canal { animation: none; }
+}
+@media (max-width: 900px) {
+  .v4-canales { grid-template-columns: 1fr; gap: var(--space-10); justify-items: center; }
+  .v4-movil { width: 240px; }
+  .v4-canales__cuerpo { width: 100%; }
+}
+
+/* Un canal en preparación: se enseña, no se pulsa y no entra en la rotación.
+   Decirlo es información útil para un cliente; esconderlo, o enseñar una
+   pantalla a medias, sería peor. */
+.v4-canales__tab[data-wip="true"] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-style: dashed;
+  color: var(--v4-faint);
+  cursor: default;
+}
+.v4-canales__tab[data-wip="true"]:hover { color: var(--v4-faint); border-color: var(--v4-line-strong); }
+.v4-canales__pronto {
+  font-size: 10px;
+  letter-spacing: .5px;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--v4-chip);
+  color: var(--v4-muted);
+}
+.v4-canales__nota {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--v4-line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-faint);
+}
+
+/* ────────────────────── 10f. Palabra rotativa ────────────────────── */
+/* La categoría que cambia dentro del titular de GEO. Se reserva el ancho de la
+   palabra más larga para que la frase no baile a cada cambio: un titular que se
+   recompone cada dos segundos es imposible de leer. */
+.v4-rota { display: inline-grid; vertical-align: bottom; }
+.v4-rota__palabra {
+  grid-area: 1 / 1;
+  animation: v4-rota var(--motion-slow) var(--ease-standard);
+}
+@keyframes v4-rota {
+  from { opacity: 0; transform: translateY(.18em); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v4-rota__palabra { animation: none; }
+}

@@ -1,10 +1,11 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
 import Caminos from "../../components/v4/Caminos";
+import Funnel from "../../components/v4/Funnel";
 import Constelacion from "../../components/v4/Constelacion";
 import { Banda, Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
 
-import { Boton, Cita, Door, Key, Label, Nota } from "../../components/v4/primitives";
+import { Boton, Chips, Cita, Door, Key, Label, Nota } from "../../components/v4/primitives";
 
 /** Navegación Activa · el concepto (how, parte 1). */
 
@@ -26,6 +27,19 @@ const CAMINOS = [
     motivo: "su coche ya no pasa la ITV",
     paradas: ["YouTube", "ChatGPT", "Web"],
   },
+];
+
+/* El tramo del embudo donde ocurre la Navegación Activa: ni el arranque de
+   awareness ni la conversión pura, sino la consideración que hay en medio. */
+const FUNNEL = [
+  { label: "Awareness", texto: "Brand-day, skins", peso: 2, destacado: false },
+  {
+    label: "Advia",
+    texto: "De la parte baja de awareness a la consideración",
+    peso: 3,
+    destacado: true,
+  },
+  { label: "Performance", texto: "Conversión pura", peso: 2, destacado: false },
 ];
 
 function ContrasteHero() {
@@ -149,6 +163,26 @@ export default function NavegacionActiva() {
           destino="Acaban en el mismo coche"
           consumidores={CAMINOS}
         />
+      </Section>
+
+      <Section>
+        <Cabecera
+          titular={
+            <>
+              Capitaliza la visibilidad <Key>intencional</Key>
+            </>
+          }
+          lede="Entre el momento en que aparece la necesidad y el momento en que se compra hay un tramo desordenado: el messy middle. Tu consumidor no baja por un embudo, da vueltas —explora, evalúa, vuelve a explorar— y en cada vuelta descarta marcas sin avisar a nadie."
+        />
+        <Funnel segmentos={FUNNEL} />
+        <p className="v4-lede v4-mt-12">
+          Ese tramo ha sido históricamente el difícil de trabajar: fragmentado, complejo y sin
+          una forma clara de saber qué pasaba dentro. Ahora somos capaces de entenderlo y de
+          poner tu marca justo donde se toman las decisiones.
+        </p>
+        <div className="v4-mt-10">
+          <Chips items={["Reach", "Viewability", "VTR", "CTR", "Qualified Visits"]} />
+        </div>
       </Section>
 
       <Cierre

@@ -1,43 +1,68 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
-import { Banda, Cabecera, Cierre, Grid, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import { Boton, Cita, Key, Nota } from "../../components/v4/primitives";
-import { Columnas, PanelDatos } from "../../components/v4/blocks";
+import { Banda, Cabecera, Cierre, Grid, Hero, Pagina, Section } from "../../components/v4/layout";
+import { Boton, Cita, Key } from "../../components/v4/primitives";
+import { Columnas } from "../../components/v4/blocks";
 import Ciclo from "../../components/v4/Ciclo";
+import PalabraRotativa from "../../components/v4/PalabraRotativa";
 import RespuestaIA from "../../components/v4/RespuestaIA";
 
 /** Productos › Navegación Activa en Entornos Conversacionales · donde la presencia se fabrica. */
 
-/* Lo que ha cambiado en el consumo de información, contado sin comparar con
-   otros medios: la comparación con la TV desconcertaba más que aclaraba. */
-const CAMBIO = [
+/* Las categorías que rotan en el titular: sirve cualquiera, y ese es el punto. */
+const CATEGORIAS = ["coche", "cafetera", "teléfono", "bicicleta", "colchón"];
+
+/* Las dos vías de estar dentro de la respuesta. Una se construye, la otra se
+   compra, y ahora conviven en el mismo entorno. */
+const VIAS = [
   {
-    nombre: "Pregunta, no busca",
-    desc: "Una consulta en lenguaje natural sustituye a diez pestañas abiertas.",
-    destacado: false,
-  },
-  {
-    nombre: "Se fía",
-    desc: "La respuesta no parece publicidad, así que pesa como el consejo de alguien que sabe.",
-    destacado: false,
-  },
-  {
-    nombre: "Y decide con ella",
-    desc: "Elige entre el puñado de marcas que el modelo nombra. Si no estás, no compites.",
+    nombre: "Presencia orgánica",
+    desc: "Construimos tu presencia orgánica a partir de dónde se informa la IA.",
     destacado: true,
+  },
+  {
+    nombre: "Paid media en ChatGPT",
+    desc: "Las simulaciones de Vera nos permiten desarrollar estrategias clave para ChatGPT Ads.",
+    destacado: false,
+  },
+];
+
+/* Lo que aporta Vera a la parte de pago: dónde vas a ser relevante, con qué
+   mensaje, y cómo se corrige sobre la marcha. */
+const PAID = [
+  {
+    nombre: "De keywords a hints",
+    desc: "Vera nos permite ir más allá de las keywords clásicas y entender dónde vas a ser relevante para tu consumidor.",
+  },
+  {
+    nombre: "Mensajes creativos",
+    desc: "Distintos mensajes que responden de verdad a la necesidad que tiene delante tu consumidor.",
+  },
+  {
+    nombre: "Mejora continua",
+    desc: "Durante la campaña, Vera nos permite entender qué mensajes funcionan mejor.",
   },
 ];
 
 const LOOP = [
-  { chip: "Medimos", texto: "Cómo apareces hoy en las respuestas de tu categoría." },
-  { chip: "Diseñamos", texto: "En qué factores merece la pena pelear, y en cuáles no." },
-  { chip: "Creamos", texto: "El contenido que la IA cita, donde la IA se informa." },
-];
-
-const SHARE = [
-  { nombre: "Tu marca", etiqueta: "categoría", ancho: 46 },
-  { nombre: "Competidor A", etiqueta: "categoría", ancho: 68 },
-  { nombre: "Competidor B", etiqueta: "categoría", ancho: 31 },
+  {
+    chip: "Medimos",
+    texto:
+      "Simulamos las conversaciones que tus consumidores tienen al decidir, y vemos si estás " +
+      "presente de forma orgánica.",
+  },
+  {
+    chip: "Diseñamos",
+    texto:
+      "Entendemos dónde se informa la IA antes de responderles. Eso es lo que nos permite " +
+      "desarrollar estrategias de posicionamiento.",
+  },
+  {
+    chip: "Creamos",
+    texto:
+      "Con nuestra red de publishers creamos el contenido donde la IA se informará la próxima " +
+      "vez que un consumidor esté decidiendo.",
+  },
 ];
 
 const ESTANTERIAS = [
@@ -58,14 +83,16 @@ export default function Geo() {
       />
 
       <Hero
-        miga="Navegación Activa en Entornos Conversacionales"
-        eyebrow="Donde la respuesta se fabrica"
+        eyebrow="Convertimos tu marca en la respuesta"
+        eyebrowTamano="m"
+        titularTamano="l"
         titular={
           <>
-            Tu marca en la <Key>respuesta</Key> de la IA
+            La IA ha cambiado cómo tus consumidores <Key>deciden</Key>. Tienes que cambiar cómo
+            te comunicas con ellos
           </>
         }
-        lede="Cuando alguien pregunta por tu categoría, el modelo contesta con un puñado de marcas y unas cuantas fuentes. Trabajamos para que estés entre ellas."
+        lede="Los entornos conversacionales permiten a tus consumidores decidir rápido y con precisión. Vera entiende cómo lo hacen, para que también ahí seas tú la respuesta."
         banda={
           <Banda caption="Simulación de respuesta generativa">
             <RespuestaIA
@@ -83,22 +110,27 @@ export default function Geo() {
           eyebrow="Visibilidad Intencional"
           titular={
             <>
-              La IA es el consejero del que todo el mundo se <Key>fía</Key>
+              Cuando un consumidor intenta decidir qué <PalabraRotativa palabras={CATEGORIAS} />{" "}
+              comprarse, ¿eres la respuesta que la IA menciona?
             </>
           }
-          lede="El consumo de información ha cambiado de raíz: tu consumidor pregunta a un modelo y actúa sobre lo que le contesta. Estar dentro de esa recomendación es lo que llamamos Visibilidad Intencional, y es la posición que decide quién entra en la lista y quién no."
+          lede="Cada vez más consumidores confían en la IA para decidir. Estas herramientas agrupan sus datos de entrenamiento y la información que se genera día a día en los canales donde antes decidíamos. Estar ahí es la clave para aumentar tu visibilidad intencional."
         />
-        <Grid cols={3} className="v4-mt-12">
-          {CAMBIO.map((m) => (
+        <Grid cols={2} className="v4-mt-12">
+          {VIAS.map((v) => (
             <article
-              key={m.nombre}
+              key={v.nombre}
               className="v4-card"
-              data-destacada={m.destacado ? "true" : undefined}
+              data-size="lg"
+              data-destacada={v.destacado ? "true" : undefined}
             >
-              <h3 className="v4-subheading" style={m.destacado ? { color: "var(--accent-gold)" } : undefined}>
-                {m.nombre}
+              <h3
+                className="v4-subheading"
+                style={v.destacado ? { color: "var(--accent-gold)" } : undefined}
+              >
+                {v.nombre}
               </h3>
-              <p className="v4-body">{m.desc}</p>
+              <p className="v4-body">{v.desc}</p>
             </article>
           ))}
         </Grid>
@@ -114,54 +146,13 @@ export default function Geo() {
         <Cabecera
           titular={
             <>
-              No vendemos un dashboard: cerramos el <Key>ciclo</Key>
+              Construye tu presencia orgánica en modelos <Key>conversacionales</Key>
             </>
           }
-          lede="Medimos cómo estás, decidimos dónde merece la pena pelear y creamos el contenido que el modelo cita."
+          lede="Medimos cómo estás hoy, entendemos de dónde saca la IA sus respuestas y creamos el contenido que citará mañana."
         />
         <div className="v4-mt-16">
           <Ciclo pasos={LOOP} />
-        </div>
-      </Section>
-
-      <Section>
-        <Split cols="2-3" align="start">
-          <Cabecera
-            eyebrow="Medimos"
-            ancho="100%"
-            titular={
-              <>
-                Del Share of Search al <Key>Share of Answer</Key>
-              </>
-            }
-            lede="Cuánto apareces, en qué posición, frente a quién y por qué factores."
-          />
-          <PanelDatos
-            caption="Share of Answer"
-            meta="Cuota de respuesta"
-            items={SHARE}
-            neutraSalvo="Tu marca"
-            nota="Reparto ilustrativo. Cuotas pendientes de dato real."
-          />
-        </Split>
-      </Section>
-
-      <Section surface="inset">
-        <Cabecera
-          eyebrow="Diseñamos la estrategia"
-          titular={
-            <>
-              Medir no mueve nada. Decidimos <Key>en qué factores merece la pena pelear</Key>
-            </>
-          }
-          lede="Entendemos por qué tu presencia es la que es, factor a factor, y concentramos el esfuerzo ahí. No hace falta salir primero en todo."
-        />
-        <div className="v4-mt-10" style={{ maxWidth: "900px" }}>
-          <Nota>
-            Salir primero en todo no es un objetivo alcanzable ni útil: los modelos citan por
-            factores distintos según la pregunta. Elegir dos o tres donde sí puedes ganar rinde más
-            que repartir el esfuerzo entre veinte.
-          </Nota>
         </div>
       </Section>
 
@@ -184,17 +175,22 @@ export default function Geo() {
 
       <Section surface="inset">
         <Cabecera
-          eyebrow="Creamos el contenido"
           titular={
             <>
-              El <Key>loop</Key> es el producto
+              Mientras construimos tu presencia orgánica, la complementamos con{" "}
+              <Key>paid media en ChatGPT</Key>
             </>
           }
-          lede="AI-Readable Content: contenido editorial diseñado para que los modelos lo citen, publicado donde la IA se informa. Después volvemos a medir, y el reparto de fuentes dice si funcionó."
+          lede="Vera nos permite entender cómo se informan tus consumidores y cuándo vas a ser una respuesta relevante para ellos."
         />
-        <p className="v4-label v4-label--faint v4-mt-8">
-          Nomenclatura a unificar antes de publicar: AI-Readable vs. AI-Friendly Content.
-        </p>
+        <Grid cols={3} className="v4-mt-12">
+          {PAID.map((p) => (
+            <article key={p.nombre} className="v4-card">
+              <h3 className="v4-subheading">{p.nombre}</h3>
+              <p className="v4-body">{p.desc}</p>
+            </article>
+          ))}
+        </Grid>
       </Section>
 
       <Cierre

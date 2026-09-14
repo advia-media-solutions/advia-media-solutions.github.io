@@ -1,52 +1,65 @@
 import React from "react";
 import Seo from "../../components/v4/Seo";
-import { Cabecera, Cierre, Grid, Hero, Pagina, Section } from "../../components/v4/layout";
-import { Boton, Chips, Hueco, Key, Label } from "../../components/v4/primitives";
-import Funnel from "../../components/v4/Funnel";
+import { Cabecera, Cierre, Hero, Pagina, Section } from "../../components/v4/layout";
+import { Boton, Key } from "../../components/v4/primitives";
+import Canales from "../../components/v4/Canales";
 
 /** Productos › Navegación Activa en Canales Digitales · donde la presencia se compra. */
 
+/* Los tres canales, con los argumentos de las láminas del pitch reducidos a
+   medida de web: un titular y una línea por punto. */
 const CANALES = [
   {
     nombre: "Web",
-    desc: "Donde compara: medios especializados, comparativas y artículos de prueba.",
+    maqueta: "web",
+    puntos: [
+      {
+        titulo: "Escala donde te buscan sin saberlo",
+        texto:
+          "Activamos en los artículos que tus consumidores leen mientras buscan respuestas. " +
+          "Es el canal que aporta el volumen.",
+      },
+      {
+        titulo: "Presencia en las fuentes que alimentan a la IA",
+        texto:
+          "Cuando alguien pregunta a ChatGPT o Gemini, la respuesta sale de algún sitio. " +
+          "Identificamos esas fuentes y activamos en ellas.",
+      },
+      {
+        titulo: "Un formato para cada objetivo",
+        texto:
+          "Vídeo para notoriedad, rich media para captar atención, native para tráfico " +
+          "cualificado.",
+      },
+    ],
   },
   {
     nombre: "YouTube",
-    desc: "Donde resuelve la duda larga: reviews, comparativas en vídeo y demostraciones.",
+    maqueta: "video",
+    puntos: [
+      {
+        titulo: "Máxima relevancia en el momento de consumo",
+        texto:
+          "Activamos mientras está viendo contenido de tu categoría. El anuncio no " +
+          "interrumpe: completa lo que ya estaba buscando.",
+      },
+      {
+        titulo: "Presencia en los vídeos que cita la IA",
+        texto: "Los modelos también se apoyan en vídeo para construir sus respuestas.",
+      },
+      {
+        titulo: "El formato de mayor atención, con intención detrás",
+        texto:
+          "Sin depender del targeting por intereses o afinidad. Hasta 2× más engagement.",
+      },
+    ],
   },
   {
     nombre: "Redes sociales",
-    desc: "Donde contrasta con otros: opiniones, recomendaciones y experiencias de uso.",
+    maqueta: "feed",
+    wip: true,
   },
 ];
-
-const FUNNEL = [
-  { label: "Awareness", texto: "Brand-day, skins", peso: 2, destacado: false },
-  {
-    label: "Advia",
-    texto: "De la parte baja de awareness a la consideración",
-    peso: 3,
-    destacado: true,
-  },
-  { label: "Performance", texto: "Conversión pura", peso: 2, destacado: false },
-];
-
-function PanelCanal({ canal, num }) {
-  return (
-    <article className="v4-canal">
-      <Label tono="gold">{num}</Label>
-      <h3 className="v4-subheading v4-canal__nombre">{canal.nombre}</h3>
-      <p className="v4-body v4-canal__desc">{canal.desc}</p>
-      <div className="v4-canal__pie">
-        <Label tono="faint">Formatos</Label>
-        <span className="v4-mono">
-          <Hueco />
-        </span>
-      </div>
-    </article>
-  );
-}
 
 export default function PaidMedia() {
   return (
@@ -74,33 +87,13 @@ export default function PaidMedia() {
         <Cabecera
           titular={
             <>
-              Dónde ocurre cada tipo de búsqueda, y qué formato admite cada <Key>canal</Key>
+              Tus consumidores buscan información en distintos canales, y hay que ser la
+              respuesta en <Key>todos ellos</Key>
             </>
           }
+          lede="Una estrategia de mid funnel holística que te convierte en la respuesta que tus consumidores aún no saben que necesitan, de manera coherente y allí donde te están buscando."
         />
-        <Grid cols={3} className="v4-mt-12">
-          {CANALES.map((c, i) => (
-            <PanelCanal key={c.nombre} canal={c} num={`0${i + 1}`} />
-          ))}
-        </Grid>
-        <p className="v4-label v4-label--faint v4-mt-8">
-          Pendiente: formatos disponibles por canal.
-        </p>
-      </Section>
-
-      <Section>
-        <Cabecera
-          titular={
-            <>
-              Una estrategia de mid funnel <Key>holística</Key>
-            </>
-          }
-          lede="Te convierte en la respuesta que tus consumidores aún no saben que necesitan, de manera coherente y allí donde te están buscando. Es el tramo que casi nadie cose: de la parte baja de awareness a la consideración."
-        />
-        <Funnel segmentos={FUNNEL} />
-        <div className="v4-mt-8">
-          <Chips items={["Reach", "Viewability", "VTR", "CTR", "Qualified Visits"]} />
-        </div>
+        <Canales canales={CANALES} />
       </Section>
 
       <Section surface="inset">
@@ -119,20 +112,6 @@ export default function PaidMedia() {
         </div>
         <p className="v4-label v4-label--faint v4-mt-8">
           Pendiente: cifras de campañas activadas y casos de éxito con dato real.
-        </p>
-      </Section>
-
-      <Section>
-        <Cabecera
-          titular={
-            <>
-              El <Key>messy middle</Key>
-            </>
-          }
-          lede="El mid funnel ha sido históricamente el tramo difícil: fragmentado, complejo y sin una forma clara de trabajarlo. Ahí es donde tu consumidor compara y descarta, y donde la Navegación Activa te pone delante."
-        />
-        <p className="v4-label v4-label--faint v4-mt-8">
-          Pendiente: descripción larga del concepto (Claudio).
         </p>
       </Section>
 

@@ -21,6 +21,7 @@
     "rehype-highlight": "^7.0.2",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "three": "^0.185.1",
     "web-vitals": "^2.1.4"
   },
   "overrides": {

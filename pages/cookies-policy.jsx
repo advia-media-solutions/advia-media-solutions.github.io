@@ -1,9 +1,11 @@
 import React from "react";
-import CookiesPolicy from "../src/pages/CookiesPolicy";
+import Cookies from "../src/pages/v4/legal/Cookies";
 
 export default function CookiesPolicyPage() {
-  return <CookiesPolicy />;
+  return <Cookies />;
 }
+
+CookiesPolicyPage.v4 = true;
 
 export async function getServerSideProps() {
   return { props: {} };

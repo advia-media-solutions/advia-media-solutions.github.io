@@ -1,9 +1,11 @@
 import React from "react";
-import OptOut from "../src/pages/OptOut";
+import OptOut from "../src/pages/v4/legal/OptOut";
 
 export default function OptOutPage(props) {
   return <OptOut {...props} />;
 }
+
+OptOutPage.v4 = true;
 
 export async function getServerSideProps({ req, res, query }) {
   // Per-visitor state: must never be cached at any layer.

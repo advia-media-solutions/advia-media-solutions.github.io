@@ -3,6 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  async rewrites() {
+    return [
+      // Standalone technical/compliance doc served straight from public/,
+      // outside the _app layout (no nav, no footer).
+      { source: "/pixels", destination: "/pixels.html" },
+    ];
+  },
   async headers() {
     return [
       {

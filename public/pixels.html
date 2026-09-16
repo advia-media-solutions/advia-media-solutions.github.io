@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Píxeles de medición de Advia · Información técnica y de cumplimiento</title>
+  <meta name="description" content="Qué son los píxeles de medición de Advia, cómo funcionan, qué datos recogen, cómo se gestiona el consentimiento, quién responde de cada parte y qué cookies están involucradas.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* --- Advia Design System v1.0 · subset de tokens.css (fuente de verdad) --- */
+      --brand-graphite:   #292929;
+      --brand-ivory:      #FCFDFD;
+      --accent-gold:      #FAAD33;
+      --gold-crema:       #FCF2D7;
+      --neutral-500:      #7A7A7A;
+      --neutral-dark:     #4D4D4D;
+
+      --surface-page:     var(--brand-ivory);
+      --surface-card:     #FFFFFF;
+      --surface-sunken:   #F1F3F7;
+
+      --text-primary:     var(--brand-graphite);
+      --text-secondary:   #7A7A7A;
+      --text-accent:      var(--accent-gold);
+      --text-on-gold:     var(--brand-ivory);
+
+      --border-subtle:    rgba(41,41,41,0.08);
+      --border-default:   rgba(41,41,41,0.14);
+
+      --focus-ring-color: var(--gold-crema);
+      --focus-ring-shadow: 2px 2px 4px 0 var(--focus-ring-color),
+                          -2px -2px 4px 0 var(--focus-ring-color);
+
+      --font-sans: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "Ubuntu Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+      --fw-regular: 400; --fw-medium: 500; --fw-bold: 700;
+
+      --fs-heading:    42px; --lh-heading:    50px;
+      --fs-subheading: 28px; --lh-subheading: 36px;
+      --fs-body-l:     20px; --lh-body-l:     30px;
+      --fs-body-m:     15px; --lh-body-m:     23px;
+      --fs-body-s:     12px; --lh-body-s:     19px;
+      --fs-label:      11px; --lh-label:      13px;
+      --fs-button:     15px; --lh-button:     20px;
+      --fs-code-xs:    10px; --lh-code-xs:    14px;
+      --fs-code-m:     15px; --lh-code-m:     22px;
+
+      --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+      --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+      --space-12: 48px; --space-16: 64px; --space-20: 80px;
+
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   12px;
+      --radius-xl:   16px;
+      --radius-full: 100px;
+      --radius-card: var(--radius-md);
+      --radius-pill: var(--radius-full);
+
+      --motion-fast: 120ms; --motion-base: 200ms;
+      --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+      /* Layout del documento (prosa, más estrecho que --web-content-width) */
+      --doc-width: 820px;
+      --doc-pad-x: 48px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--surface-page);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: var(--fs-body-m);
+      line-height: var(--lh-body-m);
+      font-weight: var(--fw-regular);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: var(--doc-width);
+      margin: 0 auto;
+      padding: var(--space-16) var(--doc-pad-x) var(--space-20);
+    }
+
+    /* --- Cabecera: logo + selector de idioma ------------------------------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      margin-bottom: var(--space-16);
+    }
+    .logo { width: 132px; height: auto; display: block; }
+
+    .lang {
+      display: inline-flex;
+      gap: var(--space-1);
+      padding: var(--space-1);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-pill);
+      background: var(--surface-card);
+    }
+    .lang button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: var(--fs-label);
+      line-height: var(--lh-label);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill);
+      transition: background var(--motion-fast) var(--ease-standard),
+                  color var(--motion-fast) var(--ease-standard);
+    }
+    .lang button:hover { color: var(--text-primary); }
+    .lang button[aria-pressed="true"] {
+      background: var(--accent-gold);
+      color: var(--text-on-gold);
+    }
+    .lang button:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring-shadow);
+    }
+
+    /* --- Cabecera del documento -------------------------------------------- */
+    .eyebrow {
+      font-size: var(--fs-label);
+      line-height: var(--lh-label);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-4);
+    }
+    h1 {
+      font-size: var(--fs-heading);
+      line-height: var(--lh-heading);
+      font-weight: var(--fw-bold);
+      margin: 0 0 var(--space-5);
+      max-width: 16ch;
+    }
+    .lede {
+      font-size: var(--fs-body-l);
+      line-height: var(--lh-body-l);
+      color: var(--text-secondary);
+      margin: 0;
+      max-width: 62ch;
+    }
+    .rule {
+      height: 1px;
+      background: var(--border-subtle);
+      border: 0;
+      margin: var(--space-12) 0 0;
+    }
+
+    /* --- Secciones ---------------------------------------------------------- */
+    section { margin-top: var(--space-16); }
+    h2 {
+      font-size: var(--fs-subheading);
+      line-height: var(--lh-subheading);
+      font-weight: var(--fw-bold);
+      margin: 0 0 var(--space-8);
+    }
+    .sec-num {
+      font-family: var(--font-mono);
+      color: var(--text-accent);
+      margin-right: var(--space-3);
+    }
+    .sec-num::after { content: " ·"; color: var(--text-secondary); }
+    h3 {
+      font-size: var(--fs-body-l);
+      line-height: var(--lh-body-l);
+      font-weight: var(--fw-bold);
+      margin: var(--space-10) 0 var(--space-3);
+    }
+    section > h3:first-of-type { margin-top: 0; }
+    p { margin: 0 0 var(--space-4); max-width: 72ch; }
+    a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--accent-gold); text-underline-offset: 3px; }
+    a:hover { color: var(--text-accent); }
+    a:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); border-radius: var(--radius-sm); }
+
+    /* --- Tablas ------------------------------------------------------------- */
+    .table-scroll { overflow-x: auto; margin: var(--space-8) 0 var(--space-6); }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .table th {
+      font-size: var(--fs-label);
+      line-height: var(--lh-label);
+      font-weight: var(--fw-medium);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      padding: 0 var(--space-4) var(--space-3) 0;
+      border-bottom: 1px solid var(--border-default);
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .table td {
+      padding: var(--space-3) var(--space-4) var(--space-3) 0;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+    }
+    .table th:last-child, .table td:last-child { padding-right: 0; }
+    .table .mono {
+      font-family: var(--font-mono);
+      font-size: var(--fs-code-m);
+      line-height: var(--lh-code-m);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .table--resp td { font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+    .table--resp .owner { white-space: nowrap; color: var(--text-secondary); }
+    .table--resp th:last-child, .table--resp td:last-child { width: 1%; }
+
+    .table--cookies { min-width: 720px; }
+    .table--cookies td { font-size: var(--fs-body-s); line-height: var(--lh-body-s); }
+    .table--cookies .mono { font-size: var(--fs-body-s); line-height: var(--lh-body-s); }
+    .table--cookies td:first-child { font-weight: var(--fw-bold); }
+
+    /* --- Nota analítica (Design System §10.7b) ------------------------------ */
+    .note {
+      background: var(--surface-sunken);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+      padding: var(--space-5) var(--space-6);
+      color: var(--text-secondary);
+      font-size: var(--fs-body-m);
+      line-height: var(--lh-body-m);
+      max-width: none;
+      margin: var(--space-6) 0 0;
+    }
+
+    /* --- Pie ---------------------------------------------------------------- */
+    .foot {
+      margin-top: var(--space-20);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-8);
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: var(--fs-code-xs);
+      line-height: var(--lh-code-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    /* --- Idioma: ES visible por defecto, sin depender de JS ------------------ */
+    [data-lang-block="en"] { display: none; }
+    html[data-lang="en"] [data-lang-block="es"] { display: none; }
+    html[data-lang="en"] [data-lang-block="en"] { display: block; }
+
+    /* --- Responsive --------------------------------------------------------- */
+    @media (max-width: 900px) {
+      :root { --doc-pad-x: 20px; }
+      .wrap { padding-top: var(--space-10); padding-bottom: var(--space-16); }
+      h1 { font-size: var(--fs-subheading); line-height: var(--lh-subheading); max-width: none; }
+      .lede { font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+      section { margin-top: var(--space-12); }
+      .logo { width: 108px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+
+    @media print {
+      .lang { display: none; }
+      .wrap { max-width: none; padding: 0; }
+      .table--cookies { min-width: 0; }
+      .table-scroll { overflow: visible; }
+      body { font-size: var(--fs-body-s); line-height: var(--lh-body-s); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <svg class="logo" width="335" height="76" viewBox="0 0 335 76" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Advia">
+      <g clip-path="url(#clip0_66_831)">
+      <path d="M253.271 0H242.886C242.224 0 241.688 0.536477 241.688 1.19825V74.116C241.688 74.7778 242.224 75.3143 242.886 75.3143H253.271C253.933 75.3143 254.469 74.7778 254.469 74.116V1.19825C254.469 0.536477 253.933 0 253.271 0Z" fill="#292929"/>
+      <path d="M74.9228 74.7714L46.4922 0.767188C46.3165 0.303863 45.8691 0.000305176 45.3739 0.000305176H29.5729C29.0776 0.000305176 28.6303 0.303863 28.4545 0.767188L0.0239191 74.7714C-0.0799297 75.035 0.119779 75.3146 0.399372 75.3146H11.2076C12.1263 75.3146 13.1408 74.6116 13.4524 73.7489L37.0979 9.61829C37.2257 9.26681 37.721 9.26681 37.8488 9.61829L61.4944 73.7409C61.8139 74.6036 62.8204 75.3066 63.7391 75.3066H74.5474C74.827 75.3066 75.0187 75.027 74.9228 74.7634V74.7714Z" fill="#292929"/>
+      <path d="M161.317 0.543209L189.748 74.5474C189.923 75.0107 190.371 75.3143 190.866 75.3143H206.667C207.162 75.3143 207.61 75.0107 207.785 74.5474L236.216 0.543209C236.32 0.279593 236.12 0 235.84 0H225.032C224.114 0 223.099 0.702976 222.787 1.56572L199.142 65.6883C199.014 66.0398 198.519 66.0398 198.391 65.6883L174.745 1.56572C174.426 0.702976 173.419 0 172.501 0H161.692C161.413 0 161.221 0.279593 161.317 0.543209Z" fill="#292929"/>
+      <path d="M334.976 74.7711L306.545 0.766883C306.37 0.303558 305.922 0 305.427 0H289.626C289.131 0 288.683 0.303558 288.508 0.766883L260.077 74.7711C259.973 75.0347 260.173 75.3143 260.453 75.3143H271.261C272.18 75.3143 273.194 74.6113 273.506 73.7486L297.151 9.62598C297.279 9.27449 297.774 9.27449 297.902 9.62598L321.548 73.7486C321.867 74.6113 322.874 75.3143 323.792 75.3143H334.601C334.88 75.3143 335.072 75.0347 334.976 74.7711Z" fill="#292929"/>
+      <path d="M155.629 29.9325V45.7335C155.629 46.2288 155.318 46.6762 154.854 46.8519L145.947 50.2789L134.844 54.5447L134.732 54.5846H134.724L120.488 60.0567L116.079 61.7502L105.526 65.8083L95.5248 69.6427L101.005 54.8003L101.26 54.7045L112.013 50.7342L125.801 45.6536L130.873 43.7844L140.196 40.3494L141.889 39.7263L146.003 38.2085C146.355 38.0807 146.355 37.5854 146.003 37.4576L141.889 35.9398L140.196 35.3167L130.873 31.8817L125.801 30.0044L112.021 24.9238L101.26 20.9616L101.005 20.8658L95.5328 6.02338L105.526 9.85779L116.079 13.9159L120.488 15.6094L134.724 21.0814L134.844 21.1214L145.947 25.3872L154.854 28.8142C155.318 28.9899 155.629 29.4373 155.629 29.9325Z" fill="url(#paint0_linear_66_831)"/>
+      <path d="M101.005 20.8655L86.1625 15.3855H86.1545L80.5387 0.399339C80.6346 0.351409 80.7464 0.34342 80.8582 0.383362L95.5249 6.02315H95.5329L101.005 20.8655Z" fill="#F6D8AB"/>
+      <path d="M101.149 21.2569L94.782 37.8327L86.1625 15.3854L101.005 20.8655L101.149 21.2569Z" fill="#F6CD8B"/>
+      <path d="M101.149 54.4088L101.005 54.8002L86.1625 60.2643L94.782 37.8329L101.149 54.4088Z" fill="#F2BB62"/>
+      <path d="M101.005 54.8004L95.5249 69.6428L80.8582 75.2826C80.7464 75.3225 80.6345 75.3145 80.5387 75.2666C80.4908 75.1707 80.4828 75.0589 80.5227 74.9471L86.1625 60.2645L101.005 54.8004Z" fill="#EB9F40"/>
+      <path d="M107.26 37.8331L101.149 54.409L94.7819 37.8331L101.149 21.2573L107.26 37.8331Z" fill="#F2BB62"/>
+      </g>
+      <defs>
+      <linearGradient id="paint0_linear_66_831" x1="125.577" y1="6.02338" x2="125.577" y2="69.6427" gradientUnits="userSpaceOnUse">
+      <stop offset="0.16" stop-color="#FEECAD"/>
+      <stop offset="0.84" stop-color="#EEAB4A"/>
+      </linearGradient>
+      <clipPath id="clip0_66_831">
+      <rect width="335" height="75.3143" fill="white"/>
+      </clipPath>
+      </defs>
+      </svg>
+      <div class="lang" role="group" aria-label="Idioma / Language">
+        <button type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <div data-lang-block="es" lang="es">
+      <header>
+        <p class="eyebrow">Píxeles de medición de Advia</p>
+        <h1>Información técnica y de cumplimiento</h1>
+        <p class="lede">Qué son los píxeles de medición de Advia, cómo funcionan, qué datos recogen, cómo se gestiona el consentimiento, quién responde de cada parte y qué cookies están involucradas.</p>
+        <hr class="rule">
+      </header>
+
+      <main>
+      <section>
+        <h2><span class="sec-num">1</span> Funcionamiento técnico</h2>
+        <h3>¿Qué son los píxeles de Advia?</h3>
+          <p>Los píxeles de Advia son un sistema de seguimiento de conversiones implementado mediante Google Campaign Manager 360 (Floodlight). Funcionan como una capa de datos que permite vincular conversiones y eventos de usuario en el sitio web del anunciante con la actividad publicitaria generada por las campañas de Advia.</p>
+          <p>Los datos recopilados alimentan estrategias de optimización automatizada, mejorando el rendimiento al enfocarse en las acciones que generan valor real para el negocio del anunciante.</p>
+        <h3>¿Cómo funcionan?</h3>
+          <p>Los píxeles consisten en un fragmento de código que se instala en páginas específicas del sitio web o aplicación del anunciante. Cuando un usuario visita una página donde está instalado (por ejemplo, «Gracias por tu compra»), la etiqueta registra una conversión. El sistema verifica si ese usuario visualizó o hizo clic en alguno de los anuncios de Advia dentro de la ventana de conversión configurada. Si encuentra coincidencia, atribuye la conversión a la campaña correspondiente.</p>
+        <h3>¿Qué datos se recogen?</h3>
+          <p>Los píxeles recogen datos técnicos y de navegación necesarios para la medición publicitaria: identificadores de cookie, dirección IP, información del navegador y sistema operativo, páginas visitadas, marca temporal del evento, interacciones previas con anuncios y valor de transacciones cuando aplique.</p>
+          <p>Se trata de datos pseudonimizados: no incluyen información de identificación personal directa (nombre, correo electrónico, teléfono o documento identificativo). Advia accede a informes agregados, no a registros individuales de usuario.</p>
+        <h3>¿Dónde y por cuánto tiempo se almacenan?</h3>
+          <p>Los datos se almacenan mediante cookies con duración configurable, típicamente entre 30 y 90 días. Las conversiones solo se atribuyen si el usuario interactuó con un anuncio dentro de la ventana de conversión configurada (máximo 90 días).</p>
+          <p>El almacenamiento se produce en la infraestructura de Google Marketing Platform, sujeto a los periodos de retención configurados en la cuenta de Campaign Manager 360 gestionada por Advia. Al finalizar la relación se desactivan las etiquetas y se cierra el acceso a los datos de la campaña.</p>
+        <h3>¿Para qué se utilizan estos datos?</h3>
+          <p>La información recopilada se utiliza exclusivamente para: medición del rendimiento de campañas publicitarias, atribución de conversiones a estrategias específicas, optimización y segmentación de campañas, y generación de informes de resultados. Los píxeles permiten a Advia identificar qué campañas, creatividades y audiencias generan mejores resultados para maximizar el retorno de la inversión del anunciante.</p>
+      </section>
+
+      <section>
+        <h2><span class="sec-num">2</span> Cumplimiento y consentimiento</h2>
+        <h3>¿Cómo se gestiona el consentimiento?</h3>
+          <p>La activación de los píxeles está condicionada al consentimiento del usuario. Google Consent Mode gobierna la lectura y escritura de cookies publicitarias en función de la señal de consentimiento recibida: sin señal válida no se instalan cookies publicitarias.</p>
+          <p>Dicha señal la genera la plataforma de gestión de consentimiento (CMP) implementada por el anunciante en sus propiedades. Advia facilita los códigos junto con las instrucciones de implementación necesarias para que la etiqueta quede condicionada a esa señal, y trata los datos únicamente cuando la recibe.</p>
+        <h3>¿Quién responde de cada parte?</h3>
+          <p>Advia define qué se mide y recomienda en qué páginas y acciones conviene colocar cada etiqueta, en función de los objetivos de la campaña. La implementación la realiza el anunciante y/o su agencia, ajustándose a las posibilidades y limitaciones técnicas de sus propiedades, y son ellos quienes deciden dónde y en qué condiciones se activa finalmente la etiqueta.</p>
+        <div class="table-scroll">
+        <table class="table table--resp">
+          <thead>
+            <tr><th>RESPONSABILIDAD</th><th>CORRESPONDE A</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Generación de los códigos y configuración del esquema de eventos en CM360</td><td class="owner">Advia</td></tr>
+            <tr><td>Recomendación de las páginas y acciones a medir</td><td class="owner">Advia</td></tr>
+            <tr><td>Instalación de los códigos en las propiedades web o aplicaciones</td><td class="owner">Anunciante / agencia</td></tr>
+            <tr><td>Selección e implementación de la CMP</td><td class="owner">Anunciante</td></tr>
+            <tr><td>Obtención del consentimiento y deber de información al usuario</td><td class="owner">Anunciante</td></tr>
+            <tr><td>Registro del servicio en la CMP y política de cookies</td><td class="owner">Anunciante</td></tr>
+            <tr><td>Informes agregados de rendimiento de campaña</td><td class="owner">Advia</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="sec-num">3</span> ¿Qué cookies están involucradas?</h2>
+        <p>La siguiente tabla detalla las cookies que Campaign Manager 360 (Floodlight) y los productos relacionados de Google Marketing Platform pueden establecer, junto con su finalidad, duración y dominio. Es la información necesaria para registrar el servicio en la CMP y reflejarlo en la política de cookies.</p>
+        <p>La columna de producto recoge los productos de Google que utiliza Advia: Campaign Manager 360 y Display &amp; Video 360. Google documenta estas mismas cookies como compartidas con otros productos de su plataforma que no forman parte de este servicio.</p>
+        <p>El sistema emplea tanto cookies propias (establecidas en el dominio del anunciante) como cookies de terceros, establecidas en dominios de Google. Ambas categorías deben declararse en la política de cookies.</p>
+        <div class="table-scroll">
+        <table class="table table--cookies">
+          <thead>
+            <tr><th>COOKIE</th><th>FINALIDAD</th><th>PRODUCTO(S)</th><th>DURACIÓN</th><th>DOMINIO(S)</th></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="mono">__eoi</td>
+            <td>Seguridad</td>
+            <td class="mono">DV360</td>
+            <td class="mono">6 meses</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">__gads</td>
+            <td>Publicidad, seguridad</td>
+            <td class="mono">DV360</td>
+            <td class="mono">13 meses</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">_gcl_au</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">_gcl_dc</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">aboutads_sessNNN</td>
+            <td>Seguridad, funcionalidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">30 minutos</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">APC</td>
+            <td>Publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">6 meses</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">ar_debug</td>
+            <td>Analítica, publicidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>googleadservices.com, google-analytics.com, doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">DSID</td>
+            <td>Seguridad, funcionalidad, publicidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">2 semanas</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">FLC</td>
+            <td>Publicidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">10 segundos</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">FPAU</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">FPGCLDC</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">FPGCLGS</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>Dominio del anunciante</td>
+          </tr>
+          <tr>
+            <td class="mono">GCL_AU_P</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>googleadservices.com, doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">GCL_AW_P</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>googleadservices.com, doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">GCL_DC_P</td>
+            <td>Analítica, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 días</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">id</td>
+            <td>Funcionalidad, publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">OPT_OUT: expiración fija (09/11/2030); resto: 13 meses EEE/RU, 24 meses fuera</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">IDE</td>
+            <td>Publicidad, seguridad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">13 meses EEE/RU, 24 meses fuera</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">pm_sess</td>
+            <td>Seguridad, funcionalidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">30 minutos</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">pm_sess_NNN</td>
+            <td>Seguridad, funcionalidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">30 minutos</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">receive-cookie-deprecation</td>
+            <td>Seguridad, publicidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">6 meses</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">RUL</td>
+            <td>Publicidad</td>
+            <td class="mono">DV360</td>
+            <td class="mono">12 meses</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">test_cookie</td>
+            <td>Funcionalidad</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">15 minutos</td>
+            <td>doubleclick.net</td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="note">Las duraciones y dominios reflejan la documentación de Google Marketing Platform y pueden variar si Google modifica sus productos. Se recomienda verificar la tabla contra la documentación vigente antes de publicar la política de cookies.</p>
+      </section>
+
+      <section>
+        <h2>Contacto</h2>
+        <p>Para cualquier cuestión sobre la implementación de los píxeles: <a href="mailto:delivery@advia.tech">delivery@advia.tech</a>.</p>
+      </section>
+      </main>
+
+      <footer class="foot">
+        <span>Advia Media Solutions · P.º de la Castellana, 154, 8 izq, Madrid</span>
+        <span>Información técnica · V1 · 2026-08-24</span>
+      </footer>
+    </div>
+
+    <div data-lang-block="en" lang="en">
+      <header>
+        <p class="eyebrow">Advia measurement pixels</p>
+        <h1>Technical and compliance information</h1>
+        <p class="lede">What Advia's measurement pixels are, how they work, what data they collect, how consent is handled, who is responsible for each part and which cookies are involved.</p>
+        <hr class="rule">
+      </header>
+
+      <main>
+      <section>
+        <h2><span class="sec-num">1</span> How they work</h2>
+        <h3>What are Advia pixels?</h3>
+          <p>Advia pixels are a conversion tracking system implemented through Google Campaign Manager 360 (Floodlight). They act as a data layer that links conversions and user events on the advertiser's website to the advertising activity generated by Advia campaigns.</p>
+          <p>The data collected feeds automated optimisation strategies, improving performance by focusing on the actions that generate real value for the advertiser's business.</p>
+        <h3>How do they work?</h3>
+          <p>The pixels consist of a code snippet installed on specific pages of the advertiser's website or app. When a user visits a page where it is installed (for example, &ldquo;Thank you for your purchase&rdquo;), the tag records a conversion. The system checks whether that user viewed or clicked one of Advia's ads within the configured conversion window. If it finds a match, it attributes the conversion to the corresponding campaign.</p>
+        <h3>What data is collected?</h3>
+          <p>The pixels collect the technical and browsing data required for advertising measurement: cookie identifiers, IP address, browser and operating system information, pages visited, event timestamp, previous ad interactions and transaction value where applicable.</p>
+          <p>This is pseudonymised data: it does not include directly identifying personal information (name, email address, phone number or identity document). Advia accesses aggregated reports, not individual user records.</p>
+        <h3>Where and for how long is it stored?</h3>
+          <p>Data is stored in cookies with a configurable lifetime, typically between 30 and 90 days. Conversions are only attributed if the user interacted with an ad within the configured conversion window (90 days maximum).</p>
+          <p>Storage takes place on Google Marketing Platform infrastructure, subject to the retention periods configured in the Campaign Manager 360 account managed by Advia. When the relationship ends, the tags are deactivated and access to the campaign data is closed.</p>
+        <h3>What is this data used for?</h3>
+          <p>The information collected is used exclusively for: measuring advertising campaign performance, attributing conversions to specific strategies, campaign optimisation and targeting, and generating performance reports. The pixels let Advia identify which campaigns, creatives and audiences deliver the best results, in order to maximise the advertiser's return on investment.</p>
+      </section>
+
+      <section>
+        <h2><span class="sec-num">2</span> Compliance and consent</h2>
+        <h3>How is consent handled?</h3>
+          <p>Pixel activation is conditional on user consent. Google Consent Mode governs the reading and writing of advertising cookies according to the consent signal received: without a valid signal, no advertising cookies are set.</p>
+          <p>That signal is generated by the consent management platform (CMP) implemented by the advertiser on its properties. Advia supplies the tags together with the implementation instructions needed to make the tag conditional on that signal, and processes the data only when it is received.</p>
+        <h3>Who is responsible for each part?</h3>
+          <p>Advia defines what is measured and recommends which pages and actions each tag should be placed on, based on the campaign objectives. Implementation is carried out by the advertiser and/or its agency, within the technical possibilities and limitations of their properties, and it is they who decide where and under what conditions the tag ultimately fires.</p>
+        <div class="table-scroll">
+        <table class="table table--resp">
+          <thead>
+            <tr><th>RESPONSIBILITY</th><th>OWNER</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tag generation and event schema configuration in CM360</td><td class="owner">Advia</td></tr>
+            <tr><td>Recommending which pages and actions to measure</td><td class="owner">Advia</td></tr>
+            <tr><td>Installing the tags on the web properties or apps</td><td class="owner">Advertiser / agency</td></tr>
+            <tr><td>Selecting and implementing the CMP</td><td class="owner">Advertiser</td></tr>
+            <tr><td>Obtaining consent and informing users</td><td class="owner">Advertiser</td></tr>
+            <tr><td>Registering the service in the CMP and the cookie policy</td><td class="owner">Advertiser</td></tr>
+            <tr><td>Aggregated campaign performance reports</td><td class="owner">Advia</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </section>
+
+      <section>
+        <h2><span class="sec-num">3</span> Which cookies are involved?</h2>
+        <p>The table below details the cookies that Campaign Manager 360 (Floodlight) and related Google Marketing Platform products may set, together with their purpose, duration and domain. This is the information needed to register the service in the CMP and reflect it in the cookie policy.</p>
+        <p>The product column lists the Google products Advia uses: Campaign Manager 360 and Display &amp; Video 360. Google documents these same cookies as shared with other products on its platform that are not part of this service.</p>
+        <p>The system uses both first-party cookies (set on the advertiser's domain) and third-party cookies, set on Google domains. Both categories must be declared in the cookie policy.</p>
+        <div class="table-scroll">
+        <table class="table table--cookies">
+          <thead>
+            <tr><th>COOKIE</th><th>PURPOSE</th><th>PRODUCT(S)</th><th>DURATION</th><th>DOMAIN(S)</th></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="mono">__eoi</td>
+            <td>Security</td>
+            <td class="mono">DV360</td>
+            <td class="mono">6 months</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">__gads</td>
+            <td>Advertising, security</td>
+            <td class="mono">DV360</td>
+            <td class="mono">13 months</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">_gcl_au</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">_gcl_dc</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">aboutads_sessNNN</td>
+            <td>Security, functionality</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">30 minutes</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">APC</td>
+            <td>Advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">6 months</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">ar_debug</td>
+            <td>Analytics, advertising</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>googleadservices.com, google-analytics.com, doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">DSID</td>
+            <td>Security, functionality, advertising</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">2 weeks</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">FLC</td>
+            <td>Advertising</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">10 seconds</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">FPAU</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">FPGCLDC</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">FPGCLGS</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>Advertiser's domain</td>
+          </tr>
+          <tr>
+            <td class="mono">GCL_AU_P</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>googleadservices.com, doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">GCL_AW_P</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>googleadservices.com, doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">GCL_DC_P</td>
+            <td>Analytics, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">90 days</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">id</td>
+            <td>Functionality, advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">OPT_OUT: fixed expiry (09/11/2030); otherwise: 13 months EEA/UK, 24 months elsewhere</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">IDE</td>
+            <td>Advertising, security</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">13 months EEA/UK, 24 months elsewhere</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">pm_sess</td>
+            <td>Security, functionality</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">30 minutes</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">pm_sess_NNN</td>
+            <td>Security, functionality</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">30 minutes</td>
+            <td>doubleclick.net, google.com</td>
+          </tr>
+          <tr>
+            <td class="mono">receive-cookie-deprecation</td>
+            <td>Security, advertising</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">6 months</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">RUL</td>
+            <td>Advertising</td>
+            <td class="mono">DV360</td>
+            <td class="mono">12 months</td>
+            <td>doubleclick.net</td>
+          </tr>
+          <tr>
+            <td class="mono">test_cookie</td>
+            <td>Functionality</td>
+            <td class="mono">CM360, DV360</td>
+            <td class="mono">15 minutes</td>
+            <td>doubleclick.net</td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="note">Durations and domains reflect the Google Marketing Platform documentation and may change if Google modifies its products. We recommend checking the table against the current documentation before publishing the cookie policy.</p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>For any question about pixel implementation: <a href="mailto:delivery@advia.tech">delivery@advia.tech</a>.</p>
+      </section>
+      </main>
+
+      <footer class="foot">
+        <span>Advia Media Solutions · P.º de la Castellana, 154, 8 izq, Madrid</span>
+        <span>Technical information · V1 · 2026-08-24</span>
+      </footer>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var titles = { es: "Píxeles de medición de Advia · Información técnica y de cumplimiento",
+                     en: "Advia measurement pixels · Technical and compliance information" };
+      var buttons = document.querySelectorAll(".lang button");
+
+      function apply(lang) {
+        root.setAttribute("data-lang", lang);
+        root.setAttribute("lang", lang);
+        document.title = titles[lang];
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].setAttribute("aria-pressed", String(buttons[i].dataset.lang === lang));
+        }
+        try { localStorage.setItem("advia-pixels-lang", lang); } catch (e) {}
+      }
+
+      var initial = new URLSearchParams(location.search).get("lang");
+      if (initial !== "es" && initial !== "en") {
+        try { initial = localStorage.getItem("advia-pixels-lang"); } catch (e) { initial = null; }
+      }
+      if (initial !== "es" && initial !== "en") initial = "es";
+      apply(initial);
+
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function () { apply(this.dataset.lang); });
+      }
+    })();
+  </script>
+</body>
+</html>

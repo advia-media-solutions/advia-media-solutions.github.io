@@ -1,4 +1,5 @@
 import React from "react";
+import { traducciones } from "../src/i18n/servidor";
 import Productos from "../src/pages/v4/Productos";
 
 export default function ProductsPage() {
@@ -9,6 +10,6 @@ export default function ProductsPage() {
 // porque estas páginas traen su propia nav oscura y su propio footer.
 ProductsPage.v4 = true;
 
-export async function getServerSideProps() {
-  return { props: {} };
+export async function getServerSideProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "productos")) } };
 }

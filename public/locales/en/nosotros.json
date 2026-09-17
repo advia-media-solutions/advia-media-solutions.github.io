@@ -1,0 +1,52 @@
+{
+  "seo": {
+    "title": "About us — why Advia exists | Advia",
+    "description": "Advia is an AdTech founded in Madrid in 2024. We use AI agents to identify the moments in which a consumer researches before deciding, and position brands there as the answer."
+  },
+  "hero": {
+    "eyebrow": "About us",
+    "titular": "Advertising made from the side of the person who <key>searches</key>",
+    "lede": "Advia is an AdTech founded in Madrid in 2024. We use AI agents to identify the moments in which a consumer is researching before deciding, and position brands there as the answer."
+  },
+  "porque": {
+    "eyebrow": "Why Advia exists",
+    "titular": "For an ad to serve the advertiser, it first has to serve their <key>consumer</key>",
+    "lede": "It is the whole idea behind the company, and the reason it travels from channel to channel. Told in the order we lived it.",
+    "door": "Discover Active Navigation"
+  },
+  "historia": [
+    { "titulo": "We started out uncomfortable", "desc": "Like any consumer, the ads we saw while browsing didn't interest us. We had spent years inside the industry, and we could see why.", "rotulo": "What we saw", "eco": "Almost every campaign is conceived and planned from the advertiser's side. It makes sense: they are the ones paying." },
+    { "titulo": "We switched sides", "desc": "For an ad to serve the advertiser, it first has to serve their consumer. We founded Advia to plan from there.", "rotulo": "What changes", "eco": "You stop asking where your ad fits and start asking what your consumer is trying to find out." },
+    { "titulo": "There are two ways to navigate", "desc": "In the passive one, an algorithm or an editor chooses what we see. In the active one, we have a doubt or a decision to make, and we go out looking for information.", "rotulo": "The thesis", "eco": "In those moments an ad doesn't have to interrupt: it can be the answer we were already looking for." },
+    { "titulo": "The technology comes after", "desc": "We built Vera to turn ads into answers wherever the question happens: the open web, YouTube and AI answers.", "rotulo": "What we sell", "eco": "A concept, not a technology. The concept travels; the technology follows." }
+  ],
+  "equipo": {
+    "eyebrow": "The team",
+    "titular": "A small team, all in Madrid, in three <key>areas</key>",
+    "lede": "Each area is led by a founder. The three of us met at Seedtag and before that went through GroupM: the media side and the agency side, which is where you see what breaks between the plan and the result.",
+    "fotoAlt": "The whole Advia team in the Madrid office, with the brand's neon sign"
+  },
+  "areas": [
+    { "desc": "Sales to agencies, the strategy of each account and client service." },
+    { "desc": "Vera, the product and the tools the rest of the team works with." },
+    { "desc": "Campaign delivery, design and the processes that hold it together." }
+  ],
+  "valores": {
+    "eyebrow": "Values",
+    "titular": "Five values that are <key>practised</key>, not hung on a wall",
+    "lede": "They came out of the exercise of writing down who we are, and the debate that forced us to have. They apply every day when we write, sell and deliver.",
+    "items": [
+      "We work hard and enjoy doing it. We value agility, constant growth and each person contributing in their own way.",
+      "Technology doesn't replace people: it amplifies them. The person stays at the centre, and technology is an extension of what we know how to do.",
+      "Transparency, honesty and responsibility, even when they demand more of us. Effort is non-negotiable: we go one step further even if the client doesn't notice.",
+      "Constant curiosity about the future. The best ideas come from imagining what doesn't exist yet.",
+      "There are no individual wins. We grow together and win together: Advia's success belongs to the whole team."
+    ]
+  },
+  "cierre": {
+    "titular": "If the problem interests you, <key>write to us</key>",
+    "lede": "Even if there is no open vacancy with your name on it. And if what you want is to see Vera on your category, that too.",
+    "cta": "Join the team",
+    "ctaGhost": "Request a demo"
+  }
+}

@@ -1,83 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useTranslation } from "next-i18next/pages";
 import Seo from "../../../components/v4/Seo";
+import T from "../../../components/v4/T";
 import { Hero, Pagina, Section } from "../../../components/v4/layout";
-import { Boton, Key } from "../../../components/v4/primitives";
-import { Articulos, ArticuloDestacado, Esqueleto, Estado } from "../../../components/v4/blog";
-import { blogApiService } from "../../../services/blogApi";
+import { Boton } from "../../../components/v4/primitives";
+import { Articulos, ArticuloDestacado, Estado } from "../../../components/v4/blog";
 
 /**
  * Blog · portada.
  *
- * Migración de estilo: la carga de datos y los textos son los de la versión
- * anterior. Lo que cambia es el chrome (nav y footer de v4) y que las fichas
- * pasan a ser piezas del design system.
+ * Los artículos llegan ya resueltos desde `getServerSideProps` de la ruta: el
+ * HTML que sirve el servidor trae el destacado y la rejilla completos, que es
+ * lo que leen los crawlers y los modelos. Antes se pedían desde el navegador y
+ * la página indexable era un esqueleto gris.
  */
-
-export default function BlogHome() {
-  const [articulos, setArticulos] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const cargar = async () => {
-      try {
-        setCargando(true);
-        const respuesta = await blogApiService.getArticlesForHomepage();
-        setArticulos(respuesta.data || []);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setCargando(false);
-      }
-    };
-
-    cargar();
-  }, []);
-
+export default function BlogHome({ articulos = [], error = null }) {
+  const { t, i18n } = useTranslation("blog");
   const ultimo = articulos[0];
   const resto = articulos.slice(1, 7);
 
   return (
-    <Pagina activo="Blog" seccion="blog">
-      <Seo
-        path="/blog"
-        title="Blog ADVIA — Navegación Activa y publicidad que responde | Advia"
-        description="Novedades y noticias sobre Advia y la Navegación Activa. Explora con nosotros cómo convertir la publicidad en respuestas."
-      />
+    <Pagina activo="blog" seccion="blog">
+      <Seo path="/blog" title={t("home.title")} description={t("home.description")} />
 
-      <Hero
-        titular={
-          <>
-            Blog <Key>ADVIA</Key>
-          </>
-        }
-        lede="Novedades y noticias sobre Advia y la Navegación Activa. Explora con nosotros cómo convertir la publicidad en respuestas"
-      />
+      <Hero titular={<T t={t} k="home.titular" />} lede={t("home.lede")} />
 
       <Section className="v4-sec--pegada">
-        {cargando ? <Esqueleto fichas={3} /> : null}
-        {error ? (
-          <Estado>Error al cargar artículos. {error}. Por favor, inténtalo de nuevo más tarde.</Estado>
+        {/* Los artículos salen del CMS en castellano: en la versión inglesa se
+            avisa, en vez de fingir que hay una traducción. */}
+        {i18n.language === "en" ? (
+          <p className="v4-label v4-label--faint v4-blog__aviso">{t("estado.aviso")}</p>
         ) : null}
+        {error ? <Estado>{t("estado.error", { error })}</Estado> : null}
 
-        {!cargando && !error ? (
+        {!error ? (
           <>
             {ultimo ? <ArticuloDestacado articulo={ultimo} /> : null}
 
             {resto.length > 0 ? (
               <div className="v4-mt-16">
-                <h2 className="v4-subheading">Más artículos</h2>
+                <h2 className="v4-subheading">{t("home.mas")}</h2>
                 <div className="v4-mt-8">
                   <Articulos items={resto} />
                 </div>
               </div>
             ) : null}
 
-            {!ultimo ? <Estado>No hay artículos disponibles en este momento.</Estado> : null}
+            {!ultimo ? <Estado>{t("estado.vacio")}</Estado> : null}
 
             <div className="v4-btn-row v4-mt-16">
               <Boton href="/blog/articles" variant="ghost">
-                Ver todos los artículos
+                {t("home.todos")}
               </Boton>
             </div>
           </>

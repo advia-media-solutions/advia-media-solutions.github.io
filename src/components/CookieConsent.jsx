@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Trans, useTranslation } from "next-i18next/pages";
 import { X } from "lucide-react";
 import { getStoredConsent, setConsent } from "../utils/gtm";
 import Button from "./Button";
 import Logo from "./Logo";
 
 const CookieConsent = () => {
+  const { t } = useTranslation("common");
   const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   // Non-necessary categories start unchecked: pre-ticked boxes are not valid
@@ -99,32 +101,14 @@ const CookieConsent = () => {
 
   if (!isVisible) return null;
 
-  const cookieTypes = [
-    {
-      title: "Cookies de análisis",
-      key: "analytics",
-      description:
-        "Nos permiten entender cómo interactúas con el sitio web, qué páginas son más populares, y detectar problemas de navegación. Esta información nos ayuda a mejorar constantemente la experiencia del usuario y optimizar nuestros servicios.",
-    },
-    {
-      title: "Cookies publicitarias y datos de usuario",
-      key: "advertising",
-      description:
-        "Utilizadas para mostrarte anuncios relevantes basados en tus intereses y hábitos de navegación. Incluye el uso de datos de usuario para personalización publicitaria.",
-    },
-    {
-      title: "Cookies de funcionalidad",
-      key: "functionality",
-      description:
-        "Permiten recordar tus preferencias como el idioma, la región o el inicio de sesión. Estas cookies hacen que tu experiencia sea más fluida al mantener tus ajustes entre visitas.",
-    },
-    {
-      title: "Cookies de personalización",
-      key: "personalization",
-      description:
-        "Nos ayudan a adaptar el contenido que ves según tus intereses. Esto incluye recomendaciones de productos, sugerencias personalizadas y contenido adaptado a tu perfil.",
-    },
-  ];
+  /* Título y descripción de cada categoría salen del diccionario (common). */
+  const cookieTypes = ["analytics", "advertising", "functionality", "personalization"].map(
+    (key) => ({
+      key,
+      title: t(`cookies.tipos.${key}.titulo`),
+      description: t(`cookies.tipos.${key}.desc`),
+    })
+  );
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex items-center justify-center">
@@ -137,23 +121,21 @@ const CookieConsent = () => {
               </div>
 
               <div className="text-sm text-gray-700 mt-4">
-                <p className="leading-relaxed">
-                  Utilizamos cookies propias y de terceros con fines técnicos,
-                  analíticos, para mejora de productos y servicios, para
-                  mostrarte publicidad personalizada en base a un perfil
-                  elaborado a partir de tus hábitos de navegación y para la
-                  medición del rendimiento de anuncios y contenidos.
-                </p>
+                <p className="leading-relaxed">{t("cookies.intro")}</p>
                 <p className="mt-2">
-                  Puedes aceptar todas las cookies pulsando en "Aceptar",
-                  rechazarlas y/o{" "}
-                  <button
-                    onClick={() => setShowDetails(true)}
-                    className="text-blue-600 hover:underline font-medium"
-                  >
-                    configurar
-                  </button>{" "}
-                  su uso.
+                  <Trans
+                    t={t}
+                    i18nKey="cookies.opciones"
+                    components={{
+                      configurar: (
+                        <button
+                          type="button"
+                          onClick={() => setShowDetails(true)}
+                          className="text-blue-600 hover:underline font-medium"
+                        />
+                      ),
+                    }}
+                  />
                 </p>
               </div>
 
@@ -163,14 +145,14 @@ const CookieConsent = () => {
                   variant="secondary"
                   className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-16 py-3 rounded"
                 >
-                  No Acepto
+                  {t("cookies.rechazar")}
                 </Button>
                 <Button
                   onClick={handleAcceptAll}
                   variant="primary"
                   className="bg-blue-600 hover:bg-blue-700 text-black px-16 py-3 rounded"
                 >
-                  Aceptar
+                  {t("cookies.aceptar")}
                 </Button>
               </div>
             </div>
@@ -183,6 +165,7 @@ const CookieConsent = () => {
                 onClick={() => setShowDetails(false)}
                 variant="ghost"
                 className="hover:bg-gray-100 rounded-full p-2"
+                aria-label={t("cookies.cerrar")}
               >
                 <X className="w-5 h-5" />
               </Button>
@@ -192,14 +175,11 @@ const CookieConsent = () => {
               <div className="border-b pb-4">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="font-semibold">Cookies necesarias</h3>
-                    <p className="text-sm text-gray-600">
-                      Necesarias para el funcionamiento básico y la seguridad
-                      del sitio web
-                    </p>
+                    <h3 className="font-semibold">{t("cookies.necesarias")}</h3>
+                    <p className="text-sm text-gray-600">{t("cookies.necesariasDesc")}</p>
                   </div>
                   <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded text-sm">
-                    Obligatorio
+                    {t("cookies.obligatorio")}
                   </span>
                 </div>
               </div>
@@ -245,7 +225,7 @@ const CookieConsent = () => {
                 variant="secondary"
                 className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-6 py-2 rounded"
               >
-                Rechazar todas
+                {t("cookies.rechazarTodas")}
               </Button>
               <div className="flex gap-3">
                 <Button
@@ -253,13 +233,13 @@ const CookieConsent = () => {
                   variant="primary"
                   className="bg-blue-600 hover:bg-blue-700 text-black px-6 py-2 rounded"
                 >
-                  Aceptar todas
+                  {t("cookies.aceptarTodas")}
                 </Button>
                 <Button
                   onClick={handleSaveConfiguration}
                   className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  Guardar
+                  {t("cookies.guardar")}
                 </Button>
               </div>
             </div>

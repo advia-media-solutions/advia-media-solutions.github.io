@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "next-i18next/pages";
 import { Door } from "./primitives";
 
 /**
@@ -10,8 +11,9 @@ import { Door } from "./primitives";
  * grita— y pie de metadatos separado por filete. La ficha entera es el enlace.
  */
 
-export function formatearFecha(valor, largo = false) {
-  return new Date(valor).toLocaleDateString("es-ES", {
+/** Fecha en el idioma de la página: `locale` es el de la ruta (es-ES o en-GB). */
+export function formatearFecha(valor, largo = false, locale = "es-ES") {
+  return new Date(valor).toLocaleDateString(locale, {
     year: "numeric",
     month: largo ? "long" : "short",
     day: "numeric",
@@ -25,13 +27,15 @@ export function truncar(texto, maximo = 150) {
 }
 
 export function Meta({ articulo, largo, sello }) {
+  const { i18n } = useTranslation();
+  const locale = i18n.language === "en" ? "en-GB" : "es-ES";
   return (
     <div className="v4-meta">
       {sello && articulo.category ? (
         <span className="v4-sello v4-sello--fijo">{articulo.category.name}</span>
       ) : null}
       <time className="v4-label v4-label--faint" dateTime={articulo.createdAt}>
-        {formatearFecha(articulo.createdAt, largo)}
+        {formatearFecha(articulo.createdAt, largo, locale)}
       </time>
       {articulo.author ? (
         <>
@@ -80,6 +84,7 @@ export function TarjetaArticulo({ articulo }) {
 }
 
 export function ArticuloDestacado({ articulo }) {
+  const { t } = useTranslation("blog");
   const href = `/blog/article/${articulo.slug}`;
   return (
     <article className="v4-ficha v4-destacado" data-sin-media={articulo.cover ? undefined : "true"}>
@@ -90,7 +95,7 @@ export function ArticuloDestacado({ articulo }) {
           <Link href={href}>{articulo.title}</Link>
         </h2>
         {articulo.description ? <p className="v4-body">{articulo.description}</p> : null}
-        <Door href={href}>Leer artículo completo</Door>
+        <Door href={href}>{t("articulo.leer")}</Door>
       </div>
     </article>
   );
@@ -132,31 +137,39 @@ export function Estado({ children }) {
   );
 }
 
-export function Paginacion({ paginaActual, totalPaginas, onCambio }) {
+/**
+ * Paginación con enlaces de verdad: cada página tiene su URL (`hrefDe`) y el
+ * crawler puede seguirla. El clic se intercepta para navegar sin recargar,
+ * pero sin JavaScript el enlace funciona igual.
+ */
+export function Paginacion({ paginaActual, totalPaginas, onCambio, hrefDe }) {
+  const { t } = useTranslation("blog");
   if (totalPaginas <= 1) return null;
   const paginas = Array.from({ length: totalPaginas }, (_, i) => i + 1);
+  const ir = (n) => (e) => {
+    e.preventDefault();
+    onCambio(n);
+  };
+  const enlace = (n, contenido, extra = {}) =>
+    n < 1 || n > totalPaginas ? (
+      <span aria-disabled="true" {...extra}>
+        {contenido}
+      </span>
+    ) : (
+      <Link href={hrefDe(n)} onClick={ir(n)} {...extra}>
+        {contenido}
+      </Link>
+    );
   return (
-    <nav className="v4-paginacion" aria-label="Paginación de artículos">
-      <button type="button" onClick={() => onCambio(paginaActual - 1)} disabled={paginaActual <= 1}>
-        Anterior
-      </button>
-      {paginas.map((pagina) => (
-        <button
-          key={pagina}
-          type="button"
-          onClick={() => onCambio(pagina)}
-          aria-current={pagina === paginaActual ? "page" : undefined}
-        >
-          {pagina}
-        </button>
-      ))}
-      <button
-        type="button"
-        onClick={() => onCambio(paginaActual + 1)}
-        disabled={paginaActual >= totalPaginas}
-      >
-        Siguiente
-      </button>
+    <nav className="v4-paginacion" aria-label={t("paginacion.rotulo")}>
+      {enlace(paginaActual - 1, t("paginacion.anterior"), { rel: "prev" })}
+      {paginas.map((pagina) =>
+        enlace(pagina, pagina, {
+          key: pagina,
+          "aria-current": pagina === paginaActual ? "page" : undefined,
+        })
+      )}
+      {enlace(paginaActual + 1, t("paginacion.siguiente"), { rel: "next" })}
     </nav>
   );
 }

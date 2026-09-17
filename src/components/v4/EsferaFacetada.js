@@ -78,6 +78,44 @@ export default function crearEsfera(
        sangrado— y decirle al motor cuánto sobra, para que siga componiendo
        contra la caja útil y el dibujo no se estire ni se descoloque. */
     sangrado = 0,
+    /* Perfil del recorrido, en fracción de la caja útil. Por defecto el de la
+       sección de Navegación Activa, pensado para un cuadro apaisado de 1120 x
+       690. Una escena con otra caja —el carril de Tecnología ocupa la ventana
+       entera— necesita el suyo: el mismo perfil sobre una caja distinta deja
+       las bolas encima del texto. */
+    curva = null,
+    /* Radio de las bolas ya colocadas, en unidades de mundo. Por defecto se
+       deriva del radio de las del cuerpo; una escena que compone varias esferas
+       juntas necesita fijarlo, para que todas las bolas midan lo mismo aunque
+       sus cuerpos estén a escalas distintas. */
+    radioSuelta = null,
+    /* Grosor del tubo del trazo. Por defecto, proporcional a `escalaSuelta`. */
+    grosorTrazo = null,
+    /* Colas de entrada y salida del trazo: el recorrido venía de antes y sigue
+       después. Una pieza que compone varios recorridos en un mismo cuadro las
+       quita — ahí las colas se cruzan entre sí y el dibujo se convierte en una
+       maraña. Sin colas, el trazo va de la primera parada a la última. */
+    colasTrazo = true,
+    /* Arco del vuelo de cada bola: cuánto sube el punto de control de la bézier
+       y cuánto se desvía hacia fuera, en unidades de mundo. Los valores por
+       defecto son con los que se calibraron Navegación Activa y el hero. Una
+       escena con el cuerpo muy pequeño los escala con él, o las bolas salen
+       disparadas fuera del cuadro. */
+    subidaVuelo = 0.9,
+    desvioVuelo = 0.45,
+    /* Salto inmediato de `desmontar`: sin limitar cuánto puede avanzar el
+       recorrido en un frame. Lo necesita quien dirige el tiempo desde fuera
+       —una composición con su propio reloj—, donde el limitador convierte un
+       salto de reloj en un retraso que ya no se recupera. */
+    inmediato = false,
+    /* Resolución del grid del recorrido. Bajarla abarata la extracción por
+       frame, que es lo que se paga cuando hay varias esferas en un cuadro. */
+    resolucionRecorrido = 112,
+    /* Píxeles por píxel CSS. Por defecto el del dispositivo (tope 2). Varias
+       esferas a la vez piden bajarlo. */
+    pixelRatio = null,
+    /* La sombra de suelo. Sobra cuando la esfera no se apoya en nada. */
+    sombra = true,
   } = {}
 ) {
   const contenedor = canvas.parentElement;
@@ -533,7 +571,7 @@ export default function crearEsfera(
   /* ── 5 · Escena ─────────────────────────────────────────────────────────── */
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(pixelRatio != null ? pixelRatio : Math.min(window.devicePixelRatio, 2));
 
   const scene = new THREE.Scene();
   /* Ángulo cerrado a propósito. Las bolas colocadas caen al 86 % del semiancho,
@@ -585,6 +623,7 @@ export default function crearEsfera(
     new THREE.PlaneGeometry(3.4, 3.4),
     new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false })
   );
+  shadow.visible = sombra;
   shadow.rotation.x = -Math.PI/2;
   shadow.position.y = -1.65;
   scene.add(shadow);
@@ -658,7 +697,7 @@ export default function crearEsfera(
      caía justo en el borde inferior de la entradilla y la bola se le montaba
      encima. Abajo sobraba cuadro, así que el recorrido se baja entero en vez
      de aplanarse — el perfil se conserva y la entradilla queda despejada. */
-  const PARADAS_CURVA = [
+  const PARADAS_CURVA = curva || [
     [0.16, 0.48],
     [0.34, 0.64],
     [0.50, 0.38],
@@ -811,7 +850,6 @@ export default function crearEsfera(
     blob.quaternion.copy(q);
     renderer.render(scene, camera);
   }
-  requestAnimationFrame(animate);
   bucle = requestAnimationFrame(animate);
 
   /* ── 3b · Motor del recorrido: desprendimiento de bolas + spline ────────── */
@@ -830,7 +868,7 @@ export default function crearEsfera(
   */
   const journey = {
     ready: false, cacheKey: '',
-    N: 112, MIN: 0, H: 0, EXT: 0,
+    N: resolucionRecorrido, MIN: 0, H: 0, EXT: 0,
     R2j: 0, Hj: 6, shellJ: 0,
     maxDist: 0, cutR: 0, cut2: 0, dynR: 0, dyn2: 0,
     dirs: null, order: null,
@@ -1295,13 +1333,22 @@ export default function crearEsfera(
        Justo en el borde (0.5), no más allá: antes sobraba trazo y lo recortaba
        el canvas, pero con el sangrado el canvas ya no recorta nada y ese sobra
        se veía flotando fuera de la columna de texto. */
-    const puntos = [
-      new THREE.Vector3(-ancho * 0.5, -(0.41 - 0.5) * alto, 0),
-      ...jSlots.slice(0, PARADAS_CURVA.length).map((v) => v.clone()),
-      new THREE.Vector3(ancho * 0.5, -(0.93 - 0.5) * alto, 0),
-    ];
+    /* Las colas siguen al perfil que tenga la escena, no a dos alturas fijas:
+       con un perfil propio (ver `curva`) esas alturas entraban y salían por
+       donde no era, y el trazo daba un quiebro al llegar a la primera parada. */
+    const prim = PARADAS_CURVA[0][1];
+    const ult = PARADAS_CURVA[PARADAS_CURVA.length - 1][1];
+    const paradas = jSlots.slice(0, PARADAS_CURVA.length).map((v) => v.clone());
+    const puntos = colasTrazo
+      ? [
+          new THREE.Vector3(-ancho * 0.5, -(prim - 0.07 - 0.5) * alto, 0),
+          ...paradas,
+          new THREE.Vector3(ancho * 0.5, -(ult + 0.12 - 0.5) * alto, 0),
+        ]
+      : paradas;
     const curva = new THREE.CatmullRomCurve3(puntos, false, "catmullrom", 0.5);
-    const geo = new THREE.TubeGeometry(curva, 220, 0.018 * escalaSuelta, 8, false);
+    const grosor = grosorTrazo != null ? grosorTrazo : 0.018 * escalaSuelta;
+    const geo = new THREE.TubeGeometry(curva, 220, grosor, 8, false);
     trazoMesh = new THREE.Mesh(
       geo,
       /* Gris, no crema: con la línea en dorado claro, trazo y paradas eran el
@@ -1332,7 +1379,7 @@ export default function crearEsfera(
       : PARADAS_PAGINA.map(([dx, nz], k) => puntoDePagina(dx, alturaDeParada(k), nz));
     prepTrazo();
 
-    jPlacedR = Math.min(0.19, P.R * 0.50) * escalaSuelta;   // antes 0.24 / 0.62
+    jPlacedR = radioSuelta != null ? radioSuelta : Math.min(0.19, P.R * 0.50) * escalaSuelta;
 
     // una esfera por bola, con su propio núcleo de color (uCenter propio)
     const ballGeo = new THREE.SphereGeometry(1, 48, 32);
@@ -1439,7 +1486,8 @@ export default function crearEsfera(
         const A = corridorTopWorld(s, _v3a);
         const B = b.slot;
         _v3b.lerpVectors(A, B, 0.5);
-        _v3b.y += 0.9; _v3b.addScaledVector(_v3c.copy(A).normalize(), 0.45);
+        _v3b.y += subidaVuelo;
+        _v3b.addScaledVector(_v3c.copy(A).normalize(), desvioVuelo);
         // bézier cuadrática A → ctrl → B
         const u = 1 - tf;
         b.mesh.position.set(
@@ -1463,8 +1511,20 @@ export default function crearEsfera(
       journeyExtract(fieldStage, true, fbx, fby, fbz);
       commitJourneyFrame();
     } else if (gridChanged){
-      journeyExtract(changedStage, false, 0, 0, 0);
-      commitJourneyFrame();
+      if (jTime <= 0){
+        /* Cuerpo entero. El conjunto activo de la etapa 0 solo cubre el casquete
+           de la bola 0 a través de su tubo: sin el término analítico de esa bola
+           la extracción deja el casquete a medias, con el borde dentado. Se
+           resta, se extrae con la bola, y se devuelve. */
+        const d0 = journey.dirs[journey.order[0]], sh = journey.shellJ;
+        jGridBall(d0[0]*sh, d0[1]*sh, d0[2]*sh, -1);
+        journeyExtract(0, true, d0[0]*sh, d0[1]*sh, d0[2]*sh);
+        commitJourneyFrame();
+        jGridBall(d0[0]*sh, d0[1]*sh, d0[2]*sh, +1);
+      } else {
+        journeyExtract(changedStage, false, 0, 0, 0);
+        commitJourneyFrame();
+      }
     }
 
 
@@ -1579,20 +1639,38 @@ export default function crearEsfera(
       const objetivo = v * JOURNEY_TOTAL;
       const TOPE = JOURNEY_STAGE_MS * 0.5;
       const salto = objetivo - jTime;
-      jTime += Math.max(-TOPE, Math.min(TOPE, salto));
+      jTime += inmediato ? salto : Math.max(-TOPE, Math.min(TOPE, salto));
       stepJourney();
       // Si aún no ha llegado, se sigue acercando en los próximos frames.
       if (Math.abs(objetivo - jTime) > 1) aplicadoJ = -1;
       avanceJ = smoothstep01(v);
       if (trazoMesh) {
         const total = trazoMesh.geometry.index ? trazoMesh.geometry.index.count : 0;
-        trazoMesh.geometry.setDrawRange(0, Math.floor(total * avanceJ));
-        trazoMesh.visible = avanceJ > 0.02;
+        /* Sin colas el trazo arranca EN la primera parada, así que no puede
+           empezar a dibujarse antes de que esa bola aterrice: si no, la línea
+           sale de la nada mientras la bola todavía va por el aire. */
+        const fr = colasTrazo
+          ? avanceJ
+          : smoothstep01(Math.min(1, Math.max(0,
+              (jTime - JOURNEY_STAGE_MS) /
+              Math.max(1, JOURNEY_TOTAL - JOURNEY_STAGE_MS))));
+        trazoMesh.geometry.setDrawRange(0, Math.floor(total * fr));
+        trazoMesh.visible = fr > 0.02;
       }
       colocarCamara();
       return;   // el recorrido reescribe la geometría del cuerpo: no toca morph
     }
-    if (!listo || pendiente === aplicado) return;
+    if (!listo) return;
+    /* Volver del recorrido hacia arriba: el desmontaje le cambió la geometría
+       al cuerpo, y sin devolvérsela el morph seguiría escribiendo en una malla
+       que ya no se pinta — la esfera se quedaba congelada en su forma final
+       mientras el scroll deshacía los pasos. Al restituirla se fuerza una
+       extracción, porque el valor pendiente no ha cambiado. */
+    if (blob.geometry !== morph.geo) {
+      blob.geometry = morph.geo;
+      aplicado = -1;
+    }
+    if (pendiente === aplicado) return;
     aplicado = pendiente;
     extractMorph(pendiente);
     commitMorphFrame();
@@ -1615,6 +1693,26 @@ export default function crearEsfera(
     // interpolar grids que no existen.
   }
 
+  /**
+   * Forma de la PRIMERA clave (corona 0.45 · fusión 2.3), directa y sin motor
+   * de morphing: la bola lisa de la portada, lista en una fracción de lo que
+   * cuesta `preparar()`. Es para enseñar algo ya mientras los tres campos del
+   * morph se calculan después, en un hueco libre. Como `prepararFinal`, no
+   * toca `listo`.
+   */
+  function prepararPrimera() {
+    if (!canvas.clientWidth || !canvas.clientHeight) return;
+    const { shell, fuse } = P;
+    P.shell = INTRO_KEYS[0].shell;
+    P.fuse = INTRO_KEYS[0].fuse;
+    const anterior = blob.geometry;
+    blob.geometry = buildBlobGeometry(RES_HI);
+    P.shell = shell;
+    P.fuse = fuse;
+    setFieldParams(P.R, P.shell, P.fuse);
+    if (anterior && anterior !== morph.geo) anterior.dispose();
+  }
+
   function preparar() {
     prepMorph();
     extractMorph(0);
@@ -1630,6 +1728,8 @@ export default function crearEsfera(
     preparar,
     /** Forma final directa, sin morphing. Para quien solo necesita el recorrido. */
     prepararFinal,
+    /** Forma de la primera clave, directa: para pintar ya y preparar después. */
+    prepararPrimera,
     /** t en [0,1]: 0 = primera clave, 1 = última. */
     progreso(t) {
       pendiente = Math.min(1, Math.max(0, t));
@@ -1695,10 +1795,56 @@ export default function crearEsfera(
         fusion: a.fuse + (b.fuse - a.fuse) * s,
       };
     },
+    /**
+     * Cambia el color contra el que la esfera funde sus bordes.
+     *
+     * No es decoración: el sombreador mezcla el fondo dentro del vidrio, así
+     * que una esfera creada sobre marfil y puesta sobre gris se queda con un
+     * halo marfil alrededor. Lo necesita una escena cuyo fondo cambia con el
+     * scroll — el uniforme es compartido, así que las bolas sueltas viran con
+     * el cuerpo de una vez.
+     */
+    fondo(color) {
+      uniforms.uBg.value.set(color);
+    },
     /** Detiene el giro libre (para prefers-reduced-motion o pausas). */
     girar(activo) {
       giroLibre = activo && !reduceMotion;
     },
+    /**
+     * Fija el ángulo de giro y apaga el giro libre: el tiempo lo manda quien
+     * llama. Lo usa una composición con su propio reloj, donde varias esferas
+     * tienen que girar en fase entre ellas y no cada una por su cuenta.
+     */
+    angulo(a) {
+      giroLibre = false;
+      angle = a;
+    },
+    /** El ángulo que tiene ahora: para que un reloj de fuera arranque de él. */
+    anguloActual() {
+      return angle;
+    },
+    /**
+     * Aplica lo pendiente y pinta YA, en el mismo tick. El bucle interno pinta
+     * cuando le toca; esto hace falta cuando el frame tiene que corresponderse
+     * exactamente con un instante del reloj de fuera.
+     */
+    render() {
+      q.setFromAxisAngle(AXIS, angle);
+      blob.quaternion.copy(q);
+      aplicarPendiente();
+      renderer.render(scene, camera);
+    },
+    /**
+     * Suelta la escena Y el contexto WebGL.
+     *
+     * OJO: el lienzo queda inservible. Un canvas al que se le ha forzado la
+     * pérdida de contexto no vuelve a dar otro, así que quien monte y desmonte
+     * la esfera tiene que darle un elemento NUEVO cada vez (ver Vera.jsx), no
+     * el mismo. Se fuerza a propósito: el navegador solo da una quincena de
+     * contextos por proceso, y una página con varias esferas los agota si los
+     * viejos tardan en morir solos.
+     */
     destruir() {
       vivo = false;
       cancelAnimationFrame(bucle);
@@ -1709,6 +1855,10 @@ export default function crearEsfera(
       });
       shadowTex.dispose();
       renderer.dispose();
+      /* Libera el contexto YA: el navegador solo da una quincena por proceso, y
+         una escena con varias esferas los agota si los viejos tardan en morir
+         solos. */
+      renderer.forceContextLoss();
     },
   };
 }

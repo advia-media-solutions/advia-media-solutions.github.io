@@ -1,4 +1,5 @@
 import React from "react";
+import { traducciones } from "../../../src/i18n/servidor";
 import BlogArticulo from "../../../src/pages/v4/blog/BlogArticulo";
 
 export default function BlogArticlePage(props) {
@@ -9,6 +10,7 @@ BlogArticlePage.v4 = true;
 
 export async function getServerSideProps(context) {
   const { slug } = context.params;
+  const comunes = await traducciones(context.locale, "blog");
 
   try {
     const response = await fetch(
@@ -30,6 +32,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
+        ...comunes,
         articulo: article,
       },
     };
@@ -37,6 +40,7 @@ export async function getServerSideProps(context) {
     console.error("Error fetching article:", error);
     return {
       props: {
+        ...comunes,
         error: error.message,
       },
     };

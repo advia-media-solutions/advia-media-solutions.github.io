@@ -15,6 +15,10 @@ ENV NODE_ENV=production
 
 # Only copy necessary build outputs
 COPY --from=builder /app/package.json ./package.json
+# `next start` lee la configuración de disco: sin next.config.js no hay rutas
+# por idioma (/en) ni cabeceras, y next-i18next carga su config al arrancar.
+COPY --from=builder /app/next.config.js ./next.config.js
+COPY --from=builder /app/next-i18next.config.js ./next-i18next.config.js
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules

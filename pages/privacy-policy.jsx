@@ -1,4 +1,5 @@
 import React from "react";
+import { traducciones } from "../src/i18n/servidor";
 import Privacidad from "../src/pages/v4/legal/Privacidad";
 
 export default function PrivacyPolicyPage() {
@@ -7,6 +8,6 @@ export default function PrivacyPolicyPage() {
 
 PrivacyPolicyPage.v4 = true;
 
-export async function getServerSideProps() {
-  return { props: {} };
+export async function getServerSideProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "legal")) } };
 }

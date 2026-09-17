@@ -1,4 +1,5 @@
 import React from "react";
+import { traducciones } from "../src/i18n/servidor";
 import Cookies from "../src/pages/v4/legal/Cookies";
 
 export default function CookiesPolicyPage() {
@@ -7,6 +8,6 @@ export default function CookiesPolicyPage() {
 
 CookiesPolicyPage.v4 = true;
 
-export async function getServerSideProps() {
-  return { props: {} };
+export async function getServerSideProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "legal")) } };
 }

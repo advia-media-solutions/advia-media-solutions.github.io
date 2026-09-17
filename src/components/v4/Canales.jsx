@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "next-i18next/pages";
 
 /**
  * Los tres canales, presentados uno a uno.
@@ -29,6 +30,7 @@ const POR_CANAL = 6000;
 /* Maquetas de pantalla. Cada una es el entorno reconocible del canal reducido a
    sus tres o cuatro bloques, con el hueco del anuncio en dorado. */
 function PantallaWeb() {
+  const { t } = useTranslation("common");
   return (
     <div className="v4-movil__pantalla">
       <div className="v4-maqueta__barra" />
@@ -36,7 +38,7 @@ function PantallaWeb() {
       <div className="v4-maqueta__linea" />
       <div className="v4-maqueta__linea" style={{ width: "88%" }} />
       <div className="v4-maqueta__anuncio" data-formato="display">
-        <span>Tu marca</span>
+        <span>{t("canales.tuMarca")}</span>
       </div>
       <div className="v4-maqueta__linea" />
       <div className="v4-maqueta__linea" style={{ width: "72%" }} />
@@ -45,13 +47,14 @@ function PantallaWeb() {
 }
 
 function PantallaVideo() {
+  const { t } = useTranslation("common");
   return (
     <div className="v4-movil__pantalla">
       <div className="v4-maqueta__barra" />
       <div className="v4-maqueta__video">
         <span className="v4-maqueta__play" aria-hidden="true" />
         <div className="v4-maqueta__anuncio" data-formato="preroll">
-          <span>Tu marca</span>
+          <span>{t("canales.tuMarca")}</span>
         </div>
       </div>
       <div className="v4-maqueta__titular" />
@@ -66,6 +69,7 @@ function PantallaVideo() {
 }
 
 function PantallaFeed() {
+  const { t } = useTranslation("common");
   return (
     <div className="v4-movil__pantalla">
       <div className="v4-maqueta__barra" />
@@ -79,7 +83,7 @@ function PantallaFeed() {
         </div>
       ))}
       <div className="v4-maqueta__anuncio" data-formato="nativo">
-        <span>Tu marca</span>
+        <span>{t("canales.tuMarca")}</span>
       </div>
     </div>
   );
@@ -88,6 +92,7 @@ function PantallaFeed() {
 const PANTALLAS = { web: PantallaWeb, video: PantallaVideo, feed: PantallaFeed };
 
 export default function Canales({ canales }) {
+  const { t } = useTranslation("common");
   const [activo, setActivo] = useState(0);
   const [parado, setParado] = useState(false);
   const caja = useRef(null);
@@ -138,7 +143,7 @@ export default function Canales({ canales }) {
       </div>
 
       <div className="v4-canales__cuerpo">
-        <div className="v4-canales__tabs" role="tablist" aria-label="Canales">
+        <div className="v4-canales__tabs" role="tablist" aria-label={t("canales.rotulo")}>
           {canales.map((c, i) => (
             <button
               type="button"
@@ -157,7 +162,7 @@ export default function Canales({ canales }) {
               }}
             >
               {c.nombre}
-              {c.wip ? <span className="v4-canales__pronto">Próximamente</span> : null}
+              {c.wip ? <span className="v4-canales__pronto">{t("canales.pronto")}</span> : null}
             </button>
           ))}
         </div>
@@ -171,15 +176,6 @@ export default function Canales({ canales }) {
           ))}
         </ul>
 
-        {canales.some((c) => c.wip) ? (
-          <p className="v4-canales__nota">
-            {canales
-              .filter((c) => c.wip)
-              .map((c) => c.nombre)
-              .join(", ")}
-            : estamos trabajando en ello. Escríbenos si te interesa.
-          </p>
-        ) : null}
       </div>
     </div>
   );

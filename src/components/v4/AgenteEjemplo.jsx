@@ -1,12 +1,12 @@
 import React from "react";
 
 /**
- * BOCETO · Un agente, entre miles.
+ * BOCETO · Un agente, entre cientos.
  *
  * Lo que hace concreto todo lo anterior: una ficha de agente, las preguntas que
  * se hace por culpa de sus factores de decisión, y los sitios donde aterriza
  * una de esas preguntas. El pie recuerda lo que no se puede dibujar —que detrás
- * hay miles corriendo a la vez—, que es de donde sale el volumen planificable.
+ * hay cientos corriendo a la vez—, que es de donde sale el volumen planificable.
  *
  * En estático y marcado como boceto: la pieza definitiva se animará, pero el
  * contenido ya se lee y así se valida antes de invertir en el movimiento.

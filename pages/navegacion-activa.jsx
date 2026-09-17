@@ -1,4 +1,5 @@
 import React from "react";
+import { traducciones } from "../src/i18n/servidor";
 import NavegacionActiva from "../src/pages/v4/NavegacionActiva";
 
 export default function NavegacionActivaPage() {
@@ -9,6 +10,6 @@ export default function NavegacionActivaPage() {
 // porque estas páginas traen su propia nav oscura y su propio footer.
 NavegacionActivaPage.v4 = true;
 
-export async function getServerSideProps() {
-  return { props: {} };
+export async function getServerSideProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "navegacion")) } };
 }

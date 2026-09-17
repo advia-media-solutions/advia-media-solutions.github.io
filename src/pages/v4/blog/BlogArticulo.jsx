@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import { useTranslation } from "next-i18next/pages";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -55,7 +56,8 @@ const COMPONENTES_MD = {
 };
 
 function Bloques({ bloques, titulo }) {
-  if (!bloques?.length) return <p className="v4-body">Contenido del artículo no disponible.</p>;
+  const { t } = useTranslation("blog");
+  if (!bloques?.length) return <p className="v4-body">{t("articulo.sinContenido")}</p>;
 
   return bloques.map((bloque, i) => {
     if (bloque.__component !== "shared.rich-text") return null;
@@ -118,17 +120,18 @@ function Cabeza({ articulo }) {
 }
 
 export default function BlogArticulo({ articulo, error }) {
+  const { t } = useTranslation("blog");
   if (error || !articulo) {
     return (
       <Pagina activo="Blog" seccion="blog">
         <Head>
-          <title>Artículo no encontrado | Blog Advia</title>
-          <meta name="description" content="El artículo solicitado no fue encontrado." />
+          <title>{t("articulo.noEncontradoTitle")}</title>
+          <meta name="description" content={t("articulo.noEncontradoDesc")} />
         </Head>
         <Section className="v4-sec--pegada">
-          <Estado>{error || "Artículo no encontrado"}</Estado>
+          <Estado>{error || t("articulo.noEncontrado")}</Estado>
           <div className="v4-mt-8">
-            <Door href="/blog">Volver al blog</Door>
+            <Door href="/blog">{t("articulo.volver")}</Door>
           </div>
         </Section>
       </Pagina>
@@ -161,7 +164,7 @@ export default function BlogArticulo({ articulo, error }) {
         </div>
 
         <div className="v4-articulo__pie v4-mt-16">
-          <Door href="/blog">Volver al blog</Door>
+          <Door href="/blog">{t("articulo.volver")}</Door>
         </div>
       </Section>
     </Pagina>

@@ -1,32 +1,26 @@
 import React from "react";
+import { useTranslation } from "next-i18next/pages";
 import Seo from "../../components/v4/Seo";
+import T from "../../components/v4/T";
 import { Cabecera, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import { Key } from "../../components/v4/primitives";
+import MapaOficina from "../../components/v4/MapaOficina";
+import { ArrowOutward } from "../../components/v4/primitives";
 
 /**
  * Contacto · el destino de todos los CTA del sitio.
  *
- * Migración de estilo, no de contenido: los textos son los mismos que traía la
- * página anterior. Lo que cambia es el chrome — nav y footer de v4 — y que todo
- * pasa a apoyarse en tokens.css en vez de en las clases corporate.
+ * El copy vive en public/locales/{es,en}/contacto.json.
  */
-
 export default function Contacto() {
+  const { t } = useTranslation("contacto");
+
   return (
     <Pagina>
-      <Seo
-        path="/contact"
-        title="Contacto — hablemos de tu objetivo | Advia"
-        description="¿Listo para transformar tu estrategia de marketing? Escríbenos a contact@advia.tech o visítanos en el Campus de Google en Madrid."
-      />
+      <Seo path="/contact" title={t("seo.title")} description={t("seo.description")} />
 
       <Hero
-        titular={
-          <>
-            Construyamos <Key>juntos</Key> el Futuro
-          </>
-        }
-        lede="¿Listo para transformar tu estrategia de marketing? Nuestro equipo está aquí para ayudarte a alcanzar tus objetivos. Contáctanos y descubre cómo podemos potenciar tu presencia digital con soluciones innovadoras y personalizadas."
+        titular={<T t={t} k="hero.titular" />}
+        lede={t("hero.lede")}
         acciones={
           <a className="v4-btn v4-btn--primary" href="mailto:contact@advia.tech">
             contact@advia.tech
@@ -34,25 +28,32 @@ export default function Contacto() {
         }
       />
 
-      <Section>
-        <Split align="start">
-          <Cabecera
-            ancho="100%"
-            titular={
-              <>
-                Visítanos en Google for Startups <Key>Campus</Key>
-              </>
-            }
-            lede="Nos enorgullece formar parte del programa Google for Startups. Te invitamos a visitarnos en nuestras oficinas ubicadas en el Campus de Google en Madrid, donde la innovación y la tecnología se encuentran."
-          />
-          <div className="v4-card" data-size="lg">
-            <p className="v4-mono">
-              Paseo de la Castellana 154, 8 Izquierda
-              <br />
-              28046 Madrid
-            </p>
-          </div>
-        </Split>
+      <Section surface="inset">
+        <Cabecera titular={<T t={t} k="visita.titular" />} />
+        {/* El croquis a la izquierda como dibujo, sin card; a la derecha la
+            dirección y la puerta a Google Maps, apoyadas en la base del plano.
+            Sin entradilla: la dirección ya lo dice todo. */}
+        <div className="v4-mt-12">
+          <Split cols="1-1" align="end">
+            <MapaOficina descripcion={t("visita.mapa")} />
+            <div className="v4-oficina">
+              <p className="v4-lede" style={{ color: "var(--v4-fg)" }}>
+                {t("visita.direccion")}
+                <br />
+                {t("visita.ciudad")}
+              </p>
+              <a
+                className="v4-door v4-mt-8"
+                href="https://www.google.com/maps/search/?api=1&query=Paseo+de+la+Castellana+154%2C+28046+Madrid"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t("visita.comoLlegar")}
+                <ArrowOutward />
+              </a>
+            </div>
+          </Split>
+        </div>
       </Section>
     </Pagina>
   );

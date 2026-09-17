@@ -1,22 +1,21 @@
 import React from "react";
+import { useTranslation } from "next-i18next/pages";
 import DocumentoLegal from "../../../components/v4/DocumentoLegal";
-import { Key } from "../../../components/v4/primitives";
+import T from "../../../components/v4/T";
 import avisoLegal from "../../../content/legal/avisoLegal";
+import avisoLegalEn from "../../../content/legal/avisoLegalEn";
 
-/** Aviso Legal (LSSI-CE). */
+/** Aviso Legal (LSSI-CE). Cada idioma lleva su cuerpo; el español es el que rige. */
 export default function AvisoLegal() {
+  const { t, i18n } = useTranslation("legal");
   return (
     <DocumentoLegal
       path="/legal-notice"
-      title="Aviso Legal | Advia"
-      description="Datos identificativos del titular del sitio, condiciones de uso, responsabilidades, propiedad intelectual y jurisdicción aplicable."
-      titular={
-        <>
-          Aviso <Key>Legal</Key>
-        </>
-      }
-      lede="Condiciones que regulan el uso de advia.tech, y los datos de quien lo publica."
-      bloques={[{ id: "aviso", md: avisoLegal }]}
+      title={t("avisoLegal.title")}
+      description={t("avisoLegal.description")}
+      titular={<T t={t} k="avisoLegal.titular" />}
+      lede={t("avisoLegal.lede")}
+      bloques={[{ id: "aviso", md: i18n.language === "en" ? avisoLegalEn : avisoLegal }]}
     />
   );
 }

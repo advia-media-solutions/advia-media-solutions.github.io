@@ -1,55 +1,113 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "next-i18next/pages";
 
 /**
- * El loop de GEO: medir → estrategia → contenido → medir.
+ * El loop de GEO: medir → diseñar → crear → medir.
  *
- * Gira solo. El wireframe lo pide explícito —"el bucle debe leerse como ciclo,
- * no como lista"—, y un ciclo se entiende viéndolo dar la vuelta, no empujándolo
- * con el scroll: el lector llega, mira dos segundos y ya sabe que aquello no
- * tiene final. El arco dorado recorre el anillo y va encendiendo cada paso.
+ * Una bola de cristal recorre un anillo sin parar y pasa por tres paradas,
+ * que son bolas como las del mapa de /technology (ver CicloEscena). El paso
+ * que toca se enciende en la lista de al lado cuando la bola llega a su
+ * parada: es lo que convierte la lista en ciclo.
  *
- * Se para cuando no se ve —no hay razón para gastar batería animando algo fuera
- * de pantalla— y con prefers-reduced-motion no gira: se muestran los tres pasos
- * por igual, que es el contenido.
+ * La bola no salta de parada en parada: frena al llegar y arranca al salir,
+ * como una que de verdad se detuviera. El reloj vive aquí y le da a la escena
+ * el instante de la vuelta; la escena solo pinta.
+ *
+ * Se para cuando no se ve —no hay razón para gastar batería animando algo
+ * fuera de pantalla— y con prefers-reduced-motion no gira: se pinta un cuadro
+ * con la bola en la primera parada y los tres pasos por igual, que es el
+ * contenido.
+ *
+ * El dibujo va aparte y solo en cliente: three.js no debe entrar en el bundle
+ * inicial. Si no llega —o el equipo no da para WebGL— queda la lista, que
+ * sigue encendiéndose por turnos.
  */
 
-/** Lo que se queda en cada paso antes de pasar al siguiente. */
-const POR_PASO = 2600;
+/** Lo que tarda una vuelta entera, en ms. */
+const POR_VUELTA = 8400;
 
-const R = 104;
-const CENTRO = 130;
+/** Lado del lienzo, en píxeles. Fijo: es una pieza, no un lienzo adaptable. */
+const LADO = 300;
 
-/** Ángulo de cada nodo: arranca arriba y gira en el sentido de las agujas. */
-function puntoDe(i, total) {
-  const a = (i / total) * Math.PI * 2 - Math.PI / 2;
-  return { x: CENTRO + R * Math.cos(a), y: CENTRO + R * Math.sin(a) };
+const REDUCIDO = "(prefers-reduced-motion: reduce)";
+
+/** Entra y sale suave: la bola frena en cada parada y arranca al salir. */
+const suave = (t) => t * t * (3 - 2 * t);
+
+/**
+ * Instante de la vuelta a partir del tiempo: cada tramo entre paradas lleva
+ * su propia rampa, así la bola se detiene un poco en cada una sin que el
+ * reloj se pare.
+ */
+function vueltaDe(ms, tramos) {
+  const bruto = ((ms % POR_VUELTA) / POR_VUELTA) * tramos;
+  const tramo = Math.floor(bruto);
+  return (tramo + suave(bruto - tramo)) / tramos;
 }
 
 export default function Ciclo({ pasos }) {
+  const { t } = useTranslation("common");
   const [activo, setActivo] = useState(0);
-  const [girando, setGirando] = useState(true);
   const caja = useRef(null);
+  const lienzo = useRef(null);
+  const motor = useRef(null);
 
   useEffect(() => {
     const nodo = caja.current;
-    if (!nodo) return undefined;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const canvas = lienzo.current;
+    if (!nodo || !canvas) return undefined;
 
-    let reloj;
+    const reducido = window.matchMedia(REDUCIDO).matches;
+    const total = pasos.length;
+    let vivo = true;
+    let cuadro = 0;
+    let dentro = false;
+    /* El reloj cuenta solo mientras se ve: al volver, la bola sigue donde se
+       quedó en vez de saltar a donde estaría. */
+    let acumulado = 0;
+    let desde = 0;
+
+    const pintar = (u) => {
+      if (motor.current) motor.current.pintar(u);
+      /* El paso activo es la parada más cercana a la bola. */
+      setActivo(Math.round(u * total) % total);
+    };
+
+    const paso = (ahora) => {
+      if (!vivo || !dentro) return;
+      pintar(vueltaDe(acumulado + (ahora - desde), total));
+      cuadro = requestAnimationFrame(paso);
+    };
+
     const arrancar = () => {
-      if (reloj) return;
-      reloj = setInterval(() => setActivo((i) => (i + 1) % pasos.length), POR_PASO);
+      if (dentro || reducido) return;
+      dentro = true;
+      desde = performance.now();
+      cuadro = requestAnimationFrame(paso);
     };
     const parar = () => {
-      clearInterval(reloj);
-      reloj = null;
+      if (!dentro) return;
+      dentro = false;
+      acumulado += performance.now() - desde;
+      cancelAnimationFrame(cuadro);
     };
+
+    import("./CicloEscena")
+      .then(({ default: crearCiclo }) => {
+        if (!vivo) return;
+        motor.current = crearCiclo(canvas, { paradas: total, lado: LADO });
+        nodo.dataset.listo = "true";
+        /* Un cuadro de entrada, esté girando o no: sin él, hasta que el
+           observador dispare el lienzo está vacío. */
+        pintar(vueltaDe(acumulado, total));
+      })
+      .catch(() => {
+        /* Sin WebGL queda la lista, que es el contenido. */
+      });
 
     const io = new IntersectionObserver(
       (entradas) => {
-        const dentro = entradas.some((e) => e.isIntersecting);
-        setGirando(dentro);
-        if (dentro) arrancar();
+        if (entradas.some((e) => e.isIntersecting)) arrancar();
         else parar();
       },
       { threshold: 0.2 }
@@ -57,49 +115,23 @@ export default function Ciclo({ pasos }) {
     io.observe(nodo);
 
     return () => {
+      vivo = false;
       io.disconnect();
-      parar();
+      cancelAnimationFrame(cuadro);
+      if (motor.current) motor.current.destruir();
+      motor.current = null;
     };
   }, [pasos.length]);
 
-  const total = pasos.length;
-  const puntos = pasos.map((_, i) => puntoDe(i, total));
-
   return (
     <div className="v4-ciclo" ref={caja}>
-      <svg
-        className="v4-ciclo__anillo"
-        viewBox="0 0 260 260"
-        role="img"
-        aria-label={`Ciclo de ${pasos.map((p) => p.chip).join(" a ")}, y vuelta a empezar.`}
-      >
-        <circle cx={CENTRO} cy={CENTRO} r={R} className="v4-ciclo__pista" pathLength="100" />
-        {/* El arco que gira: cubre un tramo y avanza de paso en paso, así el
-            anillo se lee como recorrido y no como adorno. */}
-        <circle
-          cx={CENTRO}
-          cy={CENTRO}
-          r={R}
-          className="v4-ciclo__arco"
-          pathLength="100"
-          data-girando={girando ? "true" : undefined}
-          style={{
-            strokeDasharray: `${100 / total} ${100 - 100 / total}`,
-            strokeDashoffset: -(100 / total) * activo,
-          }}
-        />
-        {puntos.map((p, i) => (
-          <g key={pasos[i].chip}>
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r={i === activo ? 13 : 8}
-              className="v4-ciclo__nodo"
-              data-activo={i === activo ? "true" : undefined}
-            />
-          </g>
-        ))}
-      </svg>
+      <div className="v4-ciclo__pieza" aria-hidden="true">
+        <canvas ref={lienzo} width={LADO} height={LADO} />
+      </div>
+      {/* Lo que leen los crawlers y quien no ve el dibujo. */}
+      <span className="v4-oculto">
+        {t("ciclo.oculto", { pasos: pasos.map((p) => p.chip).join(" → ") })}
+      </span>
       <ol className="v4-ciclo__pasos">
         {pasos.map((paso, i) => (
           <li

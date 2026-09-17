@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "Active Navigation in Conversational Environments — your brand in the AI's answer | Advia",
+    "description": "We measure how your brand shows up in the models' answers, understand where they get them from and create the content the AI cites."
+  },
+  "hero": {
+    "eyebrow": "We turn your brand into the answer",
+    "titular": "AI has changed how your consumers <key>decide</key>. You have to change how you talk to them",
+    "lede": "Conversational environments let your consumers decide quickly and precisely. Vera understands how they do it, so that there too you are the answer.",
+    "respuesta": {
+      "pregunta": "Which hybrid SUV should I buy for commuting and weekend trips?",
+      "antes": "For that use, the most recommended option is ",
+      "despues": "\nfollowed by Toyota and Kia, in the same segment. All three cover what you are looking for and share restrained fuel consumption…"
+    }
+  },
+  "pregunta": {
+    "categorias": ["car", "phone", "mattress", "laptop", "insurance"],
+    "titularAntes": "When a consumer researches",
+    "titularMedio": "before buying a",
+    "titularDespues": "are you the answer the AI mentions?",
+    "lede": "More and more decisions are settled in a conversation with an AI, without going through a search engine. Being in that answer is what we call <strong>Intentional Visibility</strong>: being present at the moment someone wants to solve something and hasn't yet decided how.",
+    "citaFuente": "Blog · Introduction to Active Navigation, III",
+    "cita": "“Millions of new, hyper-informed prescribers… and you can't call them to ask them to correct their message.”"
+  },
+  "medir": {
+    "titular": "Before moving anything, we measure <key>where you stand</key>",
+    "lede": "An analysis of the real conversations in your category, not of a list of prompts. It is the first thing you see, and the baseline everything that follows is measured against."
+  },
+  "medidas": [
+    { "nombre": "Share of Answer", "pregunta": "In how many answers in your category do you appear?", "desc": "We count how many answers the AI mentions you in, and in what position." },
+    { "nombre": "Sentiment", "pregunta": "What does it say about you when it mentions you?", "desc": "By decision factor: price, range, service. What the AI believes about your brand is not always what you tell." },
+    { "nombre": "Cited sources", "pregunta": "Where does it get the answer from?", "desc": "The domains and URLs the model consults to answer. That is where the work happens next." },
+    { "nombre": "Benchmark", "pregunta": "Against whom, and heading where?", "desc": "The same measures for your competitors, and how they move from one measurement to the next." }
+  ],
+  "estanterias": {
+    "titular": "Only a small fraction of the sources the AI cites come from your website. You need all <key>five shelves</key>",
+    "lede": "Editorial, social, owned, multimedia and authoritative content. Your own carries the least weight, and it is precisely the only one most brands work on.",
+    "nota": "Illustrative proportion. The actual split of cited sources is measured per category and awaits real data.",
+    "items": ["Editorial", "Social", "Owned", "Multimedia", "Authoritative"]
+  },
+  "ciclo": {
+    "titular": "We measure, publish and <key>measure</key> again",
+    "lede": "Publishing changes what the models read, so the next measurement comes out different. The difference between one cycle and the next is the result: there is nothing to take on faith.",
+    "pasos": [
+      { "chip": "We measure", "texto": "Where you stand today in your category's answers, and which sources they come from." },
+      { "chip": "We design", "texto": "Which sources are giving your competitors their citations and what kind of content the AI cites. That yields the editorial plan: your website and the publishers." },
+      { "chip": "We create", "texto": "We publish that content through our publisher network and on your channels. And we measure again." }
+    ]
+  },
+  "paid": {
+    "titular": "While organic presence is being built, we complement it with <key>paid media in ChatGPT</key>",
+    "lede": "The same simulation that measures your visibility tells when you will be a relevant answer. That is what the activation is built on.",
+    "items": [
+      { "nombre": "From keywords to hints", "desc": "The simulations tell us where you will be relevant to your consumer, beyond classic keywords." },
+      { "nombre": "Creative messages", "desc": "Different messages for different needs: the ad responds to what the consumer has in front of them." },
+      { "nombre": "Continuous improvement", "desc": "During the campaign we see which messages work best and shift the weight towards them." }
+    ]
+  },
+  "cierre": {
+    "titular": "Request an analysis of your <key>AI visibility</key>",
+    "lede": "We show you how often you appear today in your category's answers, against whom and on which factors.",
+    "cta": "Request the analysis"
+  }
+}

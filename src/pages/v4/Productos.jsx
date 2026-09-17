@@ -1,103 +1,86 @@
 import React from "react";
+import { useTranslation } from "next-i18next/pages";
 import Seo from "../../components/v4/Seo";
+import T from "../../components/v4/T";
 import { Cabecera, Cierre, Hero, Pagina, Section } from "../../components/v4/layout";
-import { Boton, Door, Key } from "../../components/v4/primitives";
-import Ramas from "../../components/v4/Ramas";
+import { Boton, Door, Label } from "../../components/v4/primitives";
+import Reparto from "../../components/v4/Reparto";
+import { Plano } from "../../components/v4/Momentos";
 
 /** Productos · el hub. Enseña por qué hay dos productos; no los lista. */
 
-/* Dos familias, no cuatro canales sueltos: es la estructura que ordena todo el
-   producto. En una la presencia se compra; en la otra hay que fabricarla —y
-   además se puede comprar, desde que ChatGPT tiene publicidad. */
-const FAMILIAS = [
-  {
-    titulo: "Canales digitales convencionales",
-    desc: "Donde ya hay inventario: la presencia se compra.",
-    canales: ["Web", "YouTube", "Redes sociales"],
-    tag: "Canales Digitales",
-    via: "compra",
-  },
-  {
-    titulo: "Entornos conversacionales",
-    desc: "Donde contesta un modelo: la presencia se fabrica, y en ChatGPT además se compra.",
-    canales: ["Respuesta orgánica", "Publicidad en ChatGPT"],
-    tag: "Entornos Conversacionales",
-    via: "fabrica",
-  },
+/* Las dos puertas a los productos. Van juntas y en caja porque son la misma
+   decisión vista desde dos lados: el canal donde la presencia se compra y el
+   canal donde se fabrica. El texto está en el diccionario, en el mismo orden;
+   aquí va lo que no cambia con el idioma: la ruta y qué canal está en obras. */
+const PRODUCTOS = [
+  { href: "/products/paid-media", wip: [2] },
+  { href: "/products/geo", wip: [] },
 ];
 
 export default function Productos() {
+  const { t } = useTranslation("productos");
+  const textos = t("productos", { returnObjects: true });
+
   return (
-    <Pagina activo="Productos">
-      <Seo
-        path="/products"
-        title="Productos — dónde se compra la presencia y dónde se fabrica | Advia"
-        description="La Navegación Activa ocurre en canales que funcionan distinto. Donde hay inventario la presencia se compra; donde no lo hay, se fabrica."
-      />
+    <Pagina activo="productos">
+      <Seo path="/products" title={t("seo.title")} description={t("seo.description")} />
 
       <Hero
-        titular={
-          <>
-            La Navegación Activa ocurre en todos los canales donde tu consumidor{" "}
-            <Key>busca</Key>
-          </>
+        titularTamano="l"
+        /* El vídeo no es un fondo: es la pantalla del hero, y el titular la
+           presenta. Va bajo la entradilla, a todo el ancho de contenido. */
+        pie={
+          <figure className="v4-hero__cine">
+            <Plano
+              src="/video/searching"
+              poster="/video/searching.jpg"
+              descripcion={t("hero.videoDescripcion")}
+              className="v4-hero__video-plano"
+            />
+            <figcaption className="v4-hero__video-pie">{t("hero.videoPie")}</figcaption>
+          </figure>
         }
-        lede="Cada canal funciona distinto."
+        titular={<T t={t} k="hero.titular" />}
+        lede={t("hero.lede")}
       />
 
-      <Section>
-        <Cabecera
-          titular={
-            <>
-              La Navegación Activa ocurre en distintos canales, y te posicionamos en{" "}
-              <Key>todos</Key>
-            </>
-          }
-          lede="En unos la presencia se compra; en otros se fabrica."
-        />
-        <div className="v4-mt-16">
-          <Ramas raiz="Navegación Activa" items={FAMILIAS} />
-        </div>
-      </Section>
-
-      <Section surface="graphite">
-        <Cabecera
-          ancho="100%"
-          titular={
-            <>
-              Navegación Activa en <Key>Canales Digitales</Key>
-            </>
-          }
-          lede="Campañas en web, YouTube y tus redes sociales, colocadas sobre las fuentes que tu consumidor consulta mientras compara."
-        />
-        <div className="v4-mt-8">
-          <Door href="/products/paid-media">Ver el producto</Door>
-        </div>
-      </Section>
-
-      <Section>
-        <Cabecera
-          ancho="100%"
-          titular={
-            <>
-              Navegación Activa en <Key>Entornos Conversacionales</Key>
-            </>
-          }
-          lede="Paid media en ChatGPT y presencia orgánica en todos los modelos de IA. Vera entiende cómo se posiciona tu marca de manera orgánica en los modelos conversacionales y desarrolla una estrategia de mejora en base a las fuentes que el modelo utiliza."
-        />
-        <div className="v4-mt-8">
-          <Door href="/products/geo">Ver el producto</Door>
-        </div>
+      <Section surface="inset">
+        <Cabecera titular={<T t={t} k="todos.titular" />} />
+        {/* El mapa de Tecnología, y sus paradas colándose en la caja de su
+            producto: cada producto es una familia de canales. */}
+        <Reparto cols={PRODUCTOS.length}>
+          {PRODUCTOS.map((p, i) => {
+            const texto = textos[i];
+            return (
+              <article key={p.href} className="v4-card" data-size="lg">
+                <Label tono="gold">{texto.tag}</Label>
+                <h3 className="v4-subheading">{texto.titulo}</h3>
+                <div className="v4-reparto__canales">
+                  {texto.canales.map((canal, k) => {
+                    const wip = p.wip.includes(k);
+                    return (
+                      <span className="v4-chip" key={canal} data-wip={wip ? "true" : undefined}>
+                        {canal}
+                        {wip ? <span className="v4-canales__pronto">{t("todos.pronto")}</span> : null}
+                      </span>
+                    );
+                  })}
+                </div>
+                <p className="v4-body v4-reparto__desc">{texto.desc}</p>
+                <div className="v4-card__pie">
+                  <Door href={p.href}>{t("todos.ver")}</Door>
+                </div>
+              </article>
+            );
+          })}
+        </Reparto>
       </Section>
 
       <Cierre
-        titular={
-          <>
-            Capitaliza la Navegación Activa en <Key>todos los canales</Key>
-          </>
-        }
-        lede="Nos cuentas el objetivo, simulamos el recorrido de tu consumidor y te enseñamos dónde puedes responderle."
-        cta={<Boton href="/contact">Entender mi Navegación Activa</Boton>}
+        titular={<T t={t} k="cierre.titular" />}
+        lede={t("cierre.lede")}
+        cta={<Boton href="/contact">{t("cierre.cta")}</Boton>}
       />
     </Pagina>
   );

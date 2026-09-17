@@ -26,6 +26,24 @@ import React, { useEffect, useRef, useState } from "react";
 const CON_ESCENA = true;
 
 /**
+ * El color va en la etiqueta, no en la bola.
+ *
+ * Se probó teñir las bolas —color por medio, tonos del oro, apagar el núcleo—
+ * y ninguna salió bien: son vidrio translúcido de 20px que refracta el fondo,
+ * así que o el color no se leía o dejaba de parecer la misma pieza. La etiqueta
+ * es texto sobre un fondo plano: ahí un color se lee siempre.
+ *
+ * El oro se queda para la web, que es donde la marca ya vive. Los otros dos no
+ * llevan el color de su marca —son suyos, no nuestros—: llevan color del
+ * sistema.
+ */
+const MEDIOS = {
+  Web: "v4-chip--gold",
+  YouTube: "v4-chip--rojo",
+  ChatGPT: "",
+};
+
+/**
  * Dónde se coloca la ficha de cada parada, en el orden del recorrido.
  *
  * Va emparejada con el perfil de la curva (PARADAS_CURVA en EsferaFacetada):
@@ -37,6 +55,25 @@ const CON_ESCENA = true;
  * Si se cambia el perfil, hay que revisar esta lista: son el mismo dibujo.
  */
 const POSES = ["alta", "baja", "pico", "dcha", "izda"];
+
+/**
+ * Color de fondo real de la sección, para que la escena funda sus bordes
+ * contra él. Antes era marfil fijo y la pieza solo servía sobre claro; ahora
+ * vive sobre grafito, y con el marfil clavado la esfera se recortaba contra la
+ * sección. Mismo procedimiento que en Ramas: se sube por los ancestros hasta el
+ * primer color opaco, porque el lienzo es transparente y `getComputedStyle`
+ * devuelve rgba(0,0,0,0) —que el motor leería como NEGRO—.
+ */
+function fondoDe(nodo) {
+  for (let el = nodo; el; el = el.parentElement) {
+    const c = getComputedStyle(el).backgroundColor;
+    const m = c && c.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+    if (m && (m[4] === undefined || Number(m[4]) > 0.9)) {
+      return `rgb(${m[1]}, ${m[2]}, ${m[3]})`;
+    }
+  }
+  return "#FCFDFD";
+}
 
 export default function Recorrido({ paradas, nota }) {
   const nodo = useRef(null);
@@ -54,7 +91,7 @@ export default function Recorrido({ paradas, nota }) {
       .then(({ default: crearEsfera }) => {
         if (!vivo) return;
         const m = crearEsfera(canvas, {
-          fondo: "#FCFDFD",
+          fondo: fondoDe(canvas.parentElement),
           modo: "recorrido",
           /* Cinco paradas, cinco bolas. El resto se queda en el cuerpo, que
              sigue ahí junto a la entradilla cuando el recorrido ha terminado. */
@@ -176,7 +213,9 @@ export default function Recorrido({ paradas, nota }) {
                 }
               >
                 <div className="v4-parada__ficha">
-                  <span className="v4-chip">{parada.chip}</span>
+                  <span className={`v4-chip ${MEDIOS[parada.chip] || ""}`.trim()}>
+                    {parada.chip}
+                  </span>
                   <p className="v4-body">{parada.texto}</p>
                 </div>
               </li>

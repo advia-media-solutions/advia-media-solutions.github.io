@@ -43,13 +43,15 @@ export default function PalabraRotativa({ palabras }) {
 
   /* Solo la palabra activa va al DOM: apilarlas todas y ocultarlas con CSS
      dejaba "cochecafeterateléfono…" en el texto del titular, que es lo que leen
-     los buscadores. El hueco se reserva con un mínimo en `ch` calculado sobre la
-     palabra más larga, así el titular no se recompone a cada cambio —un titular
-     que baila cada dos segundos no hay quien lo lea— sin repetir texto. */
-  const anchura = Math.max(...palabras.map((p) => p.length));
+     los buscadores.
 
+     No se reserva anchura. Se probó con un mínimo en `ch` sobre la palabra más
+     larga y dejaba un hueco vacío detrás de las cortas, que se veía más que el
+     movimiento que evitaba. La regla es de composición, no de código: la
+     palabra va SIEMPRE al final de su renglón, con un salto detrás, así el
+     único texto que cambia de sitio es ella misma. */
   return (
-    <span className="v4-rota" ref={caja} style={{ minWidth: `${anchura}ch` }}>
+    <span className="v4-rota" ref={caja}>
       <span className="v4-key v4-rota__palabra" key={palabras[i]}>
         {palabras[i]}
       </span>

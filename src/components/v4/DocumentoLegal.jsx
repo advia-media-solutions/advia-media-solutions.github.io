@@ -37,7 +37,8 @@ const EPIGRAFES = {
  * de un documento legal es lo único que hay que ver.
  *
  * `bloques` permite más de un cuerpo con su ancla, que es lo que necesitan las
- * páginas bilingües (#es / #en) sin duplicar el componente.
+ * páginas bilingües (#es / #en) sin duplicar el componente. `surface` es el
+ * fondo del cuerpo: marfil por defecto, gris claro donde la página lo pide.
  */
 export default function DocumentoLegal({
   path,
@@ -48,12 +49,13 @@ export default function DocumentoLegal({
   pie,
   antes,
   bloques,
+  surface = "page",
 }) {
   return (
     <Pagina seccion="documento">
       <Seo path={path} title={title} description={description} />
       <Hero titular={titular} lede={lede} pie={pie} />
-      <Section>
+      <Section surface={surface}>
         {antes}
         {bloques.map((bloque) => (
           <div className="v4-doc" id={bloque.id} key={bloque.id}>

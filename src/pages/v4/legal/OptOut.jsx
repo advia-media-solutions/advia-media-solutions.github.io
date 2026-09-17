@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "next-i18next/pages";
 import DocumentoLegal from "../../../components/v4/DocumentoLegal";
 import Idiomas from "../../../components/v4/Idiomas";
-import { Key, Label } from "../../../components/v4/primitives";
+import T from "../../../components/v4/T";
+import { Label } from "../../../components/v4/primitives";
 import { ES, EN } from "../../../content/legal/optOut";
 import { revokeSiteConsent } from "../../../utils/gtm";
 
@@ -31,24 +33,29 @@ function Estado({ optedOut, upstreamError }) {
           <span className="v4-optout__punto" aria-hidden="true" />
           <Label tono="faint">Estado actual · Current status</Label>
         </div>
-        <p className="v4-optout__valor">
-          {optedOut ? "Está excluido" : "No está excluido"}
-        </p>
-        <p className="v4-optout__en" lang="en">
-          {optedOut ? "You are opted out" : "You are opted in"}
-        </p>
+        {/* Cada texto va con su traducción en un par: pegados entre sí y
+            separados del siguiente par. Sueltos, la traducción quedaba tan
+            lejos de su frase como de la siguiente. */}
+        <div className="v4-optout__par">
+          <p className="v4-optout__valor">{optedOut ? "Está excluido" : "No está excluido"}</p>
+          <p className="v4-optout__en" lang="en">
+            {optedOut ? "You are opted out" : "You are opted in"}
+          </p>
+        </div>
       </div>
 
-      <p className="v4-body">
-        {optedOut
-          ? "Este navegador tiene la cookie advia_optout. Advia no registra sus eventos publicitarios."
-          : "Este navegador no tiene la cookie advia_optout. Advia puede registrar sus eventos publicitarios."}
-      </p>
-      <p className="v4-optout__en" lang="en">
-        {optedOut
-          ? "This browser has the advia_optout cookie. Advia records none of your ad events."
-          : "This browser has no advia_optout cookie. Advia may record your ad events."}
-      </p>
+      <div className="v4-optout__par">
+        <p className="v4-body">
+          {optedOut
+            ? "Este navegador tiene la cookie advia_optout. Advia no registra sus eventos publicitarios."
+            : "Este navegador no tiene la cookie advia_optout. Advia puede registrar sus eventos publicitarios."}
+        </p>
+        <p className="v4-optout__en" lang="en">
+          {optedOut
+            ? "This browser has the advia_optout cookie. Advia records none of your ad events."
+            : "This browser has no advia_optout cookie. Advia may record your ad events."}
+        </p>
+      </div>
 
       {upstreamError ? (
         <div className="v4-aviso">
@@ -97,6 +104,8 @@ function Estado({ optedOut, upstreamError }) {
 }
 
 export default function OptOut({ optedOut = false, upstreamError = false }) {
+  const { t, i18n } = useTranslation("legal");
+  const en = i18n.language === "en";
   /* Mejora progresiva: oponerse al registro publicitario retira también el
      consentimiento de analítica y publicidad de este sitio. La exclusión en sí
      funciona sin JavaScript; solo esta alineación lo necesita. */
@@ -106,21 +115,27 @@ export default function OptOut({ optedOut = false, upstreamError = false }) {
 
   return (
     <DocumentoLegal
+      surface="inset"
       path="/opt-out"
-      title="Exclusión publicitaria · Ad opt-out | Advia"
-      description="Excluya este navegador del registro de eventos publicitarios de Advia y de la medición de tráfico de advia.tech. Inmediato y sin facilitar ningún dato."
-      titular={
-        <>
-          Exclusión <Key>publicitaria</Key>
-        </>
-      }
-      lede="Su elección se aplica a todos los anuncios que Advia le sirva, en cualquier sitio web. No hace falta que nos facilite ningún dato."
+      title={t("optOut.title")}
+      description={t("optOut.description")}
+      titular={<T t={t} k="optOut.titular" />}
+      lede={t("optOut.lede")}
       pie={<Idiomas />}
       antes={<Estado optedOut={optedOut} upstreamError={upstreamError} />}
-      bloques={[
-        { id: "es", md: ES },
-        { id: "en", titulo: "English version", md: EN },
-      ]}
+      /* El cuerpo del idioma de la ruta va primero; el otro, rotulado, debajo.
+         El estado y los controles son bilingües y van una sola vez, arriba. */
+      bloques={
+        en
+          ? [
+              { id: "en", md: EN },
+              { id: "es", titulo: t("version.es"), md: ES },
+            ]
+          : [
+              { id: "es", md: ES },
+              { id: "en", titulo: t("version.en"), md: EN },
+            ]
+      }
     />
   );
 }

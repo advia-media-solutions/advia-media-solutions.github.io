@@ -226,6 +226,7 @@
 .v4-split[data-cols="2-3"] { grid-template-columns: 2fr 3fr; }
 .v4-split[data-cols="1-1"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .v4-split[data-align="start"] { align-items: start; }
+.v4-split[data-align="end"] { align-items: end; }
 
 .v4-grid { display: grid; gap: var(--space-6); }
 .v4-grid[data-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -236,7 +237,16 @@
 
 /* ────────────────────── 6. Cabecera de sección ────────────────────── */
 .v4-cabecera > * + * { margin-top: var(--space-5); }
-.v4-cabecera .v4-lede { margin-top: var(--space-6); }
+/* Más ancho que el lede por defecto (720): a esa medida un lede de dos frases
+   cae en tres líneas, y la cabecera se lee como una escalera en vez de como un
+   bloque. Afecta solo al lede de cabecera de sección, no al del hero. */
+.v4-cabecera .v4-lede { margin-top: var(--space-6); max-width: 880px; }
+/* Cabecera sin titular: la entradilla mantiene su tamaño de lede —subirla la
+   convertía en un titular, y lo que manda en la sección es la pieza de debajo—
+   pero va en tinta plena. En gris, sin nada encima, se leía como un pie. */
+.v4-cabecera[data-sin-titular="true"] .v4-lede {
+  color: var(--v4-fg);
+}
 
 /* ────────────────────── 7. Hero ────────────────────── */
 .v4-hero { position: relative; overflow: hidden; }
@@ -256,6 +266,58 @@
 }
 .v4-hero__pieza[data-listo="true"] { opacity: 1; }
 .v4-hero__pieza canvas { display: block; width: 100%; height: 100%; }
+/* El vídeo del hero de Productos. No es un fondo: es la pantalla del hero, a
+   todo el ancho de contenido bajo el titular. El plano lleva un pie dentro,
+   abajo a la izquierda: marfil sobre un velo grafito, en mono. */
+.v4-hero__video-plano {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--v4-track);
+}
+.v4-hero__video-pie {
+  position: absolute;
+  left: var(--space-6);
+  bottom: var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--brand-graphite) 55%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--brand-ivory);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.v4-hero__video-pie::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent-gold);
+  flex: none;
+}
+
+/* Cine: a todo el ancho de contenido bajo el titular, recortado a una franja
+   panorámica. Es la pantalla del hero, y el titular la presenta. */
+.v4-hero__cine {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: min(440px, 46vh);
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--v4-panel-shadow);
+}
+.v4-hero__body > .v4-lede + .v4-hero__cine { margin-top: var(--space-12); }
+
 .v4-hero[data-pieza="true"] .v4-hero__body { max-width: var(--web-content-width); }
 .v4-hero[data-pieza="true"] h1 { max-width: 680px; }
 .v4-hero[data-pieza="true"] .v4-lede { max-width: 560px; }
@@ -291,6 +353,67 @@
            var(--space-20);
 }
 .v4-hero__body[data-banda="true"] { padding-bottom: 0; }
+/* Hero con pieza al lado, a la manera de la portada: el titular manda y ocupa
+   su medida completa, y la ilustración es un objeto modesto a la derecha,
+   centrado en vertical. La pieza va absoluta —no es una columna de la rejilla—
+   justo por eso: si fuese columna, le robaría al titular el ancho que necesita
+   para leerse de un golpe, que es de lo que vive la portada.
+
+   Al titular y al lede se les pone medida, no columna: así el texto se para
+   antes de llegar a la pieza sin que la rejilla lo estreche. */
+/* El body sigue siendo la columna centrada de siempre: el texto se centra en
+   vertical como en cualquier hero, y la pieza, al ir absoluta, no entra en esa
+   cuenta. Anularlo a `block` dejaba el texto pegado arriba y la pieza centrada,
+   descuadrados entre sí. */
+.v4-hero__texto { position: relative; z-index: 2; }
+/* El ritmo de la cabecera, que en un hero normal lo lleva el propio body. */
+.v4-hero__texto > * + * { margin-top: var(--space-8); }
+.v4-hero__texto > .v4-label + h1 { margin-top: var(--space-5); }
+.v4-hero__texto > h1 + .v4-lede { margin-top: var(--space-10); }
+.v4-hero__texto .v4-btn-row { margin-top: var(--space-10); }
+.v4-hero__texto > .v4-label {
+  color: var(--v4-eyebrow);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+}
+/* Las medidas de la portada: el titular a dos renglones y el lede más corto que
+   él, que es lo que hace que el bloque se lea en escalera y no en bloque.
+   Con el atributo delante para ganarle a `.v4-hero h1`, que reparte 1000px
+   porque da por hecho que no hay nada a la derecha con lo que chocar.
+
+   EXCEPCIÓN DOCUMENTADA A LA ESCALA (DS §2.3 / §6.1.7): 88/97 no es un escalón
+   del sistema. Con la pieza al lado el titular dispone de 680px, y a los 98 del
+   Display XL «Hay dos formas» mide 674 —no cabe— así que la frase se partía en
+   tres renglones y perdía el golpe. El escalón de abajo, Display L (52), la
+   deja en letra de sección y el hero deja de ser hero. 88 es lo justo para que
+   entre en dos: «Hay dos formas» ocupa 605 de 680, y «Hay dos formas de» se va
+   a 721, que es lo que fuerza el corte donde toca. Se mantiene la proporción de
+   interlineado del XL (1.102). Solo aquí; la escala no se toca. */
+.v4-hero__body[data-aparte="true"] h1 { max-width: 680px; }
+.v4-hero__body[data-aparte="true"] h1.v4-display-xl {
+  font-size: 88px;
+  line-height: 97px;
+}
+.v4-hero__body[data-aparte="true"] .v4-lede { max-width: 520px; }
+
+/* La pieza: pegada al borde derecho de la caja de contenido —no al de la
+   ventana— y centrada a la altura del bloque de texto. Mismo sitio que ocupa la
+   esfera en la portada. */
+.v4-hero__aparte {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: var(--web-section-pad-x);
+  /* 300 y no 330: los 30px que suelta son los que le faltaban al titular para
+     no rozar la pieza con su renglón más largo. */
+  width: 300px;
+  /* Centrada con flex y no con `top:50% + translateY(-50%)`: la entrada del
+     hero anima el transform de los hijos del body hasta `none`, y al terminar
+     se llevaba por delante el centrado. */
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
 /* Ritmo de la cabecera. El titular es display-xl: 98/108 de interlineado, así
    que un margen que basta entre dos párrafos aquí se come el propio leading y
    el bloque se lee apelmazado. Cada salto va a su distancia, de mayor a menor
@@ -329,7 +452,7 @@
 .v4-banda__inner > * + * { margin-top: var(--space-5); }
 
 /* ────────────────────── 8. Chips ────────────────────── */
-.v4-chips { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.v4-chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
 .v4-chip {
   font-family: var(--font-mono);
   font-size: var(--fs-code-s);
@@ -341,6 +464,18 @@
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-sm);
 }
+/* El chip como marca de estado: el velo dorado es el mismo recurso con el que
+   la pantalla activa se distingue por el filete, en pequeño. La tinta se queda
+   en negro —el dorado sobre el velo no llega a contraste a 12px—. */
+.v4-chip--gold { background: var(--gold-veil); color: var(--v4-fg); }
+/* El rojo sale de --warning, el semántico de aviso: es el único rojo del
+   sistema y aquí hace de color de categoría, fuera de su semántica. Va al 14%,
+   la misma receta que el velo dorado, para que los dos chips pesen igual. */
+.v4-chip--rojo {
+  background: color-mix(in srgb, var(--warning) 14%, transparent);
+  color: var(--v4-fg);
+}
+
 .v4-pregunta {
   display: inline-flex;
   align-items: center;
@@ -378,21 +513,11 @@
   display: flex;
   flex-direction: column;
 }
+/* La puerta de una card, al pie y alineada entre cards vecinas aunque el texto
+   de una sea más largo que el de otra. Con el padre en el selector para ganar
+   al ritmo genérico `.v4-card > * + *`, que le pondría un margen fijo. */
+.v4-card > .v4-card__pie { margin-top: auto; padding-top: var(--space-6); }
 
-/* Los dos momentos de la home, enfrentados dentro de una misma card. El rótulo
-   es la clave de lectura del bloque —pasiva contra activa—, no un pie: por eso
-   lleva filete lateral, y el dorado va sobre el activo, que es el momento del
-   que vive todo el argumento. */
-.v4-momento {
-  padding-left: var(--space-6);
-  border-left: 2px solid var(--v4-line-strong);
-}
-.v4-momento + .v4-momento {
-  margin-top: var(--space-8);
-}
-.v4-momento[data-destacado="true"] {
-  border-left-color: var(--accent-gold);
-}
 /* Solo las cards que son puerta (contienen enlace) reaccionan al hover. */
 .v4-card:has(a:hover) {
   box-shadow: var(--v4-panel-shadow-hover);
@@ -407,6 +532,26 @@
   --v4-muted: var(--text-secondary);
   --v4-faint: var(--text-tertiary);
   --v4-line: var(--border-subtle);
+}
+/* La inversión es relativa a la superficie, no absoluta: sobre grafito, una
+   card grafito no se ve —desaparece contra el fondo de la sección—, así que es
+   la marfil la que hace de invertida. Lo que el par tiene que decir es "estas
+   dos cosas funcionan distinto", y eso solo se lee si contrastan entre sí. */
+.v4-surface[data-surface="graphite"] .v4-card[data-invertida="true"] {
+  background: var(--brand-ivory);
+  border-color: var(--brand-ivory);
+  /* La card sigue trayendo data-theme="dark" del componente —no sabe sobre qué
+     superficie va a caer—, y con él los roles de texto de tokens.css resuelven
+     en marfil: el titular desaparecía contra su propio fondo. Se reponen aquí
+     los tres roles, para que valgan también los descendientes que tiran del
+     token directamente y no de --v4-fg. */
+  --text-primary: var(--brand-graphite);
+  --text-secondary: var(--neutral-500);
+  --text-tertiary: var(--neutral-400);
+  --v4-fg: var(--brand-graphite);
+  --v4-muted: var(--neutral-500);
+  --v4-faint: var(--neutral-400);
+  --v4-line: var(--border-default);
 }
 .v4-card > * + * { margin-top: var(--space-3); }
 .v4-card .v4-door { margin-top: var(--space-4); }
@@ -453,6 +598,32 @@
   box-shadow: var(--v4-panel-shadow);
 }
 .v4-callout .v4-label { margin-top: var(--space-4); }
+/* La fuente como puerta al original: sigue siendo un rótulo, pero enlaza y
+   lleva la flecha de las puertas. */
+.v4-callout__fuente {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--v4-muted);
+  transition: color var(--motion-fast) var(--ease-standard);
+}
+.v4-callout__fuente:hover { color: var(--accent-gold); }
+.v4-callout__fuente .v4-icon { width: 14px; height: 14px; }
+
+/* Las medidas de Entornos Conversacionales: una pregunta por caja, con aire.
+   El ordinal va en mono, tenue, arriba a la derecha: cuenta, no compite. */
+.v4-medida { position: relative; min-height: 260px; }
+.v4-medida__num {
+  position: absolute;
+  top: var(--space-8);
+  right: var(--space-10);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-l);
+  line-height: var(--lh-code-l);
+  color: var(--v4-faint);
+}
+.v4-medida > .v4-label + .v4-subheading { margin-top: var(--space-5); max-width: 22ch; }
+.v4-medida > .v4-subheading + .v4-body { margin-top: var(--space-4); max-width: 44ch; }
 
 .v4-placeholder {
   background: var(--v4-chip);
@@ -537,35 +708,395 @@
 .v4-escena__pieza[data-listo="true"] { opacity: 1; }
 .v4-escena__pieza canvas { display: block; width: 100%; height: 100%; }
 
-/* Paso plegable. El cuerpo se abre con grid-template-rows 0fr→1fr, que es la
-   única forma de animar "hasta el alto que ocupe" sin medirlo con JS. */
-.v4-paso-abre {
-  border-top: 1px solid var(--v4-line);
-  padding-top: var(--space-4);
-  transition: opacity var(--motion-slow) var(--ease-standard);
+/* ─────────── 10b. Recorridos (Tecnología) ─────────── */
+/* La portada, los pasos y los caminos comparten UNA escena pegada a la ventana.
+   Lo que la mantiene pegada durante los tres es que su bloque contenedor es
+   `.v4-recorridos` entera; lo que la mueve es el scroll, traducido a tiempo de
+   escena en el componente. Aquí no hay animación: solo la caja.
+
+   El fondo de página vive AQUÍ y no en cada superficie: si la portada o el
+   relato llevaran el suyo taparían la escena que tienen debajo. */
+.v4-recorridos {
+  position: relative;
+  background: var(--surface-page);
+}
+/* La franja gris de la construcción. Es un trozo del DOCUMENTO: su alto es el
+   de la construcción (lo mide el componente) y se mueve con la página, así que
+   entra por abajo y sale por arriba como cualquier cambio de sección. Va en la
+   capa más baja; la escena, transparente, va encima, y encima de las dos el
+   texto. Nada de esto cambia de color: lo que cambia es lo que hay debajo. */
+.v4-recorridos__banda {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  background: var(--surface-inset);
+  pointer-events: none;
+}
+.v4-recorridos__pegado {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* La portada se monta sobre la escena. Sin fondo propio y por encima de ella. */
+.v4-recorridos > .v4-hero {
+  margin-top: -100vh;
+  margin-top: -100svh;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+/* EXCEPCIÓN DOCUMENTADA A LA ESCALA (DS §2.3 / §6.1.7): la misma que usa el
+   hero con pieza al lado en Navegación Activa —88/97, medida 680—. Con la
+   esfera a la derecha el titular no dispone del ancho completo, y a los 98 del
+   Display XL se partía en un renglón más. */
+.v4-recorridos > .v4-hero h1 {
+  max-width: 680px;
+  font-size: 88px;
+  line-height: 97px;
+}
+.v4-recorridos > .v4-hero .v4-lede { max-width: 520px; }
+
+/* El relato: texto en flujo normal por delante de la escena. El scroll NO se
+   retiene — ver la cabecera de Recorridos.jsx. Lo que hay pegado es la escena,
+   que está detrás y es fondo, y la cabecera con sus pasos, que se apilan. */
+.v4-recorridos__relato {
+  position: relative;
+  z-index: 2;
+  padding: 0 var(--web-section-pad-x);
+  /* El texto recibe el ratón; el aire que lo rodea, no: por debajo está la
+     escena, y ahí los clics no tienen a quién ir. */
+  pointer-events: none;
+}
+.v4-recorridos__relato :is(h2, h3, p, button) { pointer-events: auto; }
+
+/* La construcción. UNA columna pegada arriba —cabecera y tres pasos— y detrás
+   los aires, que son el scroll que tarda cada paso en subir. Cuando los aires
+   se acaban, se acaba el contenedor y la columna se va ENTERA, con los tres
+   pasos puestos: es una sección completa que deja paso a la siguiente, no tres
+   tarjetas que se sueltan una a una.
+
+   La columna se pega respecto a su contenedor, `.v4-recorridos__construccion`,
+   y ese es todo el truco: un único elemento pegado tiene un único momento de
+   soltarse. */
+.v4-recorridos__construccion { position: relative; }
+.v4-recorridos__columna {
+  position: sticky;
+  top: calc(var(--v4-nav-alto) + var(--space-4));
+  max-width: 560px;
+  /* Poco aire arriba a propósito: con los tres pasos puestos la columna es
+     alta, y en un portátil cada píxel de arriba es un píxel que le falta al
+     tercer paso para caber antes de que la sección se vaya. */
+  padding-top: var(--space-8);
+}
+.v4-recorridos__cabecera {
+  margin: 0 0 var(--space-6);
+  position: relative;
+  z-index: 1;
+  /* Con fondo, para que el paso que sube por debajo no se lea a través del
+     título. Es el color de la franja, no uno nuevo. */
+  background: var(--surface-inset);
+}
+.v4-recorridos__cabecera h2 { margin: 0; }
+/* Cada paso vive en su sitio de la columna y se EMPUJA hacia abajo hasta que
+   le toca: el componente le pone en `transform` lo que le falta para llegar, y
+   eso baja a cero al ritmo del scroll. Sin transición: es el scroll quien lo
+   mueve, y una transición encima lo haría flotar. */
+.v4-recorridos__paso {
+  position: relative;
+  padding-bottom: var(--space-6);
+  background: var(--surface-inset);
+  will-change: transform;
+}
+.v4-recorridos__caja {
   opacity: 0.4;
+  transition: opacity var(--motion-slow) var(--ease-standard);
 }
-.v4-paso-abre[data-abierto="true"] { opacity: 1; }
-.v4-paso-abre__head {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-5);
-}
-.v4-paso-abre__head .v4-subheading {
-  transition: color var(--motion-base) var(--ease-standard);
+.v4-recorridos__paso[data-activo="true"] .v4-recorridos__caja { opacity: 1; }
+/* La descripción del paso va al tamaño de lectura (Body L), que es el peso
+   que le toca junto a un título de paso; el eco, en mono y apagado. */
+.v4 .v4-recorridos__desc { font-size: var(--fs-body-l); line-height: var(--lh-body-l); }
+.v4 .v4-recorridos__eco {
+  display: inline-block;
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  /* Un velo de tinta al 8 % (el token de borde sutil) en vez del tinte de los
+     chips: la sección ya es gris y el chip no se distinguía de ella. */
+  background: var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
   color: var(--v4-muted);
 }
-.v4-paso-abre[data-abierto="true"] .v4-paso-abre__head .v4-subheading { color: var(--v4-fg); }
-.v4-paso-abre__cuerpo {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--motion-slow) var(--ease-emphasis);
+/* La cabecera de cada paso es un botón: lleva la esfera a ese paso con el ratón
+   o con el teclado, sin mover la página. Se le quita la piel de botón, no el
+   foco. */
+.v4-recorridos__head {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--space-3);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
 }
-.v4-paso-abre[data-abierto="true"] .v4-paso-abre__cuerpo { grid-template-rows: 1fr; }
-.v4-paso-abre__interior { overflow: hidden; min-height: 0; }
-.v4-paso-abre__interior > * { margin-top: var(--space-3); }
-.v4-paso-abre__interior > .v4-chip { display: inline-flex; border-radius: var(--radius-pill); }
+.v4-recorridos__head h3 { margin: 0; }
+.v4-recorridos__head:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring-shadow);
+  border-radius: var(--radius-sm);
+}
+/* El paso fijado por un clic se distingue del que trae el scroll: mientras hay
+   uno fijado, la rueda no manda, y eso tiene que verse. */
+.v4-recorridos__paso[data-fijo="true"] .v4-fila__num { color: var(--accent-gold); }
 
+/* Los aires: el scroll que tarda cada paso en llegar. Van DESPUÉS de la
+   columna en el documento, y son lo que le da altura al contenedor. El primero
+   es el que hace que también el paso 01 suba desde abajo, como los otros dos.
+   El remate mantiene la sección completa un rato antes de que se vaya. */
+.v4-recorridos__aire {
+  height: 70vh;
+  height: 70svh;
+}
+.v4-recorridos__remate {
+  height: 45vh;
+  height: 45svh;
+}
+
+/* El aire del mapa: bloques casi siempre sin contenido, cuya función es dar
+   scroll para que la escena se dibuje. Su altura la pone el componente, que es
+   quien sabe cuánto dura cada tramo. */
+.v4-recorridos__hito {
+  display: flex;
+  align-items: center;
+  max-width: 560px;
+}
+/* El mapa: su titular se queda pegado arriba a la izquierda mientras los hitos
+   pasan, igual que la cabecera de la construcción, y se va con ellos. El
+   contenedor es quien lo suelta. */
+.v4-recorridos__mapa {
+  position: relative;
+  /* El hueco entre el bloque de pasos y el titular del mapa. Es el mismo aire
+     que había cuando el titular iba en flujo; sin él, el titular se pegaba
+     arriba antes de que los pasos se hubieran ido. */
+  padding-top: 30vh;
+  padding-top: 30svh;
+}
+/* El titular del mapa, en la capa pegada: arriba a la izquierda, alineado con
+   la columna de texto, y entra cuando la esfera empieza a soltar. */
+.v4-recorridos__mapa-titulo {
+  position: absolute;
+  z-index: 3;
+  top: calc(var(--v4-nav-alto) + var(--space-8));
+  left: max(var(--web-section-pad-x), calc(50% - var(--web-content-width) / 2));
+  margin: 0;
+  /* Ancho para que «Cientos de recorridos» quepa en una línea y «diferentes»
+     baje sola a la segunda. */
+  max-width: 640px;
+  opacity: 0;
+  transform: translateY(var(--space-4));
+  transition: opacity var(--motion-slow) var(--ease-standard),
+              transform var(--motion-slow) var(--ease-standard);
+}
+.v4-recorridos__mapa-titulo[data-visible="true"] { opacity: 1; transform: none; }
+/* El pie del mapa, abajo a la derecha de la escena: es la esquina que los
+   agentes dejan libre. Entra cuando el mapa ya está entero. */
+.v4-recorridos__pie {
+  position: absolute;
+  right: 12%;
+  /* Sube del borde: queda en el hueco entre el agente de abajo a la derecha
+     y el final del cuadro, no pegado al pie de la pantalla. */
+  bottom: 13%;
+  z-index: 3;
+  margin: 0;
+  max-width: 380px;
+  color: var(--v4-muted);
+  opacity: 0;
+  transform: translateY(var(--space-4));
+  transition: opacity var(--motion-slow) var(--ease-standard),
+              transform var(--motion-slow) var(--ease-standard);
+}
+.v4-recorridos__pie[data-visible="true"] { opacity: 1; transform: none; }
+
+/* Los granos que alimentan la esfera. La capa se centra donde la cámara deja el
+   cuerpo mientras se construye (77% / 44% del cuadro), y cada grano nace en un
+   punto del arco izquierdo y viaja hasta ese centro, donde se disuelve. El
+   ciclo se repite mientras el paso está abierto: lo que cuenta es que la esfera
+   se está alimentando, no que se haya alimentado una vez.
+
+   Los porcentajes y las distancias son del CUADRO, no de la ventana: la capa
+   vive dentro del lienzo autor. Por eso el chip deshace la escala del lienzo
+   (`--v4-escala`), o se leería al tamaño al que esté encogido el dibujo. */
+.v4-recorridos__carga {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 74%;
+  top: 50%;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-standard);
+}
+.v4-recorridos__carga[data-activo="true"] { opacity: 1; }
+.v4-recorridos__grano {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transform: translate(calc(var(--v4-dx) - 50%), calc(var(--v4-dy) - 50%));
+}
+.v4-recorridos__carga[data-activo="true"] .v4-recorridos__grano {
+  animation: v4-grano 3.2s var(--ease-emphasis) infinite;
+  animation-delay: calc(var(--v4-turno) * 0.62s);
+}
+/* Sobre el marfil de la escena, el gris del chip por defecto desaparecía: un
+   grano tiene que leerse mientras viaja. El velo dorado es el mismo que usa
+   `.v4-chip--gold` del sistema, y además los emparenta con la esfera a la que
+   van. */
+.v4-recorridos__grano .v4-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--gold-veil);
+  color: var(--v4-fg);
+  transform: scale(calc(1 / var(--v4-escala, 1)));
+}
+@keyframes v4-grano {
+  0%   { opacity: 0; transform: translate(calc(var(--v4-dx) - 50%), calc(var(--v4-dy) - 50%)) scale(0.92); }
+  14%  { opacity: 1; transform: translate(calc(var(--v4-dx) - 50%), calc(var(--v4-dy) - 50%)) scale(1); }
+  46%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.45); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Sin scroll que mande no hay paso activo, así que los tres se leen con la
+     misma tinta. El aire del mapa sobra —solo existía para darle recorrido al
+     scroll— y la escena se queda en su plano final. */
+  .v4-recorridos__columna { position: static; }
+  .v4-recorridos__paso { transform: none !important; padding-block: var(--space-8); }
+  .v4-recorridos__aire, .v4-recorridos__remate { display: none; }
+  /* La escena se queda en su plano final, y el pie, que es suyo, a la vista. */
+  .v4-recorridos__pie { opacity: 1; transform: none; }
+  .v4-recorridos__caja { opacity: 1; }
+  .v4-recorridos__hito { min-height: 0 !important; padding-block: var(--space-8); }
+  .v4-recorridos__carga { display: none; }
+}
+
+/* ─────────── 10b-bis. Anillo de agentes (Tecnología) ─────────── */
+/* Cinco recorridos sobre el mismo mapa. Todo lo que hay dentro está compuesto
+   contra un lienzo autor de 1920 x 1080, así que aquí no se posiciona nada: se
+   escala ese lienzo al ancho que haya y el JS coloca en coordenadas de autor.
+   Esa es la razón de los píxeles crudos de este bloque — no son medidas de
+   pantalla, son medidas del dibujo. */
+/* El cuadro ocupa la ventana entera: es la escena de la página, no una
+   ilustración dentro de una sección. Dentro, el lienzo autor (16:9) se encaja
+   entero y centrado; lo que sobre por un lado u otro es fondo de página, que
+   sobre marfil no se ve. */
+.v4-agentes__cuadro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* La escena no responde al ratón: los pasos, que sí, van en otra capa. */
+  pointer-events: none;
+  /* Sin fondo: la escena es transparente y deja ver lo que la página tenga
+     debajo — marfil, o la franja gris de la construcción cuando pasa. Lo que
+     sí cambia con eso es el color contra el que el motor funde los bordes de
+     la esfera (ver `fondo()` en EsferaFacetada). */
+}
+.v4-agentes__lienzo { position: relative; flex: none; transform-origin: 50% 50%; }
+/* Punto sin dimensiones: lo único que hace es llevar la cámara. Los hijos se
+   colocan contra él en coordenadas de autor, con el origen en el anillo. */
+.v4-agentes__camara { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; }
+.v4-agentes__agente { position: absolute; }
+.v4-agentes__agente canvas { display: block; width: 100%; height: 100%; }
+
+/* El logotipo dentro de un chip: a la altura de la x, en su color de marca. */
+.v4-chip__logo { width: 14px; height: 14px; flex: none; }
+
+/* El rol de cada agente, colgado bajo su esfera como un pie de foto: una línea
+   en mono, sin caja, y la segunda solo en el agente principal. Con la misma
+   contra-escala que las etiquetas de las paradas. */
+.v4-agentes__rol {
+  position: absolute;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform-origin: 50% 100%;
+  transform: translate(-50%, -100%) scale(var(--v4-contra));
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.v4-agentes__rol-quien { color: var(--text-primary); }
+.v4-agentes__rol-que { color: var(--neutral-500); }
+
+/* El anillo de cada parada: un aro fino del color del medio, quieto. El oro es
+   la web, el rojo YouTube, el gris ChatGPT — el mismo código que los chips. El
+   grosor deshace la escala del dibujo para ser siempre de 2 px en pantalla. */
+.v4-agentes__anillo {
+  position: absolute;
+  z-index: 45;
+  border-radius: 50%;
+  border: calc(2px * var(--v4-contra, 1)) solid var(--neutral-500);
+}
+.v4-agentes__anillo[data-medio="Web"] { border-color: var(--accent-gold); }
+.v4-agentes__anillo[data-medio="YouTube"] { border-color: var(--warning); }
+
+/* Sobre marfil, el gris del chip neutro (ChatGPT) desaparecía y se leía como
+   texto suelto. Un velo de tinta al 9 %, la misma receta con la que el rojo y
+   el oro hacen su velo. */
+.v4-agentes__marca:not(.v4-chip--gold):not(.v4-chip--rojo) {
+  background: color-mix(in srgb, var(--text-primary) 9%, transparent);
+}
+
+/* La etiqueta del medio, colgada del lado que le toque a su parada. La
+   contra-escala la mantiene legible cuando la cámara se aleja: el dibujo
+   encoge, el texto no. */
+.v4-agentes__marca {
+  position: absolute;
+  z-index: 50;
+  white-space: nowrap;
+  transform-origin: 0 50%;
+  transform: translate(0, -50%) scale(var(--v4-contra)) translateY(var(--v4-brote));
+}
+.v4-agentes__marca[data-lado="izda"] {
+  transform-origin: 100% 50%;
+  transform: translate(-100%, -50%) scale(var(--v4-contra)) translateY(var(--v4-brote));
+}
+/* El pulso de una parada compartida: un segundo agente ha aterrizado donde ya
+   había otro. Es el dato de la pieza, y por eso es lo único dorado que se
+   mueve. */
+/* Un aro fino que crece y se apaga. `border-radius: 50%`, no la píldora del
+   sistema: la píldora es un radio fijo de 100px, y sobre un aro de 250 dejaba
+   un cuadrado redondeado. */
+.v4-agentes__pulso {
+  position: absolute;
+  z-index: 40;
+  border: 2px solid var(--accent-gold);
+  border-radius: 50%;
+}
 /* ─────────── 10c. Recorrido (Navegación Activa) ─────────── */
 /* Las paradas son las bolas de la escena 3D; aquí solo se cuelgan las etiquetas
    de su posición proyectada. El lienzo manda el tamaño del bloque. */
@@ -628,7 +1159,10 @@
 }
 /* En las poses en fila el chip no puede encogerse: es una pastilla, y al
    comprimirla el texto de dentro se parte. */
-.v4-parada__ficha .v4-chip { flex: none; }
+/* En tinta plena los tres, también el gris de serie: aquí el chip nombra la
+   parada, no es un dato secundario, y en gris sobre gris se descolgaba de los
+   otros dos. */
+.v4-parada__ficha .v4-chip { flex: none; color: var(--v4-fg); }
 
 /* 1 · Bajando: hueco arriba a la derecha. Texto sobre el chip. */
 .v4-parada[data-pose="alta"] .v4-parada__ficha {
@@ -736,98 +1270,218 @@
 }
 .v4-recorrido__nota .v4-nota__meta { font-size: var(--fs-code-s); line-height: var(--lh-code-s); }
 
-/* ────────────────────── 10b. Esquema de ramas ────────────────────── */
-/* El puente de /products: la pieza dibuja el tronco y las cuatro ramas, y la
-   lista pone el contenido. Las alturas las manda la lista; el lienzo se ata a
-   ella, no al revés. */
-.v4-ramas {
+/* ────────────────────── 10b. Reparto de paradas ────────────────────── */
+/* El puente de /products: el mapa con el que termina Tecnología, y sus
+   paradas colándose por detrás de la caja de su producto. El lienzo cubre
+   mapa y cajas, por DEBAJO de las cajas, que es lo que las tapa. */
+.v4-reparto { position: relative; margin-top: var(--space-16); }
+/* El mapa desborda la caja de contenido por los lados —como el nav— para
+   ganar escala; nunca más allá del margen de la ventana. */
+.v4-reparto { --v4-reparto-desborde: min(120px, calc((100vw - 100% - 2 * var(--space-6)) / 2)); }
+.v4-reparto__pieza {
+  position: absolute;
+  inset: 0 calc(-1 * var(--v4-reparto-desborde));
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+.v4-reparto[data-listo="true"] .v4-reparto__pieza { opacity: 1; }
+.v4-reparto__pieza > canvas { display: block; width: 100%; height: 100%; }
+/* El hueco del mapa en el flujo; lo que se ve lo pinta la pieza. */
+.v4-reparto__mapa { margin-bottom: var(--space-8); }
+/* El anillo del medio, como en el mapa: fino, del color del medio, y
+   siguiendo a su bola hasta dentro de la caja. */
+.v4-reparto__anillo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  /* Mismo trazo que .v4-agentes__anillo, el del mapa de /technology: son las
+     mismas paradas y tienen que leerse iguales. */
+  border: 2px solid var(--neutral-500);
+  will-change: transform;
+}
+.v4-reparto__anillo[data-medio="Web"] { border-color: var(--accent-gold); }
+.v4-reparto__anillo[data-medio="YouTube"] { border-color: var(--warning); }
+.v4-reparto__cajas { position: relative; z-index: 1; display: grid; gap: var(--space-6); }
+/* Estas cajas no reaccionan al ratón: reaccionan a las bolas que les entran
+   (ver Reparto.jsx). El encogimiento nace del borde de arriba, por donde
+   entran. */
+.v4-reparto__cajas .v4-card { transform-origin: 50% 12%; }
+.v4-reparto__cajas .v4-card:has(a:hover) { transform: none; box-shadow: var(--v4-panel-shadow); }
+.v4-reparto__cajas[data-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.v4-reparto__cajas[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* Los canales de cada familia, dentro de su caja. */
+.v4-reparto__canales { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.v4-reparto__canales .v4-chip { display: inline-flex; align-items: center; gap: var(--space-3); }
+/* Un canal en preparación, como la pestaña de Canales: se enseña, en voz baja. */
+.v4-reparto__canales .v4-chip[data-wip="true"] {
+  color: var(--v4-faint);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--v4-line-strong);
+}
+/* La descripción respira tras los chips. Con `.v4` delante porque el reset de
+   `.v4 p` pesa más que el ritmo de la caja y la dejaba pegada. */
+.v4 .v4-reparto__desc { margin-top: var(--space-5); }
+
+/* ────────────────────── 10b-bis. Las dos pantallas ────────────────────── */
+/* El contraste pasiva/activa de la home, dibujado en vez de explicado. La
+   izquierda va llena de contenido que nadie ha pedido y no para de pasar; la
+   derecha, una pregunta y los sitios a los que lleva.
+
+   Cada pantalla es una ventana: franja de rótulo arriba, con filete, y el
+   contenido debajo. Las dos filas —rótulo y cuerpo— las define la figura y las
+   hereda cada columna con `subgrid`, así el rótulo mide lo que el más largo de
+   los dos y los dos cuerpos arrancan y terminan a la misma altura. Sin eso, la
+   columna cuyo rótulo ocupa dos líneas robaba un renglón a su contenido. */
+.v4-pantallas {
   display: grid;
-  grid-template-columns: minmax(220px, 320px) 1fr;
-  align-items: stretch;
-  gap: var(--space-6);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 320px;
+  gap: var(--space-8);
+  margin: 0;
 }
-.v4-ramas__pieza {
-  position: relative;
-  opacity: 0;
-  transition: opacity var(--motion-slow) var(--ease-standard);
+.v4-pantalla {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  overflow: hidden;
+  background: var(--v4-panel);
+  border: 1px solid var(--v4-panel-line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--v4-panel-shadow);
 }
-.v4-ramas__pieza[data-listo="true"] { opacity: 1; }
-.v4-ramas__pieza > canvas { display: block; width: 100%; height: 100%; }
-/* El cuerpo tiene su propio lienzo: es el motor de la esfera, no un dibujo. */
-.v4-ramas__cuerpo {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 116px;
-  height: 116px;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity var(--motion-slow) var(--ease-standard);
+/* La activa se distingue por el filete dorado, no por el tamaño ni por el
+   fondo: es el mismo objeto en otro estado, no otra cosa. */
+.v4-pantalla[data-tono="activa"] { border-color: var(--accent-gold); }
+
+/* Nombre del momento arriba y el pie debajo: el pie explica qué se está
+   mirando, pero sin el nombre delante hay que deducirlo del dibujo. */
+.v4-pantalla__rotulo {
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--v4-line);
 }
-.v4-ramas__cuerpo[data-listo="true"] { opacity: 1; }
-.v4-ramas__cuerpo canvas { display: block; width: 100%; height: 100%; }
-/* El rótulo de la raíz va bajo su bola, en HTML: es texto, no dibujo. */
-.v4-ramas__nodo {
-  position: absolute;
-  left: 0;
-  top: calc(50% + 66px);
-  font-family: var(--font-mono);
-  font-size: var(--fs-code-s);
-  line-height: var(--lh-code-s);
-  letter-spacing: 1px;
-  text-transform: uppercase;
+.v4-pantalla__rotulo .v4-chip { display: inline-block; }
+.v4-pantalla__rotulo p {
+  margin-top: var(--space-3);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
   color: var(--v4-muted);
-  white-space: nowrap;
-}
-.v4-ramas__lista { list-style: none; }
-.v4-rama {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--space-6);
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--v4-line);
-}
-.v4-rama:first-child { border-top: 0; }
-.v4-rama__cuerpo > * + * { margin-top: var(--space-2); }
-.v4-rama__tag[data-via="fabrica"] { background: var(--gold-veil); color: var(--v4-fg); }
-/* Los canales de cada familia. Entran escalonados con la rama —primero se ve
-   que hay dos grandes bloques, luego con qué se puebla cada uno— y sin
-   movimiento si el sistema lo pide. */
-.v4-rama__canales {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-5);
-}
-.v4-rama__canal {
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity var(--motion-base) var(--ease-standard),
-              transform var(--motion-base) var(--ease-standard);
-  transition-delay: calc(var(--v4-orden) * 90ms);
-}
-.v4-ramas__pieza[data-listo="true"] ~ .v4-ramas__lista .v4-rama__canal {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .v4-rama__canal { opacity: 1; transform: none; transition: none; }
 }
 
-/* ────────────────────── 10c. Respuesta generativa ────────────────────── */
-/* El párrafo que se teclea en el hero de GEO. El cursor no parpadea cuando ha
-   terminado: un cursor eterno dice "esto es una animación", y lo que queremos
-   que diga es "esto es una respuesta". */
-.v4-respuesta { max-width: 820px; }
-.v4-respuesta__texto {
-  font-size: var(--fs-body-l);
-  line-height: var(--lh-body-l);
-  color: var(--v4-fg);
-  min-height: calc(var(--lh-body-l) * 2);
+.v4-pantalla__cuerpo {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-6);
 }
-.v4-respuesta__marca { color: var(--accent-gold); font-weight: var(--fw-semibold); }
-.v4-respuesta__cursor {
+.v4-pantalla[data-tono="activa"] .v4-pantalla__cuerpo {
+  display: grid;
+  align-content: start;
+}
+
+/* El feed va duplicado y se desplaza justo su mitad, así que al terminar el
+   primer juego el segundo está donde arrancó aquel y el bucle no tiene
+   costura. El padding inferior repone el hueco que falta: con gap hay un
+   separador menos que piezas, y sin él la cinta derivaría una fila.
+   El ancho de columna es el de un móvil a propósito: un feed social a 500px de
+   ancho no se parece a ningún feed social. */
+.v4-pantalla__feed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+  animation: v4-feed 26s linear infinite;
+}
+@keyframes v4-feed { to { transform: translateY(-50%); } }
+
+/* Un post y un reel: la silueta basta para reconocerlos, y el gris del
+   esqueleto es --border-gray y no la superficie hundida porque a #F1F3F7 sobre
+   panel blanco el feed desaparecía y parecía un error de carga. Tiene que
+   leerse "aquí hay contenido" y a la vez "no dice nada". */
+.v4-pantalla__pieza { display: flex; flex-direction: column; gap: var(--space-3); }
+.v4-pantalla__autor { display: flex; align-items: center; gap: var(--space-3); }
+.v4-pantalla__avatar {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: var(--radius-full);
+  background: var(--border-gray);
+}
+.v4-pantalla__lineas { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); }
+.v4-pantalla__linea {
+  display: block;
+  height: 8px;
+  border-radius: var(--radius-sm);
+  background: var(--border-gray);
+}
+.v4-pantalla__media {
+  position: relative;
+  border-radius: var(--radius-md);
+  background: var(--border-gray);
+}
+/* El play es lo que separa un reel de una foto de un vistazo. */
+.v4-pantalla__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+}
+.v4-pantalla__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 14px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  background: var(--border-gray);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.v4-pantalla__acciones { display: flex; gap: var(--space-4); }
+.v4-pantalla__acciones span {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--border-gray);
+}
+
+/* Las piezas no se cortan en seco arriba y abajo: se funden con el panel, que
+   es lo que hace que la cinta parezca seguir fuera de la ventana. */
+.v4-pantalla__velo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    var(--v4-panel),
+    transparent 22%,
+    transparent 78%,
+    var(--v4-panel)
+  );
+}
+
+.v4-pantalla__busqueda { display: flex; flex-direction: column; gap: var(--space-6); }
+.v4-pantalla__campo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  background: var(--v4-bg);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-field);
+  color: var(--v4-faint);
+}
+.v4-pantalla__campo .v4-icon { width: 20px; height: 20px; }
+.v4-pantalla__pregunta {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-fg);
+}
+.v4-pantalla__cursor {
   display: none;
   width: 2px;
   height: 1em;
@@ -835,19 +1489,635 @@
   vertical-align: -2px;
   background: var(--accent-gold);
 }
-.v4-respuesta__cursor[data-activo="true"] {
+.v4-pantalla__cursor[data-activo="true"] {
   display: inline-block;
   animation: v4-cursor 900ms steps(2, start) infinite;
 }
-@keyframes v4-cursor { 50% { opacity: 0; } }
-/* Las fuentes se citan al final, una a una. */
-.v4-respuesta__fuente {
+
+/* Los sitios donde esa pregunta deja a quien la hace. Aparecen cuando termina
+   de escribirse: primero se pregunta, después hay dónde responder. */
+.v4-pantalla__resultados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: 0 var(--space-2);
+}
+.v4-pantalla__resultado {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
   opacity: 0;
   transform: translateY(4px);
   transition: opacity var(--motion-base) var(--ease-standard),
               transform var(--motion-base) var(--ease-standard);
 }
+.v4-pantalla__resultado[data-visible="true"] { opacity: 1; transform: none; }
+.v4-pantalla__favicon {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  background: var(--border-gray);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-pantalla__feed { animation: none; }
+}
+
+/* ────────────── 10b-quater. Los dos momentos (metraje real) ────────────── */
+/* Dos planos apilados a la derecha del hero. No son tarjetas —no hay marco, ni
+   fondo, ni franja de rótulo— sino dos objetos apoyados sobre el marfil, con la
+   misma sombra de contacto con la que la esfera se apoya en la portada.
+
+   Pequeños a propósito: lo que manda en el hero es el titular. Antes ocupaban
+   media ventana y la portada se leía como un banner de vídeo. */
+.v4-momentos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+  margin: 0;
+}
+.v4-momento { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.v4-momento__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  background: var(--v4-track);
+  box-shadow: var(--v4-panel-shadow);
+}
+
+/* El nombre del momento, en voz baja: un pie, no un rótulo sobre la imagen. El
+   punto lleva el color —dorado en la activa, que es el momento del que vive el
+   argumento—, porque el oro a 11px no se lee (DS §1.6). */
+.v4-momento__rotulo { display: flex; align-items: center; gap: var(--space-3); }
+.v4-momento__punto {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--v4-faint);
+  flex: none;
+}
+.v4-momento[data-tono="activa"] .v4-momento__punto { background: var(--accent-gold); }
+
+/* ────────────────────── 10b-ter. Columnas en paralelo ────────────────────── */
+/* La animación 1b del canvas, en la caja de contenido de la web. Cuatro feeds
+   bajando a la vez que se detienen tres veces: en cada parada, la misma fuente
+   ha salido en varias columnas y queda a la misma altura, cruzada por una línea
+   dorada. Caminos distintos, mismas paradas.
+
+   Lo que en el original eran coordenadas absolutas sobre 1280x720 aquí es una
+   rejilla de cuatro columnas, así que el dibujo se recoloca solo al cambiar el
+   ancho. Los tiempos sí son los del original: viven en Columnas.jsx. */
+.v4-columnas {
+  --v4-col-alto: 110px;   /* alto de tarjeta */
+  --v4-col-paso: 124px;   /* y separación entre tarjeta y tarjeta */
+  --v4-col-fila: 96px;    /* dónde cae la fila que se alinea, dentro del lienzo */
+  /* Toda la animación vive dentro de una card: es una pieza, no cuatro cintas
+     sueltas sobre la sección. El mismo panel que las dos pantallas de arriba,
+     así que la home no estrena contenedor para esto. */
+  margin: 0;
+  padding: var(--space-8);
+  display: grid;
+  gap: var(--space-8);
+  background: var(--v4-panel);
+  border: 1px solid var(--v4-panel-line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--v4-panel-shadow);
+}
+
+/* ── Los agentes ───────────────────────────────────────────────────────── */
+.v4-columnas__agentes,
+.v4-columnas__lienzo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-10);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.v4-columna-agente {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "punto quien" "pregunta pregunta";
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  align-content: start;
+}
+/* El agente despierta con un golpe de escala. Su símbolo es la esfera de la
+   marca —la misma metabola del hero—, no un punto cualquiera: quien pregunta
+   aquí es Vera, y conviene que se reconozca.
+
+   Va como imagen y no como escena: a 26px una esfera de WebGL es un puntito
+   dorado, y cuatro contextos para eso no se sostienen en una pieza que existe
+   precisamente para no cargar más WebGL en la home. El PNG está renderizado con
+   el motor de verdad (EsferaFacetada, escalaCuerpo 0.78) y volcado del lienzo
+   con su alfa, así que no es un dibujo parecido: es la esfera. */
+.v4-columna-agente__punto {
+  grid-area: punto;
+  width: 26px;
+  height: 26px;
+  background: url("/vera-agente.png") center / contain no-repeat;
+  transform: scale(0);
+  transition: transform var(--motion-slow) var(--ease-emphasis);
+}
+.v4-columna-agente[data-despierto="true"] .v4-columna-agente__punto { transform: scale(1); }
+.v4-columna-agente__quien {
+  grid-area: quien;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard);
+}
+.v4-columna-agente[data-despierto="true"] .v4-columna-agente__quien {
+  opacity: 1;
+  transform: none;
+}
+.v4-columna-agente__nombre { font-weight: var(--fw-bold); color: var(--v4-fg); }
+/* Cifra, así que mono (DS §2.4). */
+.v4-columna-agente__edad {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-muted);
+}
+/* La pregunta es un bocadillo con la esquina de abajo a la izquierda en pico:
+   lo dice alguien. Alto reservado de dos líneas, o la rejilla da un salto cada
+   vez que el texto pasa de una línea a dos mientras se escribe. */
+.v4-columna-agente__pregunta {
+  grid-area: pregunta;
+  min-height: calc(var(--lh-body-m) * 2 + var(--space-4));
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 2px;
+  /* Un escalón por debajo de la card que los contiene: sobre --v4-panel, que
+     ahora ES el fondo de la pieza, el bocadillo desaparecía. */
+  background: var(--v4-bg);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-fg);
+  transition: opacity var(--motion-slow) var(--ease-standard);
+}
+/* Al cerrar el ciclo las preguntas se apagan antes de que la cinta se vaya. */
+.v4-columna-agente__pregunta[data-fuera="true"] { opacity: 0; }
+.v4-columna-agente__cursor {
+  display: none;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--accent-gold);
+}
+.v4-columna-agente__cursor[data-activo="true"] {
+  display: inline-block;
+  animation: v4-cursor 900ms steps(2, start) infinite;
+}
+
+/* ── El lienzo ─────────────────────────────────────────────────────────── */
+/* Ventana fija por la que pasan las cintas. El recorte es lo que hace que se
+   lea como un feed y no como una lista: las tarjetas entran y salen. */
+/* 440px y no los 520 de partida: con aquellos cabían cuatro tarjetas enteras
+   por columna y la pieza pesaba demasiado en la página para lo que cuenta. Con
+   esta altura entran algo más de tres —una asomando por arriba, dos enteras y
+   una que se va por abajo—, que es lo justo para que se lea como una cinta en
+   marcha sin comerse la sección. Va emparejado con --v4-col-fila: si se cambia
+   una, hay que rehacer la cuenta de la otra. */
+.v4-columnas__lienzo {
+  position: relative;
+  height: 440px;
+  overflow: hidden;
+}
+/* La línea dorada de la coincidencia. Se coloca por rejilla —de la primera a la
+   última columna que comparten la fuente—, así que no hay ni un píxel calculado
+   a mano que pueda desalinearse con las columnas. */
+.v4-columnas__linea {
+  grid-row: 1;
+  /* Red de seguridad: sin columna, la línea se iría a una pista implícita y
+     estrecharía las cuatro cintas (ver la nota en Columnas.jsx). El render le
+     da la suya en cada momento; esto es para que no pueda pasar nunca. */
+  grid-column: 1 / -1;
+  align-self: start;
+  /* Por detrás de las tarjetas. Por delante cortaba en dos el texto de la
+     tarjeta que estaba señalando, que es justo la que hay que poder leer: la
+     línea tiene que unirlas por el hueco, no atravesarlas. */
+  z-index: 0;
+  margin-top: calc(var(--v4-col-fila) + var(--v4-col-alto) / 2 - 2px);
+  height: 4px;
+  border-radius: 2px;
+  background: var(--accent-gold);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--motion-slow) var(--ease-emphasis),
+              opacity var(--motion-fast) var(--ease-standard);
+}
+.v4-columnas__linea[data-visible="true"] { opacity: 1; transform: scaleX(1); }
+
+/* El velo funde las cintas con la card por arriba y por abajo. Sin él, las
+   tarjetas se cortan a cuchillo contra el borde del recorte y la cinta parece
+   una lista mal medida en vez de un feed que sigue fuera de cuadro. Por encima
+   de las tarjetas pero por debajo de la línea dorada. */
+.v4-columnas__velo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    var(--v4-panel),
+    transparent 10%,
+    transparent 90%,
+    var(--v4-panel)
+  );
+}
+
+/* Cada columna es la cinta entera; lo que se mueve es la cinta, no las
+   tarjetas. La escalonamos un pelín por columna para que las cuatro no frenen
+   como un bloque. */
+/* Al reiniciar el bucle, las cintas vuelven al principio SIN animar: con
+   transición se ve un rebobinado hacia abajo que no cuenta nada y deshace el
+   final. El corte seco es lo que hace que el bucle no tenga costura. */
+.v4-columnas[data-rebobina="true"] .v4-columnas__col { transition: none; }
+.v4-columnas__col {
+  grid-row: 1;
+  z-index: 1;
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transform: translateY(calc(var(--v4-avance) * var(--v4-col-paso) * -1));
+  transition: transform var(--v4-col-viaje, 1900ms) var(--ease-emphasis);
+  transition-delay: calc(var(--v4-i) * 100ms);
+}
+
+/* ── Las tarjetas ──────────────────────────────────────────────────────── */
+.v4-col-tarjeta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--v4-col-fila) + var(--v4-j) * var(--v4-col-paso));
+  height: var(--v4-col-alto);
+  box-sizing: border-box;
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  overflow: hidden;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-lg);
+  /* Ídem: hundida respecto a la card, como el `card: #F4F4F4` del original. */
+  background: var(--surface-sunken);
+  transition: opacity var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard),
+              background var(--motion-base) var(--ease-standard),
+              border-color var(--motion-base) var(--ease-standard);
+}
+/* La regla de color de la pieza: el oro es de la fuente que visitan VARIOS
+   agentes, y solo mientras se está enseñando. Una fuente que ve uno solo se
+   queda gris toda la animación. */
+.v4-col-tarjeta[data-brilla="true"] {
+  background: var(--gold-crema);
+  border-color: var(--accent-gold);
+}
+/* Y el resto se retira mientras tanto, o la coincidencia se pierde entre
+   sesenta tarjetas igual de presentes.
+
+   La que coincide NO crece: encogen las demás. Creciendo se salía de su columna
+   —se metía en el hueco de la vecina y en las dos de los extremos la cortaba el
+   recorte del lienzo—, y la diferencia de tamaño es exactamente la misma por el
+   otro lado. Así la tarjeta señalada ocupa justo su columna, ni un píxel más. */
+.v4-columnas[data-coincide="true"] .v4-col-tarjeta:not([data-brilla="true"]) {
+  opacity: 0.4;
+  transform: scale(0.96);
+}
+
+/* Resultado de búsqueda: barra de URL y el esqueleto de la página. El dominio
+   es lo único legible porque el dominio es el dato. */
+.v4-col-tarjeta__url {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--neutral-400);
+  border-radius: var(--radius-md);
+  background: var(--v4-panel);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-fg);
+  transition: border-color var(--motion-base) var(--ease-standard);
+}
+.v4-col-tarjeta[data-brilla="true"] .v4-col-tarjeta__url { border-color: var(--accent-gold); }
+.v4-col-tarjeta__resultado { display: flex; gap: var(--space-3); flex: 1; }
+.v4-col-tarjeta__lineas { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); }
+.v4-col-tarjeta__bloque {
+  height: 26px;
+  border-radius: var(--radius-md);
+  background: var(--v4-line);
+}
+.v4-col-tarjeta__linea {
+  height: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--v4-line);
+}
+.v4-col-tarjeta__miniatura {
+  width: 52px;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: var(--v4-line);
+}
+
+/* Vídeo: marco oscuro con play, duración y la barra de reproducción. La barra
+   roja es la de un reproductor, no del sistema: es lo que lo hace reconocible
+   de un vistazo. */
+.v4-col-tarjeta__media {
+  position: relative;
+  flex: 1;
+  border-radius: var(--radius-md);
+  background: var(--brand-graphite);
+}
+.v4-col-tarjeta__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-45%, -50%);
+  border-left: 16px solid var(--brand-ivory);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+}
+.v4-col-tarjeta__duracion {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  padding: 0 4px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.6);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  color: var(--brand-ivory);
+}
+.v4-col-tarjeta__barra {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 0;
+  height: 2px;
+  background: rgba(252, 253, 253, 0.25);
+}
+.v4-col-tarjeta__barra span { display: block; width: 38%; height: 100%; background: var(--warning); }
+.v4-col-tarjeta__autor { display: flex; align-items: center; gap: var(--space-3); }
+.v4-col-tarjeta__avatar {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border-radius: var(--radius-full);
+  background: var(--neutral-400);
+}
+.v4-col-tarjeta__titulo {
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--v4-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Chat: la respuesta de un modelo, con los dominios que cita. Es la única
+   tarjeta donde el oro no lo pone la coincidencia sino la fuente citada — que
+   es exactamente lo que vendemos en Entornos Conversacionales. */
+/* El chat es la única tarjeta con dos bloques de texto, y a 110px va justa:
+   con el gap de las demás, la burbuja llegaba al borde y se recortaba. */
+.v4-col-tarjeta[data-tipo="chat"] { justify-content: center; gap: var(--space-2); }
+.v4-col-tarjeta__rotulo {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  color: var(--v4-muted);
+  text-transform: uppercase;
+}
+.v4-col-tarjeta__burbuja {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 2px;
+  background: var(--v4-panel);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--v4-fg);
+}
+.v4-col-tarjeta__dominio { font-family: var(--font-mono); }
+.v4-col-tarjeta__dominio[data-fuente="true"] {
+  color: var(--accent-gold);
+  font-weight: var(--fw-bold);
+}
+
+/* El resumen: la conclusión sin el recorrido. Oculto mientras las cintas se
+   ven —ahí lo cuenta la línea dorada—, y visible cuando no caben. */
+.v4-columnas__resumen { display: none; }
+.v4-columnas__coincidencia {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--v4-line);
+}
+.v4-columnas__fuente {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  color: var(--v4-fg);
+}
+/* Cifra, así que mono (DS §2.4), y en oro: es la coincidencia. */
+.v4-columnas__cuantos {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  font-weight: var(--fw-bold);
+  color: var(--accent-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-columna-agente__cursor[data-activo="true"] { animation: none; }
+  .v4-columnas__col,
+  .v4-columnas__linea,
+  .v4-col-tarjeta,
+  .v4-columna-agente__punto,
+  .v4-columna-agente__quien { transition: none; }
+}
+
+/* En estrecho no caben cuatro cintas en paralelo, y dos no cuentan lo mismo:
+   la pieza se lee como cuatro agentes con su pregunta y la fila de fuentes en
+   las que coinciden, que es la conclusión sin el recorrido. */
+@media (max-width: 900px) {
+  .v4-columnas__agentes { grid-template-columns: 1fr; gap: var(--space-8); }
+  .v4-columnas__lienzo { display: none; }
+  .v4-columnas__resumen { display: block; list-style: none; margin: 0; padding: 0; }
+}
+
+/* ────────────────────── 10c. Respuesta generativa ────────────────────── */
+/* El párrafo que se teclea en el hero de GEO. El cursor no parpadea cuando ha
+   terminado: un cursor eterno dice "esto es una animación", y lo que queremos
+   que diga es "esto es una respuesta". */
+/* La respuesta generativa en un móvil (hero de /products/geo). Reutiliza el
+   marco de .v4-movil; aquí van solo la conversación y el campo de abajo. La
+   pieza mide 264 y no los 300 de la columna: a 300 el móvil se iba a 600 de
+   alto y no cabía en el hero con el nav encima. */
+.v4-respuesta { width: 264px; margin: 0 auto; }
+.v4-respuesta__pantalla { gap: var(--space-4); }
+/* El hilo empuja el campo al fondo, como en cualquier chat. */
+.v4-respuesta__hilo {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+/* Los mensajes entran de abajo arriba, en cuanto les toca. */
+.v4-respuesta__pregunta,
+.v4-respuesta__mensaje {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--motion-slow) var(--ease-standard),
+              transform var(--motion-slow) var(--ease-standard);
+}
+.v4-respuesta__pregunta[data-visible="true"],
+.v4-respuesta__mensaje[data-visible="true"] { opacity: 1; transform: none; }
+/* La pregunta, en burbuja y a la derecha: es quien pregunta. */
+.v4-respuesta__pregunta {
+  align-self: flex-end;
+  max-width: 86%;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-sunken);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--brand-graphite);
+}
+/* La respuesta va sin burbuja, como escriben los modelos: texto sobre el
+   fondo, con un margen a la derecha para que no se lea como un bloque. */
+.v4-respuesta__mensaje { padding-right: var(--space-3); }
+.v4-respuesta__texto {
+  margin: 0;
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--brand-graphite);
+  /* Los saltos del texto se respetan: la marca cierra su renglón. */
+  white-space: pre-line;
+  min-height: calc(var(--lh-body-s) * 4);
+}
+/* La marca dentro de la respuesta: subrayada con un velo dorado, en el color
+   del texto. Es un realce, no un enlace. Cuando cambia, entra con el mismo
+   gesto que la palabra rotativa del titular. */
+.v4-respuesta__marca {
+  padding: 0 .2em;
+  margin: 0 -.05em;
+  border-radius: var(--radius-sm);
+  /* La crema dorada del sistema (--gold-crema, #FCF2D7): el tono de
+     subrayador de la familia dorada, sólido y de la paleta. */
+  background: var(--gold-crema);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  display: inline-block;
+  animation: v4-rota var(--motion-slow) var(--ease-standard);
+}
+@media (prefers-reduced-motion: reduce) {
+  .v4-respuesta__marca { animation: none; }
+}
+/* El cursor de salida: un bloque, no una barra, que es como lo pintan los
+   chats de LLM. */
+.v4-respuesta__cursor {
+  display: none;
+  width: 6px;
+  height: 0.85em;
+  margin-left: 2px;
+  vertical-align: -1px;
+  border-radius: 1px;
+  background: var(--brand-graphite);
+}
+.v4-respuesta__cursor[data-activo="true"] {
+  display: inline-block;
+  animation: v4-cursor 900ms steps(2, start) infinite;
+}
+@keyframes v4-cursor { 50% { opacity: 0; } }
+/* Los tres puntos de "pensando", latiendo por turnos. */
+.v4-respuesta__pensando {
+  display: inline-flex;
+  gap: 4px;
+  height: var(--lh-body-s);
+  align-items: center;
+}
+.v4-respuesta__pensando i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--neutral-400);
+  animation: v4-pensando 1200ms ease-in-out infinite;
+}
+.v4-respuesta__pensando i:nth-child(2) { animation-delay: 160ms; }
+.v4-respuesta__pensando i:nth-child(3) { animation-delay: 320ms; }
+@keyframes v4-pensando {
+  0%, 60%, 100% { opacity: .35; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+/* Las fuentes: una línea en mono, en voz baja, sin badges. Aparecen una a
+   una cuando la respuesta ha terminado. */
+.v4-respuesta__fuentes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-3);
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  color: var(--neutral-500);
+  opacity: 0;
+  transition: opacity var(--motion-base) var(--ease-standard);
+}
+.v4-respuesta__fuentes[data-visible="true"] { opacity: 1; }
+.v4-respuesta__fuentes > span:first-child { color: var(--neutral-400); text-transform: uppercase; letter-spacing: 1px; }
+.v4-respuesta__fuente {
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity var(--motion-base) var(--ease-standard),
+              transform var(--motion-base) var(--ease-standard);
+}
 .v4-respuesta__fuente[data-visible="true"] { opacity: 1; transform: none; }
+/* El campo de escribir, al pie, como en cualquier chat. Decorativo. */
+.v4-respuesta__campo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--neutral-400);
+}
+.v4-respuesta__enviar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--brand-graphite);
+  color: var(--brand-ivory);
+  flex: none;
+}
+.v4-respuesta__enviar .v4-icon { width: 14px; height: 14px; }
 /* Solo para lectores de pantalla y crawlers. */
 .v4-oculto {
   position: absolute;
@@ -859,39 +2129,24 @@
 }
 
 /* ────────────────────── 10d. Ciclo ────────────────────── */
-/* El loop de GEO. Anillo a la izquierda, pasos a la derecha; el activo se
-   marca en los dos a la vez, que es lo que convierte la lista en ciclo. */
+/* El loop de GEO. La escena de cristal a la izquierda, pasos a la derecha; el
+   activo se marca en los dos a la vez, que es lo que convierte la lista en
+   ciclo. La pieza mide 300 y no 260 porque el cristal y la estela necesitan
+   aire alrededor del anillo. */
 .v4-ciclo {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 300px 1fr;
   gap: var(--space-16);
   align-items: center;
 }
-.v4-ciclo__anillo { width: 260px; height: 260px; overflow: visible; }
-.v4-ciclo__pista {
-  fill: none;
-  stroke: var(--v4-line-strong);
-  stroke-width: 1;
+.v4-ciclo__pieza {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  transition: opacity var(--motion-slow) var(--ease-standard);
 }
-/* El arco que gira. Va girado -90° porque el trazo de un círculo SVG arranca a
-   las 3 y los nodos arrancan arriba. */
-.v4-ciclo__arco {
-  fill: none;
-  stroke: var(--accent-gold);
-  stroke-width: 3;
-  stroke-linecap: round;
-  transform-origin: center;
-  transform: rotate(-90deg);
-  transition: stroke-dashoffset var(--motion-slow) var(--ease-standard);
-}
-.v4-ciclo__nodo {
-  fill: var(--v4-chip);
-  stroke: var(--v4-line-strong);
-  stroke-width: 1;
-  transition: r var(--motion-base) var(--ease-standard),
-              fill var(--motion-base) var(--ease-standard);
-}
-.v4-ciclo__nodo[data-activo="true"] { fill: var(--accent-gold); stroke: var(--accent-gold); }
+.v4-ciclo[data-listo="true"] .v4-ciclo__pieza { opacity: 1; }
+.v4-ciclo__pieza > canvas { display: block; width: 100%; height: 100%; }
 .v4-ciclo__pasos { list-style: none; display: grid; gap: var(--space-6); }
 .v4-ciclo__paso {
   display: grid;
@@ -903,6 +2158,10 @@
               border-color var(--motion-base) var(--ease-standard);
 }
 .v4-ciclo__paso[data-activo="true"] { opacity: 1; border-color: var(--accent-gold); }
+/* Sin movimiento no hay turno: los tres pasos se leen por igual. */
+@media (prefers-reduced-motion: reduce) {
+  .v4-ciclo__paso { opacity: 1; }
+}
 
 /* ────────────────────── 11. Secuencia y pasos ────────────────────── */
 .v4-secuencia { position: relative; padding-top: var(--space-2); }
@@ -1094,9 +2353,61 @@
   white-space: nowrap;
 }
 .v4-nav__sub:hover { background: var(--surface-sunken); color: var(--text-primary); }
+/* El idioma activo en el desplegable: mismo velo dorado que la entrada activa. */
+.v4-nav__sub[aria-current="true"] { color: var(--text-primary); background: var(--gold-veil); }
+/* La entrada «Idioma» no es un enlace: se abre al pasar o al tabular. */
+.v4-nav__grupo > span.v4-nav__link { cursor: default; }
 
 .v4-nav__cta { padding: var(--space-3) var(--space-6); }
-.v4-nav__toggle { display: none; }
+.v4-nav__toggle { display: none; align-items: center; gap: var(--space-3); }
+
+/* Conmutador de idioma: dos siglas en una pastilla, la activa en tinta plena.
+   Habla el mismo idioma que el resto del nav (pill), y en el footer se apoya
+   en la fila de los legales, con la misma voz baja. */
+.v4-idioma {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-pill);
+}
+.v4-idioma__opcion {
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--v4-muted);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
+  transition: background var(--motion-fast) var(--ease-standard),
+              color var(--motion-fast) var(--ease-standard);
+}
+.v4-idioma__opcion:hover { color: var(--v4-fg); }
+.v4-idioma__opcion[aria-current="true"] { background: var(--v4-chip); color: var(--v4-fg); }
+/* En el footer va en la misma fila y con la misma voz que los legales: sin
+   pastilla ni relleno, mono en mayúsculas y separado por un filete. Con la
+   pastilla del nav quedaba más alto que los enlaces y desalineado. */
+.v4-idioma--footer {
+  padding: 0 0 0 var(--space-3);
+  border: 0;
+  border-left: 1px solid var(--v4-line);
+  border-radius: 0;
+  gap: var(--space-3);
+}
+.v4-idioma--footer .v4-idioma__opcion {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  letter-spacing: 1px;
+  font-weight: 400;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+}
+.v4-footer__legal .v4-idioma--footer .v4-idioma__opcion[aria-current="true"] { color: var(--v4-fg); }
+
+/* El aviso de que el blog se publica en castellano, sobre la rejilla. */
+.v4-blog__aviso { margin-bottom: var(--space-8); }
 
 .v4-footer { border-top: 1px solid var(--v4-line); padding: var(--space-16) var(--web-section-pad-x) var(--space-12); }
 .v4-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10); align-items: start; }
@@ -1142,6 +2453,20 @@
    fichas caen a la misma altura. */
 /* Tras un hero sin banda, la sección de listado no necesita el aire completo. */
 .v4-sec--pegada { padding-top: var(--space-12); }
+/* Una sección que solo lleva una puerta: mitad de aire abajo y, arriba, se
+   monta sobre el final del bloque anterior. Tras el mapa de Tecnología quedaba
+   un hueco en blanco; así la puerta queda justo bajo el último plano. Por
+   encima de la escena, que ahí ya está soltándose. */
+.v4-sec--corta {
+  position: relative;
+  z-index: 3;
+  padding-block: 0 var(--space-12);
+  margin-top: calc(-1 * (var(--space-20) + var(--space-5) + var(--space-2)));
+}
+/* Sin fondo: se monta sobre el último plano del mapa, y con el marfil opaco le
+   cortaba el pie por la mitad. Con el atributo en el selector para ganarle a
+   `.v4-surface[data-surface="page"]`, que es quien pinta el marfil. */
+.v4-surface.v4-sec--corta[data-surface] { background: transparent; }
 
 .v4-articulos {
   display: grid;
@@ -1273,13 +2598,18 @@
   color: var(--v4-muted);
 }
 .v4-prosa > * + * { margin-top: var(--space-6); }
+/* Los epígrafes respiran por arriba y se pegan a lo que encabezan: más aire
+   del que hay entre párrafos antes del título, y menos después. Un título con
+   el mismo hueco a los dos lados se lee como un párrafo más en negrita, que es
+   lo que pasaba en los documentos legales. */
 .v4-prosa h2 {
   font-size: var(--fs-subheading);
   line-height: var(--lh-subheading);
   font-weight: var(--fw-bold);
   color: var(--v4-fg);
-  margin-top: var(--space-12);
+  margin-top: var(--space-16);
 }
+.v4-prosa h2 + * { margin-top: var(--space-4); }
 .v4-prosa h3 {
   font-size: var(--fs-body-l);
   line-height: var(--lh-body-l);
@@ -1287,6 +2617,10 @@
   color: var(--v4-fg);
   margin-top: var(--space-10);
 }
+.v4-prosa h3 + * { margin-top: var(--space-3); }
+/* Un h3 justo después de su h2 es parte del mismo encabezado: no se separa
+   como si fuera otro apartado. */
+.v4-prosa h2 + h3 { margin-top: var(--space-5); }
 .v4-prosa strong { color: var(--v4-fg); font-weight: var(--fw-bold); }
 .v4-prosa em { color: var(--v4-fg); }
 .v4-prosa a { color: var(--text-accent); text-decoration: underline; text-underline-offset: 3px; }
@@ -1373,7 +2707,9 @@
   gap: var(--space-2);
   margin-top: var(--space-16);
 }
-.v4-paginacion button {
+/* Son enlaces (cada página tiene su URL), con la forma de botón de siempre. */
+.v4-paginacion a,
+.v4-paginacion span[aria-disabled] {
   min-width: 36px;
   height: 36px;
   padding: 0 var(--space-3);
@@ -1386,16 +2722,15 @@
   background: var(--v4-panel);
   border: 1px solid var(--border-gray);
   border-radius: var(--radius-sm);
-  cursor: pointer;
   transition: border-color var(--motion-fast) var(--ease-standard),
               color var(--motion-fast) var(--ease-standard);
 }
-.v4-paginacion button:hover:not(:disabled) {
+.v4-paginacion a:hover {
   border-color: var(--accent-gold);
   color: var(--v4-fg);
 }
-.v4-paginacion button:disabled { opacity: 0.4; cursor: default; }
-.v4-paginacion button[aria-current="page"] {
+.v4-paginacion span[aria-disabled] { opacity: 0.4; }
+.v4-paginacion a[aria-current="page"] {
   background: var(--v4-fg);
   border-color: var(--v4-fg);
   color: var(--surface-page);
@@ -1439,12 +2774,28 @@
   .v4-display-l { font-size: var(--fs-heading); line-height: var(--lh-heading); }
   .v4-heading { font-size: var(--fs-subheading); line-height: var(--lh-subheading); }
 
+  /* Apiladas, la pasiva encoge: ya no hay que comparar dos alturas iguales
+     lado a lado, y lo que importa es que la pregunta quede entera. */
+  .v4-pantallas { grid-template-columns: 1fr; grid-template-rows: none; gap: var(--space-6); }
+  .v4-pantalla { grid-row: auto; grid-template-rows: none; }
+  .v4-pantalla[data-tono="pasiva"] .v4-pantalla__cuerpo { height: 300px; }
+
+  /* Sin ancho para poner la pieza al lado, vuelve al flujo: primero lo que se
+     lee y debajo los dos planos, ya a todo el ancho de la columna. */
+  .v4-hero__aparte {
+    position: static;
+    display: block;
+    width: auto;
+    margin-top: var(--space-12);
+  }
+
   .v4-ciclo { grid-template-columns: 1fr; gap: var(--space-8); justify-items: center; }
   .v4-ciclo__paso { opacity: 1; }
 
-  .v4-ramas { grid-template-columns: 1fr; gap: var(--space-6); }
-  .v4-ramas__pieza { display: none; }
-  .v4-rama { grid-template-columns: 1fr; gap: var(--space-3); }
+  /* Sin escena en móvil: las cajas se leen seguidas, como el resto de piezas 3D. */
+  .v4-reparto__pieza,
+  .v4-reparto__mapa { display: none; }
+  .v4-reparto__cajas { grid-template-columns: 1fr; }
 
   .v4-articulos { grid-template-columns: 1fr; }
   .v4-destacado { grid-template-columns: 1fr; }
@@ -1475,6 +2826,45 @@
   /* Sin sitio para dos columnas, la escena deja de ser escena: los pasos se
      leen abiertos, en vertical, y la pieza no se monta. */
   .v4-hero__pieza { display: none; }
+  /* La pantalla del hero de Productos, más baja y con menos radio en móvil. */
+  .v4-hero__cine { height: min(260px, 40vh); border-radius: var(--radius-xl); }
+  .v4-hero__video-pie { left: var(--space-4); bottom: var(--space-4); }
+  /* Recorridos en móvil: sin escena, como el resto de piezas 3D. Sin ella no
+     hay nada a lo que darle tiempo, así que el aire del mapa sobra y los tres
+     pasos se leen seguidos, con la misma tinta y sin granos: es el mismo
+     contenido, leído de un vistazo en vez de construyéndose.
+
+     El anillo de agentes es además un plano general: a ancho de móvil el dibujo
+     entero cabe en un dedo y no se lee ni una etiqueta. Se queda el pie, que es
+     donde está lo que la escena cuenta. */
+  .v4-recorridos__pegado { display: none; }
+  .v4-agentes__cuadro { display: none; }
+  .v4-recorridos > .v4-recorridos__relato { padding: 0 var(--space-5); }
+  .v4-recorridos__banda { display: none; }
+  .v4-recorridos__columna { position: static; max-width: none; padding-top: var(--space-16); }
+  .v4-recorridos__cabecera { background: none; }
+  .v4-recorridos__paso {
+    transform: none !important;
+    padding-block: var(--space-8);
+    background: none;
+  }
+  .v4-recorridos__aire, .v4-recorridos__remate { display: none; }
+  .v4-recorridos__caja { opacity: 1; }
+  .v4-recorridos__mapa { padding-top: 0; }
+  .v4-recorridos__hito {
+    min-height: 0 !important;
+    max-width: none;
+    padding-bottom: var(--space-16);
+  }
+  .v4-recorridos__carga { display: none; }
+  .v4-recorridos > .v4-hero { margin-top: 0; }
+  .v4-recorridos > .v4-hero h1 {
+    max-width: none;
+    font-size: var(--fs-display-l);
+    line-height: var(--lh-display-l);
+  }
+  .v4-recorridos > .v4-hero .v4-lede { max-width: none; }
+
   .v4-hero[data-pieza="true"] h1,
   .v4-hero[data-pieza="true"] .v4-lede { max-width: none; }
   /* Sin ancho, la curva amontona las fichas: el recorrido se lee en columna y
@@ -1500,13 +2890,10 @@
     align-items: flex-start;
     text-align: left;
   }
-  .v4-cabecera--cita .v4-lede { margin-left: 0; text-align: left; padding-right: 0; }
+    .v4-cabecera--cita .v4-lede { margin-left: 0; text-align: left; padding-right: 0; }
   .v4-esfera-suelta { display: none; }
   .v4-escena__panel { grid-template-columns: 1fr; gap: var(--space-8); min-height: 0; }
   .v4-escena__pieza { display: none; }
-  .v4-paso-abre { opacity: 1; }
-  .v4-paso-abre__cuerpo { grid-template-rows: 1fr; }
-  .v4-paso-abre .v4-subheading { color: var(--v4-fg); }
   .v4-nav__links { display: none; }
   .v4-nav__toggle { display: inline-flex; }
   .v4-cierre { padding-top: var(--space-16); padding-bottom: var(--space-16); }
@@ -1561,14 +2948,20 @@
   margin-left: calc(-1 * (var(--space-6) + 3px));
   border-left: 3px solid var(--accent-gold);
 }
-.v4-optout > * + * { margin-top: var(--space-4); }
+/* Un solo ritmo entre bloques. Dentro de cada bloque, texto y traducción van
+   pegados (.v4-optout__par): antes la traducción quedaba tan lejos de su frase
+   como de la siguiente, y el conjunto se leía a saltos. Van con el prefijo
+   .v4 porque el reset de párrafos (.v4 p) pesa más que un selector de clase
+   suelto y dejaba estos márgenes a cero. */
+.v4 .v4-optout > * + * { margin-top: var(--space-6); }
+.v4 .v4-optout__par > * + * { margin-top: var(--space-1); }
 /* Excluido es un estado en firme, no una alerta: grafito, no dorado. */
 .v4-optout:has(.v4-optout__cabeza[data-fuera="true"]) { border-left-color: var(--v4-fg); }
 .v4-optout__cabeza {
   padding-bottom: var(--space-6);
-  margin-bottom: var(--space-6);
   border-bottom: 1px solid var(--v4-line);
 }
+.v4 .v4-optout__cabeza > * + * { margin-top: var(--space-3); }
 .v4-optout__rotulo { display: flex; align-items: center; gap: var(--space-3); }
 .v4-optout__punto {
   flex: none;
@@ -1579,14 +2972,12 @@
 }
 .v4-optout__cabeza[data-fuera="true"] .v4-optout__punto { background: var(--v4-fg); }
 .v4-optout__valor {
-  margin-top: var(--space-4);
   font-size: var(--fs-subheading);
   line-height: var(--lh-subheading);
   font-weight: var(--fw-bold);
   color: var(--v4-fg);
 }
-/* El inglés, en mono y en el gris de metadato: presente y legible, sin disputarle
-   la línea al español. */
+/* La versión inglesa, en voz baja: mono, pequeña y apagada. */
 .v4-optout__en {
   display: block;
   font-family: var(--font-mono);
@@ -1594,20 +2985,19 @@
   line-height: var(--lh-code-s);
   color: var(--v4-faint);
 }
-.v4-optout__cabeza .v4-optout__en { margin-top: var(--space-2); }
 .v4-optout__acciones {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-10);
 }
+/* Los botones respiran un poco más que el resto: son la acción de la página. */
+.v4 .v4-optout > .v4-optout__acciones { margin-top: var(--space-8); }
 .v4-optout__pie {
-  margin-top: var(--space-8);
   font-size: var(--fs-body-s);
   line-height: var(--lh-body-s);
   color: var(--v4-muted);
 }
-.v4-optout__pie .v4-optout__en { margin-top: var(--space-2); }
+.v4 .v4-optout__pie .v4-optout__en { margin-top: var(--space-1); }
 
 /* Aviso de que el cambio no se ha guardado. */
 .v4-aviso {
@@ -1618,61 +3008,6 @@
   background: var(--v4-chip);
 }
 .v4-aviso > * + * { margin-top: var(--space-3); }
-
-/* ────────────────────── 10e. Caminos (boceto) ────────────────────── */
-/* Tres consumidores que llegan al mismo sitio por caminos distintos. Se marca
-   como boceto a propósito: el rótulo lo dice y el trazo discontinuo lo enseña,
-   para que nadie lo lea como pieza terminada mientras se decide la animación. */
-.v4-caminos {
-  margin: var(--space-12) 0 0;
-  padding: var(--space-8);
-  border: 1px dashed var(--v4-line-strong);
-  border-radius: var(--radius-xl);
-}
-.v4-caminos__nota { margin-bottom: var(--space-8); }
-.v4-caminos__cuerpo {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: var(--space-8);
-}
-.v4-caminos__lista {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-6);
-}
-.v4-camino {
-  display: grid;
-  grid-template-columns: minmax(200px, 260px) 1fr;
-  align-items: center;
-  gap: var(--space-6);
-}
-.v4-camino__quien { display: flex; flex-direction: column; gap: var(--space-1); }
-.v4-camino__motivo {
-  font-family: var(--font-mono);
-  font-size: var(--fs-code-s);
-  line-height: var(--lh-code-s);
-  color: var(--v4-faint);
-}
-.v4-camino__paradas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
-.v4-camino__flecha { color: var(--v4-faint); }
-/* La llave que recoge los tres caminos: el destino es común, el camino no. */
-.v4-caminos__destino { display: flex; align-items: center; gap: var(--space-5); }
-.v4-caminos__llave {
-  width: 12px;
-  align-self: stretch;
-  border: 2px solid var(--accent-gold);
-  border-left: 0;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
-
-@media (max-width: 900px) {
-  .v4-caminos__cuerpo { grid-template-columns: 1fr; }
-  .v4-camino { grid-template-columns: 1fr; gap: var(--space-3); }
-  .v4-caminos__llave { display: none; }
-}
 
 /* ────────────────────── 11c. Agente de ejemplo (boceto) ────────────────────── */
 /* Un agente concreto: ficha a la izquierda, lo que hace a la derecha. Como el
@@ -1823,6 +3158,13 @@
   to   { opacity: 1; transform: none; }
 }
 .v4-maqueta__barra { height: 6px; border-radius: 3px; background: #E3E6EA; width: 40%; }
+/* En el móvil de la respuesta la barra es la del altavoz: centrada y corta. */
+.v4-respuesta__pantalla > .v4-maqueta__barra {
+  width: 28%;
+  margin: 0 auto;
+  flex: none;
+  background: var(--brand-graphite);
+}
 .v4-maqueta__titular { height: 12px; border-radius: 3px; background: #C9CED6; }
 .v4-maqueta__linea { height: 6px; border-radius: 3px; background: #E3E6EA; }
 .v4-maqueta__video {
@@ -1957,4 +3299,123 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .v4-rota__palabra { animation: none; }
+}
+
+/* ────────────────────── 18. Nosotros ────────────────────── */
+/* El equipo: las tres áreas en columna a la izquierda y la foto a la derecha
+   ocupando la altura de las tres. A todo el ancho la foto se comía casi una
+   pantalla; así la sección se lee de un golpe y la foto sigue teniendo el
+   tamaño de una pieza, no de un banner. La foto no fija su alto: lo toma de
+   la columna de texto y se recorta a él, con el neón centrado. */
+/* La foto lleva la columna ancha: a 2 de 5 quedaba en vertical y se comía
+   media fila de caras. Las áreas son texto corto y caben en la estrecha. */
+.v4-equipo {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: var(--space-16);
+  align-items: stretch;
+}
+.v4-equipo__areas { display: flex; flex-direction: column; }
+/* Las filas se separan con una línea entre ellas; ni arriba de la primera ni
+   debajo de la última. */
+.v4-area { padding: var(--space-6) 0; }
+.v4-area + .v4-area { border-top: 1px solid var(--v4-line); }
+/* Sin aire por fuera: la primera empieza donde empieza la foto, y la última
+   acaba donde acaba, así los dos bordes de la columna coinciden con el texto. */
+.v4-area:first-child { padding-top: 0; }
+.v4-area:last-child { padding-bottom: 0; }
+.v4-area > .v4-subheading + .v4-body { margin-top: var(--space-2); max-width: 52ch; }
+.v4-area > .v4-body + .v4-body { margin-top: var(--space-3); }
+/* Quien lleva el área: el logotipo de LinkedIn y el nombre, enlazados juntos
+   al perfil. En el color del texto; el oro solo al pasar por encima. */
+.v4-area__lider {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--accent-gold);
+  font-weight: var(--fw-semibold);
+  transition: color var(--motion-fast) var(--ease-standard);
+}
+.v4-area__lider:hover { color: var(--gold-ambar); }
+.v4-area__lider .v4-chip__logo { width: 16px; height: 16px; }
+.v4-equipo__foto { margin: 0; position: relative; min-height: 360px; }
+.v4-equipo__foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  border-radius: var(--radius-2xl);
+}
+
+/* Cinco valores en fila: ordinal en mono, nombre y texto. Las pistas las fija el
+   contenedor y cada fila las hereda con subgrid, como las filas editoriales, para
+   que los textos caigan a la misma x aunque un nombre sea más largo que otro. */
+.v4-valores {
+  display: grid;
+  grid-template-columns: auto 2fr 3fr;
+  column-gap: var(--space-8);
+}
+.v4-valor {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  /* Centradas en vertical, no a línea base: el texto de la derecha va a dos o
+     tres renglones y a línea base el número y el nombre quedaban colgando
+     del primero, con el resto de la fila vacía debajo. */
+  align-items: center;
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--v4-line);
+}
+.v4-valor .v4-body { max-width: 56ch; }
+
+@media (max-width: 900px) {
+  /* Apilado: primero la foto, entera y a su proporción, y debajo las áreas. */
+  .v4-equipo { grid-template-columns: 1fr; gap: var(--space-8); }
+  .v4-equipo__foto { order: -1; min-height: 0; }
+  .v4-equipo__foto img { position: static; height: auto; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
+  .v4-valores { grid-template-columns: auto 1fr; }
+  .v4-valor { row-gap: var(--space-2); }
+  .v4-valor .v4-body { grid-column: 2; }
+}
+
+/* ────────────────────── 19. Contacto · plano de la oficina ────────────────────── */
+/* Un plano de verdad (geometría de OpenStreetMap) pintado con los tokens:
+   bandeja de fondo, calles en el color de panel con tres pesos, parques y
+   estadio como manchas en la línea del sistema, y el dorado solo para la
+   oficina. Sin marco: va como dibujo, al lado de la dirección. */
+.v4-mapa {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background: var(--v4-chip);
+  border-radius: var(--radius-2xl);
+}
+.v4-mapa path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.v4-mapa__parques path { fill: var(--v4-line); stroke: none; }
+/* Con el padre en el selector para ganarle a `.v4-mapa path`, que quita el relleno. */
+.v4-mapa .v4-mapa__estadio { fill: var(--v4-line-strong); stroke: none; }
+.v4-mapa__menores path { stroke: var(--v4-panel); stroke-width: 2.5; }
+.v4-mapa__calles path { stroke: var(--v4-panel); stroke-width: 4.5; }
+.v4-mapa__ejes path { stroke: var(--v4-panel); stroke-width: 8; }
+.v4-mapa__metro circle { fill: var(--v4-panel); stroke: var(--v4-muted); stroke-width: 1.5; }
+.v4-mapa__metro path { fill: var(--v4-fg); stroke: none; }
+/* El nombre de la calle va sobre su trazado, centrado en la vía. */
+.v4-mapa__rotulo textPath { dominant-baseline: middle; }
+.v4-mapa__halo { fill: var(--gold-veil-strong); }
+.v4-mapa__punto { fill: var(--accent-gold); }
+.v4-mapa__rotulo text {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  fill: var(--v4-muted);
+}
+.v4-mapa__rotulo--eje { fill: var(--v4-faint); }
+.v4-mapa__credito {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  fill: var(--v4-faint);
 }

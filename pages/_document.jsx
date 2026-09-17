@@ -3,13 +3,15 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 /**
  * Fuentes del design system v1.0: Nunito Sans (300-800) para comunicación y UI,
  * Ubuntu Mono (400/700) para todo valor numérico. Inter se mantiene mientras
- * queden páginas sin migrar (blog, notas de prensa, legales); se cae en cuanto
+ * queden páginas sin migrar (hoy ninguna); se cae en cuanto
  * la última salga del chrome antiguo.
  */
 class MyDocument extends Document {
   render() {
+    /* El idioma del documento es el de la ruta: /en sirve lang="en". */
+    const lang = this.props.__NEXT_DATA__?.locale || "es";
     return (
-      <Html lang="es">
+      <Html lang={lang}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />

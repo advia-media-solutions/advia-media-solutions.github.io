@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Vera — how we predict where your consumer will search | Advia",
+    "description": "Vera simulates synthetic consumers who go through the decision before yours does, and returns the places where your brand can be the answer."
+  },
+  "titular": "Vera knows what your consumer is going to ask, and <key>where</key>",
+  "lede": "By observing the journeys of their Active Navigation, so you can capitalise on them.",
+  "cabecera": "Vera uses agents that simulate how your consumers behave",
+  "pasos": [
+    {
+      "titulo": "We give it a role",
+      "desc": "Sociodemographic profile, decision factors and decision context.",
+      "eco": "The profile sets its needs; the factors, the questions it asks itself",
+      "chips": ["Woman", "35 years old", "Looking for an efficient car"]
+    },
+    {
+      "titulo": "We give it tools",
+      "desc": "The same ones any of us use to search: search engines, platforms and models.",
+      "eco": "If it searches with the same tools as your consumer, it behaves like them"
+    },
+    {
+      "titulo": "We collect the journey",
+      "desc": "Every possible behaviour within Active Navigation.",
+      "eco": "The places where your brand can be the answer show up"
+    }
+  ],
+  "agentes": {
+    "a1": ["Woman · 35", "Looking for an efficient car"],
+    "a2": ["Man · 42", "Comparing hybrid SUVs"],
+    "a3": ["Woman · 29", "Her first car"],
+    "a4": ["Man · 55", "Replacing the family car"],
+    "a5": ["Woman · 47", "Looking for an EV"]
+  },
+  "mapa": "Hundreds of <key>different</key><br/>journeys",
+  "pie": "Every journey is unique, but the stops are finite. Vera uncovers the map of your consumers' Active Navigation and turns it into inventory you can activate.",
+  "door": "Find out how to capitalise on the Active Navigation map",
+  "cierre": {
+    "titular": "See <key>Vera</key> in action",
+    "lede": "We show you the map of questions your target asks about a real category, and the places where you can answer them.",
+    "cta": "Request a demo"
+  }
+}

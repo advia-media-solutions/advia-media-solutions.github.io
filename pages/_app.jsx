@@ -10,14 +10,16 @@ import { initializeGTM } from "../src/utils/gtm";
 import Head from "next/head";
 import Script from "next/script";
 import PageHelmet from "../src/components/Helmet";
+import { appWithTranslation } from "next-i18next/pages";
+import nextI18NextConfig from "../next-i18next.config";
 
 /**
  * Las páginas del rediseño v4 traen su propia nav oscura y su propio footer, y
  * viven sobre tokens.css en vez de sobre las clases corporate de Tailwind. Se
  * marcan con `Page.v4 = true` y aquí se les salta el chrome antiguo.
  *
- * Las páginas que aún no se han migrado (blog, notas de prensa, legales, opt-out)
- * siguen entrando por la rama de siempre, intactas.
+ * Ya no queda ninguna ruta sin migrar: la rama del chrome antiguo se conserva
+ * por si vuelve a hacer falta, pero hoy no la usa ninguna página.
  */
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -57,4 +59,6 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+/* Las traducciones llegan por props desde getServerSideProps de cada ruta
+   (serverSideTranslations); appWithTranslation las monta en el provider. */
+export default appWithTranslation(MyApp, nextI18NextConfig);

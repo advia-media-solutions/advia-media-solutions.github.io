@@ -1,0 +1,60 @@
+{
+  "seo": {
+    "title": "Advia — Turning ads into answers",
+    "description": "We predict where your consumer searches before deciding and place your brand's answer there: web, YouTube and AI answers."
+  },
+  "hero": {
+    "titular": "Turning ads into <key>answers</key>",
+    "lede": "When someone searches to make a decision, there is an answer that helps them. We work so that it is your brand's, and so that it arrives in the form that moment allows.",
+    "cta": "How we can add value",
+    "ctaGhost": "Why Advia exists"
+  },
+  "pantallas": {
+    "pasiva": {
+      "label": "Passive navigation",
+      "pie": "Moments of entertainment, <strong>passive</strong> towards the medium: an editor or an algorithm picks what shows up on screen."
+    },
+    "activa": {
+      "label": "Active Navigation",
+      "preguntas": [
+        "what are the best hybrid SUVs?",
+        "which coffee machine should I buy for home",
+        "memory foam mattress reviews",
+        "best value phone"
+      ],
+      "pie": "There is a decision to make and <strong>we search</strong> for all the information we can to get it right."
+    }
+  },
+  "formas": {
+    "titular": "There are two ways to <key>navigate</key>",
+    "lede": "As a brand, you add value when you become the answer to your consumers' needs. The answer they look for during their <strong>Active Navigation</strong>.",
+    "door": "Discover Active Navigation"
+  },
+  "vera": {
+    "titular": "Those moments show up in no media plan. <key>Vera</key> finds them",
+    "lede": "By launching hundreds of agents that ask the same questions your consumers ask, and collecting every moment in which you can be the answer.",
+    "door": "How Vera works"
+  },
+  "agentes": [
+    { "nombre": "Lucía", "edad": 34, "pregunta": "Which hybrid SUV uses the least fuel in the city?" },
+    { "nombre": "Marcos", "edad": 41, "pregunta": "Best family SUV under €35,000?" },
+    { "nombre": "Aitana", "edad": 29, "pregunta": "Is a plug-in hybrid worth it in 2026?" },
+    { "nombre": "Javier", "edad": 52, "pregunta": "Reliable SUV with low maintenance?" }
+  ],
+  "canales": {
+    "titular": "Vera tells you where, but each <key>channel</key> is activated in a different way",
+    "paidMedia": "Active Navigation in Digital Channels",
+    "geo": "Active Navigation in Conversational Environments",
+    "ver": "See the product"
+  },
+  "fundadores": {
+    "titular": "We founded Advia to work from the side of the person who <key>searches</key>",
+    "lede": "Three founders with a track record at Seedtag and GroupM: we know the cycle of a campaign from the inside, and we know what breaks between the plan and the result.",
+    "door": "Who we are",
+    "nota": "It makes sense for a campaign to be conceived from the advertiser's side: they are the ones paying. But the impact lands on someone else, who at that moment was trying to solve something of their own. We plan from there."
+  },
+  "cierre": {
+    "titular": "Tell us your goal and let's turn your brand into the <key>answer</key> the consumer needs",
+    "cta": "Meet Advia"
+  }
+}

@@ -133,13 +133,21 @@ export function Nota({ meta, children }) {
 }
 
 /** Callout: una idea con peso y su atribución (DS §10.7). */
-export function Cita({ fuente, children }) {
+/** Una cita con su fuente. Con `href`, la fuente es la puerta al original. */
+export function Cita({ fuente, href, children }) {
   return (
     <div className="v4-callout">
       <p className="v4-lede v4-strong" style={{ fontWeight: "inherit" }}>
         {children}
       </p>
-      <div className="v4-label">{fuente}</div>
+      {href ? (
+        <Link href={href} className="v4-label v4-callout__fuente">
+          {fuente}
+          <ArrowOutward />
+        </Link>
+      ) : (
+        <div className="v4-label">{fuente}</div>
+      )}
     </div>
   );
 }

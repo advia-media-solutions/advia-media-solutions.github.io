@@ -65,8 +65,10 @@
       --motion-fast: 120ms; --motion-base: 200ms;
       --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
 
-      /* Layout del documento (prosa, más estrecho que --web-content-width) */
-      --doc-width: 820px;
+      --web-content-width: 1120px;
+
+      /* Layout del documento */
+      --doc-width: var(--web-content-width);
       --doc-pad-x: 48px;
     }
 
@@ -99,6 +101,7 @@
       gap: var(--space-6);
       margin-bottom: var(--space-16);
     }
+    .logo-link { display: block; }
     .logo { width: 132px; height: auto; display: block; }
 
     .lang {
@@ -187,7 +190,7 @@
       margin: var(--space-10) 0 var(--space-3);
     }
     section > h3:first-of-type { margin-top: 0; }
-    p { margin: 0 0 var(--space-4); max-width: 72ch; }
+    p { margin: 0 0 var(--space-4); }
     a { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--accent-gold); text-underline-offset: 3px; }
     a:hover { color: var(--text-accent); }
     a:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); border-radius: var(--radius-sm); }
@@ -278,6 +281,56 @@
       .logo { width: 108px; }
     }
 
+    /* Móvil: la tabla de cookies pasa a una ficha por cookie */
+    @media (max-width: 640px) {
+      .table--cookies { min-width: 0; }
+      .table--cookies,
+      .table--cookies tbody,
+      .table--cookies tr,
+      .table--cookies td { display: block; }
+      .table--cookies thead {
+        position: absolute;
+        width: 1px; height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+      .table--cookies tr {
+        padding: var(--space-4) 0;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+      .table--cookies td {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: var(--space-3);
+        padding: var(--space-1) 0;
+        border-bottom: 0;
+      }
+      .table--cookies td:first-child {
+        display: block;
+        font-size: var(--fs-body-m);
+        line-height: var(--lh-body-m);
+        padding-bottom: var(--space-2);
+      }
+      .table--cookies td:nth-child(n+2)::before {
+        font-family: var(--font-sans);
+        font-size: var(--fs-label);
+        line-height: var(--lh-body-s);
+        font-weight: var(--fw-medium);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+      }
+      [data-lang-block="es"] .table--cookies td:nth-child(2)::before { content: "Finalidad"; }
+      [data-lang-block="es"] .table--cookies td:nth-child(3)::before { content: "Producto(s)"; }
+      [data-lang-block="es"] .table--cookies td:nth-child(4)::before { content: "Duración"; }
+      [data-lang-block="es"] .table--cookies td:nth-child(5)::before { content: "Dominio(s)"; }
+      [data-lang-block="en"] .table--cookies td:nth-child(2)::before { content: "Purpose"; }
+      [data-lang-block="en"] .table--cookies td:nth-child(3)::before { content: "Product(s)"; }
+      [data-lang-block="en"] .table--cookies td:nth-child(4)::before { content: "Duration"; }
+      [data-lang-block="en"] .table--cookies td:nth-child(5)::before { content: "Domain(s)"; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; animation: none !important; }
     }
@@ -295,6 +348,7 @@
   <div class="wrap">
 
     <div class="topbar">
+      <a class="logo-link" href="https://advia.tech">
       <svg class="logo" width="335" height="76" viewBox="0 0 335 76" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Advia">
       <g clip-path="url(#clip0_66_831)">
       <path d="M253.271 0H242.886C242.224 0 241.688 0.536477 241.688 1.19825V74.116C241.688 74.7778 242.224 75.3143 242.886 75.3143H253.271C253.933 75.3143 254.469 74.7778 254.469 74.116V1.19825C254.469 0.536477 253.933 0 253.271 0Z" fill="#292929"/>
@@ -318,6 +372,7 @@
       </clipPath>
       </defs>
       </svg>
+      </a>
       <div class="lang" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="es" aria-pressed="true">ES</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -333,6 +388,15 @@
       </header>
 
       <main>
+      <section>
+        <h2>¿Quién es Advia?</h2>
+          <p>En Advia, creemos en el poder de la publicidad para generar valor al consumidor. Usamos tecnología para adelantarnos a las necesidades del consumidor y posicionar tu marca en los momentos relevantes.</p>
+        <h3>¿Por qué Navegación Activa?</h3>
+          <p>Entendemos los momentos cruciales donde tus clientes toman decisiones y cómo tu marca puede ser la respuesta. Tener presencia en la navegación activa te permite trabajar la consideración en un momento clave para la toma de decisión futura.</p>
+        <h3>¿Cómo lo hacemos?</h3>
+          <p>Vera es una tecnología multi-agente para simular potenciales clientes de la marca y darles capacidades de búsqueda en internet, creando así consumidores digitales de la marca. Simulamos miles de ellos, observamos cómo se comportan y llevamos toda esta información a una activación de medios para convertir a la marca en la respuesta que necesita.</p>
+      </section>
+
       <section>
         <h2><span class="sec-num">1</span> Funcionamiento técnico</h2>
         <h3>¿Qué son los píxeles de Advia?</h3>
@@ -567,6 +631,15 @@
       </header>
 
       <main>
+      <section>
+        <h2>Who is Advia?</h2>
+          <p>At Advia, we believe in the power of advertising to create value for consumers. We use technology to anticipate consumer needs and position your brand at the moments that matter.</p>
+        <h3>Why active browsing?</h3>
+          <p>We understand the crucial moments when your customers make decisions and how your brand can be the answer. Being present during active browsing lets you build consideration at a key moment for future decision-making.</p>
+        <h3>How do we do it?</h3>
+          <p>Vera is a multi-agent technology that simulates potential customers of the brand and gives them the ability to search the internet, creating digital consumers of the brand. We simulate thousands of them, observe how they behave and bring all of that insight into a media activation that makes the brand the answer they need.</p>
+      </section>
+
       <section>
         <h2><span class="sec-num">1</span> How they work</h2>
         <h3>What are Advia pixels?</h3>

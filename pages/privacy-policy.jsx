@@ -1,10 +1,13 @@
 import React from "react";
-import PrivacyPolicy from "../src/pages/PrivacyPolicy";
+import { traducciones } from "../src/i18n/servidor";
+import Privacidad from "../src/pages/v4/legal/Privacidad";
 
 export default function PrivacyPolicyPage() {
-  return <PrivacyPolicy />;
+  return <Privacidad />;
 }
 
-export async function getServerSideProps() {
-  return { props: {} };
+PrivacyPolicyPage.v4 = true;
+
+export async function getServerSideProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "legal")) } };
 }

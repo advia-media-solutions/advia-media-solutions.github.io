@@ -1,0 +1,8 @@
+{
+  "seo": { "title": "Page not found | Advia", "description": "This page does not exist." },
+  "titular": "This page doesn't <key>exist</key>",
+  "lede": "The link may be wrong, or the page may no longer be where it was. Everything else is reachable from here.",
+  "cta": "Back to home",
+  "cierre": "What you were probably looking <key>for</key>",
+  "doors": { "navegacion": "What Active Navigation is", "productos": "What we activate", "blog": "The blog" }
+}

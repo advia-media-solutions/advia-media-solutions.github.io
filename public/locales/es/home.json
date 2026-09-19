@@ -1,0 +1,60 @@
+{
+  "seo": {
+    "title": "Advia — Turning ads into answers",
+    "description": "Predecimos dónde busca tu consumidor para decidir y ponemos ahí la respuesta de tu marca: web, YouTube y respuestas de la IA."
+  },
+  "hero": {
+    "titular": "Turning ads into <key>answers</key>",
+    "lede": "Cuando alguien busca para decidir, hay una respuesta que le sirve. Trabajamos para que sea la de tu marca, y para que llegue con la forma que admite ese momento.",
+    "cta": "Cómo podemos aportarte valor",
+    "ctaGhost": "Por qué existe Advia"
+  },
+  "pantallas": {
+    "pasiva": {
+      "label": "Navegación pasiva",
+      "pie": "Momentos de entretenimiento, <strong>pasivos</strong> al medio: es el editor o un algoritmo el que elige lo que sale en pantalla."
+    },
+    "activa": {
+      "label": "Navegación Activa",
+      "preguntas": [
+        "¿cuáles son los mejores SUV híbridos?",
+        "qué cafetera compro para casa",
+        "opiniones colchón viscoelástico",
+        "mejor móvil calidad precio"
+      ],
+      "pie": "Hay una decisión que tomar y <strong>buscamos</strong> toda la información que podemos para hacerlo de la manera más acertada."
+    }
+  },
+  "formas": {
+    "titular": "Hay dos formas de <key>navegar</key>",
+    "lede": "Como marca aportas valor cuando te conviertes en la respuesta a las necesidades de tus consumidores. Respuesta que buscan durante su <strong>Navegación Activa</strong>.",
+    "door": "Descubre la Navegación Activa"
+  },
+  "vera": {
+    "titular": "Esos momentos no aparecen en ningún plan de medios. <key>Vera</key> los encuentra",
+    "lede": "Lanzando cientos de agentes que se hacen las mismas preguntas que tus consumidores, y recopilando todos los momentos en los que puedes ser la respuesta.",
+    "door": "Cómo funciona Vera"
+  },
+  "agentes": [
+    { "nombre": "Lucía", "edad": 34, "pregunta": "¿Qué SUV híbrido gasta menos en ciudad?" },
+    { "nombre": "Marcos", "edad": 41, "pregunta": "¿Mejor SUV familiar por menos de 35.000 €?" },
+    { "nombre": "Aitana", "edad": 29, "pregunta": "¿Compensa un híbrido enchufable en 2026?" },
+    { "nombre": "Javier", "edad": 52, "pregunta": "¿SUV fiable con poco mantenimiento?" }
+  ],
+  "canales": {
+    "titular": "Vera te dice dónde, pero cada <key>canal</key> se activa de una manera distinta",
+    "paidMedia": "Navegación Activa en Canales Digitales",
+    "geo": "Navegación Activa en Entornos Conversacionales",
+    "ver": "Ver el producto"
+  },
+  "fundadores": {
+    "titular": "Fundamos Advia para trabajar desde el lado de quien <key>busca</key>",
+    "lede": "Tres fundadores con recorrido en Seedtag y GroupM: conocemos el ciclo de una campaña desde dentro, y sabemos qué se rompe entre el plan y el resultado.",
+    "door": "Quiénes somos",
+    "nota": "Es lógico que una campaña se piense desde el anunciante: es quien paga. Pero el impacto lo recibe otra persona, que en ese momento estaba intentando resolver algo suyo. Planificamos desde ahí."
+  },
+  "cierre": {
+    "titular": "Cuéntanos tu objetivo, convirtamos tu marca en la <key>respuesta</key> que el consumidor necesita",
+    "cta": "Conoce Advia"
+  }
+}

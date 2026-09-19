@@ -1,6 +1,14 @@
+const { i18n } = require("./next-i18next.config");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  /* Rutas por idioma (/ y /en): las traducciones las carga next-i18next. */
+  i18n,
+  // Hay un package-lock.json en el home del usuario y Next 15 infiere ESE
+  // directorio como raíz del workspace, con lo que `next start` busca el build
+  // donde no está. Fijamos la raíz al propio proyecto.
+  outputFileTracingRoot: __dirname,
   poweredByHeader: false,
   compress: true,
   async rewrites() {

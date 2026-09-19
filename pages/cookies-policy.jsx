@@ -1,10 +1,13 @@
 import React from "react";
-import CookiesPolicy from "../src/pages/CookiesPolicy";
+import { traducciones } from "../src/i18n/servidor";
+import Cookies from "../src/pages/v4/legal/Cookies";
 
 export default function CookiesPolicyPage() {
-  return <CookiesPolicy />;
+  return <Cookies />;
 }
 
-export async function getServerSideProps() {
-  return { props: {} };
+CookiesPolicyPage.v4 = true;
+
+export async function getServerSideProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "legal")) } };
 }

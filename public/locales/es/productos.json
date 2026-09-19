@@ -1,0 +1,36 @@
+{
+  "seo": {
+    "title": "Productos — dónde se compra la presencia y dónde se fabrica | Advia",
+    "description": "La Navegación Activa ocurre en canales que funcionan distinto. Donde hay inventario la presencia se compra; donde no lo hay, se fabrica."
+  },
+  "hero": {
+    "videoDescripcion": "Alguien buscando en el móvil",
+    "videoPie": "El momento de la búsqueda",
+    "titular": "La Navegación Activa ocurre en todos los canales donde tu consumidor <key>busca</key>",
+    "lede": "Cada canal funciona distinto."
+  },
+  "todos": {
+    "titular": "Y te posicionamos en <key>todos</key>",
+    "pronto": "Próximamente",
+    "ver": "Ver el producto"
+  },
+  "productos": [
+    {
+      "tag": "Canales Digitales",
+      "titulo": "Navegación Activa en Canales Digitales",
+      "desc": "Campañas en web, YouTube y tus redes sociales, colocadas sobre las fuentes que tu consumidor consulta mientras compara.",
+      "canales": ["Web", "YouTube", "Redes sociales"]
+    },
+    {
+      "tag": "Entornos Conversacionales",
+      "titulo": "Navegación Activa en Entornos Conversacionales",
+      "desc": "Paid media en ChatGPT y presencia orgánica en todos los modelos de IA. Vera entiende cómo se posiciona tu marca en los modelos conversacionales y mejora las fuentes que el modelo utiliza.",
+      "canales": ["Respuesta orgánica", "Publicidad en ChatGPT"]
+    }
+  ],
+  "cierre": {
+    "titular": "Capitaliza la Navegación Activa en <key>todos los canales</key>",
+    "lede": "Nos cuentas el objetivo, simulamos el recorrido de tu consumidor y te enseñamos dónde puedes responderle.",
+    "cta": "Entender mi Navegación Activa"
+  }
+}

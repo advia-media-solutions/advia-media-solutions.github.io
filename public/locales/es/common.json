@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "principal": "Principal",
+    "inicio": "Advia · inicio",
+    "navegacion": "Navegación Activa",
+    "tecnologia": "Tecnología",
+    "productos": "Productos",
+    "paidMedia": "Navegación Activa en Canales Digitales",
+    "geo": "Navegación Activa en Entornos Conversacionales",
+    "nosotros": "Nosotros",
+    "blog": "Blog",
+    "cta": "Hablemos"
+  },
+  "idioma": {
+    "rotulo": "Idioma",
+    "es": "Español",
+    "en": "English"
+  },
+  "footer": {
+    "concepto": "Concepto",
+    "advia": "Advia",
+    "canales": "Canales Digitales",
+    "conversacionales": "Entornos Conversacionales",
+    "avisoLegal": "Aviso legal",
+    "privacidad": "Privacidad",
+    "cookies": "Cookies",
+    "optOut": "Opt-out"
+  },
+  "pantallas": {
+    "busca": "alguien busca"
+  },
+  "columnas": {
+    "tipo": {
+      "web": "Web",
+      "video": "Vídeo",
+      "chat": "Respuesta de IA"
+    },
+    "chat": "Según <uno/> y <dos/>, los más recomendados son…",
+    "cuantos": "{{n}} de {{total}}",
+    "agente": "{{nombre}}, {{edad}} años, {{pregunta}}",
+    "oculto": "Cuatro agentes con preguntas distintas sobre el mismo producto: {{agentes}}. Recorren fuentes distintas y coinciden en tres: km77.com, una review en vídeo y la misma respuesta de un modelo, que cita a motor.es y coches.net."
+  },
+  "canales": {
+    "tuMarca": "Tu marca",
+    "pronto": "Próximamente",
+    "rotulo": "Canales"
+  },
+  "respuesta": {
+    "fuentes": "Fuentes",
+    "campo": "Pregunta lo que quieras",
+    "oculto": "Pregunta: {{pregunta}} Respuesta: {{respuesta}} Fuentes: {{fuentes}}."
+  },
+  "ciclo": {
+    "oculto": "Ciclo de {{pasos}}, y vuelta a empezar."
+  },
+  "areas": {
+    "linkedin": "Perfil de LinkedIn de {{nombre}}",
+    "cofundador": "{{nombre}}, cofundador"
+  },
+  "cookies": {
+    "intro": "Utilizamos cookies propias y de terceros con fines técnicos, analíticos, para mejora de productos y servicios, para mostrarte publicidad personalizada en base a un perfil elaborado a partir de tus hábitos de navegación y para la medición del rendimiento de anuncios y contenidos.",
+    "opciones": "Puedes aceptar todas las cookies pulsando en «Aceptar», rechazarlas y/o <configurar>configurar</configurar> su uso.",
+    "rechazar": "No Acepto",
+    "aceptar": "Aceptar",
+    "necesarias": "Cookies necesarias",
+    "necesariasDesc": "Necesarias para el funcionamiento básico y la seguridad del sitio web",
+    "obligatorio": "Obligatorio",
+    "rechazarTodas": "Rechazar todas",
+    "aceptarTodas": "Aceptar todas",
+    "guardar": "Guardar",
+    "cerrar": "Cerrar",
+    "tipos": {
+      "analytics": {
+        "titulo": "Cookies de análisis",
+        "desc": "Nos permiten entender cómo interactúas con el sitio web, qué páginas son más populares, y detectar problemas de navegación. Esta información nos ayuda a mejorar constantemente la experiencia del usuario y optimizar nuestros servicios."
+      },
+      "advertising": {
+        "titulo": "Cookies publicitarias y datos de usuario",
+        "desc": "Utilizadas para mostrarte anuncios relevantes basados en tus intereses y hábitos de navegación. Incluye el uso de datos de usuario para personalización publicitaria."
+      },
+      "functionality": {
+        "titulo": "Cookies de funcionalidad",
+        "desc": "Permiten recordar tus preferencias como el idioma, la región o el inicio de sesión. Estas cookies hacen que tu experiencia sea más fluida al mantener tus ajustes entre visitas."
+      },
+      "personalization": {
+        "titulo": "Cookies de personalización",
+        "desc": "Nos ayudan a adaptar el contenido que ves según tus intereses. Esto incluye recomendaciones de productos, sugerencias personalizadas y contenido adaptado a tu perfil."
+      }
+    }
+  }
+}

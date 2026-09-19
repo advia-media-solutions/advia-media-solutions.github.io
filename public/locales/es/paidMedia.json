@@ -1,0 +1,52 @@
+{
+  "seo": {
+    "title": "Navegación Activa en Canales Digitales — campañas dentro del recorrido de decisión | Advia",
+    "description": "Campañas en web, YouTube y redes sociales colocadas sobre las fuentes que tu consumidor consulta mientras compara y decide."
+  },
+  "hero": {
+    "eyebrow": "Convertimos tu marca en la respuesta",
+    "titular": "Vera identifica dónde vas a ser relevante para tus consumidores y convierte tu anuncio en la <key>respuesta</key> que necesitan",
+    "lede": "Campañas en medios digitales donde tus consumidores te buscan sin saberlo."
+  },
+  "donde": {
+    "titular": "Ese «dónde» son artículos y vídeos <key>concretos</key>",
+    "lede": "Vera simula el recorrido de decisión de tu consumidor y saca las fuentes que consulta en cada parada. Sobre esa lista se activa la campaña: no sobre una audiencia, sobre los sitios exactos donde está buscando."
+  },
+  "canales": [
+    {
+      "nombre": "Web",
+      "puntos": [
+        { "titulo": "La parada más frecuente del recorrido", "texto": "Hay miles de artículos respondiendo a cada pregunta de una decisión. Es el canal que da el volumen." },
+        { "titulo": "Los medios de los que se informa la IA", "texto": "Cuando ChatGPT o Gemini responden, consultan medios. Identificamos cuáles y compramos en ellos." },
+        { "titulo": "Display y native, según el objetivo", "texto": "Vídeo para notoriedad, rich media para atención, native para tráfico cualificado. De la parte baja de awareness a la alta de performance." }
+      ]
+    },
+    {
+      "nombre": "YouTube",
+      "puntos": [
+        { "titulo": "La parada donde la duda es más larga", "texto": "Reviews, comparativas y demostraciones: el consumidor las ve entero porque aún no ha decidido." },
+        { "titulo": "En el vídeo que está viendo, no por afinidad", "texto": "Entramos en los vídeos concretos que ha señalado la simulación, sin depender del targeting por intereses." },
+        { "titulo": "El formato que más valor transmite", "texto": "Si no tienes vídeos propios, estás igual en los vídeos relevantes de terceros." }
+      ]
+    },
+    { "nombre": "Redes sociales" }
+  ],
+  "atento": {
+    "titular": "Quien busca para decidir lo hace más <key>atento</key>",
+    "lede": "Lee el artículo entero, ve el vídeo hasta el final y vuelve, y eso se nota en las métricas.",
+    "nota": "Cifras agregadas de campañas activadas. Pendientes de dato verificado.",
+    "citaFuente": "Del pitch de Advia",
+    "cita": "«El vídeo en awareness puro informa; la Navegación Activa <key>convence</key>.»"
+  },
+  "kpis": [
+    { "label": "Viewability", "desc": "vs. benchmark de mercado" },
+    { "label": "VTR", "desc": "vídeo completado, vs. benchmark" },
+    { "label": "CTR", "desc": "vs. benchmark de mercado" },
+    { "label": "Visitas cualificadas", "desc": "viewport +10 s, clic interno o scroll +50 %, acordado contigo antes" }
+  ],
+  "cierre": {
+    "titular": "Precampaña: te enseñamos dónde puedes responder <key>antes de activar</key>",
+    "lede": "Nos mandas el brief y en 24-48 horas tienes los artículos y vídeos concretos del recorrido de tu target, con el forecast por KPI.",
+    "cta": "Pedir un análisis precampaña"
+  }
+}

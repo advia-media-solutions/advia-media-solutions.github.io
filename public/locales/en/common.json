@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "principal": "Main",
+    "inicio": "Advia · home",
+    "navegacion": "Active Navigation",
+    "tecnologia": "Technology",
+    "productos": "Products",
+    "paidMedia": "Active Navigation in Digital Channels",
+    "geo": "Active Navigation in Conversational Environments",
+    "nosotros": "About us",
+    "blog": "Blog",
+    "cta": "Let's talk"
+  },
+  "idioma": {
+    "rotulo": "Language",
+    "es": "Español",
+    "en": "English"
+  },
+  "footer": {
+    "concepto": "Concept",
+    "advia": "Advia",
+    "canales": "Digital Channels",
+    "conversacionales": "Conversational Environments",
+    "avisoLegal": "Legal notice",
+    "privacidad": "Privacy",
+    "cookies": "Cookies",
+    "optOut": "Opt-out"
+  },
+  "pantallas": {
+    "busca": "someone searches"
+  },
+  "columnas": {
+    "tipo": {
+      "web": "Web",
+      "video": "Video",
+      "chat": "AI answer"
+    },
+    "chat": "According to <uno/> and <dos/>, the most recommended are…",
+    "cuantos": "{{n}} of {{total}}",
+    "agente": "{{nombre}}, {{edad}}, {{pregunta}}",
+    "oculto": "Four agents with different questions about the same product: {{agentes}}. They go through different sources and coincide on three: km77.com, a video review and the same answer from a model, which cites motor.es and coches.net."
+  },
+  "canales": {
+    "tuMarca": "Your brand",
+    "pronto": "Coming soon",
+    "rotulo": "Channels"
+  },
+  "respuesta": {
+    "fuentes": "Sources",
+    "campo": "Ask anything",
+    "oculto": "Question: {{pregunta}} Answer: {{respuesta}} Sources: {{fuentes}}."
+  },
+  "ciclo": {
+    "oculto": "A cycle of {{pasos}}, and back to the start."
+  },
+  "areas": {
+    "linkedin": "{{nombre}}'s LinkedIn profile",
+    "cofundador": "{{nombre}}, co-founder"
+  },
+  "cookies": {
+    "intro": "We use our own and third-party cookies for technical and analytical purposes, to improve our products and services, to show you personalised advertising based on a profile built from your browsing habits, and to measure the performance of ads and content.",
+    "opciones": "You can accept all cookies by clicking “Accept”, reject them and/or <configurar>configure</configurar> their use.",
+    "rechazar": "Reject",
+    "aceptar": "Accept",
+    "necesarias": "Necessary cookies",
+    "necesariasDesc": "Required for the basic operation and security of the website",
+    "obligatorio": "Required",
+    "rechazarTodas": "Reject all",
+    "aceptarTodas": "Accept all",
+    "guardar": "Save",
+    "cerrar": "Close",
+    "tipos": {
+      "analytics": {
+        "titulo": "Analytics cookies",
+        "desc": "They let us understand how you interact with the website, which pages are most popular, and detect navigation problems. This information helps us keep improving the user experience and our services."
+      },
+      "advertising": {
+        "titulo": "Advertising cookies and user data",
+        "desc": "Used to show you relevant ads based on your interests and browsing habits. Includes the use of user data for ad personalisation."
+      },
+      "functionality": {
+        "titulo": "Functionality cookies",
+        "desc": "They remember your preferences, such as language, region or login. These cookies make your experience smoother by keeping your settings between visits."
+      },
+      "personalization": {
+        "titulo": "Personalisation cookies",
+        "desc": "They help us tailor the content you see to your interests. This includes product recommendations, personalised suggestions and content adapted to your profile."
+      }
+    }
+  }
+}

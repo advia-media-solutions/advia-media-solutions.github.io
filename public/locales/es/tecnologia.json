@@ -1,0 +1,42 @@
+{
+  "seo": {
+    "title": "Vera — cómo predecimos dónde va a buscar tu consumidor | Advia",
+    "description": "Vera simula consumidores sintéticos que recorren la decisión antes que el tuyo, y devuelve los sitios donde tu marca puede ser la respuesta."
+  },
+  "titular": "Vera sabe qué va a preguntar tu consumidor y <key>dónde</key>",
+  "lede": "Observando los recorridos de su Navegación Activa para capitalizarlos.",
+  "cabecera": "Vera utiliza agentes que simulan el comportamiento de tus consumidores",
+  "pasos": [
+    {
+      "titulo": "Le damos un rol",
+      "desc": "Perfil sociodemográfico, factores de decisión y contexto de decisión.",
+      "eco": "El perfil marca sus necesidades; los factores, las preguntas que se hace",
+      "chips": ["Mujer", "35 años", "Busca un coche eficiente"]
+    },
+    {
+      "titulo": "Le damos herramientas",
+      "desc": "Las mismas que usamos cualquiera para buscar: buscadores, plataformas y modelos.",
+      "eco": "Si busca con lo mismo que tu consumidor, se comporta como él"
+    },
+    {
+      "titulo": "Recogemos el recorrido",
+      "desc": "Todos los comportamientos posibles dentro de la Navegación Activa.",
+      "eco": "Aparecen los sitios donde tu marca puede ser la respuesta"
+    }
+  ],
+  "agentes": {
+    "a1": ["Mujer · 35 años", "Busca un coche eficiente"],
+    "a2": ["Hombre · 42 años", "Compara SUV híbridos"],
+    "a3": ["Mujer · 29 años", "Su primer coche"],
+    "a4": ["Hombre · 55 años", "Renueva el coche familiar"],
+    "a5": ["Mujer · 47 años", "Busca un eléctrico"]
+  },
+  "mapa": "Cientos de recorridos<br/><key>diferentes</key>",
+  "pie": "Cada recorrido es único, pero las paradas son finitas. Vera descubre el mapa de la Navegación Activa de tus consumidores y lo convierte en un inventario activable.",
+  "door": "Descubre cómo capitalizar el mapa de la Navegación Activa",
+  "cierre": {
+    "titular": "Ver a <key>Vera</key> en acción",
+    "lede": "Te enseñamos el mapa de preguntas de tu target sobre una categoría real, y los sitios donde puedes responderlas.",
+    "cta": "Pedir una demo"
+  }
+}

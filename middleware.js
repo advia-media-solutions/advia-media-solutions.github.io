@@ -34,9 +34,10 @@ export const config = {
      * - api/opt-out (setting a privacy choice must not emit a tracking event)
      * - _next/static (static files)
      * - _next/image (image optimization)
-     * - favicon.ico, robots.txt, manifest.json
+     * - favicon.ico, robots.txt, sitemap.xml, manifest.json
+     * - locales (los JSON de traducción que pide el cliente al navegar)
      * - static asset extensions (svg, png, jpg, jpeg, gif, webp, ico, css, js)
      */
-    '/((?!api/opt-out|_next/static|_next/image|favicon\\.ico|robots\\.txt|manifest\\.json|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)',
+    '/((?!api/opt-out|_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap\\.xml|manifest\\.json|locales/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)',
   ],
 };

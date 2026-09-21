@@ -1,0 +1,333 @@
+/* ============================================================================
+   ADVIA · web v4 — la plataforma, pantalla a pantalla (ver v4-plataforma.css,
+   que lleva la ventana, las tarjetas y las piezas comunes)
+   ============================================================================ */
+
+/* Una marca con su logotipo (PlataformaMarca.jsx). */
+.v4-plat-marca { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
+.v4-plat-marca__logo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+  color: var(--brand-graphite);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  font-weight: 700;
+  line-height: 1;
+}
+.v4-plat-marca__logo svg { width: 12px; height: 12px; fill: currentColor; }
+.v4-plat-marca__logo svg[data-apaisado] { width: 16px; }
+.v4-plat-prompts__rivales { display: flex; align-items: center; gap: var(--space-1); }
+
+/* 01 · Análisis de respuestas */
+.v4-plat-resp { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-10); }
+.v4-plat-resp .v4-plat-kpi__valor { margin-bottom: var(--space-2); }
+/* Barras del design system: finas, de punta redonda, en grafito, y la marca
+   en degradado ámbar. Detrás, guías verticales tenues y el eje en mono. */
+.v4-plat-barras__lienzo { position: relative; padding-bottom: var(--space-6); }
+.v4-plat-barras__guias {
+  position: absolute;
+  inset: 0 calc(40px + var(--space-3)) 0 calc(88px + var(--space-3));
+}
+.v4-plat-barras__guias span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  border-left: 1px solid var(--v4-line);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  color: var(--v4-muted);
+  text-indent: calc(-1 * var(--space-1));
+}
+.v4-plat-barras { position: relative; padding-bottom: var(--space-3); }
+.v4-plat-barras li {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  color: var(--v4-muted);
+}
+.v4-plat-barras li > span:first-child { text-align: right; }
+.v4-plat-barras__pista { display: block; height: 8px; }
+.v4-plat-barras__pista > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--brand-graphite), var(--neutral-dark));
+}
+.v4-plat-barras li[data-marca] { font-weight: 700; color: var(--v4-fg); }
+.v4-plat-barras li[data-marca] .v4-plat-barras__pista > span {
+  background: linear-gradient(90deg, var(--chart-1-from), var(--chart-1-to));
+}
+
+/* 01b · Prompts */
+.v4-plat-prompts { min-width: 620px; }
+.v4-plat-prompts td { padding-block: var(--space-3); vertical-align: top; }
+.v4-plat-prompts td:first-child { width: 46%; }
+.v4-plat-prompts__texto {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.v4-plat-motores { display: flex; gap: var(--space-1); white-space: nowrap; }
+.v4-plat-motor {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-body-s);
+}
+.v4-plat-motor .v4-chip__logo { width: 10px; height: 10px; }
+
+/* 02 · Vigilancia de citas */
+/* En una sola fila y cortada si no cabe, como el resto de la pantalla. */
+.v4 .v4-plat-filtro { display: flex; overflow: hidden; white-space: nowrap; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-5); }
+.v4-plat-filtro .v4-plat__rotulo { margin: 0 var(--space-2) 0 0; }
+.v4-plat-filtro__chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  line-height: var(--lh-body-s);
+  color: var(--v4-muted);
+}
+.v4-plat-filtro__chip i { width: 6px; height: 6px; border-radius: var(--radius-full); }
+.v4-plat-filtro__chip[data-activo] { border-color: transparent; background: var(--accent-gold); color: var(--text-on-gold); font-weight: 700; }
+.v4-plat-citas__centro { position: relative; }
+.v4-plat-citas__centro p {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  margin: 0;
+  text-align: center;
+}
+.v4-plat-citas__centro .v4-plat__num { font-size: var(--fs-body-l); line-height: var(--lh-body-m); font-weight: 700; text-align: center; }
+.v4-plat-citas__centro small { font-family: var(--font-mono); letter-spacing: 1px; text-transform: uppercase; }
+.v4-plat-dominios__urls { width: 36px; color: var(--v4-muted); }
+.v4-plat-dominios .v4-plat__num:last-child { width: 36px; }
+.v4-plat-citas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10); }
+.v4-plat-citas__rosca { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: center; gap: var(--space-6); }
+.v4-plat-rosca { width: 100%; transform: rotate(0deg); }
+.v4-plat-rosca circle { fill: none; stroke-width: 7.5; }
+.v4-plat-leyenda li {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+}
+.v4-plat-leyenda i { width: 8px; height: 8px; border-radius: var(--radius-full); }
+.v4-plat-dominios li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--v4-line);
+}
+.v4-plat-dominios li > span:first-of-type { flex: 1; min-width: 0; font-weight: 600; }
+.v4-plat-dominios img { flex: none; width: 20px; height: 20px; border-radius: var(--radius-sm); }
+.v4-plat-dominios li small { display: flex; align-items: center; gap: var(--space-2); }
+.v4-plat-dominios li small i { width: 6px; height: 6px; border-radius: var(--radius-full); }
+
+/* El hueco: la fila que después abre el plan. */
+.v4-plat-dominios li[data-hueco] { border-radius: var(--radius-md); background: var(--gold-crema); color: var(--brand-graphite); }
+.v4-plat-dominios li[data-hueco] small { color: var(--neutral-dark); }
+
+/* 03 · Plan de medios */
+.v4-plat-tabla { overflow-x: auto; }
+.v4-plat-plan__miga { margin-bottom: var(--space-2); }
+.v4-plat-plan__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.v4-plat-plan__nombre { margin: 0; font-size: var(--fs-body-l); line-height: var(--lh-body-l); font-weight: 700; }
+.v4-plat-plan__acciones { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.v4-plat-boton {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.v4-plat-boton[data-primario] { border-color: transparent; background: var(--accent-gold); color: var(--text-on-gold); }
+.v4-plat-plan__datos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin: 0;
+}
+.v4-plat-plan__datos dt { margin-bottom: var(--space-1); }
+.v4-plat-plan__datos dd { margin: 0; }
+.v4-plat-plan__datos .v4-plat__num { font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+.v4-plat small {
+  display: block;
+  font-size: var(--fs-label);
+  line-height: var(--lh-body-s);
+  font-weight: 400;
+  color: var(--v4-muted);
+}
+.v4-plat-plan { min-width: 680px; }
+.v4-plat-plan td { padding-block: var(--space-4); vertical-align: top; }
+.v4-plat-plan td:nth-child(1) { width: 20%; }
+.v4-plat-plan td:nth-child(3) { width: 36%; }
+.v4-plat-plan__ola th {
+  padding-block: var(--space-3);
+  border-bottom-color: var(--v4-line);
+  color: var(--v4-fg);
+}
+.v4-plat-plan__porque { color: var(--v4-muted); }
+.v4-plat-plan__cuenta { margin: var(--space-3) 0 var(--space-1); }
+.v4 .v4-plat-plan__intenciones { padding-left: var(--space-3); list-style: disc; font-size: var(--fs-label); color: var(--v4-muted); }
+.v4-plat-plan__intenciones li::marker { color: var(--chart-2); }
+.v4-plat-plan__estado::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--neutral-400);
+}
+
+/* 04 · Brief editorial */
+.v4-plat-brief { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; gap: var(--space-4); }
+.v4-plat-brief .v4-plat-widget + .v4-plat-widget { margin-top: 0; }
+.v4-plat-brief__bloque {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-md);
+}
+.v4-plat-brief__texto { margin: 0 0 var(--space-2); font-size: var(--fs-body-m); line-height: var(--lh-body-m); font-weight: 600; }
+.v4-plat-brief__hueco {
+  margin: 0 0 var(--space-2);
+  padding: var(--space-3);
+  border: 1px dashed var(--v4-line-strong);
+  border-radius: var(--radius-md);
+  color: var(--v4-faint);
+}
+.v4-plat-brief__tabla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: var(--space-2); }
+.v4-plat-brief__tabla span {
+  min-height: 24px;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--v4-line);
+  font-size: var(--fs-label);
+  line-height: var(--lh-body-s);
+}
+.v4-plat-brief__tabla span:nth-child(-n + 3) { background: var(--v4-track); font-weight: 600; }
+.v4-plat-brief__regla { margin: 0; color: var(--v4-muted); }
+.v4-plat-reglas li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--v4-line);
+  font-weight: 600;
+}
+.v4-plat-reglas + .v4-plat-brief__regla { margin-top: var(--space-3); }
+
+/* 05 · Evolución */
+.v4-plat-motores-leyenda { display: flex; flex-wrap: wrap; gap: var(--space-5); margin: 0 0 var(--space-5); color: var(--v4-muted); }
+.v4-plat-motores-leyenda span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.v4-plat-motores-leyenda i { width: 14px; height: 2px; }
+.v4-plat-motores-leyenda [data-marca] { color: var(--v4-fg); font-weight: 600; }
+.v4-plat-motores-leyenda [data-marca] i { height: 3px; }
+.v4-plat-evo + .v4-plat-evo { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid var(--v4-line); }
+.v4-plat-evo { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-10); }
+.v4-plat-lineas { display: block; width: 100%; margin-top: var(--space-4); overflow: visible; }
+.v4-plat-lineas line { stroke: var(--v4-line); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.v4-plat-lineas polyline {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.v4-plat-lineas polyline[data-marca] { stroke-width: 3; }
+.v4-plat-evo__fechas {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  color: var(--v4-muted);
+}
+.v4-plat-evo__lado { display: grid; align-content: start; gap: var(--space-6); }
+.v4-plat-movs li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--v4-line);
+}
+/* En negrita y no en oro: a 12px el oro sobre claro no se lee (DS). */
+.v4-plat-movs li[data-marca] { font-weight: 700; }
+.v4-plat-movs .v4-plat__num { color: var(--v4-muted); font-weight: 400; }
+
+/* Va al final de este fichero, que es el último que se carga: si no, las
+   reglas de cada pantalla pisarían el responsive. */
+/* Las dos barras de la sección de fuentes, con las barras del design system:
+   finas, de punta redonda, la del cliente en ámbar y la otra en grafito. */
+
+.v4-fuentes .v4-dato { gap: var(--space-3); padding: var(--space-5) 0; }
+.v4-fuentes .v4-barra__pista,
+.v4-fuentes .v4-barra__valor { display: block; height: 8px; border-radius: var(--radius-full); }
+.v4-fuentes .v4-barra__valor { background: linear-gradient(90deg, var(--chart-1-from), var(--chart-1-to)); }
+.v4-fuentes .v4-barra__valor[data-neutra="true"] { background: linear-gradient(90deg, var(--brand-graphite), var(--neutral-dark)); }
+
+/* Las cuatro medidas, recogidas: son el punto de partida, no el producto. */
+.v4-medida-mini .v4-label + h3 {
+  margin: var(--space-4) 0 var(--space-3);
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: 700;
+  /* El color lo pone la superficie: sobre la tarjeta grafito es marfil. Sin
+     esto el h3 hereda el grafito del cuerpo y no se lee. */
+  color: var(--v4-fg);
+}
+
+/* DS §3.3: dos cortes. En tablet las pestañas pasan arriba, en fila. */
+@media (max-width: 900px) {
+  .v4-plat__ventana { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 640px; }
+  .v4-plat__nav {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--v4-line);
+  }
+  .v4-plat__tab { flex: none; white-space: nowrap; }
+  .v4-plat__escena { padding: var(--space-5) var(--space-5) 0; }
+  .v4-plat-resp,
+  .v4-plat-citas,
+  .v4-plat-brief,
+  .v4-plat-evo { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); }
+}
+@media (max-width: 640px) {
+  .v4-plat__barra { flex-wrap: wrap; padding: var(--space-4) var(--space-5); }
+  .v4-plat-citas__rosca { grid-template-columns: 96px minmax(0, 1fr); }
+}

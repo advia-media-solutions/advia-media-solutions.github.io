@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "AI Advertising — paid media in ChatGPT | Advia",
+    "description": "Ads inside the ChatGPT conversation, activated on the questions where the simulation says your brand is a relevant answer."
+  },
+  "hero": {
+    "eyebrow": "Conversational Environments · AI Advertising",
+    "titular": "Your ad, in the conversation where your consumer is <key>deciding</key>",
+    "lede": "Paid media in ChatGPT, activated on the questions where the simulation says your brand is a relevant answer."
+  },
+  "como": {
+    "titular": "From the simulation to the <key>campaign</key>",
+    "lede": "The same simulation that measures your visibility tells when you will be a relevant answer. That is what the activation is built on.",
+    "items": [
+      {
+        "nombre": "From keywords to hints",
+        "desc": "The simulations tell us where you will be relevant to your consumer, beyond classic keywords."
+      },
+      {
+        "nombre": "Creative messages",
+        "desc": "Different messages for different needs: the ad responds to what the consumer has in front of them."
+      },
+      {
+        "nombre": "Continuous improvement",
+        "desc": "During the campaign we see which messages work best and shift the weight towards them."
+      }
+    ]
+  },
+  "hermano": {
+    "titular": "The ad puts you in the conversation today. <key>AI Positioning</key> gets the model to mention you on its own",
+    "lede": "We measure how you show up in your category's answers and work on the sources they come from.",
+    "door": "See AI Positioning"
+  },
+  "cierre": {
+    "titular": "Activate your brand in <key>ChatGPT</key>",
+    "lede": "You tell us the goal, we simulate your category's conversations and show you in which ones you can be the answer.",
+    "cta": "Let's talk"
+  }
+}

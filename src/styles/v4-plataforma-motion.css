@@ -1,0 +1,80 @@
+/* ============================================================================
+   ADVIA · web v4 — la plataforma, capa de movimiento (ver v4-plataforma.css)
+   ============================================================================ */
+
+/* ─────────────────────────── Movimiento ───────────────────────────
+   Cada paso del guion vuelve a montar la pantalla, así que estas entradas
+   corren cada vez. Todo lo que entra lo hace en el orden en que se lee, con el
+   escalón de la capa de movimiento de la web (--v4-entrada, --v4-escalon). Con
+   movimiento reducido no hay nada de esto: la pantalla sale ya en su estado
+   final. */
+/* La ventana emergente entra como una ventana: desde un poco más pequeña. */
+@media (prefers-reduced-motion: no-preference) {
+  .v4-plat-modal { animation: v4-plat-velo var(--motion-slow) var(--ease-standard) both; }
+  .v4-plat-modal__caja { animation: v4-plat-abre var(--v4-entrada) var(--ease-emphasis) both; }
+  @keyframes v4-plat-velo { from { opacity: 0; } }
+  @keyframes v4-plat-abre { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* El turno de cada pieza dentro de su lista; los hijos lo heredan. */
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(1) { --i: 0; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(2) { --i: 1; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(3) { --i: 2; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(4) { --i: 3; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(5) { --i: 4; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(6) { --i: 5; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(7) { --i: 6; }
+  .v4-plat__escena :is(ul, tbody, dl, svg, .v4-plat-brief__hoja) > :nth-child(n + 8) { --i: 7; }
+
+  .v4-plat__escena :is(li, tbody tr, dl > div, .v4-plat-brief__bloque, .v4-plat-widget) {
+    animation: v4-plat-entra var(--v4-entrada) var(--ease-emphasis) both;
+    animation-delay: calc(240ms + var(--i, 0) * var(--v4-escalon));
+  }
+  @keyframes v4-plat-entra { from { opacity: 0; transform: translateY(10px); } }
+
+  /* Una barra crece porque es una cuota; sale detrás de su fila. */
+  .v4-plat-barras__pista > span {
+    transform-origin: left;
+    animation: v4-plat-crece 900ms var(--ease-emphasis) both;
+    animation-delay: calc(420ms + var(--i, 0) * var(--v4-escalon));
+  }
+  @keyframes v4-plat-crece { from { transform: scaleX(0); } }
+
+  /* La rosca se dibuja tramo a tramo, en el orden de la leyenda. */
+  .v4-plat-rosca circle {
+    animation: v4-plat-tramo 620ms var(--ease-standard) both;
+    animation-delay: calc(300ms + var(--i, 0) * 150ms);
+  }
+  @keyframes v4-plat-tramo { from { stroke-dasharray: 0 100; } }
+
+  /* El hueco se señala al final, cuando la tabla ya se ha leído. */
+  .v4-plat-dominios li[data-hueco] {
+    animation: v4-plat-entra var(--v4-entrada) var(--ease-emphasis) both,
+      v4-plat-hueco 700ms var(--ease-standard) 2400ms both;
+    animation-delay: calc(240ms + var(--i, 0) * var(--v4-escalon)), 2400ms;
+  }
+  @keyframes v4-plat-hueco { from { background: transparent; } }
+  .v4-plat__nota { animation: v4-plat-entra var(--v4-entrada) var(--ease-emphasis) both; }
+
+  /* Las píldoras saltan detrás de su fila: son el veredicto. */
+  .v4-plat-pill {
+    animation: v4-plat-salta 420ms var(--ease-emphasis) both;
+    animation-delay: calc(700ms + var(--i, 0) * var(--v4-escalon));
+  }
+  @keyframes v4-plat-salta { from { opacity: 0; transform: scale(0.7); } }
+
+  /* La evolución se traza de izquierda a derecha, y después sale la cifra. */
+  .v4-plat-lineas { animation: v4-plat-traza 1600ms var(--ease-standard) 300ms both; }
+  @keyframes v4-plat-traza { from { clip-path: inset(-10% 100% -10% 0); } to { clip-path: inset(-10% 0 -10% 0); } }
+  .v4-plat-evo .v4-plat-kpi__valor .v4-plat-pill { animation-delay: 1900ms; }
+
+  /* Al final del plan se pulsa «generar los briefs»: el puente a la pantalla
+     siguiente. Solo mientras la secuencia corre. */
+  .v4-plat[data-marcha] .v4-plat-plan__generar { animation: v4-plat-pulsa 900ms var(--ease-standard) 6600ms 1 both; }
+  @keyframes v4-plat-pulsa {
+    0% { background: transparent; box-shadow: 0 0 0 0 var(--gold-ambar); }
+    40% { background: var(--gold-crema); box-shadow: 0 0 0 6px transparent; transform: scale(0.97); }
+    100% { background: var(--gold-crema); box-shadow: 0 0 0 0 transparent; color: var(--brand-graphite); }
+  }
+}

@@ -22,6 +22,8 @@ const FIJAS = [
   { path: "/products", prioridad: "0.9" },
   { path: "/products/paid-media", prioridad: "0.8" },
   { path: "/products/geo", prioridad: "0.8" },
+  { path: "/products/geo/posicionamiento-ia", prioridad: "0.8" },
+  { path: "/products/geo/publicidad-ia", prioridad: "0.8" },
   { path: "/about", prioridad: "0.7" },
   { path: "/contact", prioridad: "0.6" },
   { path: "/blog", prioridad: "0.7" },

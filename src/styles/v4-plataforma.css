@@ -1,0 +1,332 @@
+/* ============================================================================
+   ADVIA · web v4 — la plataforma (boceto en estático)
+
+   Una ventana de la aplicación dentro de /products/geo/posicionamiento-ia.
+   Por dentro manda la densidad del producto: cuerpo a 12px, rótulos en mono y
+   cifras en mono tabular. Todo sale de los tokens; los colores de superficie,
+   de las variables de sección (--v4-*), así la ventana sirve sobre cualquiera.
+   ============================================================================ */
+
+.v4-plat { margin: var(--space-12) 0 0; }
+
+.v4-plat__ventana {
+  position: relative;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-rows: auto 640px;
+  overflow: hidden;
+  /* El gris de la página de la aplicación. Lo pone la ventana y no la pantalla,
+     que lleva máscara: así el corte de abajo funde a gris y no a blanco. */
+  background: var(--surface-sunken);
+  border: 1px solid var(--v4-panel-line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--v4-panel-shadow);
+  color: var(--v4-fg);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+}
+
+.v4-plat__barra {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--v4-line);
+  background: var(--v4-panel);
+}
+.v4-plat__barra-fin { display: flex; align-items: center; gap: var(--space-3); }
+.v4-plat__pausa {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--v4-muted);
+  font: inherit;
+  cursor: pointer;
+}
+.v4-plat__pausa:hover { color: var(--v4-fg); }
+.v4-plat__pausa:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+.v4-plat__marca { display: flex; align-items: baseline; gap: var(--space-3); color: var(--v4-muted); }
+.v4-plat__marca strong { font-size: var(--fs-body-m); color: var(--v4-fg); }
+
+/* La barra lateral de la aplicación, que aquí son las pestañas. */
+.v4-plat__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-right: 1px solid var(--v4-line);
+  background: var(--v4-panel);
+}
+.v4-plat__tab {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--v4-muted);
+  font: inherit;
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--motion-base) var(--ease-standard),
+    color var(--motion-base) var(--ease-standard);
+}
+.v4-plat__tab:hover { color: var(--v4-fg); }
+.v4-plat__tab:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+.v4-plat__tab[aria-selected="true"] {
+  background: var(--gold-crema);
+  color: var(--brand-graphite);
+  font-weight: 600;
+}
+.v4-plat__tab-num { font-family: var(--font-mono); font-size: var(--fs-code-s); }
+.v4-plat__tab[aria-selected="true"] .v4-plat__tab-num { color: var(--accent-gold); }
+
+/* Alto fijo y corte con degradado: las pantallas reales son más largas que
+   esto, y que se vea que siguen es parte del mensaje. */
+.v4-plat__escena {
+  min-width: 0;
+  overflow: hidden;
+  padding: var(--space-6) var(--space-8) 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 72px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 72px), transparent);
+}
+.v4-plat__titulo {
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: 700;
+}
+.v4-plat__titulo .v4-key { font-weight: inherit; }
+
+/* La página de la aplicación es gris y cada bloque va en su tarjeta blanca,
+   como en el producto (DS §10.8). */
+.v4-plat-widget {
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--surface-card);
+  box-shadow: var(--card-shadow);
+}
+.v4-plat-widget + .v4-plat-widget,
+.v4-plat-widget + p + .v4-plat-widget { margin-top: var(--space-4); }
+.v4 .v4-plat-plan__accion { margin: var(--space-4) 0 0; }
+.v4-plat-plan__accion .v4-plat-boton { background: var(--surface-card); }
+
+/* Las pestañas interiores de cada pantalla. */
+.v4-plat-sub {
+  display: flex;
+  gap: var(--space-6);
+  margin-bottom: var(--space-5);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--v4-line);
+}
+.v4-plat-sub__item {
+  flex: none;
+  padding: var(--space-2) 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--v4-muted);
+  font: inherit;
+  white-space: nowrap;
+}
+button.v4-plat-sub__item { cursor: pointer; color: var(--v4-fg); }
+button.v4-plat-sub__item:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+.v4-plat-sub__item[aria-pressed="true"],
+.v4-plat-sub__item[data-activa] { border-bottom-color: var(--accent-gold); color: var(--v4-fg); font-weight: 600; }
+
+.v4 .v4-plat__meta { margin: 0 0 var(--space-5); color: var(--v4-muted); }
+.v4-plat__subtitulo {
+  margin: var(--space-6) 0 var(--space-3);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  font-weight: 700;
+}
+.v4-plat__subtitulo[data-primero] { margin-top: 0; margin-bottom: var(--space-1); }
+
+/* Tabla densa, como las del producto: filete fino y la marca con velo de oro. */
+.v4-plat-tablita { width: 100%; border-collapse: collapse; text-align: left; }
+.v4-plat-tablita th {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--v4-line-strong);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+}
+.v4-plat-tablita th[data-num] { text-align: right; }
+.v4-plat-tablita td { padding: var(--space-1) var(--space-3); border-bottom: 1px solid var(--v4-line); }
+.v4-plat-tablita td:first-child.v4-plat__num { width: 28px; text-align: left; color: var(--v4-muted); }
+.v4-plat-tablita tr[data-marca] { background: var(--gold-crema); color: var(--brand-graphite); font-weight: 700; }
+
+/* La ventana emergente del brief, encima del plan como en el producto. */
+.v4-plat-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: var(--space-8);
+  background: rgba(41, 41, 41, 0.45);
+}
+.v4-plat-modal__caja {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(100%, 880px);
+  max-height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface-sunken);
+  box-shadow: var(--elevation-3);
+}
+.v4-plat-modal__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--v4-line);
+  background: var(--surface-card);
+}
+.v4-plat-modal__cerrar {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--v4-muted);
+  font: inherit;
+  font-size: var(--fs-body-l);
+  line-height: 1;
+  cursor: pointer;
+}
+.v4-plat-modal__cerrar:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+.v4-plat-modal__cuerpo {
+  overflow: hidden;
+  padding: var(--space-6);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent);
+}
+
+/* La nota: un comentario en grafito, anclado a lo que se mira, con su pico
+   arriba. Va por encima de la ventana emergente y por debajo del cursor. */
+.v4-plat__nota {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 300px;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--brand-graphite);
+  color: var(--brand-ivory);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  box-shadow: var(--elevation-3);
+  pointer-events: none;
+}
+.v4-plat__nota::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 20px;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--brand-graphite);
+  transform: rotate(45deg);
+}
+
+/* El cursor de la secuencia: una flecha grafito con filo marfil, cuya punta
+   es el punto que se mueve. Va por encima de la ventana emergente. */
+.v4-plat__cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 720ms var(--ease-emphasis), opacity var(--motion-base) var(--ease-standard);
+}
+.v4-plat__cursor[data-visible] { opacity: 1; }
+.v4-plat__cursor svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--brand-graphite);
+  stroke: var(--brand-ivory);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 2px rgba(41, 41, 41, 0.35));
+  transform-origin: 22% 14%;
+  transition: transform 120ms var(--ease-standard);
+}
+.v4-plat__cursor[data-pulsa] svg { transform: scale(0.82); }
+.v4-plat__cursor::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--accent-gold);
+  opacity: 0;
+}
+.v4-plat__cursor[data-pulsa]::after { animation: v4-plat-onda 420ms var(--ease-standard) both; }
+@keyframes v4-plat-onda { from { opacity: 0.9; transform: scale(0.4); } to { opacity: 0; transform: scale(1.4); } }
+
+/* Una fila del plan se puede pulsar: abre su brief. */
+.v4-plat-plan tr[data-pulsable] { cursor: pointer; }
+.v4-plat-plan tr[data-pulsable]:hover td { background: var(--surface-inset); }
+.v4-plat-plan tr[data-pulsable]:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+
+/* Piezas comunes a las escenas. */
+.v4-plat__rotulo {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+}
+.v4-plat__rotulo span { color: var(--v4-faint); }
+.v4-plat__num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+.v4-plat-pill {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--success-bg);
+  color: var(--success);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  white-space: nowrap;
+}
+.v4-plat-pill[data-signo="baja"] { background: var(--warning-bg); color: var(--text-warning); }
+.v4-plat-kpi__valor {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-kpi);
+  line-height: var(--lh-kpi);
+}
+.v4-plat ul { margin: 0; padding: 0; list-style: none; }

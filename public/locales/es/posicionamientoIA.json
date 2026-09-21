@@ -1,0 +1,311 @@
+{
+  "seo": {
+    "title": "Posicionamiento en IA — que los modelos citen tu marca | Advia",
+    "description": "Medimos cómo aparece tu marca en las respuestas de los modelos, entendemos de dónde las sacan y creamos el contenido que la IA cita."
+  },
+  "hero": {
+    "eyebrow": "Entornos Conversacionales · Posicionamiento en IA",
+    "titular": "Trabajamos las fuentes que lee la IA para que tu marca sea <key>la respuesta</key>",
+    "lede": "La IA responde con lo que lee. Sabemos en qué fuentes se apoya en tu categoría, cuáles no controlas, dónde hay que publicar y cómo hay que redactar para que te cite."
+  },
+  "fuentes": {
+    "titular": "¿De dónde saca la IA lo que dice de <key>tu marca</key>?",
+    "lede": "De lo que escribes tú y de muchas fuentes que no controlas. El esfuerzo suele ir a la parte que se puede editar: la web propia y lo que uno publica. Nosotros trabajamos las dos. Conseguimos que las fuentes en las que se apoya la IA hablen de ti, y te decimos cómo tiene que estar escrito lo tuyo para que lo cite.",
+    "propio": {
+      "nombre": "Lo que escribes tú",
+      "desc": "Tu web, tus canales",
+      "rotulo": "Donde se concentra el esfuerzo"
+    },
+    "otros": {
+      "nombre": "Lo que escriben otros",
+      "desc": "Medios, comparadores, redes, foros…"
+    },
+    "nota": "Proporción ilustrativa. El reparto real se mide por categoría y es lo primero que ves en tu análisis."
+  },
+  "medir": {
+    "titular": "Medimos para saber <key>qué mover</key>",
+    "lede": "Un análisis sobre las conversaciones reales de tu categoría. Es el punto de partida del plan, y la referencia contra la que se mide lo que viene después."
+  },
+  "medidas": [
+    {
+      "nombre": "Share of Answer",
+      "pregunta": "¿En cuántas respuestas de tu categoría apareces?",
+      "desc": "Contabilizamos en cuántas respuestas te menciona la IA, y en qué posición."
+    },
+    {
+      "nombre": "Sentimiento",
+      "pregunta": "¿Qué dice de ti cuando te menciona?",
+      "desc": "Por factor de decisión: precio, autonomía, servicio. Lo que la IA cree de tu marca no siempre es lo que tú cuentas."
+    },
+    {
+      "nombre": "Fuentes citadas",
+      "pregunta": "¿De dónde saca la respuesta?",
+      "desc": "Los dominios y las URLs que consulta el modelo para responder: las que escribes tú y las que no controlas. Ahí es donde se trabaja después."
+    },
+    {
+      "nombre": "Benchmark",
+      "pregunta": "¿Frente a quién, y hacia dónde?",
+      "desc": "Las mismas medidas para tus competidores, y cómo se mueven de una medición a la siguiente."
+    }
+  ],
+  "plataforma": {
+    "titular": "De la medición sale un plan: <key>dónde se publica</key> y <key>cómo se redacta</key>",
+    "lede": "Nuestra plataforma lee las respuestas de los modelos en tu categoría, localiza las fuentes en las que se apoyan, las tuyas y las que no controlas, y convierte cada hueco en una pieza con su medio, su tema y su brief de redacción.",
+    "mercado": "Vehículos eléctricos · España",
+    "navegacion": "Pantallas de la plataforma",
+    "pp": "p.p.",
+    "escenas": [
+      {
+        "tab": "Dónde estás",
+        "titulo": "Análisis de <key>respuestas</key>"
+      },
+      {
+        "tab": "De dónde sale",
+        "titulo": "Vigilancia de <key>citas</key>"
+      },
+      {
+        "tab": "El plan",
+        "titulo": "Plan de <key>medios</key>"
+      },
+      {
+        "tab": "El brief",
+        "titulo": "Brief <key>editorial</key>"
+      },
+      {
+        "tab": "Lo que se mueve",
+        "titulo": "Evolución en el <key>tiempo</key>"
+      }
+    ],
+    "respuestas": {
+      "pestanas": [
+        "Visibilidad",
+        "Posicionamiento",
+        "Factores",
+        "Prompts",
+        "Perfiles"
+      ],
+      "soa": "Share of Answer",
+      "ranking": "Ranking de Share of Answer",
+      "meta": "Agregado en 3 motores · respuestas con menciones",
+      "cols": [
+        "#",
+        "Marca",
+        "Share of Answer"
+      ],
+      "cuotas": "Comparación de cuotas",
+      "cuotasCols": [
+        "Marca",
+        "Share of Answer",
+        "Share of Mention",
+        "Menciones / respuesta"
+      ],
+      "promptsTitulo": "Prompts donde aparece BYD",
+      "promptsMeta": "{{prompts}} prompts · {{respuestas}} respuestas entre motores",
+      "promptsCols": [
+        "Prompt",
+        "Menciones de marca",
+        "Posición",
+        "Competidores"
+      ],
+      "prompts": [
+        "Busco un coche eléctrico económico para uso urbano familiar y me preocupa mucho la seguridad en caso de impacto. ¿Qué modelos actuales ofrecen la mayor calificación en seguridad?",
+        "Busco un coche eléctrico versátil para el día a día familiar y me preocupa mucho la fiabilidad a largo plazo. ¿Qué modelos ofrecen la garantía más completa?",
+        "Quiero comprar un coche eléctrico para mi familia, pero me preocupa que haya talleres cerca con técnicos especializados en alta tensión. ¿Qué marcas tienen la mejor red de servicio?",
+        "Busco un coche eléctrico barato para moverme por ciudad y que no me dé sustos en el taller a largo plazo. ¿Qué modelos tienen los costes de mantenimiento más bajos?",
+        "Quiero comprar un coche eléctrico para moverme por ciudad y aprovechar las ayudas fiscales, pero me preocupa el valor de reventa. ¿Qué marcas lo mantienen mejor?",
+        "Busco un coche eléctrico familiar para moverme por ciudad que sea muy fiable a largo plazo. ¿Qué modelos tienen las baterías más duraderas?",
+        "Busco un coche eléctrico para uso profesional con gran durabilidad de batería, priorizando una química de celdas que no se degrade rápido. ¿Qué modelos actuales lo cumplen?",
+        "Quiero cambiar mi coche por uno eléctrico para moverme por ciudad, pero me preocupa la fiabilidad y el servicio técnico a largo plazo. ¿Qué marcas tienen mejor reputación?"
+      ],
+      "tarjeta": "Análisis de respuestas"
+    },
+    "citas": {
+      "tipos": "Citas por tipo de fuente",
+      "dominios": "Dominios principales",
+      "cobertura": "Cobertura",
+      "tarjeta": "Fuentes citadas",
+      "categorias": [
+        "Marca oficial",
+        "Medio",
+        "Comparador",
+        "Redes sociales",
+        "Comercio electrónico",
+        "Institucional",
+        "Foro y otros"
+      ],
+      "pestanas": [
+        "Resumen",
+        "Posición de la marca",
+        "URLs citadas"
+      ],
+      "meta": "{{urls}} URLs fundamentadas · {{dominios}} dominios · {{citas}} citas",
+      "total": "citas",
+      "filtro": "Categoría",
+      "todas": "Todas",
+      "urls": "URLs"
+    },
+    "plan": {
+      "miga": "Plan Medios",
+      "nombre": "BYD Plan de Medios Q4",
+      "ambito": "BYD · Vehículos eléctricos",
+      "nota": "Interno. El cliente lo recibe descargándolo en Excel.",
+      "acciones": [
+        "Editar plan",
+        "Descargar Excel"
+      ],
+      "anadir": "Añadir publicación",
+      "datos": [
+        {
+          "rotulo": "Periodo",
+          "valor": "Oct – Dic 2026",
+          "pie": "cuarto trimestre"
+        },
+        {
+          "rotulo": "Publicaciones",
+          "valor": "9",
+          "pie": "filas de abajo"
+        },
+        {
+          "rotulo": "Publicadas",
+          "valor": "0 / 9",
+          "pie": "estado = publicada"
+        }
+      ],
+      "generar": "Generar los 9 briefs que faltan",
+      "columnas": [
+        "Medio",
+        "Temática",
+        "¿Por qué?",
+        "Descripción"
+      ],
+      "ola": "Octubre 2026 · 1ª ola",
+      "estado": "Borrador",
+      "intenciones": "intenciones",
+      "intencion": "intención",
+      "filas": [
+        {
+          "medio": "autohero.com",
+          "tema": "Autonomía real",
+          "intenciones": [
+            "Coches eléctricos con mayor autonomía en el mercado general",
+            "Autonomía real de coches eléctricos en autopista y carretera"
+          ],
+          "porque": "La gente acude a este medio buscando sobre todo cuáles son los coches eléctricos con mayor autonomía y la autonomía real en autopista y carretera. La IA se apoya en él para hablar de casi cualquier cosa del sector, y 25 de cada 100 veces lo hace para tratar este tema. BYD no aparece cuando la IA compara marcas aquí: es el hueco que más pesa.",
+          "pieza": "Coches eléctricos con mayor autonomía: la real en autopista y carretera"
+        },
+        {
+          "medio": "carwow.es",
+          "tema": "Cobertura de garantía",
+          "intenciones": [
+            "Garantía de la batería en coches eléctricos"
+          ],
+          "porque": "Cuando la IA busca en carwow.es para responder sobre garantías, BYD casi no aparece al comparar opciones y, cuando lo hace, sale peor parada que la media de sus competidores. Es un comparador en el que la IA se apoya para un puñado de temas concretos, y este es el primero.",
+          "pieza": "Garantía de batería marca a marca: años, kilómetros y qué cubre"
+        },
+        {
+          "medio": "motor.es",
+          "tema": "Precio de compra",
+          "intenciones": [
+            "Coches eléctricos económicos para ciudad"
+          ],
+          "porque": "Casi la mitad de las veces que la IA recurre a este medio es para hablar de precio. Es un tema que BYD ya lidera: cuando la IA menciona marcas sale bien posicionada, así que ahora toca defender este terreno.",
+          "pieza": "Eléctricos urbanos por menos de 30.000 €: precio final con ayudas"
+        }
+      ]
+    },
+    "brief": {
+      "meta": "autohero.com · Autonomía real · comparativa",
+      "bloques": [
+        {
+          "rotulo": "Titular",
+          "tag": "H1",
+          "texto": "Coches eléctricos con mayor autonomía: la real en autopista y carretera",
+          "regla": "Contiene la pregunta que resuelve, con el vocabulario de la intención."
+        },
+        {
+          "rotulo": "Entradilla",
+          "tag": "2-3 frases",
+          "hueco": "La respuesta corta, entera, aquí",
+          "regla": "Responde por sí sola. Si alguien lee solo esto, ya se lleva la respuesta."
+        },
+        {
+          "rotulo": "Apartado 1",
+          "tag": "H2",
+          "texto": "Autonomía real en autopista, modelo a modelo",
+          "tabla": [
+            "Modelo",
+            "Homologada (km)",
+            "Real en autopista (km)"
+          ],
+          "regla": "La tabla es la forma que más se cita en este mercado. Cada fila nombra su sujeto y cada dato lleva su unidad."
+        }
+      ],
+      "reglasTitulo": "Qué funciona en este mercado",
+      "reglas": [
+        {
+          "texto": "Dos o más marcas dentro del mismo apartado",
+          "efecto": "efecto muy alto"
+        },
+        {
+          "texto": "Listas y rankings",
+          "efecto": "efecto muy alto"
+        },
+        {
+          "texto": "Tres afirmaciones cerradas por apartado",
+          "efecto": "efecto muy alto"
+        },
+        {
+          "texto": "Nombrar dentro del apartado el modelo o la marca",
+          "efecto": "efecto alto"
+        },
+        {
+          "texto": "Las cifras con su unidad, dentro de la frase",
+          "efecto": "efecto leve"
+        }
+      ],
+      "reglasNota": "Medido sobre los apartados de este mercado que acabaron sosteniendo una respuesta. Es una ordenación por importancia, no una garantía."
+    },
+    "evolucion": {
+      "desde": "Variación entre la primera medición y la última",
+      "ranking": "Puesto en el ranking",
+      "ganan": "Ganan",
+      "pierden": "Pierden",
+      "fechas": [
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre"
+      ],
+      "motores": [
+        "Todos los motores",
+        "Gemini",
+        "Google AI Overviews",
+        "ChatGPT"
+      ],
+      "som": "Share of Mention",
+      "intro": "Cómo se movió BYD en cada medida a lo largo de las mediciones, y qué marcas se movieron más en esa misma medida."
+    },
+    "pausar": "Pausar",
+    "reproducir": "Reproducir",
+    "cerrar": "Cerrar",
+    "abrirBrief": "Abrir el brief de esta publicación",
+    "notas": {
+      "visibilidad": "Medimos en cuántas respuestas de tu categoría apareces, qué se dice de ti y frente a quién. Es el punto de partida.",
+      "prompts": "Cada cifra sale de preguntas reales de tu categoría, motor por motor: dónde te nombra la IA y dónde no.",
+      "citas": "Localizamos las fuentes en las que se apoya la IA para responder. Donde una fuente pesa y tú no estás, hay un hueco.",
+      "plan": "Generamos una estrategia de publicación: en qué medio, sobre qué tema, para qué intención de búsqueda y por qué.",
+      "brief": "Redactamos el brief de cada pieza con la estructura que la IA necesita.",
+      "evolucion": "Volvemos a medir. Y sacamos conclusiones para la siguiente iteración del plan."
+    }
+  },
+  "hermano": {
+    "titular": "Mientras la presencia orgánica se construye, la complementamos con <key>Publicidad en IA</key>",
+    "lede": "La misma simulación que mide tu visibilidad dice cuándo vas a ser una respuesta relevante. Sobre eso se activa el paid media en ChatGPT.",
+    "door": "Ver Publicidad en IA"
+  },
+  "cierre": {
+    "titular": "Te enseñamos dónde estás hoy y <key>qué mover</key> para cambiarlo",
+    "lede": "Medimos las respuestas de tu categoría, frente a quién y por qué factores, y te proponemos las primeras piezas: fuera y en lo tuyo.",
+    "cta": "Hablemos"
+  }
+}

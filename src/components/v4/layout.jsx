@@ -34,8 +34,31 @@ export const NAV_ITEMS = [
     /* Los dos spokes cuelgan del hub: desde el nav se llega a cualquiera de los
        dos sin pasar por la página intermedia. */
     hijos: [
-      { label: "nav.paidMedia", href: "/products/paid-media" },
-      { label: "nav.geo", href: "/products/geo" },
+      {
+        label: "nav.paidMedia",
+        desc: "nav.paidMediaDesc",
+        href: "/products/paid-media",
+        /* Sus canales no son páginas: se nombran, no se enlazan. */
+        canales: "nav.paidMediaCanales",
+      },
+      {
+        label: "nav.geo",
+        desc: "nav.geoDesc",
+        href: "/products/geo",
+        /* Y de este cuelgan sus dos productos, cada uno con su página. */
+        hijos: [
+          {
+            label: "nav.posicionamiento",
+            desc: "nav.posicionamientoDesc",
+            href: "/products/geo/posicionamiento-ia",
+          },
+          {
+            label: "nav.publicidad",
+            desc: "nav.publicidadDesc",
+            href: "/products/geo/publicidad-ia",
+          },
+        ],
+      },
     ],
   },
   { id: "nosotros", label: "nav.nosotros", href: "/about" },
@@ -120,6 +143,7 @@ const MINIMO = 6;
 
 export function Nav({ activo, sobreOscuro }) {
   const { t } = useTranslation("common");
+  const { ruta } = useRutaIdioma();
   const [fijada, setFijada] = useState(false);
   const [oculta, setOculta] = useState(false);
 
@@ -178,16 +202,42 @@ export function Nav({ activo, sobreOscuro }) {
               </Link>
             );
             if (!item.hijos) return <React.Fragment key={item.href}>{enlace}</React.Fragment>;
-            /* Se abre con el ratón y con el teclado: el submenú está en el DOM
-               y :focus-within lo despliega al tabular, sin estado ni JS. */
+            /* Se abre con el ratón y con el teclado: el panel está en el DOM y
+               :focus-within lo despliega al tabular, sin estado ni JS. Una
+               columna por familia de producto; la de Entornos Conversacionales
+               lleva debajo sus dos productos, que son páginas. */
             return (
               <div className="v4-nav__grupo" key={item.href}>
                 {enlace}
-                <div className="v4-nav__menu">
-                  {item.hijos.map((hijo) => (
-                    <Link key={hijo.href} href={hijo.href} className="v4-nav__sub">
-                      {t(hijo.label)}
-                    </Link>
+                <div className="v4-nav__menu v4-nav__panel">
+                  {item.hijos.map((familia) => (
+                    <div className="v4-nav__familia" key={familia.href}>
+                      <Link
+                        href={familia.href}
+                        className="v4-nav__sub v4-nav__familia-link"
+                        aria-current={ruta === familia.href ? "page" : undefined}
+                      >
+                        <span className="v4-nav__familia-titulo">{t(familia.label)}</span>
+                        <span className="v4-nav__familia-desc">{t(familia.desc)}</span>
+                      </Link>
+                      {familia.canales ? (
+                        <span className="v4-nav__familia-canales">{t(familia.canales)}</span>
+                      ) : null}
+                      {familia.hijos?.map((producto) => (
+                        <Link
+                          key={producto.href}
+                          href={producto.href}
+                          className="v4-nav__sub v4-nav__producto"
+                          aria-current={ruta === producto.href ? "page" : undefined}
+                        >
+                          <span>
+                            <span className="v4-nav__familia-titulo">{t(producto.label)}</span>
+                            <span className="v4-nav__familia-desc">{t(producto.desc)}</span>
+                          </span>
+                          <ArrowOutward />
+                        </Link>
+                      ))}
+                    </div>
                   ))}
                 </div>
               </div>

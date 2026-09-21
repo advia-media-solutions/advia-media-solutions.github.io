@@ -2353,6 +2353,39 @@
   white-space: nowrap;
 }
 .v4-nav__sub:hover { background: var(--surface-sunken); color: var(--text-primary); }
+/* El panel de Productos: una columna por familia, separadas por un filete.
+   Cada familia es un enlace con su nombre y una línea de qué es; debajo, sus
+   canales (solo nombres) o sus productos (enlaces con flecha). */
+.v4-nav__panel {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  width: max-content;
+  min-width: 640px;
+  max-width: min(760px, calc(100vw - 2 * var(--space-6)));
+  padding: var(--space-3);
+}
+.v4-nav__familia { display: grid; gap: 2px; align-content: start; }
+.v4-nav__familia + .v4-nav__familia { padding-left: var(--space-3); border-left: 1px solid var(--border-subtle); }
+.v4-nav__familia-link,
+.v4-nav__producto { display: grid; gap: 2px; white-space: normal; }
+.v4-nav__familia-titulo { display: block; font-weight: var(--fw-semibold); }
+.v4-nav__familia-desc { display: block; font-size: var(--fs-body-s); line-height: var(--lh-body-s); color: var(--text-secondary); }
+.v4-nav__familia-canales {
+  padding: var(--space-2) var(--space-4) var(--space-3);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--text-tertiary);
+}
+.v4-nav__producto {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: var(--space-4);
+}
+.v4-nav__producto .v4-icon { width: 16px; height: 16px; color: var(--text-tertiary); }
+.v4-nav__producto:hover .v4-icon,
+.v4-nav__producto[aria-current] .v4-icon { color: var(--accent-gold); }
+.v4-nav__sub[aria-current="page"] { background: var(--gold-veil); }
 /* El idioma activo en el desplegable: mismo velo dorado que la entrada activa. */
 .v4-nav__sub[aria-current="true"] { color: var(--text-primary); background: var(--gold-veil); }
 /* La entrada «Idioma» no es un enlace: se abre al pasar o al tabular. */

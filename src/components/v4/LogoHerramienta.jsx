@@ -1,10 +1,11 @@
 import React from "react";
-import { siGoogle, siLinkedin, siOpenai, siPinterest, siYoutube } from "simple-icons";
+import { siGoogle, siGooglegemini, siLinkedin, siOpenai, siPinterest, siYoutube } from "simple-icons";
 
 /* Los logotipos de las herramientas, del catálogo oficial de simple-icons: se
    pintan tal cual vienen, nunca redibujados. Van en su color de marca. */
 const LOGOS = {
   google: siGoogle,
+  gemini: siGooglegemini,
   youtube: siYoutube,
   openai: siOpenai,
   pinterest: siPinterest,

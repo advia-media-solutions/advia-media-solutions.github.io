@@ -14,7 +14,13 @@
     }
   },
   "pregunta": {
-    "categorias": ["coche", "teléfono", "colchón", "portátil", "seguro"],
+    "categorias": [
+      "coche",
+      "teléfono",
+      "colchón",
+      "portátil",
+      "seguro"
+    ],
     "titularAntes": "Cuando un consumidor investiga",
     "titularMedio": "para comprarse un",
     "titularDespues": "¿eres la respuesta que la IA menciona?",
@@ -22,43 +28,27 @@
     "citaFuente": "Blog · Introducción a la Navegación Activa, III",
     "cita": "«Millones de nuevos prescriptores ultrainformados… y no puedes llamarles para pedirles que corrijan su mensaje.»"
   },
-  "medir": {
-    "titular": "Antes de mover nada, medimos <key>dónde estás</key>",
-    "lede": "Un análisis sobre las conversaciones reales de tu categoría, no sobre una lista de prompts. Es lo primero que ves, y el punto contra el que se mide todo lo que viene después."
-  },
-  "medidas": [
-    { "nombre": "Share of Answer", "pregunta": "¿En cuántas respuestas de tu categoría apareces?", "desc": "Contabilizamos en cuántas respuestas te menciona la IA, y en qué posición." },
-    { "nombre": "Sentimiento", "pregunta": "¿Qué dice de ti cuando te menciona?", "desc": "Por factor de decisión: precio, autonomía, servicio. Lo que la IA cree de tu marca no siempre es lo que tú cuentas." },
-    { "nombre": "Fuentes citadas", "pregunta": "¿De dónde saca la respuesta?", "desc": "Los dominios y las URLs que consulta el modelo para responder. Ahí es donde se trabaja después." },
-    { "nombre": "Benchmark", "pregunta": "¿Frente a quién, y hacia dónde?", "desc": "Las mismas medidas para tus competidores, y cómo se mueven de una medición a la siguiente." }
-  ],
-  "estanterias": {
-    "titular": "Solo una fracción pequeña de las fuentes que cita la IA son de tu web. Hacen falta las <key>cinco estanterías</key>",
-    "lede": "Editorial, social, owned, multimedia y contenido autoritario. La propia es la que menos pesa, y es justo la única que la mayoría trabaja.",
-    "nota": "Proporción ilustrativa. El reparto real de fuentes citadas se mide por categoría y pende de dato real.",
-    "items": ["Editorial", "Social", "Owned", "Multimedia", "Autoritario"]
-  },
-  "ciclo": {
-    "titular": "Medimos, publicamos y volvemos a <key>medir</key>",
-    "lede": "Publicar cambia lo que leen los modelos, así que la siguiente medición sale distinta. La diferencia entre un ciclo y el siguiente es el resultado: no hace falta creerse nada.",
-    "pasos": [
-      { "chip": "Medimos", "texto": "Cómo estás hoy en las respuestas de tu categoría, y de qué fuentes salen." },
-      { "chip": "Diseñamos", "texto": "Qué fuentes están dando las citas a tus competidores y qué tipo de contenido cita la IA. De ahí sale el plan editorial: tu web y los publishers." },
-      { "chip": "Creamos", "texto": "Publicamos ese contenido con nuestra red de publishers y en tus canales. Y volvemos a medir." }
-    ]
-  },
-  "paid": {
-    "titular": "Mientras la presencia orgánica se construye, la complementamos con <key>paid media en ChatGPT</key>",
-    "lede": "La misma simulación que mide tu visibilidad dice cuándo vas a ser una respuesta relevante. Sobre eso se activa.",
+  "productos": {
+    "titular": "En una conversación con la IA, tu marca puede estar en <key>dos sitios</key>",
+    "lede": "En la respuesta que el modelo redacta y en el anuncio que la acompaña. Son dos productos porque funcionan distinto: la primera se construye con contenido, el segundo se activa con inversión.",
+    "ver": "Ver el producto",
     "items": [
-      { "nombre": "De keywords a hints", "desc": "Las simulaciones nos dicen dónde vas a ser relevante para tu consumidor, más allá de las keywords clásicas." },
-      { "nombre": "Mensajes creativos", "desc": "Distintos mensajes para distintas necesidades: el anuncio responde a lo que el consumidor tiene delante." },
-      { "nombre": "Mejora continua", "desc": "Durante la campaña vemos qué mensajes funcionan mejor y movemos el peso hacia ellos." }
+      {
+        "tag": "Respuesta orgánica",
+        "titulo": "Posicionamiento en IA",
+        "desc": "Medimos cómo aparece tu marca en las respuestas de los modelos, entendemos de qué fuentes salen y publicamos el contenido que la IA cita.",
+        "canales": [
+          "Todos los modelos de IA"
+        ]
+      },
+      {
+        "tag": "Paid media",
+        "titulo": "Publicidad en IA",
+        "desc": "Anuncios dentro de la conversación. La misma simulación que mide tu visibilidad dice en qué preguntas vas a ser una respuesta relevante, y sobre eso se activa.",
+        "canales": [
+          "ChatGPT"
+        ]
+      }
     ]
-  },
-  "cierre": {
-    "titular": "Pide un análisis de tu <key>visibilidad en IA</key>",
-    "lede": "Te enseñamos cuánto apareces hoy en las respuestas de tu categoría, frente a quién y por qué factores.",
-    "cta": "Pedir el análisis"
   }
 }

@@ -19,13 +19,20 @@
       "tag": "Canales Digitales",
       "titulo": "Navegación Activa en Canales Digitales",
       "desc": "Campañas en web, YouTube y tus redes sociales, colocadas sobre las fuentes que tu consumidor consulta mientras compara.",
-      "canales": ["Web", "YouTube", "Redes sociales"]
+      "canales": [
+        "Web",
+        "YouTube",
+        "Redes sociales"
+      ]
     },
     {
       "tag": "Entornos Conversacionales",
       "titulo": "Navegación Activa en Entornos Conversacionales",
       "desc": "Paid media en ChatGPT y presencia orgánica en todos los modelos de IA. Vera entiende cómo se posiciona tu marca en los modelos conversacionales y mejora las fuentes que el modelo utiliza.",
-      "canales": ["Respuesta orgánica", "Publicidad en ChatGPT"]
+      "canales": [
+        "Posicionamiento en IA",
+        "Publicidad en IA"
+      ]
     }
   ],
   "cierre": {

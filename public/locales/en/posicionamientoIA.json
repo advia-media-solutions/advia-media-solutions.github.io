@@ -1,0 +1,311 @@
+{
+  "seo": {
+    "title": "AI Positioning — get the models to cite your brand | Advia",
+    "description": "We measure how your brand shows up in the models' answers, understand where they get them from and create the content the AI cites."
+  },
+  "hero": {
+    "eyebrow": "Conversational Environments · AI Positioning",
+    "titular": "We work on the sources the AI reads so that your brand is <key>the answer</key>",
+    "lede": "The AI answers with what it reads. We know which sources it leans on in your category, which ones you don't control, where to publish and how to write so that it cites you."
+  },
+  "fuentes": {
+    "titular": "Where does the AI get what it says about <key>your brand</key>?",
+    "lede": "From what you write, and from many sources you don't control. The effort usually goes to the part that can be edited: your own website and what you publish. We work on both. We get the sources the AI leans on to talk about you, and we tell you how your own content has to be written for it to be cited.",
+    "propio": {
+      "nombre": "What you write",
+      "desc": "Your website, your channels",
+      "rotulo": "Where the effort goes"
+    },
+    "otros": {
+      "nombre": "What others write",
+      "desc": "Media, comparison sites, social, forums…"
+    },
+    "nota": "Illustrative proportion. The actual split is measured per category and is the first thing you see in your analysis."
+  },
+  "medir": {
+    "titular": "We measure to know <key>what to move</key>",
+    "lede": "An analysis of the real conversations in your category. It is the starting point of the plan, and the baseline everything that follows is measured against."
+  },
+  "medidas": [
+    {
+      "nombre": "Share of Answer",
+      "pregunta": "In how many answers in your category do you appear?",
+      "desc": "We count how many answers the AI mentions you in, and in what position."
+    },
+    {
+      "nombre": "Sentiment",
+      "pregunta": "What does it say about you when it mentions you?",
+      "desc": "By decision factor: price, range, service. What the AI believes about your brand is not always what you tell."
+    },
+    {
+      "nombre": "Cited sources",
+      "pregunta": "Where does it get the answer from?",
+      "desc": "The domains and URLs the model consults to answer: the ones you write and the ones you don't control. That is where the work happens next."
+    },
+    {
+      "nombre": "Benchmark",
+      "pregunta": "Against whom, and heading where?",
+      "desc": "The same measures for your competitors, and how they move from one measurement to the next."
+    }
+  ],
+  "plataforma": {
+    "titular": "The measurement yields a plan: <key>where to publish</key> and <key>how to write</key>",
+    "lede": "Our platform reads the models' answers in your category, locates the sources they lean on, yours and the ones you don't control, and turns each gap into a piece with its outlet, its topic and its writing brief.",
+    "mercado": "Electric vehicles · Spain",
+    "navegacion": "Platform screens",
+    "pp": "pp",
+    "escenas": [
+      {
+        "tab": "Where you stand",
+        "titulo": "Answer <key>analysis</key>"
+      },
+      {
+        "tab": "Where it comes from",
+        "titulo": "Citation <key>watch</key>"
+      },
+      {
+        "tab": "The plan",
+        "titulo": "Media <key>plan</key>"
+      },
+      {
+        "tab": "The brief",
+        "titulo": "Editorial <key>brief</key>"
+      },
+      {
+        "tab": "What moves",
+        "titulo": "Evolution over <key>time</key>"
+      }
+    ],
+    "respuestas": {
+      "pestanas": [
+        "Visibility",
+        "Positioning",
+        "Factors",
+        "Prompts",
+        "Profiles"
+      ],
+      "soa": "Share of Answer",
+      "ranking": "Share of Answer ranking",
+      "meta": "Aggregated across 3 engines · answers with mentions",
+      "cols": [
+        "#",
+        "Brand",
+        "Share of Answer"
+      ],
+      "cuotas": "Share comparison",
+      "cuotasCols": [
+        "Brand",
+        "Share of Answer",
+        "Share of Mention",
+        "Mentions / answer"
+      ],
+      "promptsTitulo": "Prompts where BYD appears",
+      "promptsMeta": "{{prompts}} prompts · {{respuestas}} answers across engines",
+      "promptsCols": [
+        "Prompt",
+        "Brand mentions",
+        "Position",
+        "Competitors"
+      ],
+      "prompts": [
+        "I'm looking for an affordable electric car for family city use and I'm very concerned about crash safety. Which current models have the highest safety rating?",
+        "I'm looking for a versatile electric car for everyday family life and I'm very concerned about long-term reliability. Which models offer the most complete warranty?",
+        "I want to buy an electric car for my family, but I worry about having workshops nearby with high-voltage technicians. Which brands have the best service network?",
+        "I'm looking for a cheap electric car to get around the city that won't give me nasty surprises at the workshop. Which models have the lowest maintenance costs?",
+        "I want to buy an electric car for the city and make the most of tax incentives, but I worry about resale value. Which brands hold it best?",
+        "I'm looking for a family electric car for the city that is very reliable in the long run. Which models have the longest-lasting batteries?",
+        "I'm looking for an electric car for professional use with great battery durability, prioritising a cell chemistry that doesn't degrade quickly. Which current models deliver that?",
+        "I want to swap my car for an electric one for the city, but I worry about long-term reliability and technical service. Which brands have the best reputation?"
+      ],
+      "tarjeta": "Answer analysis"
+    },
+    "citas": {
+      "tipos": "Citations by source type",
+      "dominios": "Top domains",
+      "cobertura": "Coverage",
+      "tarjeta": "Cited sources",
+      "categorias": [
+        "Official brand",
+        "Media",
+        "Comparison site",
+        "Social media",
+        "E-commerce",
+        "Institutional",
+        "Forum and others"
+      ],
+      "pestanas": [
+        "Summary",
+        "Brand position",
+        "Cited URLs"
+      ],
+      "meta": "{{urls}} grounded URLs · {{dominios}} domains · {{citas}} citations",
+      "total": "citations",
+      "filtro": "Category",
+      "todas": "All",
+      "urls": "URLs"
+    },
+    "plan": {
+      "miga": "Media plans",
+      "nombre": "BYD Media Plan Q4",
+      "ambito": "BYD · Electric vehicles",
+      "nota": "Internal. The client receives it as an Excel download.",
+      "acciones": [
+        "Edit plan",
+        "Download Excel"
+      ],
+      "anadir": "Add publication",
+      "datos": [
+        {
+          "rotulo": "Period",
+          "valor": "Oct – Dec 2026",
+          "pie": "fourth quarter"
+        },
+        {
+          "rotulo": "Publications",
+          "valor": "9",
+          "pie": "rows below"
+        },
+        {
+          "rotulo": "Published",
+          "valor": "0 / 9",
+          "pie": "status = published"
+        }
+      ],
+      "generar": "Generate the 9 missing briefs",
+      "columnas": [
+        "Outlet",
+        "Topic",
+        "Why?",
+        "Description"
+      ],
+      "ola": "October 2026 · 1st wave",
+      "estado": "Draft",
+      "intenciones": "intents",
+      "intencion": "intent",
+      "filas": [
+        {
+          "medio": "autohero.com",
+          "tema": "Real-world range",
+          "intenciones": [
+            "Electric cars with the longest range on the market",
+            "Real-world range of electric cars on motorways and roads"
+          ],
+          "porque": "People come to this outlet looking above all for which electric cars have the longest range and their real range on motorways and roads. The AI leans on it to talk about almost anything in the sector, and 25 out of every 100 times it does so to cover this topic. BYD does not appear when the AI compares brands here: it is the gap that weighs the most.",
+          "pieza": "Electric cars with the longest range: the real one on motorways and roads"
+        },
+        {
+          "medio": "carwow.es",
+          "tema": "Warranty coverage",
+          "intenciones": [
+            "Battery warranty in electric cars"
+          ],
+          "porque": "When the AI searches carwow.es to answer about warranties, BYD barely appears when options are compared and, when it does, it fares worse than the average of its competitors. It is a comparison site the AI leans on for a handful of specific topics, and this is the first.",
+          "pieza": "Battery warranty brand by brand: years, kilometres and what it covers"
+        },
+        {
+          "medio": "motor.es",
+          "tema": "Purchase price",
+          "intenciones": [
+            "Affordable electric cars for the city"
+          ],
+          "porque": "Almost half the times the AI turns to this outlet it is to talk about price. It is a topic BYD already leads: when the AI mentions brands it is well positioned, so now it is time to defend this ground.",
+          "pieza": "City EVs under €30,000: final price with incentives"
+        }
+      ]
+    },
+    "brief": {
+      "meta": "autohero.com · Real-world range · comparison",
+      "bloques": [
+        {
+          "rotulo": "Headline",
+          "tag": "H1",
+          "texto": "Electric cars with the longest range: the real one on motorways and roads",
+          "regla": "It contains the question it answers, in the vocabulary of the intent."
+        },
+        {
+          "rotulo": "Standfirst",
+          "tag": "2-3 sentences",
+          "hueco": "The short answer, whole, here",
+          "regla": "It answers on its own. If someone reads only this, they already have the answer."
+        },
+        {
+          "rotulo": "Section 1",
+          "tag": "H2",
+          "texto": "Real motorway range, model by model",
+          "tabla": [
+            "Model",
+            "Rated (km)",
+            "Real on motorway (km)"
+          ],
+          "regla": "The table is the most cited form in this market. Each row names its subject and each figure carries its unit."
+        }
+      ],
+      "reglasTitulo": "What works in this market",
+      "reglas": [
+        {
+          "texto": "Two or more brands within the same section",
+          "efecto": "very high effect"
+        },
+        {
+          "texto": "Lists and rankings",
+          "efecto": "very high effect"
+        },
+        {
+          "texto": "Three closed statements per section",
+          "efecto": "very high effect"
+        },
+        {
+          "texto": "Naming the model or brand inside the section",
+          "efecto": "high effect"
+        },
+        {
+          "texto": "Figures with their unit, inside the sentence",
+          "efecto": "slight effect"
+        }
+      ],
+      "reglasNota": "Measured on the sections in this market that ended up supporting an answer. It is a ranking by importance, not a guarantee."
+    },
+    "evolucion": {
+      "desde": "Change between the first measurement and the latest",
+      "ranking": "Ranking position",
+      "ganan": "Gaining",
+      "pierden": "Losing",
+      "fechas": [
+        "June",
+        "July",
+        "August",
+        "September"
+      ],
+      "motores": [
+        "All engines",
+        "Gemini",
+        "Google AI Overviews",
+        "ChatGPT"
+      ],
+      "som": "Share of Mention",
+      "intro": "How BYD moved on each measure across the measurements, and which brands moved the most on that same measure."
+    },
+    "pausar": "Pause",
+    "reproducir": "Play",
+    "cerrar": "Close",
+    "abrirBrief": "Open this publication's brief",
+    "notas": {
+      "visibilidad": "We measure in how many answers in your category you appear, what is said about you and against whom. That is the starting point.",
+      "prompts": "Every figure comes from real questions in your category, engine by engine: where the AI names you and where it doesn't.",
+      "citas": "We locate the sources the AI leans on to answer. Where a source carries weight and you are not in it, there is a gap.",
+      "plan": "We build a publishing strategy: in which outlet, on which topic, for which search intent and why.",
+      "brief": "We write the brief for each piece with the structure the AI needs.",
+      "evolucion": "We measure again. And we draw conclusions for the next iteration of the plan."
+    }
+  },
+  "hermano": {
+    "titular": "While organic presence is being built, we complement it with <key>AI Advertising</key>",
+    "lede": "The same simulation that measures your visibility tells when you will be a relevant answer. Paid media in ChatGPT is activated on that.",
+    "door": "See AI Advertising"
+  },
+  "cierre": {
+    "titular": "We show you where you stand today and <key>what to move</key> to change it",
+    "lede": "We measure your category's answers, against whom and on which factors, and propose the first pieces: outside and in your own content.",
+    "cta": "Let's talk"
+  }
+}

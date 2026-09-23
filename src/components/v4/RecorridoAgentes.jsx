@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import escenaMerecePena from "./escena";
 import { useTranslation } from "next-i18next/pages";
 import {
   AGENTES, ALTO, ANCHO, CUES, FONDOS, MEDIOS, R_BOLA, R_CUERPO, SUAVE,
@@ -68,7 +69,7 @@ function Agente({ agente, tiempo, T, z, opacidad, fondo }) {
   useEffect(() => {
     let vivo = true;
     const canvas = lienzo.current;
-    if (!canvas) return undefined;
+    if (!canvas || !escenaMerecePena(canvas)) return undefined;
 
     import("./EsferaFacetada")
       .then(({ default: crearEsfera }) => {

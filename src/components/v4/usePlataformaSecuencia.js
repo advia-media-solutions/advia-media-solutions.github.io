@@ -29,7 +29,10 @@ export default function usePlataformaSecuencia(pasos, raiz) {
   const relojes = useRef([]);
 
   useEffect(() => {
-    const medio = window.matchMedia("(prefers-reduced-motion: reduce)");
+    /* Sin secuencia con movimiento reducido y también en móvil: allí la
+       ventana no tiene sitio para el cursor ni para las notas, y lo que se
+       lee es la pantalla, navegable con las pestañas. */
+    const medio = window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 900px)");
     const leer = () => setQuieto(medio.matches);
     leer();
     medio.addEventListener("change", leer);

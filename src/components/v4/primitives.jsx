@@ -17,6 +17,24 @@ export function ArrowOutward() {
   );
 }
 
+/* Material Symbols Outlined · menu (24px, wght 400) */
+export function IconoMenu() {
+  return (
+    <svg className="v4-icon" viewBox="0 -960 960 960" aria-hidden="true">
+      <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+    </svg>
+  );
+}
+
+/* Material Symbols Outlined · close (24px, wght 400) */
+export function IconoCerrar() {
+  return (
+    <svg className="v4-icon" viewBox="0 -960 960 960" aria-hidden="true">
+      <path d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+    </svg>
+  );
+}
+
 /**
  * Palabra clave dorada. Solo sobre dato o mecanismo (Tono y Voz §8).
  *

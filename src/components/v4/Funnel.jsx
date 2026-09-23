@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import escenaMerecePena from "./escena";
 
 /**
  * El funnel de Paid Media: el embudo lo dibuja la escena, las etiquetas son
@@ -25,6 +26,7 @@ export default function Funnel({ segmentos }) {
     const ro = new ResizeObserver(medir);
     let io;
 
+    if (!escenaMerecePena(canvas)) return undefined;
     import("./FunnelEscena")
       .then(({ default: crearFunnel }) => {
         if (!vivo) return;

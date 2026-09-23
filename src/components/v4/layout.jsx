@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next/pages";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
-import { ArrowOutward, Label } from "./primitives";
+import { ArrowOutward, IconoCerrar, IconoMenu, Label } from "./primitives";
 
 /**
  * El campo 3D se carga aparte y solo en cliente: three.js no debe entrar en el
@@ -146,6 +146,29 @@ export function Nav({ activo, sobreOscuro }) {
   const { ruta } = useRutaIdioma();
   const [fijada, setFijada] = useState(false);
   const [oculta, setOculta] = useState(false);
+  const [abierto, setAbierto] = useState(false);
+  const botonMenu = useRef(null);
+
+  /* El panel de móvil se cierra solo al cambiar de página, con Escape, y
+     mientras está abierto la página de detrás no hace scroll. El foco vuelve
+     al botón que lo abrió, para que el teclado no se quede en el vacío. */
+  useEffect(() => {
+    setAbierto(false);
+  }, [ruta]);
+  useEffect(() => {
+    if (!abierto) return undefined;
+    const alTeclear = (e) => {
+      if (e.key === "Escape") setAbierto(false);
+    };
+    const anterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", alTeclear);
+    return () => {
+      document.body.style.overflow = anterior;
+      document.removeEventListener("keydown", alTeclear);
+      botonMenu.current?.focus();
+    };
+  }, [abierto]);
 
   /* Baja el scroll, se va; sube lo más mínimo, vuelve. Arriba del todo siempre
      está, y el foco por teclado la trae de vuelta aunque esté escondida. */
@@ -178,16 +201,17 @@ export function Nav({ activo, sobreOscuro }) {
   return (
     <nav
       className="v4-nav v4-surface"
-      data-surface={sobreOscuro && !fijada ? "graphite" : "page"}
-      data-theme={sobreOscuro && !fijada ? "dark" : undefined}
+      data-surface={(sobreOscuro && !fijada) || abierto ? "graphite" : "page"}
+      data-theme={(sobreOscuro && !fijada) || abierto ? "dark" : undefined}
       data-fijada={fijada ? "true" : undefined}
-      data-oculta={oculta ? "true" : undefined}
+      data-oculta={oculta && !abierto ? "true" : undefined}
+      data-abierto={abierto ? "true" : undefined}
       onFocus={() => setOculta(false)}
       aria-label={t("nav.principal")}
     >
       <div className="v4-nav__inner">
         <Link href="/" aria-label={t("nav.inicio")}>
-          <Logo variant={sobreOscuro && !fijada ? "light" : "dark"} />
+          <Logo variant={(sobreOscuro && !fijada) || abierto ? "light" : "dark"} />
         </Link>
         <div className="v4-nav__links">
           {NAV_ITEMS.map((item) => {
@@ -248,14 +272,91 @@ export function Nav({ activo, sobreOscuro }) {
             {t("nav.cta")}
           </Link>
         </div>
-        <div className="v4-nav__toggle">
-          <Idioma />
-          <Link href="/contact" className="v4-btn v4-btn--primary">
-            {t("nav.cta")}
-          </Link>
-        </div>
+        <button
+          type="button"
+          className="v4-nav__toggle"
+          ref={botonMenu}
+          aria-expanded={abierto}
+          aria-controls="v4-menu-movil"
+          onClick={() => setAbierto((v) => !v)}
+        >
+          <span>{abierto ? t("nav.cerrar") : t("nav.menu")}</span>
+          {abierto ? <IconoCerrar /> : <IconoMenu />}
+        </button>
       </div>
+      <MenuMovil abierto={abierto} activo={activo} ruta={ruta} />
     </nav>
+  );
+}
+
+/**
+ * El menú de móvil: un panel a pantalla completa sobre grafito, con la misma
+ * jerarquía que el nav de escritorio. Las entradas de primer nivel van en
+ * display; bajo Productos cuelgan las dos familias y, de la conversacional, sus
+ * dos productos. Abajo, el idioma y el único botón dorado. Está siempre en el
+ * DOM (oculto con `hidden`): lo que abre y cierra es el atributo, y así los
+ * enlaces existen para el rastreador aunque no haya JavaScript.
+ */
+function MenuMovil({ abierto, activo, ruta }) {
+  const { t } = useTranslation("common");
+  return (
+    <div
+      id="v4-menu-movil"
+      className="v4-menu"
+      hidden={!abierto}
+      aria-label={t("nav.principal")}
+    >
+      <ul className="v4-menu__lista">
+        {NAV_ITEMS.map((item) => (
+          <li key={item.href} className="v4-menu__item">
+            <Link
+              href={item.href}
+              className="v4-menu__link"
+              aria-current={item.id === activo ? "page" : undefined}
+            >
+              {t(item.label)}
+            </Link>
+            {item.hijos ? (
+              <ul className="v4-menu__familias">
+                {item.hijos.map((familia) => (
+                  <li key={familia.href}>
+                    <Link
+                      href={familia.href}
+                      className="v4-menu__familia"
+                      aria-current={ruta === familia.href ? "page" : undefined}
+                    >
+                      {t(familia.label)}
+                    </Link>
+                    {familia.hijos ? (
+                      <ul className="v4-menu__productos">
+                        {familia.hijos.map((producto) => (
+                          <li key={producto.href}>
+                            <Link
+                              href={producto.href}
+                              className="v4-menu__producto"
+                              aria-current={ruta === producto.href ? "page" : undefined}
+                            >
+                              {t(producto.label)}
+                              <ArrowOutward />
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+      <div className="v4-menu__pie">
+        <Idioma />
+        <Link href="/contact" className="v4-btn v4-btn--primary">
+          {t("nav.cta")}
+        </Link>
+      </div>
+    </div>
   );
 }
 

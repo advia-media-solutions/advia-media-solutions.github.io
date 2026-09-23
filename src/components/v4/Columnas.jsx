@@ -107,9 +107,6 @@ const PARADAS = [
   },
 ];
 
-/** Cómo se llama cada tipo de fuente cuando hay que nombrarlo con palabras: claves de `common`. */
-const ETIQUETA_TIPO = { [WEB]: "columnas.tipo.web", [VIDEO]: "columnas.tipo.video", [CHAT]: "columnas.tipo.chat" };
-
 const TARJETAS = 16;
 /* Cuántas tarjetas más siguen bajando al cerrar, antes de volver al principio:
    la cinta no termina, se va. */
@@ -425,12 +422,13 @@ export default function Columnas({ agentes }) {
           conclusión, que es en qué coinciden. Sin esto, en móvil se leerían
           cuatro preguntas y ninguna respuesta. */}
       <ul className="v4-columnas__resumen">
-        {PARADAS.map((p) => (
+        {PARADAS.map((p, i) => (
           <li className="v4-columnas__coincidencia" key={String(p.tarjeta[1])}>
-            <span className="v4-chip">{t(ETIQUETA_TIPO[p.tarjeta[0]])}</span>
-            <span className="v4-columnas__fuente">
-              {p.tarjeta[0] === CHAT ? p.tarjeta[1].join(" · ") : p.tarjeta[1]}
-            </span>
+            {/* La misma tarjeta que se enciende en las cintas, ya encendida:
+                lo que encuentran los agentes es un resultado, no un nombre. */}
+            <ol className="v4-columnas__muestra">
+              <Tarjeta tipo={p.tarjeta[0]} etiqueta={p.tarjeta[1]} brilla sitio={i} />
+            </ol>
             <span className="v4-columnas__cuantos">
               {t("columnas.cuantos", { n: p.columnas.length, total: agentes.length })}
             </span>

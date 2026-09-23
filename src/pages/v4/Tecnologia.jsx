@@ -44,6 +44,7 @@ export default function Tecnologia() {
         pasos={pasos}
         mapa={<T t={t} k="mapa" />}
         pie={t("pie")}
+        agentes={Object.values(t("agentes", { returnObjects: true }))}
       />
 
       {/* Corta a propósito: es una puerta, no una sección. Con el ritmo normal

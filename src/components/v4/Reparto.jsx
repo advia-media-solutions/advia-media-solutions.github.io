@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from "react";
+import escenaMerecePena from "./escena";
 import { AGENTES, R_BOLA, enMapa } from "./RecorridoAgentesEscena";
 
 /**
@@ -182,6 +183,7 @@ export default function Reparto({ cols, children }) {
 
     const radio = () => R_BOLA * escala;
 
+    if (!escenaMerecePena(canvas)) return undefined;
     import("./RepartoEscena")
       .then(({ default: crearReparto }) => {
         if (!vivo) return;

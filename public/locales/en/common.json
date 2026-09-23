@@ -16,7 +16,9 @@
     "publicidadDesc": "Ads inside the ChatGPT conversation.",
     "nosotros": "About us",
     "blog": "Blog",
-    "cta": "Let's talk"
+    "cta": "Let's talk",
+    "menu": "Menu",
+    "cerrar": "Close"
   },
   "idioma": {
     "rotulo": "Language",

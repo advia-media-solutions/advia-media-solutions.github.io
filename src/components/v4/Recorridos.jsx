@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import CargaGranos from "./CargaGranos";
 import RecorridoAgentes from "./RecorridoAgentes";
 import { CUES, HITOS, PASOS_T, TOTAL } from "./RecorridoAgentesEscena";
 import { Hero } from "./layout";
-import Logo from "./LogoHerramienta";
+import { EsferaGranos, MapaAgentes } from "./TecnologiaMovil";
 
 /**
  * Cuánto se alarga la franja gris por debajo de la construcción. La línea de
@@ -45,21 +46,6 @@ const COLA_FRANJA = 0.15;
 /** Lo que tarda la esfera en ir al paso que se acaba de pulsar. */
 const CLIC_MS = 520;
 const suave = (x) => x * x * (3 - 2 * x);
-
-/* De dónde sale cada grano antes de entrar en la esfera, en píxeles desde su
-   centro. Salen del lado del texto —el arco de la izquierda— y caen hacia
-   dentro. El radio es mayor que la propia esfera para que el chip se lea entero
-   antes de empezar a disolverse en ella, pero no tanto como para plantarse
-   encima de la columna. */
-const ARCO_DESDE = 125;
-const ARCO_HASTA = 235;
-const RADIO = 250;
-
-function origenDeGrano(k, total) {
-  const paso = total > 1 ? (ARCO_HASTA - ARCO_DESDE) / (total - 1) : 0;
-  const a = ((ARCO_DESDE + paso * k) * Math.PI) / 180;
-  return { dx: Math.cos(a) * RADIO, dy: -Math.sin(a) * RADIO };
-}
 
 /**
  * Qué está pasando, medido contra el centro de la ventana — que es donde de
@@ -141,7 +127,7 @@ function estadoDe(nodos) {
   return { T: puntos[puntos.length - 1].t, arrancado, activo, desplaza };
 }
 
-export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie }) {
+export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, agentes = [] }) {
   const bloque = useRef(null);
   const hitos = useRef([]);
   const construccion = useRef(null);
@@ -319,31 +305,11 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie }
               mientras se construye, porque lo que cuentan es el viaje. */}
           {pasos.map((paso, i) =>
             paso.chips ? (
-              <ul
+              <CargaGranos
                 key={`carga-${paso.num}`}
-                className="v4-recorridos__carga"
-                data-activo={alimentando && i === activo ? "true" : undefined}
-                aria-hidden="true"
-              >
-                {paso.chips.map((chip, k) => {
-                  const { dx, dy } = origenDeGrano(k, paso.chips.length);
-                  /* Un grano es un texto, o un texto con logotipo. */
-                  const texto = typeof chip === "string" ? chip : chip.texto;
-                  const logo = typeof chip === "string" ? null : chip.logo;
-                  return (
-                    <li
-                      key={texto}
-                      className="v4-recorridos__grano"
-                      style={{ "--v4-turno": k, "--v4-dx": `${dx}px`, "--v4-dy": `${dy}px` }}
-                    >
-                      <span className="v4-chip">
-                        {logo ? <Logo id={logo} /> : null}
-                        {texto}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
+                chips={paso.chips}
+                activo={alimentando && i === activo}
+              />
             ) : null
           )}
         </RecorridoAgentes>
@@ -351,26 +317,38 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie }
             así se queda arriba mientras el mapa se dibuja y se va exactamente
             cuando se va el mapa. Pegado en el flujo, su contenedor terminaba
             después que la escena y el titular se quedaba solo mientras las
-            esferas subían por debajo. */}
-        {mapa ? (
-          <h2
-            className="v4-recorridos__mapa-titulo v4-display-l"
-            data-visible={T >= CUES.Suelta ? "true" : undefined}
-          >
-            {mapa}
-          </h2>
-        ) : null}
-        {/* El pie del mapa, en la esquina que dejan libre los agentes: llega
-            cuando el mapa ya está entero, porque habla de coincidencias que
-            antes no han pasado. */}
-        {pie ? (
-          <p
-            className="v4-recorridos__pie v4-body"
-            data-visible={T >= CUES.Otros + 3 ? "true" : undefined}
-          >
-            {pie}
-          </p>
-        ) : null}
+            esferas subían por debajo.
+
+            El pie va en la esquina que dejan libre los agentes: llega cuando
+            el mapa ya está entero, porque habla de coincidencias que antes no
+            han pasado.
+
+            En móvil los dos van dentro de MapaAgentes, que es la escena
+            pegada de allí (en escritorio ese envoltorio no existe: display
+            contents). Mismo texto, mismo orden. */}
+        <MapaAgentes
+          roles={agentes}
+          titulo={
+            mapa ? (
+              <h2
+                className="v4-recorridos__mapa-titulo v4-display-l"
+                data-visible={T >= CUES.Suelta ? "true" : undefined}
+              >
+                {mapa}
+              </h2>
+            ) : null
+          }
+          pie={
+            pie ? (
+              <p
+                className="v4-recorridos__pie v4-body"
+                data-visible={T >= CUES.Otros + 3 ? "true" : undefined}
+              >
+                {pie}
+              </p>
+            ) : null
+          }
+        />
       </div>
 
       <Hero titular={titular} lede={lede} />
@@ -394,6 +372,10 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie }
               Lo que sube es cada tarjeta, empujada hacia abajo con `desplaza`
               hasta que su aire llega: el mismo efecto de llegar y quedarse, pero
               gobernado por el scroll y no por el pegado. */}
+          {/* En móvil, la esfera va pegada arriba y se alimenta del paso que se
+              lee (TecnologiaMovil.jsx). Hermana de la columna, no hija: se pega
+              dentro de la construcción, no de la columna. */}
+          <EsferaGranos pasos={pasos} />
           <div className="v4-recorridos__columna">
             <div className="v4-recorridos__cabecera">
               <h2 className="v4-subheading">{cabecera}</h2>

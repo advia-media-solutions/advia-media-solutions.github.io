@@ -313,7 +313,14 @@
 
 /* DS §3.3: dos cortes. En tablet las pestañas pasan arriba, en fila. */
 @media (max-width: 900px) {
-  .v4-plat__ventana { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 640px; }
+  /* Sin alto fijo ni corte: en móvil no hay secuencia (ver el hook) y cada
+     pantalla se lee entera, en una columna. */
+  .v4-plat__ventana { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
+  .v4-plat__escena {
+    padding-bottom: var(--space-6);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
   .v4-plat__nav {
     flex-direction: row;
     overflow-x: auto;
@@ -321,7 +328,7 @@
     border-bottom: 1px solid var(--v4-line);
   }
   .v4-plat__tab { flex: none; white-space: nowrap; }
-  .v4-plat__escena { padding: var(--space-5) var(--space-5) 0; }
+  .v4-plat__escena { padding: var(--space-5) var(--space-5) var(--space-6); }
   .v4-plat-resp,
   .v4-plat-citas,
   .v4-plat-brief,

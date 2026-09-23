@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import escenaMerecePena from "./escena";
 import * as THREE from "three";
 
 /**
@@ -70,7 +71,7 @@ function leerColor(nombre, respaldo) {
 }
 
 function haySoporte() {
-  if (typeof window === "undefined") return false;
+  if (!escenaMerecePena()) return false;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
   try {
     const lienzo = document.createElement("canvas");

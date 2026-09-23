@@ -111,8 +111,8 @@ const CookieConsent = () => {
   );
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg mx-4 w-full max-w-3xl">
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-3xl max-h-full overflow-y-auto">
         {!showDetails ? (
           <div className="p-6">
             <div className="flex flex-col gap-4">
@@ -139,18 +139,18 @@ const CookieConsent = () => {
                 </p>
               </div>
 
-              <div className="flex justify-center gap-3 mt-4">
+              <div className="flex flex-col sm:flex-row justify-center gap-3 mt-4">
                 <Button
                   onClick={handleRejectAll}
                   variant="secondary"
-                  className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-16 py-3 rounded"
+                  className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-8 py-3 rounded"
                 >
                   {t("cookies.rechazar")}
                 </Button>
                 <Button
                   onClick={handleAcceptAll}
                   variant="primary"
-                  className="bg-blue-600 hover:bg-blue-700 text-black px-16 py-3 rounded"
+                  className="bg-blue-600 hover:bg-blue-700 text-black px-8 py-3 rounded"
                 >
                   {t("cookies.aceptar")}
                 </Button>

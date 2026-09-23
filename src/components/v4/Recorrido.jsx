@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import escenaMerecePena from "./escena";
+import RecorridoMovil from "./movil/RecorridoMovil";
 
 /**
  * El recorrido de una decisión: la esfera suelta sus bolas y cada una se queda
@@ -85,7 +87,7 @@ export default function Recorrido({ paradas, nota }) {
     if (!CON_ESCENA) return undefined;
     let vivo = true;
     const canvas = lienzo.current;
-    if (!canvas) return undefined;
+    if (!canvas || !escenaMerecePena(canvas)) return undefined;
 
     import("./EsferaFacetada")
       .then(({ default: crearEsfera }) => {
@@ -196,6 +198,11 @@ export default function Recorrido({ paradas, nota }) {
             y para eso los dos tienen que compartir caja. */}
         {nota ? <div className="v4-recorrido__nota">{nota}</div> : null}
 
+        {/* Bajo el corte no hay escena WebGL (escena.js): el recorrido se
+            cuenta en RecorridoMovil, pegado y gobernado por el scroll. El CSS
+            lo esconde en escritorio y esconde aquí la lista de paradas. */}
+        <RecorridoMovil paradas={paradas} />
+
         <ol className="v4-recorrido__paradas">
           {paradas.map((parada, i) => {
             const sitio = sitios[i];
@@ -208,9 +215,10 @@ export default function Recorrido({ paradas, nota }) {
                 /* La pose la fija el perfil, no el turno: ver POSES. */
                 data-pose={POSES[i % POSES.length]}
                 data-puesta={sitio && sitio.puesta ? "true" : undefined}
-                style={
-                  sitio ? { "--v4-x": `${sitio.x}px`, "--v4-y": `${sitio.y}px` } : undefined
-                }
+                style={{
+                  "--v4-turno": i,
+                  ...(sitio ? { "--v4-x": `${sitio.x}px`, "--v4-y": `${sitio.y}px` } : null),
+                }}
               >
                 <div className="v4-parada__ficha">
                   <span className={`v4-chip ${MEDIOS[parada.chip] || ""}`.trim()}>

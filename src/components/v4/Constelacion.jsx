@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import escenaMerecePena from "./escena";
 
 /**
  * Así buscan todas: decenas de recorridos distintos que entran por donde sea,
@@ -23,7 +24,7 @@ export default function Constelacion() {
   useEffect(() => {
     let vivo = true;
     const canvas = lienzo.current;
-    if (!canvas) return undefined;
+    if (!canvas || !escenaMerecePena(canvas)) return undefined;
 
     import("./ConstelacionEscena")
       .then(({ default: crearConstelacion }) => {

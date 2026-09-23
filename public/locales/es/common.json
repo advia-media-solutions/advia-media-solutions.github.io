@@ -16,7 +16,9 @@
     "publicidadDesc": "Anuncios en la conversación de ChatGPT.",
     "nosotros": "Nosotros",
     "blog": "Blog",
-    "cta": "Hablemos"
+    "cta": "Hablemos",
+    "menu": "Menú",
+    "cerrar": "Cerrar"
   },
   "idioma": {
     "rotulo": "Idioma",

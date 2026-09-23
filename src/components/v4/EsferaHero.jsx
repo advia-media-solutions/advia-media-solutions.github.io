@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import escenaMerecePena from "./escena";
 
 /**
  * La esfera del hero.
@@ -21,7 +22,7 @@ export default function EsferaHero() {
   useEffect(() => {
     let vivo = true;
     const canvas = lienzo.current;
-    if (!canvas) return undefined;
+    if (!canvas || !escenaMerecePena(canvas)) return undefined;
 
     import("./EsferaFacetada")
       .then(({ default: crearEsfera }) => {
@@ -54,8 +55,22 @@ export default function EsferaHero() {
   }, []);
 
   return (
-    <div className="v4-hero__pieza" aria-hidden="true">
-      <canvas ref={lienzo} />
-    </div>
+    <>
+      <div className="v4-hero__pieza" aria-hidden="true">
+        <canvas ref={lienzo} />
+      </div>
+      {/* En móvil la escena no se monta (ver escena.js) y en su lugar va la
+          misma esfera, quieta: un fotograma del render de escritorio en WebP,
+          que pesa lo que un icono. El hero es una columna flex y el CSS la
+          ordena detrás del texto; en escritorio no existe. */}
+      <img
+        className="v4-hero__esfera-fija"
+        src="/img/esfera-hero.webp"
+        alt=""
+        width="510"
+        height="400"
+        decoding="async"
+      />
+    </>
   );
 }

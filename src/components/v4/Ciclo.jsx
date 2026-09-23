@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import escenaMerecePena from "./escena";
 import { useTranslation } from "next-i18next/pages";
 
 /**
@@ -92,18 +93,22 @@ export default function Ciclo({ pasos }) {
       cancelAnimationFrame(cuadro);
     };
 
-    import("./CicloEscena")
-      .then(({ default: crearCiclo }) => {
-        if (!vivo) return;
-        motor.current = crearCiclo(canvas, { paradas: total, lado: LADO });
-        nodo.dataset.listo = "true";
-        /* Un cuadro de entrada, esté girando o no: sin él, hasta que el
-           observador dispare el lienzo está vacío. */
-        pintar(vueltaDe(acumulado, total));
-      })
-      .catch(() => {
-        /* Sin WebGL queda la lista, que es el contenido. */
-      });
+    /* Sin sitio para el dibujo (móvil), la lista sigue encendiéndose por
+       turnos, que es el contenido; three.js no se descarga. */
+    if (escenaMerecePena(canvas)) {
+      import("./CicloEscena")
+        .then(({ default: crearCiclo }) => {
+          if (!vivo) return;
+          motor.current = crearCiclo(canvas, { paradas: total, lado: LADO });
+          nodo.dataset.listo = "true";
+          /* Un cuadro de entrada, esté girando o no: sin él, hasta que el
+             observador dispare el lienzo está vacío. */
+          pintar(vueltaDe(acumulado, total));
+        })
+        .catch(() => {
+          /* Sin WebGL queda la lista, que es el contenido. */
+        });
+    }
 
     const io = new IntersectionObserver(
       (entradas) => {

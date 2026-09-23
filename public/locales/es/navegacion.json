@@ -20,11 +20,26 @@
   "recorrido": {
     "lede": "Para encontrar esa respuesta, los consumidores se hacen preguntas que les llevan a consultar diferentes canales de información. Nuestro trabajo es que estés presente en todos ellos.",
     "paradas": [
-      { "chip": "ChatGPT", "texto": "«¿cuáles son los mejores SUV híbridos?»" },
-      { "chip": "Web", "texto": "«prestaciones Kia Sportage vs Hyundai Tucson»" },
-      { "chip": "YouTube", "texto": "«vídeo review de Kia Sportage»" },
-      { "chip": "Web", "texto": "«coches chinos SUV»" },
-      { "chip": "YouTube", "texto": "«Omoda vs MG vs BYD»" }
+      {
+        "chip": "ChatGPT",
+        "texto": "«¿cuáles son los mejores SUV híbridos?»"
+      },
+      {
+        "chip": "Web",
+        "texto": "«prestaciones Kia Sportage vs Hyundai Tucson»"
+      },
+      {
+        "chip": "YouTube",
+        "texto": "«vídeo review de Kia Sportage»"
+      },
+      {
+        "chip": "Web",
+        "texto": "«coches chinos SUV»"
+      },
+      {
+        "chip": "YouTube",
+        "texto": "«Omoda vs MG vs BYD»"
+      }
     ],
     "notaMeta": "Una sola persona, cinco paradas.",
     "nota": "<strong>Mujer de 35 años</strong> quiere cambiar a un coche más eficiente.",

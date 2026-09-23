@@ -38,6 +38,12 @@
   transform: none;
   will-change: auto;
 }
+/* Primera pantalla (lo marca _document.jsx antes de pintar): sin fundido, para
+   que el LCP cuente desde el primer pintado y no desde el final de la entrada. */
+.v4-js .v4-reveal[data-inicial] > * {
+  opacity: 1;
+  transition-property: transform;
+}
 .v4-js .v4-reveal > *:nth-child(2) { --v4-retardo: calc(var(--v4-escalon) * 1); }
 .v4-js .v4-reveal > *:nth-child(3) { --v4-retardo: calc(var(--v4-escalon) * 2); }
 .v4-js .v4-reveal > *:nth-child(4) { --v4-retardo: calc(var(--v4-escalon) * 3); }
@@ -161,6 +167,12 @@
   transition: width 1100ms var(--ease-emphasis);
 }
 .v4-js [data-visible="true"] .v4-barra__valor { width: var(--v4-ancho); }
+/* La barra de fuentes se llena de izquierda a derecha, tramo a tramo. */
+.v4-js .v4-fuentes__tramo { width: 0; transition: width 700ms var(--ease-emphasis); }
+.v4-js [data-visible="true"] .v4-fuentes__tramo { width: var(--v4-ancho); }
+.v4-js [data-visible="true"] .v4-fuentes__tramo:nth-child(2) { transition-delay: 250ms; }
+.v4-js [data-visible="true"] .v4-fuentes__tramo:nth-child(3) { transition-delay: 350ms; }
+.v4-js [data-visible="true"] .v4-fuentes__tramo:nth-child(4) { transition-delay: 450ms; }
 .v4-js [data-visible="true"] .v4-dato:nth-child(2) .v4-barra__valor { transition-delay: 80ms; }
 .v4-js [data-visible="true"] .v4-dato:nth-child(3) .v4-barra__valor { transition-delay: 160ms; }
 .v4-js [data-visible="true"] .v4-dato:nth-child(4) .v4-barra__valor { transition-delay: 240ms; }
@@ -178,19 +190,28 @@
                       color var(--motion-base) var(--ease-standard),
                       border-color var(--motion-base) var(--ease-standard),
                       transform var(--motion-fast) var(--ease-standard); }
-.v4-btn:hover { transform: translateY(-1px); }
-.v4-btn:active { transform: none; }
+/* El hover que se mueve, solo con ratón: en táctil no hay hover, y el que
+   emula el navegador se queda pegado tras el toque con el botón levantado. */
+@media (hover: hover) {
+  .v4-btn:hover { transform: translateY(-1px); }
+}
+/* Al pulsar, el botón cede: la respuesta llega con el dedo, no al soltar. */
+.v4-btn:active { transform: scale(0.97); transition-duration: var(--motion-fast); }
 
 /* La flecha de la puerta se despega en diagonal: sugiere el salto de página. */
 .v4-door .v4-icon { transition: transform var(--motion-base) var(--ease-emphasis); }
-.v4-door:hover .v4-icon { transform: translate(3px, -3px); }
+@media (hover: hover) {
+  .v4-door:hover .v4-icon { transform: translate(3px, -3px); }
+}
 
 .v4-fila { transition: background var(--motion-base) var(--ease-standard); }
 .v4-fila:hover { background: var(--v4-chip); }
 
 .v4-card { transition: border-color var(--motion-base) var(--ease-standard),
                        transform var(--motion-base) var(--ease-standard); }
-.v4-card[data-size="lg"]:hover { transform: translateY(-2px); }
+@media (hover: hover) {
+  .v4-card[data-size="lg"]:hover { transform: translateY(-2px); }
+}
 
 .v4-pregunta { transition: border-color var(--motion-base) var(--ease-standard),
                            color var(--motion-base) var(--ease-standard); }
@@ -212,6 +233,7 @@
   .v4-secuencia__hilo { transform: scaleX(1) !important; transition: none !important; }
   .v4-paso__hilo { transform: scaleY(1) !important; transition: none !important; }
   .v4-barra__valor { width: var(--v4-ancho) !important; transition: none !important; }
+  .v4-fuentes__tramo { width: var(--v4-ancho) !important; transition: none !important; }
   .v4-columna__barra { height: var(--v4-alto) !important; transition: none !important; }
-  .v4-btn:hover, .v4-card[data-size="lg"]:hover { transform: none; }
+  .v4-btn:hover, .v4-btn:active, .v4-card[data-size="lg"]:hover { transform: none; }
 }

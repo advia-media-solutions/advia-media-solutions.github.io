@@ -13,8 +13,7 @@
     "lede": "From what you write, and from many sources you don't control. The effort usually goes to the part that can be edited: your own website and what you publish. We work on both. We get the sources the AI leans on to talk about you, and we tell you how your own content has to be written for it to be cited.",
     "propio": {
       "nombre": "What you write",
-      "desc": "Your website, your channels",
-      "rotulo": "Where the effort goes"
+      "desc": "Your website, your channels"
     },
     "otros": {
       "nombre": "What others write",
@@ -33,7 +32,7 @@
       "desc": "We count how many answers the AI mentions you in, and in what position."
     },
     {
-      "nombre": "Sentiment",
+      "nombre": "Perception",
       "pregunta": "What does it say about you when it mentions you?",
       "desc": "By decision factor: price, range, service. What the AI believes about your brand is not always what you tell."
     },
@@ -49,253 +48,142 @@
     }
   ],
   "plataforma": {
-    "titular": "The measurement yields a plan: <key>where to publish</key> and <key>how to write</key>",
-    "lede": "Our platform reads the models' answers in your category, locates the sources they lean on, yours and the ones you don't control, and turns each gap into a piece with its outlet, its topic and its writing brief.",
-    "mercado": "Electric vehicles · Spain",
-    "navegacion": "Platform screens",
-    "pp": "pp",
-    "escenas": [
+    "titular": "The measurement yields a plan: <key>where to publish</key> and <key>how to write</key>. We carry out that plan so you don't have to",
+    "lede": "Our platform reads the models' answers in your category, locates the sources they lean on. With that analysis we build a media plan that we help you carry out through our editorial network of national and international outlets.",
+    "pausar": "Pause",
+    "reproducir": "Resume",
+    "aviso": "Conceptual simulation · illustrative data",
+    "pasosAria": "Process steps",
+    "pasos": [
       {
-        "tab": "Where you stand",
-        "titulo": "Answer <key>analysis</key>"
+        "titulo": "We simulate",
+        "desc": "Synthetic agents ask ChatGPT the way your customer would."
       },
       {
-        "tab": "Where it comes from",
-        "titulo": "Citation <key>watch</key>"
+        "titulo": "We scan",
+        "desc": "We detect which brands appear next to yours and in what position."
       },
       {
-        "tab": "The plan",
-        "titulo": "Media <key>plan</key>"
+        "titulo": "We extract",
+        "desc": "We collect the sources the model relies on to answer."
       },
       {
-        "tab": "The brief",
-        "titulo": "Editorial <key>brief</key>"
+        "titulo": "We prioritise",
+        "desc": "We score how relevant each source is."
       },
       {
-        "tab": "What moves",
-        "titulo": "Evolution over <key>time</key>"
+        "titulo": "We plan",
+        "desc": "We turn that relevance into an article plan."
+      },
+      {
+        "titulo": "We distribute",
+        "desc": "We publish across a network of publishers."
+      },
+      {
+        "titulo": "We measure again",
+        "desc": "We rerun the simulation and compare."
       }
     ],
-    "respuestas": {
-      "pestanas": [
-        "Visibility",
-        "Positioning",
-        "Factors",
-        "Prompts",
-        "Profiles"
-      ],
-      "soa": "Share of Answer",
-      "ranking": "Share of Answer ranking",
-      "meta": "Aggregated across 3 engines · answers with mentions",
-      "cols": [
-        "#",
-        "Brand",
-        "Share of Answer"
-      ],
-      "cuotas": "Share comparison",
-      "cuotasCols": [
-        "Brand",
-        "Share of Answer",
-        "Share of Mention",
-        "Mentions / answer"
-      ],
-      "promptsTitulo": "Prompts where BYD appears",
-      "promptsMeta": "{{prompts}} prompts · {{respuestas}} answers across engines",
-      "promptsCols": [
-        "Prompt",
-        "Brand mentions",
-        "Position",
-        "Competitors"
-      ],
-      "prompts": [
-        "I'm looking for an affordable electric car for family city use and I'm very concerned about crash safety. Which current models have the highest safety rating?",
-        "I'm looking for a versatile electric car for everyday family life and I'm very concerned about long-term reliability. Which models offer the most complete warranty?",
-        "I want to buy an electric car for my family, but I worry about having workshops nearby with high-voltage technicians. Which brands have the best service network?",
-        "I'm looking for a cheap electric car to get around the city that won't give me nasty surprises at the workshop. Which models have the lowest maintenance costs?",
-        "I want to buy an electric car for the city and make the most of tax incentives, but I worry about resale value. Which brands hold it best?",
-        "I'm looking for a family electric car for the city that is very reliable in the long run. Which models have the longest-lasting batteries?",
-        "I'm looking for an electric car for professional use with great battery durability, prioritising a cell chemistry that doesn't degrade quickly. Which current models deliver that?",
-        "I want to swap my car for an electric one for the city, but I worry about long-term reliability and technical service. Which brands have the best reputation?"
-      ],
-      "tarjeta": "Answer analysis"
+    "chat": {
+      "agente": "AGT-0142 · Family · Valencia",
+      "prompt": "Which family electric car would you recommend for under €40,000?",
+      "respuesta": "On that budget, the most recommended options are <m>Tesla</m>, <m>Hyundai</m> and <o>BYD</o><c>1</c>. <m>Tesla</m> leads on range and charging network<c>2</c>, while <o>BYD</o> stands out for standard equipment at a good price<c>3</c>. If boot space is your priority, <m>Volkswagen</m> is another common choice<c>4</c>.",
+      "estados": {
+        "preguntando": "Asking",
+        "respondiendo": "Answering",
+        "escaneando": "Scanning brands",
+        "extrayendo": "Extracting sources"
+      }
     },
-    "citas": {
-      "tipos": "Citations by source type",
-      "dominios": "Top domains",
-      "cobertura": "Coverage",
-      "tarjeta": "Cited sources",
-      "categorias": [
-        "Official brand",
-        "Media",
-        "Comparison site",
-        "Social media",
-        "E-commerce",
-        "Institutional",
-        "Forum and others"
-      ],
-      "pestanas": [
-        "Summary",
-        "Brand position",
-        "Cited URLs"
-      ],
-      "meta": "{{urls}} grounded URLs · {{dominios}} domains · {{citas}} citations",
-      "total": "citations",
-      "filtro": "Category",
-      "todas": "All",
-      "urls": "URLs"
-    },
-    "plan": {
-      "miga": "Media plans",
-      "nombre": "BYD Media Plan Q4",
-      "ambito": "BYD · Electric vehicles",
-      "nota": "Internal. The client receives it as an Excel download.",
-      "acciones": [
-        "Edit plan",
-        "Download Excel"
-      ],
-      "anadir": "Add publication",
-      "datos": [
+    "agentes": {
+      "rotulo": "Agents in parallel",
+      "enCurso": "Running",
+      "conversaciones": "Simulated conversations",
+      "lista": [
         {
-          "rotulo": "Period",
-          "valor": "Oct – Dec 2026",
-          "pie": "fourth quarter"
+          "id": "AGT-0142",
+          "perfil": "Family · Valencia",
+          "pregunta": "Family electric car for under €40,000"
         },
         {
-          "rotulo": "Publications",
-          "valor": "9",
-          "pie": "rows below"
+          "id": "AGT-0387",
+          "perfil": "Freelancer · Seville",
+          "pregunta": "Is an EV worth it without a private garage?"
         },
         {
-          "rotulo": "Published",
-          "valor": "0 / 9",
-          "pie": "status = published"
-        }
-      ],
-      "generar": "Generate the 9 missing briefs",
-      "columnas": [
-        "Outlet",
-        "Topic",
-        "Why?",
-        "Description"
-      ],
-      "ola": "October 2026 · 1st wave",
-      "estado": "Draft",
-      "intenciones": "intents",
-      "intencion": "intent",
-      "filas": [
-        {
-          "medio": "autohero.com",
-          "tema": "Real-world range",
-          "intenciones": [
-            "Electric cars with the longest range on the market",
-            "Real-world range of electric cars on motorways and roads"
-          ],
-          "porque": "People come to this outlet looking above all for which electric cars have the longest range and their real range on motorways and roads. The AI leans on it to talk about almost anything in the sector, and 25 out of every 100 times it does so to cover this topic. BYD does not appear when the AI compares brands here: it is the gap that weighs the most.",
-          "pieza": "Electric cars with the longest range: the real one on motorways and roads"
+          "id": "AGT-0911",
+          "perfil": "Retiree · Bilbao",
+          "pregunta": "Small EV with good range"
         },
         {
-          "medio": "carwow.es",
-          "tema": "Warranty coverage",
-          "intenciones": [
-            "Battery warranty in electric cars"
-          ],
-          "porque": "When the AI searches carwow.es to answer about warranties, BYD barely appears when options are compared and, when it does, it fares worse than the average of its competitors. It is a comparison site the AI leans on for a handful of specific topics, and this is the first.",
-          "pieza": "Battery warranty brand by brand: years, kilometres and what it covers"
-        },
-        {
-          "medio": "motor.es",
-          "tema": "Purchase price",
-          "intenciones": [
-            "Affordable electric cars for the city"
-          ],
-          "porque": "Almost half the times the AI turns to this outlet it is to talk about price. It is a topic BYD already leads: when the AI mentions brands it is well positioned, so now it is time to defend this ground.",
-          "pieza": "City EVs under €30,000: final price with incentives"
+          "id": "AGT-1203",
+          "perfil": "Student · Madrid",
+          "pregunta": "Reliable second-hand EV"
         }
       ]
     },
-    "brief": {
-      "meta": "autohero.com · Real-world range · comparison",
-      "bloques": [
-        {
-          "rotulo": "Headline",
-          "tag": "H1",
-          "texto": "Electric cars with the longest range: the real one on motorways and roads",
-          "regla": "It contains the question it answers, in the vocabulary of the intent."
-        },
-        {
-          "rotulo": "Standfirst",
-          "tag": "2-3 sentences",
-          "hueco": "The short answer, whole, here",
-          "regla": "It answers on its own. If someone reads only this, they already have the answer."
-        },
-        {
-          "rotulo": "Section 1",
-          "tag": "H2",
-          "texto": "Real motorway range, model by model",
-          "tabla": [
-            "Model",
-            "Rated (km)",
-            "Real on motorway (km)"
-          ],
-          "regla": "The table is the most cited form in this market. Each row names its subject and each figure carries its unit."
-        }
-      ],
-      "reglasTitulo": "What works in this market",
-      "reglas": [
-        {
-          "texto": "Two or more brands within the same section",
-          "efecto": "very high effect"
-        },
-        {
-          "texto": "Lists and rankings",
-          "efecto": "very high effect"
-        },
-        {
-          "texto": "Three closed statements per section",
-          "efecto": "very high effect"
-        },
-        {
-          "texto": "Naming the model or brand inside the section",
-          "efecto": "high effect"
-        },
-        {
-          "texto": "Figures with their unit, inside the sentence",
-          "efecto": "slight effect"
-        }
-      ],
-      "reglasNota": "Measured on the sections in this market that ended up supporting an answer. It is a ranking by importance, not a guarantee."
+    "menciones": {
+      "rotulo": "Mentions in {{n}} answers"
     },
-    "evolucion": {
-      "desde": "Change between the first measurement and the latest",
-      "ranking": "Ranking position",
-      "ganan": "Gaining",
-      "pierden": "Losing",
-      "fechas": [
-        "June",
-        "July",
-        "August",
-        "September"
-      ],
-      "motores": [
-        "All engines",
-        "Gemini",
-        "Google AI Overviews",
-        "ChatGPT"
-      ],
-      "som": "Share of Mention",
-      "intro": "How BYD moved on each measure across the measurements, and which brands moved the most on that same measure."
+    "fuentes": {
+      "rotulo": "Cited sources"
     },
-    "pausar": "Pause",
-    "reproducir": "Play",
-    "cerrar": "Close",
-    "abrirBrief": "Open this publication's brief",
-    "notas": {
-      "visibilidad": "We measure in how many answers in your category you appear, what is said about you and against whom. That is the starting point.",
-      "prompts": "Every figure comes from real questions in your category, engine by engine: where the AI names you and where it doesn't.",
-      "citas": "We locate the sources the AI leans on to answer. Where a source carries weight and you are not in it, there is a gap.",
-      "plan": "We build a publishing strategy: in which outlet, on which topic, for which search intent and why.",
-      "brief": "We write the brief for each piece with the structure the AI needs.",
-      "evolucion": "We measure again. And we draw conclusions for the next iteration of the plan."
+    "relevancia": {
+      "rotulo": "Source relevance",
+      "titulo": "Which sources weigh on the <key>answer</key>",
+      "sub": "Citation frequency, topic and position in each answer.",
+      "prioritaria": "Priority",
+      "tipos": [
+        "Comparison",
+        "Review",
+        "Forum",
+        "Video",
+        "Guide",
+        "Encyclopedia"
+      ]
+    },
+    "plan": {
+      "rotulo": "Media plan",
+      "titulo": "Articles written for the sources that <key>count</key>",
+      "respondeA": "Answers",
+      "articulos": [
+        {
+          "tipo": "Comparison",
+          "titulo": "Family electric SUVs: what each brand offers for under €40,000"
+        },
+        {
+          "tipo": "Review",
+          "titulo": "A week with a BYD in the city: consumption, charging and boot"
+        },
+        {
+          "tipo": "Guide",
+          "titulo": "Real versus rated range: how to read the figures"
+        },
+        {
+          "tipo": "Analysis",
+          "titulo": "Standard equipment in EVs: what you don't pay extra for"
+        }
+      ]
+    },
+    "calendario": {
+      "rotulo": "Distribution",
+      "titulo": "Calendar across the <key>publisher</key> network",
+      "semana": "Wk {{n}}",
+      "publicaciones": "{{n}}/{{total}} placements",
+      "publishers": [
+        "Motoring outlet",
+        "National daily",
+        "Tech magazine",
+        "Savings portal",
+        "Family blog",
+        "Regional outlet"
+      ]
+    },
+    "medicion": {
+      "rotulo": "New measurement",
+      "titulo": "Same questions, new <key>position</key>",
+      "sub": "We rerun the {{n}} conversations after activation.",
+      "resumen": "BYD moves <key>from 4th to 2nd place</key>"
     }
   },
   "hermano": {
@@ -305,7 +193,7 @@
   },
   "cierre": {
     "titular": "We show you where you stand today and <key>what to move</key> to change it",
-    "lede": "We measure your category's answers, against whom and on which factors, and propose the first pieces: outside and in your own content.",
+    "lede": "We measure your category's answers, against whom and on which factors, and propose the pieces you are missing to improve your AI positioning.",
     "cta": "Let's talk"
   }
 }

@@ -10,8 +10,8 @@ import { Filas } from "../../components/v4/blocks";
 /**
  * Nosotros · el why completo, y quién lo sostiene.
  *
- * La home abre la puerta con una frase; aquí se cuenta entero: de dónde viene
- * la incomodidad, el giro de lado, y el equipo que lo lleva. Todo lo que hay
+ * La home abre la puerta con una frase; aquí se cuenta entero:
+ * el giro de lado, la tesis y el equipo que lo lleva. Todo lo que hay
  * es real y sale de Advia OS (Advia 101): áreas, fundadores y valores. Lo que
  * no está documentado no está aquí.
  *
@@ -60,7 +60,7 @@ function Valores({ items }) {
 export default function Nosotros() {
   const { t } = useTranslation("nosotros");
 
-  /* La narrativa fundacional, en cuatro tiempos. Es el guion con el que el
+  /* La narrativa fundacional, en tres tiempos. Es el guion con el que el
      equipo abre una primera reunión, así que el orden no es libre. */
   const historia = t("historia", { returnObjects: true }).map((h, i) => ({
     ...h,
@@ -88,7 +88,7 @@ export default function Nosotros() {
           <Filas items={historia} />
         </div>
         <div className="v4-mt-10">
-          <Door href="/navegacion-activa">{t("porque.door")}</Door>
+          <Door href="/active-navigation">{t("porque.door")}</Door>
         </div>
       </Section>
 

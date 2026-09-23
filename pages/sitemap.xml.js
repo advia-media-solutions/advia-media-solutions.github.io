@@ -17,13 +17,13 @@ const IDIOMAS = ["es", "en"];
 
 const FIJAS = [
   { path: "/", prioridad: "1.0" },
-  { path: "/navegacion-activa", prioridad: "0.9" },
+  { path: "/active-navigation", prioridad: "0.9" },
   { path: "/technology", prioridad: "0.9" },
   { path: "/products", prioridad: "0.9" },
   { path: "/products/paid-media", prioridad: "0.8" },
   { path: "/products/geo", prioridad: "0.8" },
-  { path: "/products/geo/posicionamiento-ia", prioridad: "0.8" },
-  { path: "/products/geo/publicidad-ia", prioridad: "0.8" },
+  { path: "/products/geo/ai-positioning", prioridad: "0.8" },
+  { path: "/products/geo/ai-advertising", prioridad: "0.8" },
   { path: "/about", prioridad: "0.7" },
   { path: "/contact", prioridad: "0.6" },
   { path: "/blog", prioridad: "0.7" },
@@ -42,7 +42,7 @@ function escapar(texto) {
 function entradaBilingue({ path, prioridad }) {
   const alternates = [
     ...IDIOMAS.map((i) => `<xhtml:link rel="alternate" hreflang="${i}" href="${urlDe(path, i)}"/>`),
-    `<xhtml:link rel="alternate" hreflang="x-default" href="${urlDe(path, "es")}"/>`,
+    `<xhtml:link rel="alternate" hreflang="x-default" href="${urlDe(path, "en")}"/>`,
   ].join("");
   return IDIOMAS.map(
     (i) =>

@@ -157,8 +157,9 @@ export default function Reparto({ cols, children }) {
     };
 
     /* El avance sale de dónde está la banda: el mapa se ve entero primero, y
-       las bolas empiezan a irse cuando la banda ha subido hasta el tercio alto
-       de la ventana. */
+       las bolas empiezan a irse en cuanto la banda pasa de la mitad de la
+       ventana. La caída se reparte en casi una pantalla de scroll: si empieza
+       tarde y dura poco, las bolas se amontonan en el último tirón. */
     let pedido = 0;
     const avanzar = () => {
       pedido = 0;
@@ -170,7 +171,7 @@ export default function Reparto({ cols, children }) {
       }
       const r = caja.getBoundingClientRect();
       const alto = window.innerHeight;
-      m.avance((alto * 0.12 - r.top) / (alto * 0.5));
+      m.avance((alto * 0.5 - r.top) / (alto * 0.85));
     };
     const alScroll = () => {
       if (!pedido) pedido = requestAnimationFrame(avanzar);

@@ -1,6 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
+  /* Solo lo que llega a alguna ruta: src/ aún guarda la web antigua sin usar y,
+     si se escanea entera, mete en el CSS global ~50 KB de utilidades muertas. */
+  content: [
+    "./pages/**/*.{js,jsx}",
+    "./src/components/v4/**/*.{js,jsx}",
+    "./src/pages/v4/**/*.{js,jsx}",
+    "./src/components/CookieConsent.jsx",
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -88,5 +95,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [],
 };

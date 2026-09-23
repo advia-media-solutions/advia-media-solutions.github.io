@@ -13,11 +13,16 @@ import { useEffect, useRef } from "react";
  *
  * No hay estado de React por frame: `alAvanzar` recibe el número y pinta con
  * refs. Con movimiento reducido se entrega 1 una sola vez.
+ *
+ * `antes` (fracción de pantalla, 0 por defecto) adelanta el arranque: el
+ * progreso empieza a contar cuando el borde superior del contenedor está a
+ * esa altura, antes de pegarse. Sirve para que la escena ya se mueva
+ * mientras entra y no se llegue a un cuadro quieto y vacío.
  */
 export default function useProgresoPegado(
   contenedor,
   alAvanzar,
-  { solo } = {},
+  { solo, antes = 0 } = {},
 ) {
   const ultimo = useRef(-1);
   useEffect(() => {
@@ -32,9 +37,12 @@ export default function useProgresoPegado(
     const medir = () => {
       pedido = 0;
       const r = el.getBoundingClientRect();
-      const recorrido = r.height - window.innerHeight;
+      const adelanto = antes * window.innerHeight;
+      const recorrido = r.height - window.innerHeight + adelanto;
       const p =
-        recorrido <= 0 ? 1 : Math.min(1, Math.max(0, -r.top / recorrido));
+        recorrido <= 0
+          ? 1
+          : Math.min(1, Math.max(0, (adelanto - r.top) / recorrido));
       if (Math.abs(p - ultimo.current) < 0.0015) return;
       ultimo.current = p;
       alAvanzar(p);
@@ -50,7 +58,7 @@ export default function useProgresoPegado(
       window.removeEventListener("scroll", pedir);
       window.removeEventListener("resize", pedir);
     };
-  }, [contenedor, alAvanzar, solo]);
+  }, [contenedor, alAvanzar, solo, antes]);
 }
 
 /** Tramo de un progreso: 0 antes de `a`, 1 después de `b`, lineal entre. */

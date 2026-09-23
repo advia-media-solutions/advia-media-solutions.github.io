@@ -9,26 +9,36 @@ import React, { useEffect, useRef, useState } from "react";
  * significado de la frase, igual que las claves del resto del sitio.
  *
  * Con prefers-reduced-motion se queda en la primera: la frase funciona igual.
+ * Sin él, da dos vueltas y se para también en la primera: el argumento ya está
+ * dicho, y un titular que no deja de moverse no deja leer lo de al lado.
  */
 
 const POR_PALABRA = 2200;
+const VUELTAS = 2;
 
 export default function PalabraRotativa({ palabras }) {
   const [i, setI] = useState(0);
   const caja = useRef(null);
+  const cambios = useRef(0);
 
   useEffect(() => {
     const nodo = caja.current;
     if (!nodo) return undefined;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
+    const total = palabras.length * VUELTAS;
     let reloj;
+    const avanzar = () => {
+      cambios.current += 1;
+      setI(cambios.current % palabras.length);
+      if (cambios.current >= total) clearInterval(reloj);
+    };
     /* Solo gira mientras se ve: fuera de pantalla no hay nadie a quien contárselo. */
     const io = new IntersectionObserver(
       (entradas) => {
         clearInterval(reloj);
-        if (entradas.some((e) => e.isIntersecting)) {
-          reloj = setInterval(() => setI((n) => (n + 1) % palabras.length), POR_PALABRA);
+        if (cambios.current < total && entradas.some((e) => e.isIntersecting)) {
+          reloj = setInterval(avanzar, POR_PALABRA);
         }
       },
       { threshold: 0.4 }

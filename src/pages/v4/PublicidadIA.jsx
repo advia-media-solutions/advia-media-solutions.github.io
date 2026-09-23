@@ -22,7 +22,7 @@ export default function PublicidadIA() {
   return (
     <Pagina activo="productos">
       <Seo
-        path="/products/geo/publicidad-ia"
+        path="/products/geo/ai-advertising"
         title={t("seo.title")}
         description={t("seo.description")}
       />
@@ -52,7 +52,7 @@ export default function PublicidadIA() {
       <Section>
         <Cabecera titular={<T t={t} k="hermano.titular" />} lede={t("hermano.lede")} />
         <div className="v4-mt-8">
-          <Door href="/products/geo/posicionamiento-ia">{t("hermano.door")}</Door>
+          <Door href="/products/geo/ai-positioning">{t("hermano.door")}</Door>
         </div>
       </Section>
 

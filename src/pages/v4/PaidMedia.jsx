@@ -2,9 +2,8 @@ import React from "react";
 import { useTranslation } from "next-i18next/pages";
 import Seo from "../../components/v4/Seo";
 import T from "../../components/v4/T";
-import { Cabecera, Cierre, Grid, Hero, Pagina, Section } from "../../components/v4/layout";
-import { Boton, Cita, Hueco } from "../../components/v4/primitives";
-import { TarjetaKpi } from "../../components/v4/blocks";
+import { Cabecera, Cierre, Hero, Pagina, Section } from "../../components/v4/layout";
+import { Boton } from "../../components/v4/primitives";
 import Canales from "../../components/v4/Canales";
 
 /**
@@ -13,8 +12,8 @@ import Canales from "../../components/v4/Canales";
  * El hilo de la página es una sola pregunta en tres pasos. El hero promete:
  * Vera sabe dónde vas a ser relevante. La primera sección dice dónde es eso
  * —las paradas del recorrido son artículos y vídeos, y ahí se compra— con el
- * móvil enseñando cada canal. La segunda dice qué sale de comprar ahí: las
- * métricas que medimos. El cierre ofrece verlo antes de activar.
+ * móvil enseñando cada canal. El cierre dice qué sale de comprar ahí, con
+ * un resultado de campaña, y ofrece verlo antes de activar.
  *
  * El copy vive en public/locales/{es,en}/paidMedia.json.
  */
@@ -34,11 +33,6 @@ export default function PaidMedia() {
      un titular y una línea por punto. */
   const canales = t("canales", { returnObjects: true }).map((c, i) => ({ ...c, ...MAQUETAS[i] }));
 
-  /* El set de KPIs con el que se mide una campaña de Navegación Activa. Las
-     cifras van en hueco hasta que haya dato verificado de campañas activadas:
-     un número de ejemplo rompe Preciso (Tono y Voz §0.1). */
-  const kpis = t("kpis", { returnObjects: true });
-
   return (
     <Pagina activo="productos">
       <Seo path="/products/paid-media" title={t("seo.title")} description={t("seo.description")} />
@@ -56,23 +50,6 @@ export default function PaidMedia() {
       <Section surface="graphite">
         <Cabecera titular={<T t={t} k="donde.titular" />} lede={t("donde.lede")} />
         <Canales canales={canales} />
-      </Section>
-
-      {/* Qué sale: las métricas con las que medimos. */}
-      <Section surface="inset">
-        <Cabecera titular={<T t={t} k="atento.titular" />} lede={t("atento.lede")} />
-        <Grid cols={4} className="v4-mt-12">
-          {kpis.map((k) => (
-            <TarjetaKpi key={k.label} label={k.label} valor={<Hueco />} desc={k.desc} />
-          ))}
-        </Grid>
-        <p className="v4-label v4-label--faint v4-mt-6">{t("atento.nota")}</p>
-
-        <div className="v4-mt-12">
-          <Cita fuente={t("atento.citaFuente")}>
-            <T t={t} k="atento.cita" />
-          </Cita>
-        </div>
       </Section>
 
       <Cierre

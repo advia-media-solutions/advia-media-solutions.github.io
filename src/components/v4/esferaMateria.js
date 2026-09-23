@@ -13,7 +13,7 @@ THREE.ColorManagement.enabled = false;
 /**
  * El cristal dorado: el material del que están hechas todas las esferas de la
  * web. Vivía dentro de crearEsfera, y salió de ahí cuando la constelación de
- * /navegacion-activa necesitó las mismas bolas sin necesitar el motor entero
+ * /active-navigation necesitó las mismas bolas sin necesitar el motor entero
  * —campos escalares, morphing, recorrido—. Duplicar 90 líneas de GLSL habría
  * garantizado que las dos piezas se separasen a la primera corrección de color.
  *

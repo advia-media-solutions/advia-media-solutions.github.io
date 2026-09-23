@@ -147,6 +147,9 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
   /* Si la esfera está sobre la franja gris: es lo que le dice al motor contra
      qué color fundir sus bordes. */
   const [sobreGris, setSobreGris] = useState(false);
+  /* Dónde está, en la ventana, el borde en que la franja gris deja paso al
+     marfil del mapa. El titular del mapa va enganchado a él. */
+  const [borde, setBorde] = useState(0);
   /* El paso que se está leyendo: el bloque que ocupa el centro de la ventana. */
   const [leyendo, setLeyendo] = useState(0);
   /* El paso que ha fijado un clic, o null si manda el scroll. Va en ref además
@@ -169,7 +172,9 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
     if (caja) {
       const r = caja.getBoundingClientRect();
       const centro = window.innerHeight / 2;
-      setSobreGris(r.top <= centro && r.bottom + window.innerHeight * COLA_FRANJA >= centro);
+      const fin = r.bottom + window.innerHeight * COLA_FRANJA;
+      setSobreGris(r.top <= centro && fin >= centro);
+      setBorde(Math.max(0, fin));
     }
     if (fijado.current != null) return;
     setT(t);
@@ -333,6 +338,7 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
               <h2
                 className="v4-recorridos__mapa-titulo v4-display-l"
                 data-visible={T >= CUES.Suelta ? "true" : undefined}
+                style={{ "--v4-sube": `${borde}px` }}
               >
                 {mapa}
               </h2>
@@ -372,9 +378,12 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
               Lo que sube es cada tarjeta, empujada hacia abajo con `desplaza`
               hasta que su aire llega: el mismo efecto de llegar y quedarse, pero
               gobernado por el scroll y no por el pegado. */}
-          {/* En móvil, la esfera va pegada arriba y se alimenta del paso que se
-              lee (TecnologiaMovil.jsx). Hermana de la columna, no hija: se pega
-              dentro de la construcción, no de la columna. */}
+          {/* El escenario: en escritorio no existe (display contents) y la
+              columna sigue pegándose a la construcción. En móvil es UNA
+              pantalla pegada con la esfera arriba y los pasos apilándose
+              debajo (TecnologiaMovil.jsx), así que esfera y pila se sueltan
+              juntas cuando la construcción termina. */}
+          <div className="v4-recorridos__escenario">
           <EsferaGranos pasos={pasos} />
           <div className="v4-recorridos__columna">
             <div className="v4-recorridos__cabecera">
@@ -412,22 +421,27 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
                 );
               })}
           </div>
+          </div>
 
           {/* Los aires: uno por paso, y son sus hitos. Cada uno es el scroll
               que tarda ese paso en subir hasta su sitio, y su centro es el
               instante en que llega. El remate final es lo que mantiene la
-              sección completa un rato antes de irse. */}
-          {conIndice
-            .filter((h) => h.paso != null)
-            .map((hito) => (
-              <div
-                key={`aire-${hito.paso}`}
-                className="v4-recorridos__aire"
-                aria-hidden="true"
-                ref={(el) => { hitos.current[hito.i] = el; }}
-              />
-            ))}
-          <div className="v4-recorridos__remate" aria-hidden="true" />
+              sección completa un rato antes de irse. En escritorio van en la
+              misma celda que la columna, no debajo: así el primer paso sube
+              detrás del título en vez de dejarlo solo sobre la franja vacía. */}
+          <div className="v4-recorridos__aires">
+            {conIndice
+              .filter((h) => h.paso != null)
+              .map((hito) => (
+                <div
+                  key={`aire-${hito.paso}`}
+                  className="v4-recorridos__aire"
+                  aria-hidden="true"
+                  ref={(el) => { hitos.current[hito.i] = el; }}
+                />
+              ))}
+            <div className="v4-recorridos__remate" aria-hidden="true" />
+          </div>
         </div>
 
         {/* El mapa: solo los hitos, el aire que necesita para dibujarse, y su

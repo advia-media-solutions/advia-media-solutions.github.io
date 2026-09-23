@@ -10,15 +10,15 @@
   },
   "donde": {
     "titular": "That “where” is <key>specific</key> articles and videos",
-    "lede": "Vera simulates your consumer's decision journey and extracts the sources they consult at each stop. The campaign is activated on that list: not on an audience, but on the exact places where they are searching."
+    "lede": "Vera simulates your consumer's decision journey, letting us understand where you will be relevant: web articles, YouTube videos, social media posts. That is where we position you, where the consumer arrives looking for answers."
   },
   "canales": [
     {
       "nombre": "Web",
       "puntos": [
         { "titulo": "The most frequent stop in the journey", "texto": "There are thousands of articles answering every question in a decision. It is the channel that brings the volume." },
-        { "titulo": "The media AI gets its information from", "texto": "When ChatGPT or Gemini answer, they consult media outlets. We identify which ones and buy on them." },
-        { "titulo": "Display and native, depending on the goal", "texto": "Video for awareness, rich media for attention, native for qualified traffic. From the lower end of awareness to the upper end of performance." }
+        { "titulo": "The media AI gets its information from", "texto": "When ChatGPT or Gemini answer, they consult media outlets. We position you during the research in these new channels." },
+        { "titulo": "Video, display and native, depending on the goal", "texto": "Video for awareness, rich media for attention, native for qualified traffic. From the lower end of awareness to the upper end of performance." }
       ]
     },
     {
@@ -31,22 +31,9 @@
     },
     { "nombre": "Social media" }
   ],
-  "atento": {
-    "titular": "Whoever searches to decide pays more <key>attention</key>",
-    "lede": "They read the whole article, watch the video to the end and come back, and that shows in the metrics.",
-    "nota": "Aggregate figures from activated campaigns. Pending verified data.",
-    "citaFuente": "From Advia's pitch",
-    "cita": "“Pure awareness video informs; Active Navigation <key>convinces</key>.”"
-  },
-  "kpis": [
-    { "label": "Viewability", "desc": "vs. market benchmark" },
-    { "label": "VTR", "desc": "video completed, vs. benchmark" },
-    { "label": "CTR", "desc": "vs. market benchmark" },
-    { "label": "Qualified visits", "desc": "viewport +10 s, internal click or scroll +50%, agreed with you beforehand" }
-  ],
   "cierre": {
-    "titular": "Pre-campaign: we show you where you can answer <key>before activating</key>",
-    "lede": "You send us the brief and within 24-48 hours you have the specific articles and videos in your target's journey, with the forecast per KPI.",
+    "titular": "We <key>halved</key> the cost per qualified visit for an automotive advertiser",
+    "lede": "Find out what we can do for you.",
     "cta": "Request a pre-campaign analysis"
   }
 }

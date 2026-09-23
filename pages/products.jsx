@@ -10,6 +10,6 @@ export default function ProductsPage() {
 // porque estas páginas traen su propia nav oscura y su propio footer.
 ProductsPage.v4 = true;
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   return { props: { ...(await traducciones(locale, "productos")) } };
 }

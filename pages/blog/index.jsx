@@ -11,8 +11,11 @@ export default function BlogIndexPage(props) {
 // porque estas páginas traen su propia nav oscura y su propio footer.
 BlogIndexPage.v4 = true;
 
-/* Los artículos se resuelven aquí: el HTML servido ya lleva la lista. */
-export async function getServerSideProps({ locale }) {
+/* Los artículos se resuelven aquí: el HTML servido ya lleva la lista. Si el CMS
+   falla, la página sale con su aviso pero con 503, para que Google no indexe un
+   blog vacío. */
+export async function getServerSideProps({ locale, res }) {
   const [comunes, lista] = await Promise.all([traducciones(locale, "blog"), articulosPortada()]);
+  if (lista.error) res.statusCode = 503;
   return { props: { ...comunes, ...lista } };
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { traducciones } from "../../../src/i18n/servidor";
+import { blogApiService } from "../../../src/services/blogApi";
 import BlogArticulo from "../../../src/pages/v4/blog/BlogArticulo";
 
 export default function BlogArticlePage(props) {
@@ -8,41 +9,22 @@ export default function BlogArticlePage(props) {
 
 BlogArticlePage.v4 = true;
 
-export async function getServerSideProps(context) {
-  const { slug } = context.params;
-  const comunes = await traducciones(context.locale, "blog");
+/**
+ * Si el artículo no existe, 404. Si el CMS falla, se pinta el aviso pero con
+ * 503: con un 200 Google indexaría la página de error en lugar del artículo
+ * (soft-404); con un 503 vuelve más tarde y conserva lo que ya tenía.
+ */
+export async function getServerSideProps({ params, locale, res }) {
+  const comunes = await traducciones(locale, "blog");
 
   try {
-    const response = await fetch(
-      `https://cms.advia.tech/api/articles?filters[slug][$eq]=${slug}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
-    );
-
-    if (!response.ok) {
-      throw new Error(`Error fetching article: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const article = data.data.length > 0 ? data.data[0] : null;
-
-    if (!article) {
-      return {
-        notFound: true,
-      };
-    }
-
-    return {
-      props: {
-        ...comunes,
-        articulo: article,
-      },
-    };
+    const articulo = await blogApiService.getArticleBySlug(params.slug);
+    if (!articulo) return { notFound: true };
+    return { props: { ...comunes, articulo } };
   } catch (error) {
     console.error("Error fetching article:", error);
-    return {
-      props: {
-        ...comunes,
-        error: error.message,
-      },
-    };
+    res.statusCode = 503;
+    res.setHeader("Retry-After", "600");
+    return { props: { ...comunes, error: error.message } };
   }
 }

@@ -7,10 +7,10 @@
     "videoDescripcion": "Alguien buscando en el móvil",
     "videoPie": "El momento de la búsqueda",
     "titular": "La Navegación Activa ocurre en todos los canales donde tu consumidor <key>busca</key>",
-    "lede": "Cada canal funciona distinto."
+    "lede": "Cada canal funciona de distinta manera, y los consumidores tienen distintas expectativas."
   },
   "todos": {
-    "titular": "Y te posicionamos en <key>todos</key>",
+    "titular": "Te posicionamos en <key>todos</key> ellos para convertirte en la respuesta",
     "pronto": "Próximamente",
     "ver": "Ver el producto"
   },
@@ -37,7 +37,7 @@
   ],
   "cierre": {
     "titular": "Capitaliza la Navegación Activa en <key>todos los canales</key>",
-    "lede": "Nos cuentas el objetivo, simulamos el recorrido de tu consumidor y te enseñamos dónde puedes responderle.",
+    "lede": "Nos cuentas el objetivo, simulamos el recorrido de tu consumidor y te enseñamos dónde puedes convertirte en la respuesta que necesita.",
     "cta": "Entender mi Navegación Activa"
   }
 }

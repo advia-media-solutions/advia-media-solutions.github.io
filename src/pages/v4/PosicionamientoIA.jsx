@@ -4,7 +4,7 @@ import Seo from "../../components/v4/Seo";
 import T from "../../components/v4/T";
 import { Cabecera, Cierre, Grid, Hero, Pagina, Section } from "../../components/v4/layout";
 import { Boton, Door, Label } from "../../components/v4/primitives";
-import Plataforma from "../../components/v4/Plataforma";
+import ComoFunciona from "../../components/v4/ComoFunciona";
 
 /**
  * Productos › Entornos Conversacionales › Posicionamiento en IA · la respuesta
@@ -23,13 +23,14 @@ import Plataforma from "../../components/v4/Plataforma";
  * El copy vive en public/locales/{es,en}/posicionamientoIA.json.
  */
 
-/* Las dos barras de la sección de fuentes: lo que escribes tú y lo que
-   escriben otros. Proporciones ilustrativas hasta que haya dato por categoría;
-   lo que cuenta es la diferencia, no la cifra. */
-const FUENTES = [
-  { clave: "propio", ancho: 28 },
-  { clave: "otros", ancho: 100 },
-];
+/* La barra de la sección de fuentes, en % del total: lo que escribes tú y, a
+   continuación, lo que escriben otros, partido en tramos sin nombre —medios,
+   comparadores, redes, foros…— para que se lea como muchas fuentes y no como
+   una. Entre las dos partes, un corte más ancho que entre los grises. Proporciones ilustrativas hasta que haya dato por categoría; lo que
+   cuenta es la diferencia, no la cifra. */
+const PROPIO = 22;
+const OTROS = [36, 26, 16];
+const ancho = (n) => ({ "--v4-ancho": `${n}%` });
 
 export default function PosicionamientoIA() {
   const { t } = useTranslation("posicionamientoIA");
@@ -39,7 +40,7 @@ export default function PosicionamientoIA() {
   return (
     <Pagina activo="productos">
       <Seo
-        path="/products/geo/posicionamiento-ia"
+        path="/products/geo/ai-positioning"
         title={t("seo.title")}
         description={t("seo.description")}
       />
@@ -53,30 +54,26 @@ export default function PosicionamientoIA() {
       />
 
       {/* De dónde salen las respuestas. La partición que sostiene la página:
-          dos barras, y la del cliente es la corta y la que se lleva el esfuerzo. */}
+          una barra, y el tramo del cliente es el corto y el que se lleva el
+          esfuerzo. */}
       <Section surface="inset">
         <Cabecera titular={<T t={t} k="fuentes.titular" />} lede={t("fuentes.lede")} />
         <div className="v4-mt-12 v4-fuentes">
-          {FUENTES.map((f) => (
-            <div key={f.clave} className="v4-dato">
-              <div className="v4-dato__head">
-                <span className="v4-body v4-strong">{t(`fuentes.${f.clave}.nombre`)}</span>
-                <span className="v4-label">{t(`fuentes.${f.clave}.desc`)}</span>
+          <div className="v4-fuentes__cabeza">
+            {["propio", "otros"].map((clave) => (
+              <div key={clave} className="v4-fuentes__lado">
+                <span className="v4-body v4-strong">{t(`fuentes.${clave}.nombre`)}</span>
+                <span className="v4-label">{t(`fuentes.${clave}.desc`)}</span>
               </div>
-              <div className="v4-barra">
-                <span className="v4-barra__pista">
-                  <span
-                    className="v4-barra__valor"
-                    data-neutra={f.clave === "otros" ? "true" : undefined}
-                    style={{ width: `${f.ancho}%` }}
-                  />
-                </span>
-              </div>
-              {f.clave === "propio" ? (
-                <span className="v4-label v4-label--gold">{t("fuentes.propio.rotulo")}</span>
-              ) : null}
-            </div>
-          ))}
+            ))}
+          </div>
+          {/* Decorativa: lo que dice ya lo dicen los rótulos de arriba. */}
+          <div className="v4-fuentes__barra" aria-hidden="true">
+            <span className="v4-fuentes__tramo" data-propio="true" style={ancho(PROPIO)} />
+            {OTROS.map((n, i) => (
+              <span key={i} className="v4-fuentes__tramo" data-tono={i} style={ancho(n)} />
+            ))}
+          </div>
         </div>
         <p className="v4-label v4-label--faint v4-mt-8">{t("fuentes.nota")}</p>
       </Section>
@@ -101,14 +98,14 @@ export default function PosicionamientoIA() {
           propia plataforma. */}
       <Section surface="inset">
         <Cabecera titular={<T t={t} k="plataforma.titular" />} lede={t("plataforma.lede")} />
-        <Plataforma t={t} />
+        <ComoFunciona t={t} />
       </Section>
 
       {/* El producto hermano, una sola vez y como complemento. */}
       <Section>
         <Cabecera titular={<T t={t} k="hermano.titular" />} lede={t("hermano.lede")} />
         <div className="v4-mt-8">
-          <Door href="/products/geo/publicidad-ia">{t("hermano.door")}</Door>
+          <Door href="/products/geo/ai-advertising">{t("hermano.door")}</Door>
         </div>
       </Section>
 

@@ -12,7 +12,7 @@ import escenaMerecePena from "./escena";
  * bolas se iban desprendiendo y clavando a lo largo de toda la página. Se
  * retiró porque una pieza que acompaña TODA la portada compite con lo que se
  * lee en cada sección, y porque el gesto de soltar bolas ya cuenta algo
- * concreto en /navegacion-activa —un recorrido con sus paradas—, donde tiene
+ * concreto en /active-navigation —un recorrido con sus paradas—, donde tiene
  * sentido. Aquí el lienzo se queda dentro del hero, que es lo que ilustra.
  */
 export default function EsferaHero() {

@@ -51,7 +51,7 @@ export default function NavegacionActiva() {
   return (
     <Pagina activo="navegacion">
       <Seo
-        path="/navegacion-activa"
+        path="/active-navigation"
         title={t("seo.title")}
         description={t("seo.description")}
       />

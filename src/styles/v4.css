@@ -28,6 +28,9 @@
    primario sale oro sobre oro y desaparece. */
 :where(.v4) a { color: var(--text-accent); text-decoration: none; }
 :where(.v4) a:hover { color: var(--gold-ambar); }
+/* Sin el destello gris del navegador al tocar: la respuesta al toque la da cada
+   componente (el botón cede con :active), no un recuadro que no es de marca. */
+.v4 { -webkit-tap-highlight-color: transparent; }
 .v4 a:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring-shadow);
@@ -277,6 +280,8 @@
 .v4-tecm-mapa,
 .v4-tecm-mapa__pegado,
 .v4-tecm-mapa__pie { display: contents; }
+/* El escenario de la construcción solo existe en móvil (§16). */
+.v4-recorridos__escenario { display: contents; }
 /* El vídeo del hero de Productos. No es un fondo: es la pantalla del hero, a
    todo el ancho de contenido bajo el titular. El plano lleva un pie dentro,
    abajo a la izquierda: marfil sobre un velo grafito, en mono. */
@@ -306,6 +311,15 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   white-space: nowrap;
+}
+/* Sin transparencia, velo grafito sólido: el pie se lee igual sin el vídeo
+   detrás. */
+@media (prefers-reduced-transparency: reduce) {
+  .v4-hero__video-pie {
+    background: var(--brand-graphite);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 .v4-hero__video-pie::before {
   content: "";
@@ -530,9 +544,11 @@
 .v4-card > .v4-card__pie { margin-top: auto; padding-top: var(--space-6); }
 
 /* Solo las cards que son puerta (contienen enlace) reaccionan al hover. */
-.v4-card:has(a:hover) {
-  box-shadow: var(--v4-panel-shadow-hover);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .v4-card:has(a:hover) {
+    box-shadow: var(--v4-panel-shadow-hover);
+    transform: translateY(-2px);
+  }
 }
 .v4-card[data-kpi="true"] { border-radius: var(--radius-kpi); }
 .v4-card[data-destacada="true"] { border-color: var(--accent-gold); }
@@ -883,6 +899,29 @@
 .v4-recorridos__remate {
   height: 45vh;
   height: 45svh;
+}
+
+/* Escritorio con movimiento: los aires comparten celda con la columna en vez
+   de ir debajo de ella. Si fueran debajo, el primer paso no empezaba a subir
+   hasta haber bajado la columna entera (~900px), y en ese tramo el título se
+   quedaba solo sobre la franja gris vacía. En la misma celda, el paso 01 asoma
+   por abajo mientras el título aún está subiendo.
+
+   Y el titular del mapa va enganchado al borde donde la franja gris da paso al
+   marfil (`--v4-sube`, lo mide el componente): sube con el cambio de sección
+   y se queda en su sitio cuando el borde pasa, en vez de aparecer con un
+   fundido sobre una pantalla blanca. */
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .v4-recorridos__construccion { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .v4-recorridos__columna,
+  .v4-recorridos__aires { grid-area: 1 / 1; }
+  .v4-recorridos__columna { align-self: start; }
+
+  .v4-recorridos .v4-recorridos__mapa-titulo {
+    opacity: 1;
+    transform: translateY(var(--v4-sube, 0px));
+    transition: none;
+  }
 }
 
 /* El aire del mapa: bloques casi siempre sin contenido, cuya función es dar
@@ -1945,16 +1984,6 @@
 .v4-columnas__muestra { list-style: none; margin: 0; padding: 0; }
 .v4-columnas__muestra .v4-col-tarjeta { position: static; height: auto; }
 .v4-columnas__muestra .v4-col-tarjeta__media { flex: none; height: 120px; }
-/* Cifra, así que mono (DS §2.4), y en oro: es la coincidencia. */
-.v4-columnas__cuantos {
-  justify-self: end;
-  font-family: var(--font-mono);
-  font-size: var(--fs-code-s);
-  line-height: var(--lh-code-s);
-  font-weight: var(--fw-bold);
-  color: var(--accent-gold);
-  font-variant-numeric: tabular-nums;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .v4-columna-agente__cursor[data-activo="true"] { animation: none; }
@@ -1962,16 +1991,194 @@
   .v4-columnas__linea,
   .v4-col-tarjeta,
   .v4-columna-agente__punto,
-  .v4-columna-agente__quien { transition: none; }
+  .v4-columna-agente__quien,
+  .v4-columnas__coincidencia { transition: none; }
 }
 
-/* En estrecho no caben cuatro cintas en paralelo, y dos no cuentan lo mismo:
-   la pieza se lee como cuatro agentes con su pregunta y la fila de fuentes en
-   las que coinciden, que es la conclusión sin el recorrido. */
+/* ── En estrecho: cuatro carriles en miniatura ─────────────────────────── */
+/* La misma pieza, comprimida, y no otra. Dos columnas no cuentan lo mismo que
+   cuatro, y una lista de conclusiones sin el recorrido no se entendía: lo que
+   convence es VER las cuatro cintas pararse a la vez. Así que se quedan las
+   cuatro, con el mismo ciclo, y lo que se sacrifica es la letra de dentro de
+   las tarjetas: a 60px de ancho solo se reconoce su forma. Lo que dicen pasa a
+   un rótulo grande debajo, que cambia en cada parada.
+
+   Todo lo de aquí son medidas y colocación; el ciclo, el oro y la línea son
+   las reglas de escritorio sin tocar. */
 @media (max-width: 900px) {
-  .v4-columnas__agentes { grid-template-columns: 1fr; gap: var(--space-8); }
-  .v4-columnas__lienzo { display: none; }
-  .v4-columnas__resumen { display: block; list-style: none; margin: 0; padding: 0; }
+  .v4-columnas {
+    --v4-col-alto: 46px;
+    --v4-col-paso: 56px;
+    /* Fila alineada a media altura del lienzo de 232: una tarjeta y media por
+       encima y por debajo, que es lo que hace falta para que se lea cinta. */
+    --v4-col-fila: 93px;
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-5);
+  }
+  .v4-columnas__agentes,
+  .v4-columnas__lienzo { gap: 0 10px; }
+
+  /* Cabecera: cada agente encima de su columna. El li se disuelve en la
+     rejilla (display: contents) para que su pregunta pueda salir de la columna
+     a una fila entera: a un cuarto de 390px no se lee ni media pregunta. */
+  .v4-columna-agente { display: contents; }
+  .v4-columna-agente__punto { grid-row: 1; justify-self: center; width: 24px; height: 24px; }
+  .v4-columna-agente__quien {
+    grid-row: 2;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-top: var(--space-2);
+    font-size: var(--fs-body-s);
+    line-height: var(--lh-body-s);
+    transform: translateY(-4px);
+  }
+  .v4-columna-agente__edad { font-size: var(--fs-code-xs); line-height: var(--lh-code-xs); }
+  .v4-columna-agente:nth-child(1) > * { grid-column: 1; }
+  .v4-columna-agente:nth-child(2) > * { grid-column: 2; }
+  .v4-columna-agente:nth-child(3) > * { grid-column: 3; }
+  .v4-columna-agente:nth-child(4) > * { grid-column: 4; }
+
+  /* Las cuatro preguntas, una por línea bajo la cabecera, tecleándose a la vez
+     como en escritorio. Sin bocadillo: cuatro bocadillos apilados pesaban más
+     que las cintas. El nombre delante lo pone el atributo (ver Columnas.jsx). */
+  .v4-columna-agente > .v4-columna-agente__pregunta {
+    grid-column: 1 / -1;
+    min-height: 0;
+    margin-top: var(--space-1);
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--fs-body-s);
+    line-height: var(--lh-body-s);
+    opacity: 0;
+  }
+  .v4-columna-agente:nth-child(1) > .v4-columna-agente__pregunta {
+    grid-row: 3;
+    margin-top: var(--space-4);
+  }
+  .v4-columna-agente:nth-child(2) > .v4-columna-agente__pregunta { grid-row: 4; }
+  .v4-columna-agente:nth-child(3) > .v4-columna-agente__pregunta { grid-row: 5; }
+  .v4-columna-agente:nth-child(4) > .v4-columna-agente__pregunta { grid-row: 6; }
+  .v4-columna-agente[data-despierto="true"] > .v4-columna-agente__pregunta { opacity: 1; }
+  .v4-columna-agente[data-despierto="true"] > .v4-columna-agente__pregunta[data-fuera="true"] {
+    opacity: 0;
+  }
+  .v4-columna-agente__pregunta::before {
+    content: attr(data-nombre);
+    display: inline-block;
+    min-width: 52px;
+    margin-right: var(--space-2);
+    font-weight: var(--fw-bold);
+    color: var(--v4-muted);
+  }
+
+  .v4-columnas__lienzo { height: 232px; }
+  .v4-columnas__linea { height: 3px; margin-top: calc(var(--v4-col-fila) + var(--v4-col-alto) / 2 - 1.5px); }
+  .v4-columnas__velo {
+    background: linear-gradient(var(--v4-panel), transparent 18%, transparent 82%, var(--v4-panel));
+  }
+
+  /* Las tarjetas reducidas a su forma. El texto sigue en el DOM (son las
+     mismas tarjetas que en escritorio) pero a tamaño cero: a este ancho no se
+     leería y el ojo se iría a intentarlo en vez de a comparar columnas. */
+  .v4-columnas__lienzo .v4-col-tarjeta {
+    padding: 5px;
+    gap: 4px;
+    border-radius: var(--radius-md);
+  }
+  .v4-columnas[data-coincide="true"] .v4-columnas__lienzo .v4-col-tarjeta:not([data-brilla="true"]) {
+    opacity: 0.3;
+  }
+  .v4-columnas__lienzo .v4-col-tarjeta__url {
+    flex: none;
+    height: 8px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    font-size: 0;
+  }
+  .v4-columnas__lienzo .v4-col-tarjeta__resultado { gap: 4px; }
+  .v4-columnas__lienzo .v4-col-tarjeta__lineas { gap: 4px; justify-content: center; }
+  .v4-columnas__lienzo .v4-col-tarjeta__bloque { display: none; }
+  .v4-columnas__lienzo .v4-col-tarjeta__linea { height: 3px; }
+  .v4-columnas__lienzo .v4-col-tarjeta__miniatura { width: 16px; border-radius: var(--radius-sm); }
+  .v4-columnas__lienzo .v4-col-tarjeta[data-tipo="video"] { padding: 3px; }
+  .v4-columnas__lienzo .v4-col-tarjeta__media { border-radius: var(--radius-sm); }
+  .v4-columnas__lienzo .v4-col-tarjeta__play {
+    border-left-width: 8px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+  }
+  .v4-columnas__lienzo .v4-col-tarjeta__duracion,
+  .v4-columnas__lienzo .v4-col-tarjeta__autor,
+  .v4-columnas__lienzo .v4-col-tarjeta__rotulo { display: none; }
+  .v4-columnas__lienzo .v4-col-tarjeta__barra { left: 3px; right: 3px; }
+  .v4-columnas__lienzo .v4-col-tarjeta[data-tipo="chat"] { justify-content: stretch; }
+  .v4-columnas__lienzo .v4-col-tarjeta__burbuja {
+    flex: 1;
+    padding: 0;
+    border: 0;
+    background: var(--v4-line);
+    font-size: 0;
+  }
+
+  /* El rótulo: la fuente de la parada en curso, en grande, y cuántos agentes
+     la comparten. Las tres viven apiladas en la misma celda, así que la caja
+     mide lo que la más alta y no salta al cambiar de una a otra. */
+  .v4-columnas__resumen {
+    display: grid;
+    min-height: 96px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  .v4-columnas__coincidencia {
+    grid-area: 1 / 1;
+    align-content: center;
+    justify-items: center;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity var(--motion-base) var(--ease-standard),
+                transform var(--motion-base) var(--ease-standard);
+  }
+  .v4-columnas__coincidencia + .v4-columnas__coincidencia { border-top: 0; }
+  .v4-columnas__coincidencia[data-activa="true"] { opacity: 1; transform: none; }
+  /* La tarjeta de la muestra deja de ser tarjeta: queda solo lo que dice. */
+  .v4-columnas__muestra .v4-col-tarjeta,
+  .v4-columnas__muestra .v4-col-tarjeta[data-brilla="true"] {
+    padding: 0;
+    gap: var(--space-1);
+    align-items: center;
+    border: 0;
+    background: none;
+  }
+  .v4-columnas__muestra .v4-col-tarjeta__url {
+    height: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--fs-code-l);
+    line-height: var(--lh-code-l);
+    font-weight: var(--fw-bold);
+  }
+  .v4-columnas__muestra .v4-col-tarjeta__resultado,
+  .v4-columnas__muestra .v4-col-tarjeta__media,
+  .v4-columnas__muestra .v4-col-tarjeta__avatar { display: none; }
+  .v4-columnas__muestra .v4-col-tarjeta__titulo {
+    white-space: normal;
+    font-size: var(--fs-body-l);
+    line-height: var(--lh-body-l);
+    font-weight: var(--fw-bold);
+  }
+  .v4-columnas__muestra .v4-col-tarjeta__burbuja {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--fs-body-m);
+    line-height: var(--lh-body-m);
+  }
 }
 
 /* ────────────────────── 10c. Respuesta generativa ────────────────────── */
@@ -2203,6 +2410,51 @@
 .v4-dato { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 0; border-top: 1px solid var(--v4-line); }
 .v4-dato__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); }
 
+/* Posicionamiento en IA · de dónde salen las respuestas, en UNA barra: el
+   tramo oro es lo que escribes tú; el resto, lo que escriben otros, en tres
+   tramos grises sin nombre (de grafito a gris medio) para que se lea como
+   muchas fuentes. La separación entre tramos es el fondo de la sección. */
+.v4-fuentes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+.v4-fuentes__cabeza { display: flex; justify-content: space-between; gap: var(--space-6); }
+.v4-fuentes__lado { display: flex; flex-direction: column; gap: var(--space-1); max-width: 50%; }
+.v4-fuentes__lado + .v4-fuentes__lado { align-items: flex-end; text-align: right; }
+.v4-fuentes__barra {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.v4-fuentes__tramo { flex: 0 1 auto; width: var(--v4-ancho); background: var(--brand-graphite); }
+/* Las dos partes se separan más que los grises entre sí, y cada una tiene sus
+   puntas redondas: se leen como dos bloques, el segundo hecho de trozos. */
+.v4-fuentes__tramo[data-propio] {
+  margin-right: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--chart-1-gradient);
+}
+.v4-fuentes__tramo[data-tono="0"] {
+  border-radius: var(--radius-full) 0 0 var(--radius-full);
+}
+.v4-fuentes__tramo[data-tono="1"] { background: var(--neutral-dark); }
+.v4-fuentes__tramo[data-tono="2"] { background: var(--neutral-500); }
+
+/* Posicionamiento en IA · las cuatro medidas, recogidas: son el punto de
+   partida, no el producto. El color lo pone la superficie: sobre la tarjeta
+   grafito es marfil; sin esto el h3 hereda el grafito del cuerpo y no se lee. */
+.v4-medida-mini .v4-label + h3 {
+  margin: var(--space-4) 0 var(--space-3);
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+}
+
 .v4-columna { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--space-3); height: 280px; }
 .v4-columna__barra { border-radius: var(--radius-md); background: var(--series-primary); }
 .v4-columna__barra[data-destacada="true"] { background: var(--chart-1-gradient); }
@@ -2425,8 +2677,9 @@
 
 /* El panel de móvil. Fijo a toda la ventana, sobre grafito, y detrás de la
    barra: el logo y el botón de cerrar siguen siendo los mismos de siempre, en
-   el mismo sitio. `hidden` lo saca del todo; cuando está, la lista entra con el
-   escalonado de las secciones. */
+   el mismo sitio. Entra y sale por el mismo camino, un fundido corto: pasar de
+   marfil a grafito a pantalla completa de golpe es un fogonazo. Cerrado queda
+   invisible e inerte (visibility espera a que acabe el fundido de salida). */
 .v4-nav__inner { position: relative; z-index: 1; }
 .v4-nav[data-abierto="true"] .v4-nav__inner {
   background: transparent;
@@ -2446,8 +2699,16 @@
   color: var(--brand-ivory);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--motion-base) var(--ease-standard),
+              visibility 0s linear var(--motion-base);
 }
-.v4-menu[hidden] { display: none; }
+.v4-menu[data-abierto="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--motion-base) var(--ease-standard), visibility 0s;
+}
 .v4-menu__lista,
 .v4-menu__familias,
 .v4-menu__productos { list-style: none; margin: 0; padding: 0; }
@@ -2627,9 +2888,11 @@
   transition: box-shadow var(--motion-base) var(--ease-standard),
               transform var(--motion-base) var(--ease-standard);
 }
-.v4-ficha:has(a:hover) {
-  box-shadow: var(--elevation-3);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .v4-ficha:has(a:hover) {
+    box-shadow: var(--elevation-3);
+    transform: translateY(-2px);
+  }
 }
 .v4-ficha__media {
   position: relative;
@@ -2644,7 +2907,9 @@
   display: block;
   transition: transform var(--motion-slow) var(--ease-standard);
 }
-.v4-ficha:has(a:hover) .v4-ficha__media img { transform: scale(1.03); }
+@media (hover: hover) {
+  .v4-ficha:has(a:hover) .v4-ficha__media img { transform: scale(1.03); }
+}
 .v4-ficha__cuerpo {
   flex: 1;
   padding: var(--space-5);
@@ -3012,29 +3277,38 @@
   }
   .v4-agentes__cuadro { display: none; }
   .v4-recorridos__banda { display: none; }
-  /* ── Tecnología: la esfera alimentándose (TecnologiaMovil.jsx) ── */
-  /* Pegada arriba de la ventana mientras los pasos pasan por debajo: es la
-     escena de escritorio en vertical. Con fondo de página y un velo abajo,
-     para que el texto se deslice por debajo en vez de chocar con ella. A
-     sangre: el anillo donde nacen los granos es más ancho que el móvil. */
-  .v4-tecm-esfera {
+  /* ── Tecnología: la esfera y la pila de pasos (TecnologiaMovil.jsx) ── */
+  /* El escenario es UNA pantalla pegada: la esfera arriba y debajo la
+     cabecera y los tres pasos, que suben con el dedo y se apilan como
+     tarjetas (usePilaPasos). Nada pasa por debajo de la esfera, así que no
+     hace falta velo: el texto o está entero o lo tapa la tarjeta siguiente.
+     La altura de la construcción la pone el hook; cuando se acaba, esfera y
+     pila se van juntas. A sangre: los granos nacen fuera de la columna. */
+  .v4-recorridos__escenario {
     display: block;
     position: sticky;
     top: 0;
+    height: 100svh;
+    margin: 0 calc(-1 * var(--space-5));
+    padding: 0 var(--space-5);
+    overflow: hidden;
+  }
+  .v4-tecm-esfera {
+    display: block;
+    position: relative;
     z-index: 3;
-    height: 46svh;
-    min-height: 300px;
+    height: 38svh;
+    min-height: 250px;
+    max-height: 340px;
     margin: 0 calc(-1 * var(--space-5));
     overflow: hidden;
     background: var(--surface-page);
-    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
-    mask-image: linear-gradient(to bottom, #000 82%, transparent);
   }
   .v4-tecm-esfera__cuerpo {
     position: absolute;
     left: 50%;
-    top: 52%;
-    width: 224px;
+    top: 60%;
+    width: 188px;
     aspect-ratio: 510 / 400;
     transform: translate(-50%, -50%);
     animation: v4-flota 6s ease-in-out infinite;
@@ -3059,7 +3333,7 @@
   .v4-tecm-esfera__grano {
     position: absolute;
     left: 50%;
-    top: 52%;
+    top: 60%;
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
@@ -3071,12 +3345,23 @@
     border: 1px solid var(--border-subtle);
     box-shadow: var(--card-shadow);
     color: var(--text-primary);
-    transform: translate(-50%, -50%) translate(var(--v4-dx), var(--v4-dy));
+    /* Se lee a un lado de la esfera, pisándole apenas el borde: la izquierda
+       se ancla por su borde derecho y la derecha por el izquierdo, así los
+       largos («Presupuesto: 30.000 €») caben sin salirse de la pantalla. */
+    --v4-ax: 40px;
+    --v4-sale: 28px;
+    transform: translate(var(--v4-ax), var(--v4-dy));
   }
+  .v4-tecm-esfera__grano[data-lado="izda"] { --v4-ax: calc(-100% - 40px); --v4-sale: -28px; }
   .v4-tecm-esfera__grano svg { width: 14px; height: 14px; }
-  /* Quietos no tienen sitio: sin movimiento se queda la esfera sola. */
+  /* Quietos no tienen sitio: sin movimiento se queda la esfera sola, y los
+     pasos se leen en flujo, sin pila. */
   @media (prefers-reduced-motion: reduce) {
     .v4-tecm-esfera__granos { display: none; }
+    /* Tampoco flota: un vaivén lento y sin fin es justo lo que marea. */
+    .v4-tecm-esfera__cuerpo { animation: none; }
+    .v4-recorridos__escenario { position: static; height: auto; overflow: visible; }
+    .v4-recorridos__cabecera { margin-bottom: var(--space-4); }
   }
   /* Los pasos pasan por debajo de la esfera: sin el aire de arriba, y los
      hitos vacíos del mapa (son tiempo de scroll para la escena) fuera. */
@@ -3088,7 +3373,17 @@
   /* El contenedor mide `--v4-tramo` pantallas; dentro, una pantalla pegada con
      el titular arriba, el cuadro en medio y el pie abajo. El progreso lo lee
      useProgresoPegado y lo pinta MapaAgentes. */
-  .v4-tecm-mapa { display: block; height: calc(var(--v4-tramo, 2.8) * 100svh); margin: 0 calc(-1 * var(--space-5)); }
+  /* Sube sobre el final de la construcción. Bajo la pila queda aire vacío
+     del escenario (`--v4-pila-sobra`, lo mide usePilaPasos) y encima está el
+     relleno del pegado para librar la barra: sumados dejaban el titular muy
+     lejos de las tarjetas que se van. Se descuentan los dos para que entre
+     la última tarjeta y el titular quede un aire de sección, ni más ni menos. */
+  .v4-tecm-mapa {
+    display: block;
+    height: calc(var(--v4-tramo, 2.8) * 100svh);
+    margin: calc(var(--space-12) - var(--v4-nav-alto) + var(--space-4) - var(--v4-pila-sobra, 0px))
+      calc(-1 * var(--space-5)) 0;
+  }
   .v4-tecm-mapa__pegado {
     position: sticky;
     top: 0;
@@ -3099,37 +3394,66 @@
     padding: calc(var(--v4-nav-alto) - var(--space-4)) var(--space-5) var(--space-6);
     overflow: hidden;
   }
+  /* El cuadro se lleva todo el alto que deja el titular (el pie va fuera,
+     después de la pantalla pegada). Dentro, la
+     cámara es el dibujo con SU proporción (360 × 540, aplastado en vertical
+     si falta alto: ver MapaAgentes), lo más grande que quepa y centrada. Antes el cuadro estiraba a su antojo: el SVG se
+     encogía para caber y los anillos, colocados en % de la caja, se
+     quedaban fuera de sus bolas. */
+  /* A sangre: el dibujo ya deja su propio aire a los lados, y con el
+     margen de la página encima quedaba estrecho. */
   .v4-tecm-mapa__cuadro {
     position: relative;
     display: block;
-    width: 100%;
-    max-height: 62svh;
-    margin-top: var(--space-6);
-    margin: 0 auto;
+    margin-inline: calc(-1 * var(--space-5));
     flex: 1;
     min-height: 0;
+    container-type: size;
   }
-  .v4-tecm-mapa__camara { position: absolute; inset: 0; will-change: transform; }
+  .v4-tecm-mapa__camara {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* La proporción la pone el componente: la del dibujo, ya aplastado. */
+    width: min(100cqw, 100cqh * var(--v4-proporcion, 0.6667));
+    margin-inline: auto;
+    will-change: transform;
+  }
   .v4-tecm-mapa__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
   /* Sin `non-scaling-stroke`: con él el dasharray se mide en píxeles de
      pantalla y no en unidades del trazo, y quedaban restos sueltos. */
   .v4-tecm-mapa__trazo {
     fill: none;
     stroke: var(--neutral-light);
-    stroke-width: 2.2;
+    /* Fino pero con cuerpo: más grueso se hacía maraña con cinco caminos,
+       y más fino se perdía al lado de las bolas. */
+    stroke-width: 1.8;
     stroke-linecap: round;
   }
   .v4-tecm-mapa__bola { opacity: 0; will-change: transform; }
   /* El anillo de una parada compartida, del color de su medio (el código de
      escritorio). Entra cerrándose sobre la bola. */
+  /* Toda parada lleva un anillo fino del color de su medio, ceñido a la bola
+     (el ancho lo pone el componente), como en escritorio. */
   .v4-tecm-mapa__anillo {
     position: absolute;
-    width: 11%;
     aspect-ratio: 1;
     border-radius: 50%;
     border: 2px solid var(--neutral-500);
     opacity: 0;
     transform: translate(-50%, -50%);
+  }
+  /* El pulso dorado de escritorio (.v4-agentes__pulso): se abre desde la bola
+     cuando un segundo camino llega a una parada que ya estaba marcada. */
+  .v4-tecm-mapa__pulso {
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--accent-gold);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
   }
   .v4-tecm-mapa__anillo[data-medio="Web"] { border-color: var(--accent-gold); }
   .v4-tecm-mapa__anillo[data-medio="YouTube"] { border-color: var(--warning); }
@@ -3140,13 +3464,13 @@
     white-space: nowrap;
     color: var(--text-primary);
     opacity: 0;
-    transform: translate(var(--space-4), -50%) translateY(6px);
+    transform: translate(var(--space-6), -50%) translateY(6px);
     transition: opacity var(--motion-slow) var(--ease-standard) 120ms,
                 transform var(--motion-slow) var(--ease-standard) 120ms;
   }
-  .v4-tecm-mapa__chip[data-lado="izda"] { transform: translate(calc(-100% - var(--space-4)), -50%) translateY(6px); }
-  .v4-tecm-mapa__chip[data-puesta="true"] { opacity: 1; transform: translate(var(--space-4), -50%); }
-  .v4-tecm-mapa__chip[data-lado="izda"][data-puesta="true"] { transform: translate(calc(-100% - var(--space-4)), -50%); }
+  .v4-tecm-mapa__chip[data-lado="izda"] { transform: translate(calc(-100% - var(--space-6)), -50%) translateY(6px); }
+  .v4-tecm-mapa__chip[data-puesta="true"] { opacity: 1; transform: translate(var(--space-6), -50%); }
+  .v4-tecm-mapa__chip[data-lado="izda"][data-puesta="true"] { transform: translate(calc(-100% - var(--space-6)), -50%); }
   .v4-tecm-mapa__chip:not(.v4-chip--gold):not(.v4-chip--rojo) {
     background: color-mix(in srgb, var(--brand-graphite) 9%, transparent);
   }
@@ -3175,29 +3499,55 @@
     color: var(--text-primary);
   }
   .v4-tecm-mapa__rol > span + span { color: var(--neutral-500); }
+  /* Quién y edad, partidos: los dos renglones son un solo dato. */
+  .v4-tecm-mapa__rol[data-partido="true"] > span + span { color: inherit; }
+  /* Debajo cuando arriba le pasa un camino por encima del rótulo. */
+  .v4-tecm-mapa__agente[data-rol-abajo="true"] .v4-tecm-mapa__rol { bottom: auto; top: calc(100% - 2px); }
   .v4-tecm-mapa__agente[data-principal="true"] .v4-tecm-mapa__rol {
     font-size: var(--fs-code-s);
     line-height: var(--lh-code-s);
   }
-  .v4-tecm-mapa__pie { display: block; will-change: opacity, transform; }
+  .v4-tecm-mapa__pie { display: block; margin-top: var(--space-2); }
   .v4-tecm-mapa__pegado .v4-recorridos__mapa-titulo,
-  .v4-tecm-mapa__pegado .v4-recorridos__pie {
+  .v4-tecm-mapa__pie .v4-recorridos__pie {
     position: static;
     max-width: none;
     margin: 0;
     opacity: 1;
     transform: none;
   }
+  /* Aire entre el titular y el rótulo de la esfera principal. */
+  .v4-tecm-mapa__pegado .v4-recorridos__mapa-titulo { margin-bottom: var(--space-6); }
   .v4-recorridos__pegado { padding: 0 var(--space-5); }
-  .v4-recorridos__columna { position: static; max-width: none; padding-top: var(--space-16); }
-  .v4-recorridos__cabecera { background: none; }
+  .v4-recorridos__columna { position: static; max-width: none; padding-top: 0; }
+  /* Bajo la cabecera, aire hasta casi el pie de la pantalla: el primer paso
+     asoma abajo y SUBE hasta la esfera como los otros dos. Pegado a la
+     cabecera ya habría llegado, y la esfera comería antes de que se lea. */
+  .v4-recorridos__cabecera { background: none; margin-bottom: 26svh; }
   .v4-recorridos__paso {
     transform: none !important;
-    padding-block: var(--space-8);
+    padding-block: 0 var(--space-6);
     background: none;
   }
   .v4-recorridos__aire, .v4-recorridos__remate { display: none; }
-  .v4-recorridos__caja { opacity: 1; }
+  /* Cada paso, una tarjeta opaca: es lo que tapa a la anterior en la pila.
+     La sombra va hacia ARRIBA, que es donde queda la tarjeta que cubre. */
+  .v4-recorridos__caja {
+    opacity: 1;
+    padding: var(--space-6) var(--space-5);
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 -12px 28px -20px rgba(41, 41, 41, 0.35);
+    transform-origin: 50% 0;
+    will-change: transform;
+  }
+  .v4-recorridos__caja .v4-recorridos__head { margin-bottom: var(--space-2); }
+  .v4 .v4-recorridos__caja .v4-recorridos__desc { font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+  .v4 .v4-recorridos__caja .v4-recorridos__eco { margin-top: var(--space-3); }
+  /* La puerta que sigue al mapa: en escritorio se monta sobre el último plano
+     con margen negativo; aquí el pie del mapa va en flujo y la pisaba. */
+  .v4-sec--corta { margin-top: 0; padding-top: var(--space-8); }
   .v4-recorridos__mapa { padding-top: 0; }
   .v4-recorridos__hito {
     min-height: 0 !important;
@@ -3247,56 +3597,100 @@
      cuenta la escena pegada de abajo, con el mismo texto. */
   .v4-recorrido__paradas { display: none; }
 
-  /* ── Navegación Activa: el recorrido, pegado y por scroll (RecorridoMovil) ── */
-  .v4-rmov { display: block; height: calc(var(--v4-tramo, 2.2) * 100svh); margin: 0 calc(-1 * var(--space-5)); }
+  /* ── Navegación Activa: el recorrido, pegado y por scroll (RecorridoMovil) ──
+     Una línea de tiempo: la esfera arriba a la izquierda con la premisa a su
+     lado y, debajo, una recta por la que bajan las bolas hasta cada parada.
+     `--v4-rmov-eje` es el ancho de la columna de la esfera; la recta y las
+     bolas van en su centro, así que todo cuelga del mismo eje. El tramo es
+     corto a propósito: con la columna entera en pantalla, un tramo largo solo
+     sería scroll muerto. */
+  .v4-rmov {
+    --v4-rmov-eje: 88px;
+    display: block;
+    height: calc(var(--v4-tramo, 1.75) * 100svh);
+  }
+  /* Arriba y sin el alto del menú: el menú se esconde al bajar, y reservarle
+     sitio dejaba un hueco entre el texto anterior y la esfera. */
   .v4-rmov__pegado {
     position: sticky;
     top: 0;
-    display: flex;
-    align-items: center;
     height: 100svh;
-    padding: var(--v4-nav-alto) var(--space-3) var(--space-6);
+    padding: var(--space-6) 0;
     overflow: hidden;
   }
-  .v4-rmov__cuadro { position: relative; width: 100%; max-height: 100%; margin: 0 auto; }
-  .v4-rmov__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .v4-rmov__camino {
-    fill: none;
-    stroke: var(--border-gray);
-    stroke-width: 2.5;
-    stroke-linecap: round;
+  .v4-rmov__cuadro { position: relative; will-change: transform; }
+  .v4-rmov__cabeza {
+    display: grid;
+    grid-template-columns: var(--v4-rmov-eje) 1fr;
+    gap: var(--space-4);
+    align-items: center;
   }
-  .v4-rmov__bola { opacity: 0; will-change: transform; }
-  .v4-rmov__esfera {
+  .v4-rmov__esfera { position: relative; z-index: 1; display: block; width: 100%; height: auto; }
+  /* En móvil la premisa vive aquí, junto a la esfera; la de la entradilla se
+     esconde para no contarla dos veces. */
+  .v4-recorrido__nota { display: none; }
+  .v4-rmov__premisa .v4-nota { padding: var(--space-4) var(--space-5); }
+  .v4-rmov__premisa .v4-nota .v4-body { font-size: var(--fs-body-m); line-height: var(--lh-body-m); }
+  .v4-rmov__premisa .v4-nota__meta { margin-top: var(--space-2); font-size: var(--fs-code-s); line-height: var(--lh-code-s); }
+  /* La recta: su arranque y su largo los mide el componente; se dibuja
+     escalando desde arriba. */
+  .v4-rmov__linea {
     position: absolute;
-    height: auto;
-    transform: translate(-50%, -50%);
-    animation: v4-flota 6s ease-in-out infinite;
+    left: calc(var(--v4-rmov-eje) / 2 - 1px);
+    width: 2px;
+    border-radius: 1px;
+    background: var(--border-gray);
+    transform: scaleY(0);
+    transform-origin: top;
   }
-  .v4-rmov__fichas { list-style: none; margin: 0; padding: 0; }
-  /* La ficha de cada parada, junto a su bola y hacia el lado libre. Aparece
-     al posarse la bola, subiendo un poco: llega, no se enciende. */
+  /* El aire entre paradas crece con la pantalla (con tope): la columna llena
+     la pantalla pegada en vez de dejar un tercio en blanco debajo. */
+  .v4-rmov__fichas {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(var(--space-6), 7svh, var(--space-12));
+    margin: var(--space-8) 0 0;
+    padding: 0;
+    list-style: none;
+  }
   .v4-rmov__ficha {
-    position: absolute;
+    display: grid;
+    grid-template-columns: var(--v4-rmov-eje) 1fr;
+    gap: var(--space-4);
+    align-items: start;
+  }
+  .v4-rmov__bola {
+    position: relative;
+    z-index: 1;
+    justify-self: center;
+    width: 26px;
+    height: 26px;
+    opacity: 0;
+    will-change: transform;
+  }
+  /* El medio y la pregunta llegan al posarse la bola, subiendo un poco:
+     llegan, no se encienden. */
+  .v4-rmov__texto {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-2);
-    width: 44%;
     opacity: 0;
-    transform: translate(var(--space-6), -24%) translateY(8px);
-    transition: opacity var(--motion-slow) var(--ease-standard) 140ms,
-                transform var(--motion-slow) var(--ease-standard) 140ms;
+    transform: translateY(8px);
+    transition: opacity var(--motion-slow) var(--ease-standard) 80ms,
+                transform var(--motion-slow) var(--ease-standard) 80ms;
   }
-  .v4-rmov__ficha[data-lado="izda"] {
-    align-items: flex-end;
-    text-align: right;
-    transform: translate(calc(-100% - var(--space-6)), -24%) translateY(8px);
-  }
-  .v4-rmov__ficha[data-puesta="true"] { opacity: 1; transform: translate(var(--space-6), -24%); }
-  .v4-rmov__ficha[data-lado="izda"][data-puesta="true"] { transform: translate(calc(-100% - var(--space-6)), -24%); }
+  .v4-rmov__ficha[data-puesta="true"] .v4-rmov__texto { opacity: 1; transform: none; }
   .v4-rmov__ficha .v4-chip { padding: var(--space-1) var(--space-3); color: var(--text-primary); }
-  .v4-rmov__ficha .v4-body { font-size: var(--fs-body-m); line-height: var(--lh-body-m); color: var(--text-primary); text-wrap: balance; }
+  .v4-rmov__ficha .v4-body { margin: 0; font-size: var(--fs-body-m); line-height: var(--lh-body-m); color: var(--text-primary); text-wrap: balance; }
+  /* Movimiento reducido: la línea de tiempo montada y sin pegar, que sin
+     animación el tramo pegado sería scroll vacío. */
+  @media (prefers-reduced-motion: reduce) {
+    .v4-rmov { height: auto; }
+    .v4-rmov__pegado { position: static; height: auto; }
+    .v4-rmov__linea { transform: none; }
+    .v4-rmov__bola, .v4-rmov__texto { opacity: 1; transform: none; transition: none; }
+  }
     .v4-cabecera--cita .v4-lede { margin-left: 0; text-align: left; padding-right: 0; }
   .v4-esfera-suelta { display: none; }
   .v4-escena__panel { grid-template-columns: 1fr; gap: var(--space-8); min-height: 0; }
@@ -3534,7 +3928,9 @@
   transition: transform var(--motion-base) var(--ease-standard),
               border-color var(--motion-base) var(--ease-standard);
 }
-.v4-canal:hover { transform: translateY(-2px); border-color: var(--v4-line-strong); }
+@media (hover: hover) {
+  .v4-canal:hover { transform: translateY(-2px); border-color: var(--v4-line-strong); }
+}
 .v4-canal__nombre { margin-top: var(--space-5); }
 .v4-canal__desc { margin-top: var(--space-4); flex-grow: 1; }
 .v4-canal__pie {
@@ -3679,9 +4075,124 @@
 }
 @media (max-width: 900px) {
   .v4-canales { grid-template-columns: 1fr; gap: var(--space-10); justify-items: center; }
-  .v4-movil { width: 240px; }
   .v4-canales__cuerpo { width: 100%; }
 }
+
+/* En estrecho el móvil se vuelve tablet apaisada. Un teléfono vertical a lo
+   ancho de la columna quedaba alto y estrecho, con las maquetas diminutas y
+   media pantalla vacía; apaisada cabe a lo ancho y las maquetas se leen. Es el
+   mismo dibujo con otras medidas: bisel fino, el radio de fuera igual al de
+   dentro más el bisel, y una sombra corta. La cámara va en el bisel, arriba.
+   Vale para los canales (/products/paid-media) y para la respuesta del hero
+   de /products/geo. */
+@media (max-width: 900px) {
+  .v4-movil,
+  .v4-respuesta {
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 4 / 3;
+    padding: 8px;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
+  }
+  [data-surface="graphite"] .v4-movil {
+    box-shadow: 0 0 0 1px rgba(252, 253, 253, .16), 0 12px 32px rgba(0, 0, 0, .32);
+  }
+  .v4-movil::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: var(--radius-full);
+    background: var(--neutral-dark);
+  }
+  .v4-movil__pantalla {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+  }
+
+  /* Las maquetas pasan a dos columnas, como se ven esos entornos en una
+     pantalla ancha: el contenido a la izquierda y lo que acompaña a la
+     derecha. La barra de navegación ocupa el ancho entero. */
+  .v4-movil__pantalla[data-maqueta] {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3) var(--space-4);
+  }
+  .v4-movil__pantalla[data-maqueta] > * { grid-column: 1; }
+  .v4-movil__pantalla[data-maqueta] > .v4-maqueta__barra { grid-column: 1 / -1; width: 24%; }
+
+  /* Artículo: texto con su foto, y el anuncio de marca en la columna lateral,
+     a toda la altura, como un robapáginas. */
+  .v4-movil__pantalla[data-maqueta="web"] {
+    grid-template-columns: minmax(0, 1fr) 36%;
+    grid-template-rows: auto auto auto auto minmax(0, 1fr) auto auto;
+    align-content: stretch;
+  }
+  .v4-movil__pantalla[data-maqueta="web"] .v4-maqueta__foto {
+    display: block;
+    border-radius: var(--radius-sm);
+    background: #E3E6EA;
+  }
+  .v4-movil__pantalla[data-maqueta="web"] .v4-maqueta__anuncio {
+    grid-column: 2;
+    grid-row: 2 / -1;
+  }
+
+  /* Vídeo: el reproductor con su título debajo y las sugerencias en columna
+     al lado, como en la versión de escritorio de YouTube. */
+  .v4-movil__pantalla[data-maqueta="video"] {
+    grid-template-columns: minmax(0, 1fr) 28%;
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  }
+  .v4-movil__pantalla[data-maqueta="video"] .v4-maqueta__sugerencias {
+    grid-column: 2;
+    grid-row: 2 / span 4;
+    flex-direction: column;
+  }
+  .v4-movil__pantalla[data-maqueta="video"] .v4-maqueta__sugerencias span { flex: 1; height: auto; min-height: 0; }
+  .v4-movil__pantalla[data-maqueta="video"] .v4-maqueta__canal {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid #E3E6EA;
+  }
+  .v4-maqueta__canal .v4-maqueta__linea { flex: none; }
+  /* El preroll, como lo pinta el reproductor: una etiqueta en la esquina, en
+     marfil sobre el vídeo. Con el texto grafito sobre el fondo oscuro no se
+     leía, y a lo ancho tapaba el botón de play. */
+  .v4-movil__pantalla[data-maqueta="video"] .v4-maqueta__video .v4-maqueta__anuncio {
+    right: auto;
+    padding: var(--space-1) var(--space-3);
+    color: var(--brand-ivory);
+  }
+
+  /* Feed: las publicaciones a la izquierda y el nativo al lado. */
+  .v4-movil__pantalla[data-maqueta="feed"] { grid-template-columns: minmax(0, 1fr) 40%; }
+  .v4-movil__pantalla[data-maqueta="feed"] .v4-maqueta__anuncio { grid-column: 2; grid-row: 2 / span 2; }
+
+  /* La respuesta: el altavoz del teléfono sobra en una tablet (la cámara ya
+     está en el bisel) y la pregunta, con más ancho, ocupa menos renglones. */
+  .v4-respuesta__pantalla > .v4-maqueta__barra { display: none; }
+  /* Un chat lleva más renglones que una maqueta de bloques: la tablet de la
+     respuesta es algo menos apaisada para que el campo de abajo quepa entero
+     también a 360px. */
+  .v4-respuesta { aspect-ratio: 5 / 4; }
+  .v4-respuesta__pantalla { gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+  .v4-respuesta__hilo { gap: var(--space-2); padding-top: 0; }
+  .v4-respuesta__pregunta { max-width: 88%; }
+  .v4-respuesta__texto { min-height: 0; }
+  .v4-respuesta__fuentes { margin-top: var(--space-2); }
+  .v4-respuesta__campo { padding-block: var(--space-1); }
+}
+/* La foto del artículo y el canal del vídeo son de la tablet apaisada; en el
+   móvil no caben. */
+.v4-maqueta__foto,
+.v4-maqueta__canal { display: none; }
 
 /* Un canal en preparación: se enseña, no se pulsa y no entra en la rotación.
    Decirlo es información útil para un cliente; esconderlo, o enseñar una
@@ -3859,16 +4370,18 @@
   50% { transform: translate(-50%, -50%) translateY(-6px); }
 }
 @media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+  /* El compás de escritorio (`v4-grano`): 3,2 s de viaje y 0,62 s entre uno
+     y otro, una sola vez por tanda (EsferaGranos relanza la siguiente). Llega
+     desde fuera, se queda casi medio viaje quieto para leerse y entra. */
   .v4-tecm-esfera__grano {
-    animation: v4-grano-viaja 2800ms var(--ease-standard) infinite;
-    animation-delay: calc(var(--v4-turno, 0) * 640ms);
     opacity: 0;
+    animation: v4-grano-movil 3.2s var(--ease-emphasis) both;
+    animation-delay: calc(var(--v4-turno, 0) * 0.62s);
   }
 }
-@keyframes v4-grano-viaja {
-  0% { opacity: 0; transform: translate(-50%, -50%) translate(var(--v4-dx), var(--v4-dy)) scale(0.9); }
-  10% { opacity: 1; transform: translate(-50%, -50%) translate(var(--v4-dx), var(--v4-dy)); }
-  24% { opacity: 1; }
-  36% { opacity: 0; }
-  62%, 100% { opacity: 0; transform: translate(-50%, -50%) translate(0, 0) scale(0.4); }
+@keyframes v4-grano-movil {
+  0% { opacity: 0; transform: translate(calc(var(--v4-ax) + var(--v4-sale)), var(--v4-dy)) scale(0.92); }
+  14% { opacity: 1; transform: translate(var(--v4-ax), var(--v4-dy)) scale(1); }
+  46% { opacity: 1; transform: translate(var(--v4-ax), var(--v4-dy)) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.45); }
 }

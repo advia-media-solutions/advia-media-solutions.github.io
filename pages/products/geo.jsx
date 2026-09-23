@@ -10,6 +10,6 @@ export default function GeoPage() {
 // porque estas páginas traen su propia nav oscura y su propio footer.
 GeoPage.v4 = true;
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   return { props: { ...(await traducciones(locale, "geo")) } };
 }

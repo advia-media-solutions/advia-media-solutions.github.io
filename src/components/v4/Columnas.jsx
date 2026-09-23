@@ -364,7 +364,15 @@ export default function Columnas({ agentes }) {
               {/* Cifra, así que mono (DS §2.4). */}
               <span className="v4-columna-agente__edad">{agente.edad} años</span>
             </p>
-            <p className="v4-columna-agente__pregunta" data-fuera={parada === "salida" ? "true" : undefined}>
+            <p
+              className="v4-columna-agente__pregunta"
+              data-fuera={parada === "salida" ? "true" : undefined}
+              /* En móvil la pregunta sale de su columna a una lista bajo la
+                 cabecera, y ahí hace falta decir de quién es. Va como atributo
+                 y lo pinta el CSS: el nombre ya está en el DOM una vez, arriba,
+                 y así no se duplica el texto. */
+              data-nombre={agente.nombre}
+            >
               {agente.pregunta.slice(0, escrito[i])}
               <span
                 className="v4-columna-agente__cursor"
@@ -418,20 +426,23 @@ export default function Columnas({ agentes }) {
         <span className="v4-columnas__velo" />
       </div>
 
-      {/* En estrecho las cintas no caben (ver la media query): queda la
-          conclusión, que es en qué coinciden. Sin esto, en móvil se leerían
-          cuatro preguntas y ninguna respuesta. */}
+      {/* La conclusión de cada parada: en qué fuente coinciden y cuántos. En
+          escritorio no se ve —ahí lo cuenta la línea dorada sobre tarjetas que
+          se leen—; en móvil las tarjetas son solo su forma, así que esto es el
+          rótulo bajo las cintas que dice qué es la fila dorada. Se enciende la
+          de la parada en curso (ver la media query). */}
       <ul className="v4-columnas__resumen">
         {PARADAS.map((p, i) => (
-          <li className="v4-columnas__coincidencia" key={String(p.tarjeta[1])}>
+          <li
+            className="v4-columnas__coincidencia"
+            key={String(p.tarjeta[1])}
+            data-activa={coincide === i ? "true" : undefined}
+          >
             {/* La misma tarjeta que se enciende en las cintas, ya encendida:
                 lo que encuentran los agentes es un resultado, no un nombre. */}
             <ol className="v4-columnas__muestra">
               <Tarjeta tipo={p.tarjeta[0]} etiqueta={p.tarjeta[1]} brilla sitio={i} />
             </ol>
-            <span className="v4-columnas__cuantos">
-              {t("columnas.cuantos", { n: p.columnas.length, total: agentes.length })}
-            </span>
           </li>
         ))}
       </ul>

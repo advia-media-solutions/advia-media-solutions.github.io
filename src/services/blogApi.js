@@ -1,4 +1,5 @@
 const BASE_URL = "https://cms.advia.tech/api";
+const TIEMPO_MAXIMO_MS = 5000;
 
 class BlogApiService {
   async getArticles(pageSize = 7, page = 1) {
@@ -15,7 +16,7 @@ class BlogApiService {
 
   async getArticleBySlug(slug) {
     const response = await this.fetchData(
-      `/articles?filters[slug][$eq]=${slug}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
+      `/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
     );
     return response.data.length > 0 ? response.data[0] : null;
   }
@@ -43,7 +44,10 @@ class BlogApiService {
   }
 
   async fetchData(endpoint) {
-    const response = await fetch(`${BASE_URL}${endpoint}`);
+    /* Sin límite, un CMS colgado deja colgada la página que lo espera. */
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      signal: AbortSignal.timeout(TIEMPO_MAXIMO_MS),
+    });
 
     if (!response.ok) {
       throw new Error(`Error fetching ${endpoint}: ${response.statusText}`);

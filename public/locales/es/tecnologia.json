@@ -27,13 +27,13 @@
     },
     {
       "titulo": "Les damos herramientas",
-      "desc": "Las mismas que usamos cualquiera para buscar: buscadores, plataformas y modelos.",
-      "eco": "Si buscan con lo mismo que tus consumidores, se comportan como ellos"
+      "desc": "Las mismas que usamos cualquiera para buscar: buscadores, plataformas y modelos de Inteligencia Artificial.",
+      "eco": "Utilizan las mismas herramientas que tus consumidores, para responderse a las mismas preguntas."
     },
     {
       "titulo": "Observamos los recorridos",
       "desc": "Todos los comportamientos posibles dentro de la Navegación Activa.",
-      "eco": "Aparecen los sitios donde tu marca puede ser la respuesta"
+      "eco": "Observamos los espacios en los que tu marca puede convertirse en la respuesta"
     }
   ],
   "agentes": {

@@ -1,0 +1,164 @@
+/* ============================================================================
+   ADVIA · web v4 — aviso de cookies
+   Panel marfil sobre el velo del sistema, con los botones pill de v4.css y un
+   interruptor dorado por categoría (DS §5.2: el oro es el estado activo y el
+   botón se desliza, nunca cambia de tamaño). Todo var(), como en v4.css.
+   ============================================================================ */
+
+.v4-cookies {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: var(--overlay);
+}
+
+.v4-cookies__panel {
+  --v4-fg: var(--text-primary);
+  --v4-muted: var(--text-secondary);
+  --v4-line: var(--border-subtle);
+  --v4-line-strong: var(--border-default);
+  width: 100%;
+  max-width: 640px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: var(--space-8);
+  background: var(--surface-card);
+  border-radius: var(--radius-modal);
+  box-shadow: var(--elevation-3);
+}
+
+.v4-cookies__cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.v4-cookies__cabecera .v4-label {
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--v4-line-strong);
+}
+.v4-cookies__cerrar {
+  margin-left: auto;
+  display: inline-flex;
+  padding: var(--space-2);
+  color: var(--v4-fg);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+.v4-cookies__cerrar:hover { background: var(--surface-sunken); }
+.v4-cookies__cerrar .v4-icon { width: 20px; height: 20px; }
+
+.v4-cookies__texto {
+  margin-top: var(--space-6);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-muted);
+}
+.v4-cookies__texto p + p { margin-top: var(--space-3); }
+.v4-cookies__enlace {
+  padding: 0;
+  font: inherit;
+  font-weight: var(--fw-semibold);
+  color: var(--v4-fg);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-gold);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.v4-cookies__enlace:hover { color: var(--gold-ambar); }
+
+/* Rechazar y aceptar, mismo tamaño y misma fila: ninguna opción se esconde. */
+.v4-cookies__acciones {
+  margin-top: var(--space-8);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+.v4-cookies__acciones[data-detalle="true"] { margin-top: var(--space-6); }
+.v4-cookies__acciones .v4-btn { padding: var(--space-3) var(--space-6); }
+
+.v4-cookies__lista {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.v4-cookies__categoria {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--v4-line);
+}
+.v4-cookies__categoria:last-child { border-bottom: 1px solid var(--v4-line); }
+.v4-cookies__nombre {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  font-weight: var(--fw-bold);
+  color: var(--v4-fg);
+}
+.v4-cookies__desc {
+  margin-top: var(--space-1);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--v4-muted);
+}
+.v4-cookies__categoria .v4-label { flex: none; }
+
+/* Interruptor: un checkbox nativo con otra piel, así que teclado, lector de
+   pantalla y formulario funcionan sin JavaScript de más. */
+.v4-switch {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 40px;
+  height: 24px;
+  margin: 0;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard),
+              border-color var(--motion-fast) var(--ease-standard);
+}
+.v4-switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--brand-ivory);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--elevation-1);
+  transition: transform var(--motion-base) var(--ease-emphasis);
+}
+.v4-switch:checked { background: var(--accent-gold); border-color: var(--accent-gold); }
+.v4-switch:checked::before { transform: translateX(16px); }
+.v4-switch:focus-visible,
+.v4-cookies .v4-btn:focus-visible,
+.v4-cookies__cerrar:focus-visible,
+.v4-cookies__enlace:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-switch,
+  .v4-switch::before { transition: none; }
+}
+
+@media (max-width: 640px) {
+  .v4-cookies { align-items: flex-end; padding: var(--space-3); }
+  .v4-cookies__panel { padding: var(--space-6) var(--space-5); }
+  .v4-cookies__acciones { flex-direction: column-reverse; }
+  .v4-cookies__acciones .v4-btn { width: 100%; }
+}

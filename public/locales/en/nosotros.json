@@ -15,15 +15,14 @@
     "door": "Discover Active Navigation"
   },
   "historia": [
-    { "titulo": "We started out uncomfortable", "desc": "Like any consumer, the ads we saw while browsing didn't interest us. We had spent years inside the industry, and we could see why.", "rotulo": "What we saw", "eco": "Almost every campaign is conceived and planned from the advertiser's side. It makes sense: they are the ones paying." },
-    { "titulo": "We switched sides", "desc": "For an ad to serve the advertiser, it first has to serve their consumer. We founded Advia to plan from there.", "rotulo": "What changes", "eco": "You stop asking where your ad fits and start asking what your consumer is trying to find out." },
-    { "titulo": "There are two ways to navigate", "desc": "In the passive one, an algorithm or an editor chooses what we see. In the active one, we have a doubt or a decision to make, and we go out looking for information.", "rotulo": "The thesis", "eco": "In those moments an ad doesn't have to interrupt: it can be the answer we were already looking for." },
-    { "titulo": "The technology comes after", "desc": "We built Vera to turn ads into answers wherever the question happens: the open web, YouTube and AI answers.", "rotulo": "What we sell", "eco": "A concept, not a technology. The concept travels; the technology follows." }
+    { "titulo": "We think about advertising from the other side", "desc": "For an ad to serve the advertiser, it first has to be relevant to their consumer. We founded Advia to plan from there.", "rotulo": "What changes", "eco": "You stop asking where your ad fits and start asking where you will be relevant to your consumer." },
+    { "titulo": "There are two ways to navigate", "desc": "In the passive one, an algorithm or an editor chooses what we see. In the active one, we have a doubt or a decision to make, and we go out looking for information.", "rotulo": "The thesis", "eco": "During Active Navigation, an ad can become the answer the consumer is looking for." },
+    { "titulo": "The technology comes after", "desc": "We built Vera to turn ads into answers wherever the question happens: the open web, YouTube and AI answers.", "rotulo": "What we sell", "eco": "We position your brand during your consumer's Active Navigation, across every channel." }
   ],
   "equipo": {
     "eyebrow": "The team",
-    "titular": "A small team, all in Madrid, in three <key>areas</key>",
-    "lede": "Each area is led by a founder. The three of us met at Seedtag and before that went through GroupM: the media side and the agency side, which is where you see what breaks between the plan and the result.",
+    "titular": "A small team (for now!) with plenty of <key>ambition</key>",
+    "lede": "Three founders with experience in the industry, transforming advertising from the heart of Madrid.",
     "fotoAlt": "The whole Advia team in the Madrid office, with the brand's neon sign"
   },
   "areas": [
@@ -33,8 +32,8 @@
   ],
   "valores": {
     "eyebrow": "Values",
-    "titular": "Five values that are <key>practised</key>, not hung on a wall",
-    "lede": "They came out of the exercise of writing down who we are, and the debate that forced us to have. They apply every day when we write, sell and deliver.",
+    "titular": "Five values that define our <key>culture</key>",
+    "lede": "We are clear about where we are going, and these values help us make day-to-day decisions.",
     "items": [
       "We work hard and enjoy doing it. We value agility, constant growth and each person contributing in their own way.",
       "Technology doesn't replace people: it amplifies them. The person stays at the centre, and technology is an extension of what we know how to do.",

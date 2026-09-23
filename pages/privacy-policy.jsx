@@ -8,6 +8,6 @@ export default function PrivacyPolicyPage() {
 
 PrivacyPolicyPage.v4 = true;
 
-export async function getServerSideProps({ locale }) {
+export async function getStaticProps({ locale }) {
   return { props: { ...(await traducciones(locale, "legal")) } };
 }

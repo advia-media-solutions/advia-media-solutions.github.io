@@ -3597,28 +3597,19 @@
      cuenta la escena pegada de abajo, con el mismo texto. */
   .v4-recorrido__paradas { display: none; }
 
-  /* ── Navegación Activa: el recorrido, pegado y por scroll (RecorridoMovil) ──
+  /* ── Navegación Activa: el recorrido, por scroll y sin pegar (RecorridoMovil) ──
      Una línea de tiempo: la esfera arriba a la izquierda con la premisa a su
      lado y, debajo, una recta por la que bajan las bolas hasta cada parada.
      `--v4-rmov-eje` es el ancho de la columna de la esfera; la recta y las
-     bolas van en su centro, así que todo cuelga del mismo eje. El tramo es
-     corto a propósito: con la columna entera en pantalla, un tramo largo solo
-     sería scroll muerto. */
+     bolas van en su centro, así que todo cuelga del mismo eje. Va en el flujo:
+     pegada frenaba el scroll casi dos pantallas, y la línea se lee igual
+     dibujándose a medida que la página sube. */
   .v4-rmov {
     --v4-rmov-eje: 88px;
     display: block;
-    height: calc(var(--v4-tramo, 1.75) * 100svh);
-  }
-  /* Arriba y sin el alto del menú: el menú se esconde al bajar, y reservarle
-     sitio dejaba un hueco entre el texto anterior y la esfera. */
-  .v4-rmov__pegado {
-    position: sticky;
-    top: 0;
-    height: 100svh;
     padding: var(--space-6) 0;
-    overflow: hidden;
   }
-  .v4-rmov__cuadro { position: relative; will-change: transform; }
+  .v4-rmov__cuadro { position: relative; }
   .v4-rmov__cabeza {
     display: grid;
     grid-template-columns: var(--v4-rmov-eje) 1fr;
@@ -3683,11 +3674,8 @@
   .v4-rmov__ficha[data-puesta="true"] .v4-rmov__texto { opacity: 1; transform: none; }
   .v4-rmov__ficha .v4-chip { padding: var(--space-1) var(--space-3); color: var(--text-primary); }
   .v4-rmov__ficha .v4-body { margin: 0; font-size: var(--fs-body-m); line-height: var(--lh-body-m); color: var(--text-primary); text-wrap: balance; }
-  /* Movimiento reducido: la línea de tiempo montada y sin pegar, que sin
-     animación el tramo pegado sería scroll vacío. */
+  /* Movimiento reducido: la línea de tiempo montada desde el principio. */
   @media (prefers-reduced-motion: reduce) {
-    .v4-rmov { height: auto; }
-    .v4-rmov__pegado { position: static; height: auto; }
     .v4-rmov__linea { transform: none; }
     .v4-rmov__bola, .v4-rmov__texto { opacity: 1; transform: none; transition: none; }
   }

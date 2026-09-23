@@ -199,7 +199,7 @@ export default function Recorrido({ paradas, nota }) {
         {nota ? <div className="v4-recorrido__nota">{nota}</div> : null}
 
         {/* Bajo el corte no hay escena WebGL (escena.js): el recorrido se
-            cuenta en RecorridoMovil, pegado y gobernado por el scroll. El CSS
+            cuenta en RecorridoMovil, dibujado a medida que se baja. El CSS
             lo esconde en escritorio y esconde aquí la lista de paradas. La
             nota viaja también: en móvil va junto a la esfera de la escena. */}
         <RecorridoMovil paradas={paradas} nota={nota} />

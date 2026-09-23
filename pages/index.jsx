@@ -1,10 +1,15 @@
 import React from "react";
-import Homepage from "../src/pages/Homepage";
+import { traducciones } from "../src/i18n/servidor";
+import Home from "../src/pages/v4/Home";
 
 export default function IndexPage() {
-  return <Homepage />;
+  return <Home />;
 }
 
-export async function getServerSideProps() {
-  return { props: {} };
+// Marca la ruta como v4: _app se salta el chrome antiguo (NavBar/Footer/gradiente)
+// porque estas páginas traen su propia nav oscura y su propio footer.
+IndexPage.v4 = true;
+
+export async function getStaticProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "home")) } };
 }

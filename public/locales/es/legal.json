@@ -1,0 +1,27 @@
+{
+  "avisoLegal": {
+    "title": "Aviso Legal | Advia",
+    "description": "Datos identificativos del titular del sitio, condiciones de uso, responsabilidades, propiedad intelectual y jurisdicción aplicable.",
+    "titular": "Aviso <key>Legal</key>",
+    "lede": "Condiciones que regulan el uso de advia.tech, y los datos de quien lo publica."
+  },
+  "cookies": {
+    "title": "Política de Cookies | Advia",
+    "description": "Qué cookies utiliza advia.tech, para qué sirve cada una, cuánto duran y cómo excluirse.",
+    "titular": "Política de <key>Cookies</key>",
+    "lede": "Esta Política es de aplicación a los usuarios de la página web de Advia Media Solutions, incluida su versión móvil."
+  },
+  "privacidad": {
+    "title": "Política de Privacidad | Advia",
+    "description": "Cómo trata Advia los datos personales en su servicio de ad server: qué se registra, con qué base legal, cuánto se conserva y qué derechos tiene.",
+    "titular": "Política de <key>Privacidad</key>",
+    "lede": "Cómo trata Advia Media Solutions los datos personales en la entrega y medición de anuncios, y qué ocurre con los visitantes de este sitio."
+  },
+  "optOut": {
+    "title": "Exclusión publicitaria · Ad opt-out | Advia",
+    "description": "Excluya este navegador del registro de eventos publicitarios de Advia y de la medición de tráfico de advia.tech. Inmediato y sin facilitar ningún dato.",
+    "titular": "Exclusión <key>publicitaria</key>",
+    "lede": "Su elección se aplica a todos los anuncios que Advia le sirva, en cualquier sitio web. No hace falta que nos facilite ningún dato."
+  },
+  "version": { "es": "Versión en español", "en": "English version" }
+}

@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Publicidad en IA — paid media en ChatGPT | Advia",
+    "description": "Anuncios dentro de la conversación en ChatGPT, activados sobre las preguntas en las que la simulación dice que tu marca es una respuesta relevante."
+  },
+  "hero": {
+    "eyebrow": "Entornos Conversacionales · Publicidad en IA",
+    "titular": "Tu anuncio, en la conversación donde tu consumidor está <key>decidiendo</key>",
+    "lede": "Paid media en ChatGPT, activado sobre las preguntas en las que la simulación dice que tu marca es una respuesta relevante."
+  },
+  "como": {
+    "titular": "De la simulación a la <key>campaña</key>",
+    "lede": "La misma simulación que mide tu visibilidad dice cuándo vas a ser una respuesta relevante. Sobre eso se activa.",
+    "items": [
+      {
+        "nombre": "De keywords a hints",
+        "desc": "Las simulaciones nos dicen dónde vas a ser relevante para tu consumidor, más allá de las keywords clásicas."
+      },
+      {
+        "nombre": "Mensajes creativos",
+        "desc": "Distintos mensajes para distintas necesidades: el anuncio responde a lo que el consumidor tiene delante."
+      },
+      {
+        "nombre": "Mejora continua",
+        "desc": "Durante la campaña vemos qué mensajes funcionan mejor y movemos el peso hacia ellos."
+      }
+    ]
+  },
+  "hermano": {
+    "titular": "El anuncio te pone en la conversación hoy. El <key>Posicionamiento en IA</key> hace que el modelo te mencione por sí mismo",
+    "lede": "Mejoramos tu posicionamiento orgánico, convirtiéndote en la respuesta para mejorar los resultados de todo tu plan de medios.",
+    "door": "Ver Posicionamiento en IA"
+  },
+  "cierre": {
+    "titular": "Activa tu marca en <key>ChatGPT</key>",
+    "lede": "Nos cuentas el objetivo, simulamos las conversaciones de tu categoría y te enseñamos en cuáles puedes ser la respuesta.",
+    "cta": "Hablemos"
+  }
+}

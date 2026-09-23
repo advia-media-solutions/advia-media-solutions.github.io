@@ -1,10 +1,13 @@
 import React from "react";
-import LegalNotice from "../src/pages/LegalNotice";
+import { traducciones } from "../src/i18n/servidor";
+import AvisoLegal from "../src/pages/v4/legal/AvisoLegal";
 
 export default function LegalNoticePage() {
-  return <LegalNotice />;
+  return <AvisoLegal />;
 }
 
-export async function getServerSideProps() {
-  return { props: {} };
+LegalNoticePage.v4 = true;
+
+export async function getStaticProps({ locale }) {
+  return { props: { ...(await traducciones(locale, "legal")) } };
 }

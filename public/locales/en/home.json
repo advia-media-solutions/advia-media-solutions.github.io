@@ -1,0 +1,59 @@
+{
+  "seo": {
+    "title": "Advia — Turning ads into answers",
+    "description": "We predict where your consumer searches before deciding and place your brand's answer there: web, YouTube and AI answers."
+  },
+  "hero": {
+    "titular": "Turning ads into <key>answers</key>",
+    "lede": "When someone searches to make a decision, there is an answer that helps them. We work to turn your brand into that answer, and to make it reach the consumer as the solution they need.",
+    "cta": "How we can add value",
+    "ctaGhost": "Why Advia exists"
+  },
+  "pantallas": {
+    "pasiva": {
+      "label": "Passive navigation",
+      "pie": "Moments of entertainment, <strong>passive</strong> towards the medium: an editor or an algorithm picks what shows up on screen."
+    },
+    "activa": {
+      "label": "Active Navigation",
+      "preguntas": [
+        "what are the best hybrid SUVs?",
+        "which coffee machine should I buy for home",
+        "memory foam mattress reviews",
+        "best value phone"
+      ],
+      "pie": "There is a decision to make and <strong>we search</strong> for all the information we can to get it right."
+    }
+  },
+  "formas": {
+    "titular": "There are two ways to <key>navigate</key>",
+    "lede": "As a brand, you add value when you become the answer to your consumers' needs. The answer they look for during their <strong>Active Navigation</strong>.",
+    "door": "Discover Active Navigation"
+  },
+  "vera": {
+    "titular": "Those moments show up in no media plan. <key>Vera</key> finds them",
+    "lede": "By launching hundreds of agents that ask the same questions your consumers ask, and collecting every moment in which you can be the answer.",
+    "door": "How Vera works"
+  },
+  "agentes": [
+    { "nombre": "Lucía", "edad": 34, "pregunta": "Which hybrid SUV uses the least fuel in the city?" },
+    { "nombre": "Marcos", "edad": 41, "pregunta": "Best family SUV under €35,000?" },
+    { "nombre": "Aitana", "edad": 29, "pregunta": "Is a plug-in hybrid worth it in 2026?" },
+    { "nombre": "Javier", "edad": 52, "pregunta": "Reliable SUV with low maintenance?" }
+  ],
+  "canales": {
+    "titular": "Vera tells you where, but each <key>channel</key> is activated in a different way",
+    "paidMedia": "Active Navigation in Digital Channels",
+    "geo": "Active Navigation in Conversational Environments",
+    "ver": "See the product"
+  },
+  "fundadores": {
+    "titular": "Our purpose is to help brands capitalise on <key>Active Navigation</key>, connecting with their consumers when they need each other most",
+    "lede": "Advia was born with the mission of designing and building technology that turns advertising into value for the consumer, helping brands be relevant during their potential buyers' Active Navigation.",
+    "door": "Who we are"
+  },
+  "cierre": {
+    "titular": "Tell us your goal and let's turn your brand into the <key>answer</key> the consumer needs",
+    "cta": "Meet Advia"
+  }
+}

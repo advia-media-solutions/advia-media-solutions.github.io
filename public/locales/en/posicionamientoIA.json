@@ -1,0 +1,199 @@
+{
+  "seo": {
+    "title": "AI Positioning — get the models to cite your brand | Advia",
+    "description": "We measure how your brand shows up in the models' answers, understand where they get them from and create the content the AI cites."
+  },
+  "hero": {
+    "eyebrow": "Conversational Environments · AI Positioning",
+    "titular": "We work on the sources the AI reads so that your brand is <key>the answer</key>",
+    "lede": "The AI answers with what it reads. We know which sources it leans on in your category, which ones you don't control, where to publish and how to write so that it cites you."
+  },
+  "fuentes": {
+    "titular": "Where does the AI get what it says about <key>your brand</key>?",
+    "lede": "From what you write, and from many sources you don't control. The effort usually goes to the part that can be edited: your own website and what you publish. We work on both. We get the sources the AI leans on to talk about you, and we tell you how your own content has to be written for it to be cited.",
+    "propio": {
+      "nombre": "What you write",
+      "desc": "Your website, your channels"
+    },
+    "otros": {
+      "nombre": "What others write",
+      "desc": "Media, comparison sites, social, forums…"
+    },
+    "nota": "Illustrative proportion. The actual split is measured per category and is the first thing you see in your analysis."
+  },
+  "medir": {
+    "titular": "We measure to know <key>what to move</key>",
+    "lede": "An analysis of the real conversations in your category. It is the starting point of the plan, and the baseline everything that follows is measured against."
+  },
+  "medidas": [
+    {
+      "nombre": "Share of Answer",
+      "pregunta": "In how many answers in your category do you appear?",
+      "desc": "We count how many answers the AI mentions you in, and in what position."
+    },
+    {
+      "nombre": "Perception",
+      "pregunta": "What does it say about you when it mentions you?",
+      "desc": "By decision factor: price, range, service. What the AI believes about your brand is not always what you tell."
+    },
+    {
+      "nombre": "Cited sources",
+      "pregunta": "Where does it get the answer from?",
+      "desc": "The domains and URLs the model consults to answer: the ones you write and the ones you don't control. That is where the work happens next."
+    },
+    {
+      "nombre": "Benchmark",
+      "pregunta": "Against whom, and heading where?",
+      "desc": "The same measures for your competitors, and how they move from one measurement to the next."
+    }
+  ],
+  "plataforma": {
+    "titular": "The measurement yields a plan: <key>where to publish</key> and <key>how to write</key>. We carry out that plan so you don't have to",
+    "lede": "Our platform reads the models' answers in your category, locates the sources they lean on. With that analysis we build a media plan that we help you carry out through our editorial network of national and international outlets.",
+    "pausar": "Pause",
+    "reproducir": "Resume",
+    "aviso": "Conceptual simulation · illustrative data",
+    "pasosAria": "Process steps",
+    "pasos": [
+      {
+        "titulo": "We simulate",
+        "desc": "Synthetic agents ask ChatGPT the way your customer would."
+      },
+      {
+        "titulo": "We scan",
+        "desc": "We detect which brands appear next to yours and in what position."
+      },
+      {
+        "titulo": "We extract",
+        "desc": "We collect the sources the model relies on to answer."
+      },
+      {
+        "titulo": "We prioritise",
+        "desc": "We score how relevant each source is."
+      },
+      {
+        "titulo": "We plan",
+        "desc": "We turn that relevance into an article plan."
+      },
+      {
+        "titulo": "We distribute",
+        "desc": "We publish across a network of publishers."
+      },
+      {
+        "titulo": "We measure again",
+        "desc": "We rerun the simulation and compare."
+      }
+    ],
+    "chat": {
+      "agente": "AGT-0142 · Family · Valencia",
+      "prompt": "Which family electric car would you recommend for under €40,000?",
+      "respuesta": "On that budget, the most recommended options are <m>Tesla</m>, <m>Hyundai</m> and <o>BYD</o><c>1</c>. <m>Tesla</m> leads on range and charging network<c>2</c>, while <o>BYD</o> stands out for standard equipment at a good price<c>3</c>. If boot space is your priority, <m>Volkswagen</m> is another common choice<c>4</c>.",
+      "estados": {
+        "preguntando": "Asking",
+        "respondiendo": "Answering",
+        "escaneando": "Scanning brands",
+        "extrayendo": "Extracting sources"
+      }
+    },
+    "agentes": {
+      "rotulo": "Agents in parallel",
+      "enCurso": "Running",
+      "conversaciones": "Simulated conversations",
+      "lista": [
+        {
+          "id": "AGT-0142",
+          "perfil": "Family · Valencia",
+          "pregunta": "Family electric car for under €40,000"
+        },
+        {
+          "id": "AGT-0387",
+          "perfil": "Freelancer · Seville",
+          "pregunta": "Is an EV worth it without a private garage?"
+        },
+        {
+          "id": "AGT-0911",
+          "perfil": "Retiree · Bilbao",
+          "pregunta": "Small EV with good range"
+        },
+        {
+          "id": "AGT-1203",
+          "perfil": "Student · Madrid",
+          "pregunta": "Reliable second-hand EV"
+        }
+      ]
+    },
+    "menciones": {
+      "rotulo": "Mentions in {{n}} answers"
+    },
+    "fuentes": {
+      "rotulo": "Cited sources"
+    },
+    "relevancia": {
+      "rotulo": "Source relevance",
+      "titulo": "Which sources weigh on the <key>answer</key>",
+      "sub": "Citation frequency, topic and position in each answer.",
+      "prioritaria": "Priority",
+      "tipos": [
+        "Comparison",
+        "Review",
+        "Forum",
+        "Video",
+        "Guide",
+        "Encyclopedia"
+      ]
+    },
+    "plan": {
+      "rotulo": "Media plan",
+      "titulo": "Articles written for the sources that <key>count</key>",
+      "respondeA": "Answers",
+      "articulos": [
+        {
+          "tipo": "Comparison",
+          "titulo": "Family electric SUVs: what each brand offers for under €40,000"
+        },
+        {
+          "tipo": "Review",
+          "titulo": "A week with a BYD in the city: consumption, charging and boot"
+        },
+        {
+          "tipo": "Guide",
+          "titulo": "Real versus rated range: how to read the figures"
+        },
+        {
+          "tipo": "Analysis",
+          "titulo": "Standard equipment in EVs: what you don't pay extra for"
+        }
+      ]
+    },
+    "calendario": {
+      "rotulo": "Distribution",
+      "titulo": "Calendar across the <key>publisher</key> network",
+      "semana": "Wk {{n}}",
+      "publicaciones": "{{n}}/{{total}} placements",
+      "publishers": [
+        "Motoring outlet",
+        "National daily",
+        "Tech magazine",
+        "Savings portal",
+        "Family blog",
+        "Regional outlet"
+      ]
+    },
+    "medicion": {
+      "rotulo": "New measurement",
+      "titulo": "Same questions, new <key>position</key>",
+      "sub": "We rerun the {{n}} conversations after activation.",
+      "resumen": "BYD moves <key>from 4th to 2nd place</key>"
+    }
+  },
+  "hermano": {
+    "titular": "While organic presence is being built, we complement it with <key>AI Advertising</key>",
+    "lede": "The same simulation that measures your visibility tells when you will be a relevant answer. Paid media in ChatGPT is activated on that.",
+    "door": "See AI Advertising"
+  },
+  "cierre": {
+    "titular": "We show you where you stand today and <key>what to move</key> to change it",
+    "lede": "We measure your category's answers, against whom and on which factors, and propose the pieces you are missing to improve your AI positioning.",
+    "cta": "Let's talk"
+  }
+}

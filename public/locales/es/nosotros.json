@@ -1,0 +1,51 @@
+{
+  "seo": {
+    "title": "Nosotros — por qué existe Advia | Advia",
+    "description": "Advia es una AdTech fundada en Madrid en 2024. Usamos agentes de IA para identificar los momentos en los que un consumidor investiga antes de decidir, y posicionamos ahí a las marcas como la respuesta."
+  },
+  "hero": {
+    "eyebrow": "Nosotros",
+    "titular": "Publicidad hecha desde el lado de quien <key>busca</key>",
+    "lede": "Advia es una AdTech fundada en Madrid en 2024. Usamos agentes de IA para identificar los momentos en los que un consumidor está investigando antes de decidir, y posicionamos ahí a las marcas como la respuesta."
+  },
+  "porque": {
+    "eyebrow": "Por qué existe Advia",
+    "titular": "Para que un anuncio le sirva al anunciante, antes tiene que servirle a su <key>consumidor</key>",
+    "lede": "Es la idea entera de la empresa, y la razón de que viaje de canal en canal. Contada en el orden en que la vivimos.",
+    "door": "Descubre la Navegación Activa"
+  },
+  "historia": [
+    { "titulo": "Pensamos la publicidad desde el otro lado", "desc": "Para que un anuncio le sirva al anunciante, antes tiene que ser relevante para su consumidor. Fundamos Advia para planificar desde ahí.", "rotulo": "Lo que cambia", "eco": "Dejas de preguntarte dónde cabe tu anuncio y empiezas a preguntarte dónde serás relevante para tu consumidor." },
+    { "titulo": "Hay dos formas de navegar", "desc": "En la pasiva, un algoritmo o un editor elige lo que vemos. En la activa, tenemos una duda o una decisión que tomar, y salimos a buscar información.", "rotulo": "La tesis", "eco": "Durante la Navegación Activa, un anuncio puede convertirse en la respuesta que el consumidor está buscando." },
+    { "titulo": "La tecnología va detrás", "desc": "Construimos Vera para convertir anuncios en respuestas allí donde ocurre la pregunta: la web abierta, YouTube y las respuestas de la IA.", "rotulo": "Lo que vendemos", "eco": "Posicionamos tu marca durante la Navegación Activa de tu consumidor, en todos los canales." }
+  ],
+  "equipo": {
+    "eyebrow": "El equipo",
+    "titular": "Un equipo pequeño (¡de momento!) pero con mucha <key>ambición</key>",
+    "lede": "Tres fundadores con experiencia en el sector, transformando la publicidad desde el corazón de Madrid.",
+    "fotoAlt": "El equipo de Advia al completo, en la oficina de Madrid, con el neón de la marca"
+  },
+  "areas": [
+    { "desc": "La venta a las agencias, la estrategia de cada cuenta y el servicio al cliente." },
+    { "desc": "Vera, el producto y las herramientas con las que trabaja el resto del equipo." },
+    { "desc": "La entrega de las campañas, el diseño y los procesos que lo sostienen." }
+  ],
+  "valores": {
+    "eyebrow": "Valores",
+    "titular": "Cinco valores que definen nuestra <key>cultura</key>",
+    "lede": "Tenemos claro hacia dónde vamos, estos valores nos ayudan a tomar las decisiones del día a día.",
+    "items": [
+      "Trabajamos con intensidad y disfrutamos haciéndolo. Valoramos la agilidad, el crecimiento constante y que cada persona aporte a su manera.",
+      "La tecnología no sustituye a las personas: las amplifica. La persona sigue en el centro, y la tecnología es una extensión de lo que sabemos hacer.",
+      "Transparencia, honestidad y responsabilidad, también cuando exigen más de nosotros. El esfuerzo no se negocia: damos un paso más aunque el cliente no lo note.",
+      "Curiosidad constante por el futuro. Las mejores ideas salen de imaginar lo que todavía no existe.",
+      "No hay victorias individuales. Crecemos juntos y ganamos juntos: el éxito de Advia es de todo el equipo."
+    ]
+  },
+  "cierre": {
+    "titular": "Si el problema te interesa, <key>escríbenos</key>",
+    "lede": "Aunque no haya una vacante abierta con tu nombre. Y si lo que quieres es ver Vera sobre tu categoría, también.",
+    "cta": "Únete al equipo",
+    "ctaGhost": "Pedir una demo"
+  }
+}

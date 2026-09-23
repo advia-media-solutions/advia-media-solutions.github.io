@@ -1,11 +1,14 @@
 import React from "react";
-import OptOut from "../src/pages/OptOut";
+import { traducciones } from "../src/i18n/servidor";
+import OptOut from "../src/pages/v4/legal/OptOut";
 
 export default function OptOutPage(props) {
   return <OptOut {...props} />;
 }
 
-export async function getServerSideProps({ req, res, query }) {
+OptOutPage.v4 = true;
+
+export async function getServerSideProps({ req, res, query, locale }) {
   // Per-visitor state: must never be cached at any layer.
   res.setHeader("Cache-Control", "no-store");
 
@@ -17,6 +20,7 @@ export async function getServerSideProps({ req, res, query }) {
   // empty value must read as opted in, never the other way round.
   return {
     props: {
+      ...(await traducciones(locale, "legal")),
       optedOut: req.cookies?.advia_optout === "1",
       upstreamError: query.error === "upstream",
     },

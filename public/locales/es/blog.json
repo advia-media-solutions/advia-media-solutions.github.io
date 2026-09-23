@@ -1,0 +1,31 @@
+{
+  "home": {
+    "title": "Blog ADVIA — Navegación Activa y publicidad que responde | Advia",
+    "description": "Novedades y noticias sobre Advia y la Navegación Activa. Explora con nosotros cómo convertir la publicidad en respuestas.",
+    "titular": "Blog <key>ADVIA</key>",
+    "lede": "Novedades y noticias sobre Advia y la Navegación Activa. Explora con nosotros cómo convertir la publicidad en respuestas",
+    "mas": "Más artículos",
+    "todos": "Ver todos los artículos"
+  },
+  "lista": {
+    "title": "Todos los artículos | Blog ADVIA",
+    "description": "Explora nuestra colección completa de artículos sobre Navegación Activa, medios y publicidad que responde.",
+    "titular": "Todos los <key>Artículos</key>",
+    "lede": "Explora nuestra colección completa de artículos"
+  },
+  "articulo": {
+    "descripcionPorDefecto": "Artículo del blog de Advia sobre marketing digital y navegación activa.",
+    "noEncontradoTitle": "Artículo no encontrado | Blog Advia",
+    "noEncontradoDesc": "El artículo solicitado no fue encontrado.",
+    "noEncontrado": "Artículo no encontrado",
+    "sinContenido": "Contenido del artículo no disponible.",
+    "volver": "Volver al blog",
+    "leer": "Leer artículo completo"
+  },
+  "estado": {
+    "error": "Error al cargar artículos. {{error}}. Por favor, inténtalo de nuevo más tarde.",
+    "vacio": "No hay artículos disponibles en este momento.",
+    "aviso": "Los artículos del blog se publican en español."
+  },
+  "paginacion": { "rotulo": "Paginación de artículos", "anterior": "Anterior", "siguiente": "Siguiente" }
+}

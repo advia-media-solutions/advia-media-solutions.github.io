@@ -1,0 +1,443 @@
+/* ============================================================================
+   ADVIA · tokens.css — Fuente única de verdad del Design System interno.
+
+   ADVIA DESIGN SYSTEM · v1.0 · APROBADO · Julia · 2026-07-29
+   VERSIÓN UNIFICADA: desde v1.0, este tokens.css y la skill advia-design-system
+   comparten número de versión y suben juntos. v1.0 = Nunito Sans + Ubuntu Mono,
+   azul solo semántico (--info), componentes §10.7/§10.7b, tema light por defecto.
+
+   ACTUALIZACIÓN 2026-07-30 (dentro de v1.0, sin bump · aprobado Julia): añadido
+   --radius-field 14px (campos/inputs y KPI cards) como paso entre lg(12) y xl(16);
+   --radius-control y --radius-kpi pasan a 14px (--radius-control era 4px).
+
+   AUTORIDAD: tokens.css manda para construir; Figma es vista del equipo (si cambia
+   algo en Figma, reflejarlo aquí antes de que cuente). Marca → manual de marca.
+
+   CONTENIDO
+   - COLOR    marca · accent SOLO gold #FAAD33 · azul #0E3A5C SOLO semántico (--info) ·
+              familia dorada · neutros · semánticos (warning #C04545 · success #3F5E4E ·
+              info #0E3A5C) · text-warning #AC3E3E.
+   - TIPO     Nunito Sans (300-800) + Ubuntu Mono (400/700). Display XL/L, Heading,
+              Subheading, Body L/M/S, Label (11 Upper), Button, KPI (mono 28), code 10/15/28.
+   - FORMA    radio 4/8/12/14/16/24/100 (14 = --radius-field; aliases control/card/kpi/
+              modal/pill); espaciado 4->80 +page 90; layout 1360/1180/90.
+   - EFECTOS  elevación 1/2/3 + card-shadow + focus-ring; motion; iconos 24.
+   - SISTEMA  estados (disabled/skeleton/overlay) · breakpoints · z-index · dataviz
+              (12 series gradiente). TEMA claro + oscuro vía [data-theme].
+
+   Historial completo (v0.1 BASE -> v1.0 y posteriores) -> CHANGELOG.md (junto al SKILL.md).
+   ============================================================================ */
+
+/* ============================================================================
+   1. CAPA MARCA  —  invariante entre temas (manual de marca)
+   Verificada contra logo-w.svg / logo-b.svg.
+   ============================================================================ */
+:root {
+  --brand-graphite:       #292929;   /* Grafito · marca denominativa            */
+  --brand-ivory:          #FCFDFD;   /* Marfil · fondo principal                */
+
+  /* Isotipo: gradiente vertical del recess del triángulo (SVG verificado)   */
+  --brand-gold-cream:     #FEECAD;   /* stop superior @16%                      */
+  --brand-gold-honey:     #EEAB4A;   /* stop inferior @84%                      */
+  --brand-gold-mark-gradient:
+    linear-gradient(180deg, var(--brand-gold-cream) 16%, var(--brand-gold-honey) 84%);
+
+  /* Facets del triángulo (SVG verificado) — solo para el wordmark            */
+  --brand-facet-1:        #F6D8AB;
+  --brand-facet-2:        #F6CD8B;
+  --brand-facet-3:        #F2BB62;
+  --brand-facet-4:        #EB9F40;
+
+  /* Wordmark fills (SVG verificado) */
+  --wordmark-fill-dark:   var(--brand-ivory);      /* logo-w.svg */
+  --wordmark-fill-light:  var(--brand-graphite);   /* logo-b.svg */
+}
+
+/* ============================================================================
+   2. CAPA TOKENS DE MARCA-COLOR  —  MANDA Atomic Design (DSv1)
+   ============================================================================ */
+:root {
+  /* Accent oficial del sistema (Atomic Design · pág 26/32) */
+  --accent-gold:          #FAAD33;   /* palabra clave · web · CTAs · acentos    */
+  /* azul #0E3A5C: NO es token de acento. Es SOLO semántico → vive como --info (capa tema, §3). */
+
+  /* Familia dorada (Atomic Design · DSv1 pág 9). MANDA sobre el manual grande. */
+  --gold-crema:           #FCF2D7;   /* Crema                                   */
+  --gold-ambar-claro:     #FCDEA4;   /* Ámbar claro                             */
+  --gold-ambar:           #FBC05F;   /* Ámbar                                   */
+  --gold-ambar-oscuro:    #FAAD33;   /* Ámbar oscuro (= accent gold)            */
+
+  /* Velo dorado — fondo de estado activo/seleccionado (nav, dropdown, filas,
+     tabla líder). Translúcido: funciona igual en tema claro y oscuro. (2026-08) */
+  --gold-veil:            color-mix(in srgb, var(--accent-gold) 14%, transparent);
+  --gold-veil-strong:     color-mix(in srgb, var(--accent-gold) 22%, transparent);
+
+  /* Gradiente oficial (Atomic Design · DSv1): 2 stops, cream → #FAAD33.
+     El manual de marca usa #EB9F40 como stop final, pero el Atomic Design
+     manda en tokens de UI → #FAAD33. */
+  --brand-gradient:
+    linear-gradient(90deg, var(--brand-gold-cream) 0%, var(--accent-gold) 100%);
+  --brand-gradient-vertical:
+    linear-gradient(180deg, var(--brand-gold-cream) 0%, var(--accent-gold) 100%);
+  --brand-gradient-cta:
+    linear-gradient(90deg, #FEECAD 0%, #F6CD8B 33%, #F2BB62 66%, #EEAB4A 100%);
+
+  /* Grises neutros de referencia (Atomic Design · pág 26) */
+  --neutral-500:          #7A7A7A;   /* neutral-gray (Figma)                       */
+  --neutral-400:          #A5A5A5;   /* grey-light · ghost buttons, placeholders   */
+  --neutral-light:        #BCBCBC;   /* neutral/light-gray (Figma)                 */
+  --neutral-dark:         #4D4D4D;   /* neutral/dark-gray (Figma)                  */
+  --border-gray:          #E3E3E3;   /* borde de card/tabla · suavizado 2026-08 (antes #CDCDCD) */
+  --card-border:          #5A5A5A;   /* neutral/card-border (Figma)                */
+}
+
+/* ============================================================================
+   3. CAPA TEMA  —  claro / oscuro
+   document.documentElement.dataset.theme = 'dark' | 'light'
+   Regla de marca: nunca negro puro, nunca blanco puro.
+   ============================================================================ */
+
+/* ---- TEMA CLARO (hero del manual y de la web) --------------------------- */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --surface-page:       var(--brand-ivory);
+  --surface-card:       #FFFFFF;
+  --surface-raised:     #FFFFFF;
+  --surface-sunken:     #F1F3F7;
+  --surface-inset:      #F7F9FC;
+
+  /* Texto (Atomic Design · "Color del texto") */
+  --text-primary:       var(--brand-graphite);   /* #292929          */
+  --text-secondary:     #7A7A7A;                  /* Figma text/secondary */
+  --text-tertiary:      #9A9AA0;                  /* neutral-400      */
+  --text-accent:        var(--accent-gold);       /* palabra clave web */
+  --text-accent-panel:  var(--info);              /* texto acentuado en panel de producto = color info (semántico) */
+  --text-on-gold:       var(--brand-ivory);
+  --text-warning:       #AC3E3E;                  /* PDF Secondary-Warning · texto ≠ fill error */
+
+  --border-subtle:      rgba(41,41,41,0.08);
+  --border-default:     rgba(41,41,41,0.14);
+  --border-strong:      rgba(41,41,41,0.24);
+  /* El divisor de acento es la barra del §8c: gradiente, no dorado plano.
+     OJO: es un GRADIENTE, así que solo vale como `background`. Para una línea
+     de 1px que separe filas o cards, eso es un borde y va con --border-*. */
+  --divider:            var(--accent-bar-gradient);
+  --divider-height:     6px;                      /* spec §9.2 · 240×6 */
+
+  --wordmark-fill:      var(--wordmark-fill-light);
+
+  /* Semánticos (Atomic Design · pág 26) */
+  --warning:            #C04545;  --warning-bg:  #F7E4E4;
+  --success:            #3F5E4E;  --success-bg:  #E2F0E6;   /* Figma semantic/success */
+  --info:               #0E3A5C;  --info-bg:     #E3EEFB;   /* Figma semantic/info    */
+
+  --status-dot-success: #3F5E4E;
+  --status-dot-warning: #C04545;
+  --status-dot-info:    #0E3A5C;
+
+  /* Elevación — MANDA el Figma (Advia/Elevation) */
+  --elevation-1:        0 1px 3px 0 rgba(0,0,0,0.08);        /* elevation-1 · #00000014 */
+  --elevation-2:        0 3px 8px 0 rgba(0,0,0,0.07);        /* elevation-2 · suavizado 2026-08 */
+  --elevation-3:        0 6px 16px 0 rgba(0,0,0,0.10);       /* elevation-3 · suavizado 2026-08 */
+  --card-shadow:        2px 2px 8px 0 rgba(110,110,110,0.18);/* card-shadow · #6E6E6E2E */
+  --focus-ring-color:   #FCF2D7;                             /* input-focus             */
+  --focus-ring-shadow:  2px 2px 4px 0 var(--focus-ring-color),
+                       -2px -2px 4px 0 var(--focus-ring-color);
+  /* Aliases retro-compat */
+  --shadow-elevation:   var(--elevation-2);
+  --shadow-hover:       var(--elevation-3);
+
+  /* Estados / skeleton / overlay */
+  --surface-disabled:   #F1F3F7;
+  --text-disabled:      #BCBCBC;
+  --border-disabled:    #CDCDCD;
+  --skeleton-base:      #E9ECF2;
+  --skeleton-highlight: #F5F7FA;
+  --overlay:            rgba(0,0,0,0.20);   /* = neutral/lighter-gray #00000033 */
+}
+
+/* ---- TEMA OSCURO (hero mode de producto) -------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface-page:       #1C1C1C;   /* grafito Advia — página (sin azul, sin negro puro) */
+  --surface-card:       #292929;   /* = --brand-graphite */
+  --surface-raised:     #333333;   /* elevado */
+  --surface-sunken:     #151515;   /* hundido, aún ≠ #000 */
+  --surface-inset:      #242424;
+
+  --text-primary:       var(--brand-ivory);   /* marfil de marca */
+  --text-secondary:     #CFCFCF;               /* dark: gris claro legible (subido 2026-08) */
+  --text-tertiary:      #9E9E9E;               /* dark: gris medio legible (subido 2026-08) */
+  --text-accent:        var(--accent-gold);
+  --text-accent-panel:  #6B8FD4;                  /* azul elevado para legibilidad */
+  --text-on-gold:       var(--brand-ivory);
+  --text-warning:       #E07A7A;                  /* dark: legible (= warning dark) */
+
+  --border-subtle:      rgba(252,253,253,0.06);
+  --border-default:     rgba(252,253,253,0.10);
+  --border-strong:      rgba(252,253,253,0.18);
+  /* Mismo gradiente en oscuro: el extremo translúcido se funde con el grafito
+     igual que se funde con el marfil en claro. */
+  --divider:            var(--accent-bar-gradient);
+
+  --wordmark-fill:      var(--wordmark-fill-dark);
+
+  /* Semánticos en oscuro: mismos tonos, fondos translúcidos */
+  --warning:            #E07A7A;  --warning-bg:  rgba(192,69,69,0.16);
+  --success:            #71A98C;  --success-bg:  rgba(63,94,78,0.16);   /* dark: aclarado de #3F5E4E */
+  --info:               #6B8FD4;  --info-bg:     rgba(14,58,92,0.16);   /* dark: = text-accent-panel */
+
+  --status-dot-success: #71A98C;
+  --status-dot-warning: #E07A7A;
+  --status-dot-info:    #6B8FD4;
+
+  /* Sin sombras de superficie en oscuro: layering por desplazamiento de fondo */
+  --elevation-1:        none;
+  --elevation-2:        none;
+  --elevation-3:        none;
+  --card-shadow:        none;
+  --shadow-elevation:   none;
+  --shadow-hover:       none;
+  /* El halo de foco sí se mantiene en oscuro */
+  --focus-ring-color:   #FCF2D7;
+  --focus-ring-shadow:  2px 2px 4px 0 var(--focus-ring-color),
+                       -2px -2px 4px 0 var(--focus-ring-color);
+
+  /* Estados / skeleton / overlay */
+  --surface-disabled:   #333333;
+  --text-disabled:      #7A7A7A;
+  --border-disabled:    rgba(252,253,253,0.10);
+  --skeleton-base:      #333333;
+  --skeleton-highlight: #3D3D3D;
+  --overlay:            rgba(0,0,0,0.50);
+}
+
+/* ============================================================================
+   4. TIPOGRAFÍA  —  MANDA el Figma (14 estilos · JULIO 2026)
+   Nunito Sans (300 Light / 400 Regular / 500 Medium / 600 SemiBold / 700 Bold / 800 ExtraBold)
+   Ubuntu Mono (400 Regular / 700 Bold — monoespaciada; sin 300/500, mono light cae a 400)
+   line-height documentado en px (tal cual el Figma).
+   ============================================================================ */
+:root {
+  --font-sans:  "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono:  "Ubuntu Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --fw-light:     300;   /* Display L (Nunito Sans) · mono light cae a 400 en Ubuntu Mono */
+  --fw-regular:   400;   /* Display XL · Body · Mono                           */
+  --fw-medium:    500;   /* Label                                              */
+  --fw-semibold:  600;   /* SemiBold (Nunito Sans)                             */
+  --fw-bold:      700;   /* Heading · Subheading · Button                      */
+  --fw-extrabold: 800;   /* ExtraBold (Nunito Sans)                            */
+
+  /* --- Nunito Sans --------------------------------------------------------- */
+  --fs-display-xl:  98px;  --lh-display-xl:  108px;  /* Regular · hero, máx 1/página  */
+  --fs-display-l:   52px;  --lh-display-l:    62px;  /* Light   · headline de sección */
+  --fs-heading:     42px;  --lh-heading:      50px;  /* Bold    · título de página    */
+  --fs-subheading:  28px;  --lh-subheading:   36px;  /* Bold    · subtítulos / cards  */
+  --fs-body-l:      20px;  --lh-body-l:       30px;  /* Regular · intro / destacado   */
+  /* Escalón de lectura larga (2026-09). La escala saltaba de 15 a 20: 15 se
+     queda corto en un artículo y 20 es tamaño de intro, no de cuerpo corrido.
+     Solo para prosa extensa — el cuerpo estándar de la web sigue siendo 15. */
+  --fs-body-reading: 17px;  --lh-body-reading: 27px;  /* Regular · prosa de artículo   */
+  --fs-body-m:      15px;  --lh-body-m:       23px;  /* Regular · cuerpo estándar     */
+  --fs-body-s:      12px;  --lh-body-s:       19px;  /* Regular · notas al pie        */
+  --fs-label:       11px;  --lh-label:        13px;  /* Medium · etiquetas/tags · UPPER (PDF LABEL UI) */
+  --fs-button:      15px;  --lh-button:       20px;  /* Bold    · botones / CTAs      */
+
+  /* --- Ubuntu Mono (todos los valores numéricos: KPIs, IDs, importes) ------ */
+  --font-kpi:         var(--font-mono);
+  /* Escala mono/code — MANDA el PDF (Atomic p10): CODE XS 10 · M 15 · L 28 */
+  --fs-code-xs:  10px;  --lh-code-xs:  14px;  /* Regular · código inline, datos mínimos */
+  /* Escalón de rótulo (2026-09). A 10px, un rótulo en mayúsculas y con tracking
+     se lee a duras penas en pantalla; 15 es tamaño de dato, no de etiqueta.
+     Este es el cuerpo por defecto de labels, chips y metadatos de la web. */
+  --fs-code-s:   12px;  --lh-code-s:   16px;  /* Regular · rótulos y metadatos  */
+  --fs-code-m:   15px;  --lh-code-m:   22px;  /* Regular · metadatos, datos tabulares   */
+  --fs-code-l:   28px;  --lh-code-l:   34px;  /* Regular · código / versión destacada   */
+  /* Aliases retro-compat (mono-* → escala code) */
+  --fs-mono-caption:  var(--fs-code-xs);  --lh-mono-caption:  var(--lh-code-xs);
+  --fs-mono:          var(--fs-code-m);   --lh-mono:          var(--lh-code-m);
+  --fs-mono-light:    var(--fs-code-m);   --lh-mono-light:    var(--lh-code-m);
+  --tr-kpi:           0px;   /* sin tracking negativo — el mono ya tiene ritmo propio */
+
+  /* KPI hero — cifra grande de métrica. Usa --font-kpi (mono). */
+  --fs-kpi:           28px;  --lh-kpi:           36px;  /* Bold mono · número hero de card/dashboard */
+}
+
+/* ============================================================================
+   5. ESPACIADO Y FORMA  (DESIGN.md · §5)
+   ============================================================================ */
+:root {
+  /* Escala de espaciado (Figma · spacing/*) */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px;
+  --space-page: 90px;   /* spacing/90 · margen lateral de página */
+
+  /* Radio — MANDA el Figma (radius/*). Acoplado al tamaño del componente. */
+  --radius-sm:    4px;    /* chips, elementos pequeños                */
+  --radius-md:    8px;    /* botones, cards estándar                  */
+  --radius-lg:    12px;   /* cards destacadas, contenedores · Figma radius/lg */
+  --radius-field: 14px;   /* campos/inputs y KPI cards · paso entre lg y xl (2026-07-30, v1.0) */
+  --radius-xl:    16px;   /* contenedores grandes, modales            */
+  --radius-2xl:   24px;   /* paneles, secciones destacadas            */
+  --radius-full:  100px;  /* pill buttons, avatares circulares        */
+
+  /* Aliases semánticos (según uso documentado en el Figma) */
+  --radius-control: var(--radius-field);  /* input / campo = 14px (2026-07-30; antes 4px) */
+  --radius-kpi:     var(--radius-field);  /* KPI card = 14px (2026-07-30)                 */
+  --radius-card:    var(--radius-md);     /* card estándar = 8px */
+  --radius-modal:   var(--radius-xl);     /* modal = 16px        */
+  --radius-pill:    var(--radius-full);
+
+  /* Tokens de layout (Figma · layout/*) — canvas de diseño / decks */
+  --layout-frame-width:   1360px;  /* ancho del frame de diseño    */
+  --layout-content-width: 1180px;  /* ancho del área de contenido  */
+  --layout-margins:       90px;    /* márgenes laterales de página */
+
+  /* Layout WEB (advia.tech) — distinto del canvas de decks, a propósito */
+  --web-content-width:    1120px;  /* ancho máx de contenido web, centrado */
+  --web-section-pad-y:    96px;    /* padding vertical de section (desktop) */
+  --web-section-pad-x:    48px;    /* padding lateral de section (desktop) */
+}
+
+/* ============================================================================
+   6. MOTION  (DESIGN.md · §6)
+   ============================================================================ */
+:root {
+  --motion-fast: 120ms;  --motion-base: 200ms;  --motion-slow: 320ms;
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-emphasis: cubic-bezier(0.2, 0.0, 0.0, 1);
+}
+
+/* ============================================================================
+   7. ICONO  (Material Symbols Outlined)
+   ============================================================================ */
+:root {
+  --icon-size:   24px;   /* rejilla base 24px               */
+  --icon-stroke: 2px;    /* trazo uniforme                  */
+}
+
+/* ============================================================================
+   8. DATAVIZ  (paleta categórica del Figma — 12 series, gradiente 2 stops)
+   Sólido (--chart-N) = stop claro → leyendas / puntos / texto.
+   Gradiente (--chart-N-gradient) → barras / donut / áreas.
+   Series 3/5/8/10 tienen variante propia en oscuro; el resto se comparte.
+   ============================================================================ */
+:root {
+  /* Marcas base (sólidos) */
+  --chart-base-gold:   #FAAD33;
+  --chart-base-gray:   #4D4D4D;
+  --chart-base-purple: #C13FE5;   /* accent/purple del Figma — vive aquí, no en UI */
+  --chart-base-ivory:  #FCFDFD;
+
+  /* Stops por serie (claro → oscuro) */
+  --chart-1-from:  #FAAD33;  --chart-1-to:  #FECB7B;
+  --chart-2-from:  #4B7AC1;  --chart-2-to:  #04398A;
+  --chart-3-from:  #10B981;  --chart-3-to:  #059669;
+  --chart-4-from:  #8CA3B4;  --chart-4-to:  #4A6377;   /* Sky agrisado: se separa de Blue y Cyan */
+  --chart-5-from:  #8B5CF6;  --chart-5-to:  #6D28D9;
+  --chart-6-from:  #F57171;  --chart-6-to:  #9B1A1A;
+  --chart-7-from:  #F471B6;  --chart-7-to:  #C21E77;
+  --chart-8-from:  #FAB351;  --chart-8-to:  #C2410C;   /* Orange: arranca cálido y cierra en quemado */
+  --chart-9-from:  #22D3EE;  --chart-9-to:  #0891B2;
+  --chart-10-from: #A3E635;  --chart-10-to: #65A30D;
+  --chart-11-from: #E879F9;  --chart-11-to: #A00CD3;
+  --chart-12-from: #5A5AA6;  --chart-12-to: #1F2455;   /* Indigo tinta: se separa de Violet y Blue */
+
+  /* Sólido por serie (= stop claro) */
+  --chart-1:  var(--chart-1-from);   --chart-2:  var(--chart-2-from);
+  --chart-3:  var(--chart-3-from);   --chart-4:  var(--chart-4-from);
+  --chart-5:  var(--chart-5-from);   --chart-6:  var(--chart-6-from);
+  --chart-7:  var(--chart-7-from);   --chart-8:  var(--chart-8-from);
+  --chart-9:  var(--chart-9-from);   --chart-10: var(--chart-10-from);
+  --chart-11: var(--chart-11-from);  --chart-12: var(--chart-12-from);
+
+  /* Gradiente por serie (180deg claro→oscuro) */
+  --chart-1-gradient:  linear-gradient(180deg, var(--chart-1-from),  var(--chart-1-to));
+  --chart-2-gradient:  linear-gradient(180deg, var(--chart-2-from),  var(--chart-2-to));
+  --chart-3-gradient:  linear-gradient(180deg, var(--chart-3-from),  var(--chart-3-to));
+  --chart-4-gradient:  linear-gradient(180deg, var(--chart-4-from),  var(--chart-4-to));
+  --chart-5-gradient:  linear-gradient(180deg, var(--chart-5-from),  var(--chart-5-to));
+  --chart-6-gradient:  linear-gradient(180deg, var(--chart-6-from),  var(--chart-6-to));
+  --chart-7-gradient:  linear-gradient(180deg, var(--chart-7-from),  var(--chart-7-to));
+  --chart-8-gradient:  linear-gradient(180deg, var(--chart-8-from),  var(--chart-8-to));
+  --chart-9-gradient:  linear-gradient(180deg, var(--chart-9-from),  var(--chart-9-to));
+  --chart-10-gradient: linear-gradient(180deg, var(--chart-10-from), var(--chart-10-to));
+  --chart-11-gradient: linear-gradient(180deg, var(--chart-11-from), var(--chart-11-to));
+  --chart-12-gradient: linear-gradient(180deg, var(--chart-12-from), var(--chart-12-to));
+}
+
+/* Variantes de oscuro — solo las series que cambian (el sólido y el gradiente
+   heredan vía var(), no hay que redefinirlos). */
+[data-theme="dark"] {
+  --chart-3-from:  #3BDEA8;  --chart-3-to:  #067E59;
+  --chart-5-from:  #AB90EA;  --chart-5-to:  #5F1BCA;
+  --chart-8-from:  #FB8B3C;  --chart-8-to:  #C2410C;
+  --chart-10-from: #8AE672;  /* --chart-10-to se mantiene #65A30D */
+  --chart-12-from: #7B7BC6;  --chart-12-to: #33377E;
+}
+
+/* ============================================================================
+   8b. DATAVIZ · ROLES POR TIPO DE GRÁFICO  (v0.2 · reglas de aplicación)
+   El color lo manda el TIPO de gráfico, no el nombre del dato.
+   ----------------------------------------------------------------------------
+   - Combo (barras + línea): barra y línea INTERCAMBIAN dorado y neutro por tema.
+   - Barras de progreso / donut: gradiente de serie (--chart-N-gradient).
+   - Barras agrupadas: serie primaria neutra-de-tema + serie destacada dorada.
+   ============================================================================ */
+:root, [data-theme="light"] {
+  /* Combo: light → barra grafito, línea dorada */
+  --combo-bar:   var(--brand-graphite);
+  --combo-line:  var(--accent-gold);
+  /* Serie primaria de barras agrupadas (light → grafito, nunca negro puro) */
+  --series-primary: var(--brand-graphite);
+  --series-accent:  var(--accent-gold);
+  /* Barra neutra base para gráficos que la pidan */
+  --chart-bar-neutral: var(--chart-base-gray);   /* #4D4D4D */
+}
+[data-theme="dark"] {
+  /* Combo: dark → barra dorada, línea marfil */
+  --combo-bar:   var(--accent-gold);
+  --combo-line:  var(--brand-ivory);
+  /* Serie primaria de barras agrupadas (dark → morado del chart, no de UI) */
+  --series-primary: var(--chart-5-from);   /* #AB90EA en dark */
+  --series-accent:  var(--accent-gold);
+  --chart-bar-neutral: var(--brand-ivory); /* neutro visible sobre card oscura */
+}
+
+/* ============================================================================
+   8c. BARRA DE ACENTO DE DECK/HERO  (v0.2 · spec oficial)
+   240×6px sobre lienzo 1360 · #FEECAD @12% → #FAAD33 @100% · izq→der.
+   Portadas/aperturas de deck y títulos. En UI, el único uso permitido es el
+   DIVISOR DE ACENTO (`--divider`, 6px de alto): mismo gradiente, mismo grosor.
+   Sigue prohibida como adorno en cards, botones o fondos.
+   ============================================================================ */
+:root {
+  --accent-bar-gradient:
+    linear-gradient(90deg, rgba(254,236,173,0.12) 0%, var(--accent-gold) 100%);
+  --accent-bar-width:  2.353in;   /* ≈240px @96dpi en 16:9 */
+  --accent-bar-height: 0.0588in;  /* ≈6px */
+}
+
+/* ============================================================================
+   9. BREAKPOINTS Y Z-INDEX  (DESIGN.md)
+   ============================================================================ */
+:root {
+  --bp-sm:   480px;
+  --bp-md:   768px;
+  --bp-lg:  1024px;
+  --bp-xl:  1280px;
+  --bp-2xl: 1360px;   /* = layout-frame-width */
+
+  --z-base:      0;
+  --z-dropdown:  1000;
+  --z-sticky:    1100;
+  --z-overlay:   1200;
+  --z-modal:     1300;
+  --z-toast:     1400;
+}
+

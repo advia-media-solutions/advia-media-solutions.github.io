@@ -1,90 +1,71 @@
 import React, { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { Trans, useTranslation } from "next-i18next/pages";
 import { getStoredConsent, setConsent } from "../utils/gtm";
-import Button from "./Button";
-import Logo from "./Logo";
+import Logo from "./v4/Logo";
+import { IconoCerrar } from "./v4/primitives";
 
-const CookieConsent = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
-  // Non-necessary categories start unchecked: pre-ticked boxes are not valid
-  // consent (Art. 4.11 GDPR; Planet49, C-673/17).
-  const [tempConsent, setTempConsent] = useState({
-    necessary: true,
-    analytics: false,
-    advertising: false,
-    functionality: false,
-    personalization: false,
-    hasUserChosen: false,
+const CATEGORIAS = ["analytics", "advertising", "functionality", "personalization"];
+
+// Non-necessary categories start unchecked: pre-ticked boxes are not valid
+// consent (Art. 4.11 GDPR; Planet49, C-673/17).
+const SIN_ELEGIR = {
+  necessary: true,
+  analytics: false,
+  advertising: false,
+  functionality: false,
+  personalization: false,
+  hasUserChosen: false,
+};
+
+function pageviewTrasConsentir() {
+  if (typeof window === "undefined") return;
+  window.dataLayer.push({
+    event: "post_consent_pageview",
+    page_path: window.location.pathname,
+    page_title: document.title,
   });
+}
+
+/**
+ * Aviso de cookies con el lenguaje de la web v4: panel marfil sobre velo,
+ * botones pill del sistema y un interruptor dorado por categoría. Aceptar y
+ * rechazar pesan lo mismo a la vista: rechazar no puede costar más que aceptar.
+ */
+const CookieConsent = () => {
+  const { t } = useTranslation("common");
+  /* Visible de salida: el aviso viaja en el HTML y se pinta con la página. Si
+     ya hay elección, la clase `v4-consentido` que pone _document.jsx lo
+     esconde antes del primer pintado, y aquí se desmonta al hidratar. */
+  const [isVisible, setIsVisible] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
+  const [tempConsent, setTempConsent] = useState(SIN_ELEGIR);
 
   useEffect(() => {
-    const stored = getStoredConsent();
-    if (!stored.hasUserChosen) {
-      setIsVisible(true);
-      setTempConsent({
-        necessary: true,
-        analytics: false,
-        advertising: false,
-        functionality: false,
-        personalization: false,
-        hasUserChosen: false,
-      });
-    }
+    if (getStoredConsent().hasUserChosen) setIsVisible(false);
   }, []);
 
   const handleAcceptAll = () => {
-    const newConsent = {
+    setConsent({
       ...tempConsent,
       analytics: true,
       advertising: true,
       functionality: true,
       personalization: true,
       hasUserChosen: true,
-    };
-    setConsent(newConsent);
-
-    // Remove the duplicate consent_update push and keep only the pageview event
-    if (typeof window !== "undefined")
-      window.dataLayer.push({
-        event: "post_consent_pageview",
-        page_path: window.location.pathname,
-        page_title: document.title,
-      });
-
+    });
+    pageviewTrasConsentir();
     setIsVisible(false);
   };
 
   const handleSaveConfiguration = () => {
-    const newConsent = {
-      ...tempConsent,
-      hasUserChosen: true,
-    };
-    setConsent(newConsent);
-
+    setConsent({ ...tempConsent, hasUserChosen: true });
     // If analytics was accepted, trigger immediate page view
-    if (tempConsent.analytics && typeof window !== "undefined") {
-      window.dataLayer.push({
-        event: "post_consent_pageview",
-        page_path: window.location.pathname,
-        page_title: document.title,
-      });
-    }
-
+    if (tempConsent.analytics) pageviewTrasConsentir();
     setIsVisible(false);
   };
 
   const handleRejectAll = () => {
-    const newConsent = {
-      ...tempConsent,
-      analytics: false,
-      advertising: false,
-      functionality: false,
-      personalization: false,
-      hasUserChosen: true,
-    };
-    setConsent(newConsent);
-    // Add this to push consent denial to dataLayer
+    setConsent({ ...SIN_ELEGIR, hasUserChosen: true });
     if (typeof window !== "undefined")
       window.dataLayer.push({
         event: "consent_update",
@@ -99,175 +80,147 @@ const CookieConsent = () => {
 
   if (!isVisible) return null;
 
-  const cookieTypes = [
-    {
-      title: "Cookies de análisis",
-      key: "analytics",
-      description:
-        "Nos permiten entender cómo interactúas con el sitio web, qué páginas son más populares, y detectar problemas de navegación. Esta información nos ayuda a mejorar constantemente la experiencia del usuario y optimizar nuestros servicios.",
-    },
-    {
-      title: "Cookies publicitarias y datos de usuario",
-      key: "advertising",
-      description:
-        "Utilizadas para mostrarte anuncios relevantes basados en tus intereses y hábitos de navegación. Incluye el uso de datos de usuario para personalización publicitaria.",
-    },
-    {
-      title: "Cookies de funcionalidad",
-      key: "functionality",
-      description:
-        "Permiten recordar tus preferencias como el idioma, la región o el inicio de sesión. Estas cookies hacen que tu experiencia sea más fluida al mantener tus ajustes entre visitas.",
-    },
-    {
-      title: "Cookies de personalización",
-      key: "personalization",
-      description:
-        "Nos ayudan a adaptar el contenido que ves según tus intereses. Esto incluye recomendaciones de productos, sugerencias personalizadas y contenido adaptado a tu perfil.",
-    },
-  ];
+  const cambiar = (key, valor) => setTempConsent((prev) => ({ ...prev, [key]: valor }));
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg mx-4 w-full max-w-3xl">
-        {!showDetails ? (
-          <div className="p-6">
-            <div className="flex flex-col gap-4">
-              <div className="flex justify-between items-center">
-                <Logo className="w-48 h-10" />
-              </div>
-
-              <div className="text-sm text-gray-700 mt-4">
-                <p className="leading-relaxed">
-                  Utilizamos cookies propias y de terceros con fines técnicos,
-                  analíticos, para mejora de productos y servicios, para
-                  mostrarte publicidad personalizada en base a un perfil
-                  elaborado a partir de tus hábitos de navegación y para la
-                  medición del rendimiento de anuncios y contenidos.
-                </p>
-                <p className="mt-2">
-                  Puedes aceptar todas las cookies pulsando en "Aceptar",
-                  rechazarlas y/o{" "}
-                  <button
-                    onClick={() => setShowDetails(true)}
-                    className="text-blue-600 hover:underline font-medium"
-                  >
-                    configurar
-                  </button>{" "}
-                  su uso.
-                </p>
-              </div>
-
-              <div className="flex justify-center gap-3 mt-4">
-                <Button
-                  onClick={handleRejectAll}
-                  variant="secondary"
-                  className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-16 py-3 rounded"
-                >
-                  No Acepto
-                </Button>
-                <Button
-                  onClick={handleAcceptAll}
-                  variant="primary"
-                  className="bg-blue-600 hover:bg-blue-700 text-black px-16 py-3 rounded"
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </div>
-          </div>
+    <div className="v4 v4-cookies">
+      <div
+        className="v4-cookies__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="v4-cookies-titulo"
+      >
+        {showDetails ? (
+          <Detalle
+            t={t}
+            consent={tempConsent}
+            onCambiar={cambiar}
+            onCerrar={() => setShowDetails(false)}
+            onRechazar={handleRejectAll}
+            onAceptar={handleAcceptAll}
+            onGuardar={handleSaveConfiguration}
+          />
         ) : (
-          <div className="p-6">
-            <div className="flex justify-between items-center mb-6">
-              <Logo className="w-48 h-10" />
-              <Button
-                onClick={() => setShowDetails(false)}
-                variant="ghost"
-                className="hover:bg-gray-100 rounded-full p-2"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-
-            <div className="space-y-6">
-              <div className="border-b pb-4">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <h3 className="font-semibold">Cookies necesarias</h3>
-                    <p className="text-sm text-gray-600">
-                      Necesarias para el funcionamiento básico y la seguridad
-                      del sitio web
-                    </p>
-                  </div>
-                  <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded text-sm">
-                    Obligatorio
-                  </span>
-                </div>
-              </div>
-
-              {cookieTypes.map((cookie) => (
-                <div key={cookie.key} className="border-b pb-4">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-start gap-3">
-                        <input
-                          type="checkbox"
-                          id={cookie.key}
-                          checked={tempConsent[cookie.key]}
-                          onChange={(e) =>
-                            setTempConsent((prev) => ({
-                              ...prev,
-                              [cookie.key]: e.target.checked,
-                            }))
-                          }
-                          className="mt-1 rounded border-gray-300"
-                        />
-                        <div>
-                          <label
-                            htmlFor={cookie.key}
-                            className="font-semibold block"
-                          >
-                            {cookie.title}
-                          </label>
-                          <p className="text-sm text-gray-600">
-                            {cookie.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between mt-6">
-              <Button
-                onClick={handleRejectAll}
-                variant="secondary"
-                className="border border-gray-300 hover:bg-gray-100 text-gray-700 px-6 py-2 rounded"
-              >
-                Rechazar todas
-              </Button>
-              <div className="flex gap-3">
-                <Button
-                  onClick={handleAcceptAll}
-                  variant="primary"
-                  className="bg-blue-600 hover:bg-blue-700 text-black px-6 py-2 rounded"
-                >
-                  Aceptar todas
-                </Button>
-                <Button
-                  onClick={handleSaveConfiguration}
-                  className="relative z-10 bg-glass-medium hover:bg-glass-heavy backdrop-blur-sm hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  Guardar
-                </Button>
-              </div>
-            </div>
-          </div>
+          <Resumen
+            t={t}
+            onConfigurar={() => setShowDetails(true)}
+            onRechazar={handleRejectAll}
+            onAceptar={handleAcceptAll}
+          />
         )}
       </div>
     </div>
   );
 };
+
+function Cabecera({ t, onCerrar }) {
+  return (
+    <div className="v4-cookies__cabecera">
+      <Logo width={88} />
+      <span id="v4-cookies-titulo" className="v4-label">
+        {t("footer.cookies")}
+      </span>
+      {onCerrar && (
+        <button
+          type="button"
+          onClick={onCerrar}
+          className="v4-cookies__cerrar"
+          aria-label={t("cookies.cerrar")}
+        >
+          <IconoCerrar />
+        </button>
+      )}
+    </div>
+  );
+}
+
+function Resumen({ t, onConfigurar, onRechazar, onAceptar }) {
+  return (
+    <>
+      <Cabecera t={t} />
+      <div className="v4-cookies__texto">
+        <p>{t("cookies.intro")}</p>
+        <p>
+          <Trans
+            t={t}
+            i18nKey="cookies.opciones"
+            components={{
+              configurar: (
+                <button type="button" onClick={onConfigurar} className="v4-cookies__enlace" />
+              ),
+            }}
+          />
+        </p>
+      </div>
+      <div className="v4-cookies__acciones">
+        <button type="button" onClick={onRechazar} className="v4-btn v4-btn--ghost">
+          {t("cookies.rechazar")}
+        </button>
+        <button type="button" onClick={onAceptar} className="v4-btn v4-btn--primary">
+          {t("cookies.aceptar")}
+        </button>
+      </div>
+    </>
+  );
+}
+
+function Categoria({ id, titulo, desc, children }) {
+  return (
+    <li className="v4-cookies__categoria">
+      <div>
+        <label htmlFor={id} className="v4-cookies__nombre">
+          {titulo}
+        </label>
+        <p className="v4-cookies__desc">{desc}</p>
+      </div>
+      {children}
+    </li>
+  );
+}
+
+function Detalle({ t, consent, onCambiar, onCerrar, onRechazar, onAceptar, onGuardar }) {
+  return (
+    <>
+      <Cabecera t={t} onCerrar={onCerrar} />
+      <ul className="v4-cookies__lista">
+        <Categoria
+          id="cookies-necessary"
+          titulo={t("cookies.necesarias")}
+          desc={t("cookies.necesariasDesc")}
+        >
+          <span className="v4-label v4-label--activo">{t("cookies.obligatorio")}</span>
+        </Categoria>
+        {CATEGORIAS.map((key) => (
+          <Categoria
+            key={key}
+            id={`cookies-${key}`}
+            titulo={t(`cookies.tipos.${key}.titulo`)}
+            desc={t(`cookies.tipos.${key}.desc`)}
+          >
+            <input
+              type="checkbox"
+              role="switch"
+              id={`cookies-${key}`}
+              className="v4-switch"
+              checked={consent[key]}
+              onChange={(e) => onCambiar(key, e.target.checked)}
+            />
+          </Categoria>
+        ))}
+      </ul>
+      <div className="v4-cookies__acciones" data-detalle="true">
+        <button type="button" onClick={onRechazar} className="v4-btn v4-btn--ghost">
+          {t("cookies.rechazarTodas")}
+        </button>
+        <button type="button" onClick={onGuardar} className="v4-btn v4-btn--ghost">
+          {t("cookies.guardar")}
+        </button>
+        <button type="button" onClick={onAceptar} className="v4-btn v4-btn--primary">
+          {t("cookies.aceptarTodas")}
+        </button>
+      </div>
+    </>
+  );
+}
 
 export default CookieConsent;

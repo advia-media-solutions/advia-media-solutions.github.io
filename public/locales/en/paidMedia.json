@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Active Navigation in Digital Channels — campaigns inside the decision journey | Advia",
+    "description": "Campaigns on the web, YouTube and social media placed on the sources your consumer consults while comparing and deciding."
+  },
+  "hero": {
+    "eyebrow": "We turn your brand into the answer",
+    "titular": "Vera identifies where you will be relevant to your consumers and turns your ad into the <key>answer</key> they need",
+    "lede": "Campaigns in digital media where your consumers are looking for you without knowing it."
+  },
+  "donde": {
+    "titular": "That “where” is <key>specific</key> articles and videos",
+    "lede": "Vera simulates your consumer's decision journey, letting us understand where you will be relevant: web articles, YouTube videos, social media posts. That is where we position you, where the consumer arrives looking for answers."
+  },
+  "canales": [
+    {
+      "nombre": "Web",
+      "puntos": [
+        { "titulo": "The most frequent stop in the journey", "texto": "There are thousands of articles answering every question in a decision. It is the channel that brings the volume." },
+        { "titulo": "The media AI gets its information from", "texto": "When ChatGPT or Gemini answer, they consult media outlets. We position you during the research in these new channels." },
+        { "titulo": "Video, display and native, depending on the goal", "texto": "Video for awareness, rich media for attention, native for qualified traffic. From the lower end of awareness to the upper end of performance." }
+      ]
+    },
+    {
+      "nombre": "YouTube",
+      "puntos": [
+        { "titulo": "The stop where the doubt lasts longest", "texto": "Reviews, comparisons and demos: the consumer watches them through because they haven't decided yet." },
+        { "titulo": "In the video they are watching, not by affinity", "texto": "We enter the specific videos flagged by the simulation, without relying on interest-based targeting." },
+        { "titulo": "The format that conveys the most value", "texto": "If you don't have your own videos, you are present all the same in relevant third-party videos." }
+      ]
+    },
+    { "nombre": "Social media" }
+  ],
+  "cierre": {
+    "titular": "We <key>halved</key> the cost per qualified visit for an automotive advertiser",
+    "lede": "Find out what we can do for you.",
+    "cta": "Request a pre-campaign analysis"
+  }
+}

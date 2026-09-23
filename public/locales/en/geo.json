@@ -1,0 +1,54 @@
+{
+  "seo": {
+    "title": "Active Navigation in Conversational Environments — your brand in the AI's answer | Advia",
+    "description": "We measure how your brand shows up in the models' answers, understand where they get them from and create the content the AI cites."
+  },
+  "hero": {
+    "eyebrow": "We turn your brand into the answer",
+    "titular": "AI has changed how your consumers <key>decide</key>. You have to change how you talk to them",
+    "lede": "Conversational environments let your consumers decide quickly and precisely. Vera understands how they do it, so that there too you are the answer.",
+    "respuesta": {
+      "pregunta": "Which hybrid SUV should I buy for commuting and weekend trips?",
+      "antes": "For that use, the most recommended option is ",
+      "despues": "\nfollowed by Toyota and Kia, in the same segment. All three cover what you are looking for and share restrained fuel consumption…"
+    }
+  },
+  "pregunta": {
+    "categorias": [
+      "car",
+      "phone",
+      "mattress",
+      "laptop",
+      "insurance"
+    ],
+    "titularAntes": "When a consumer researches",
+    "titularMedio": "before buying a",
+    "titularDespues": "are you the answer the AI mentions?",
+    "lede": "More and more decisions are settled in a conversation with an AI, without going through a search engine. Being in that answer is what we call <strong>Intentional Visibility</strong>: being present at the moment someone wants to solve something and hasn't yet decided how.",
+    "citaFuente": "Blog · Introduction to Active Navigation, III",
+    "cita": "“Millions of new, hyper-informed prescribers… and you can't call them to ask them to correct their message.”"
+  },
+  "productos": {
+    "titular": "In a conversation with an AI, your brand can be in <key>two places</key>",
+    "lede": "In the answer the model writes and in the ad that goes with it. They are two products because they work differently: the first is built with content, the second is activated with investment.",
+    "ver": "See the product",
+    "items": [
+      {
+        "tag": "Organic answer",
+        "titulo": "AI Positioning",
+        "desc": "We measure how your brand shows up in the models' answers, understand which sources they come from and publish the content the AI cites.",
+        "canales": [
+          "All AI models"
+        ]
+      },
+      {
+        "tag": "Paid media",
+        "titulo": "AI Advertising",
+        "desc": "Ads inside the conversation. The same simulation that measures your visibility tells in which questions you will be a relevant answer, and that is what the activation is built on.",
+        "canales": [
+          "ChatGPT"
+        ]
+      }
+    ]
+  }
+}

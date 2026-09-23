@@ -1,0 +1,54 @@
+{
+  "seo": {
+    "title": "Navegación Activa en Entornos Conversacionales — tu marca en la respuesta de la IA | Advia",
+    "description": "Medimos cómo aparece tu marca en las respuestas de los modelos, entendemos de dónde las sacan y creamos el contenido que la IA cita."
+  },
+  "hero": {
+    "eyebrow": "Convertimos tu marca en la respuesta",
+    "titular": "La IA ha cambiado cómo tus consumidores <key>deciden</key>. Tienes que cambiar cómo te comunicas con ellos",
+    "lede": "Los entornos conversacionales permiten a tus consumidores decidir rápido y con precisión. Vera entiende cómo lo hacen, para que también ahí seas tú la respuesta.",
+    "respuesta": {
+      "pregunta": "¿Qué SUV híbrido me compro para ir al trabajo y salir los fines de semana?",
+      "antes": "Para ese uso, la opción más recomendada es ",
+      "despues": "\nseguida de Toyota y Kia, del mismo segmento. Las tres cubren bien lo que buscas y comparten un consumo contenido…"
+    }
+  },
+  "pregunta": {
+    "categorias": [
+      "coche",
+      "teléfono",
+      "colchón",
+      "portátil",
+      "seguro"
+    ],
+    "titularAntes": "Cuando un consumidor investiga",
+    "titularMedio": "para comprarse un",
+    "titularDespues": "¿eres la respuesta que la IA menciona?",
+    "lede": "Cada vez más decisiones se resuelven en una conversación con la IA, sin pasar por un buscador. Estar en esa respuesta es lo que denominamos <strong>Visibilidad Intencional</strong>: tener presencia en el momento en que alguien quiere resolver algo y aún no ha decidido cómo.",
+    "citaFuente": "Blog · Introducción a la Navegación Activa, III",
+    "cita": "«Millones de nuevos prescriptores ultrainformados… y no puedes llamarles para pedirles que corrijan su mensaje.»"
+  },
+  "productos": {
+    "titular": "En una conversación con la IA, tu marca puede estar en <key>dos sitios</key>",
+    "lede": "En la respuesta que el modelo redacta y en el anuncio que la acompaña. Son dos productos porque funcionan distinto: la primera se construye con contenido, el segundo se activa con inversión.",
+    "ver": "Ver el producto",
+    "items": [
+      {
+        "tag": "Respuesta orgánica",
+        "titulo": "Posicionamiento en IA",
+        "desc": "Medimos cómo aparece tu marca en las respuestas de los modelos, entendemos de qué fuentes salen y publicamos el contenido que la IA cita.",
+        "canales": [
+          "Todos los modelos de IA"
+        ]
+      },
+      {
+        "tag": "Paid media",
+        "titulo": "Publicidad en IA",
+        "desc": "Anuncios dentro de la conversación. La misma simulación que mide tu visibilidad dice en qué preguntas vas a ser una respuesta relevante, y sobre eso se activa.",
+        "canales": [
+          "ChatGPT"
+        ]
+      }
+    ]
+  }
+}

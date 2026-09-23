@@ -1,0 +1,39 @@
+{
+  "seo": {
+    "title": "Navegación Activa en Canales Digitales — campañas dentro del recorrido de decisión | Advia",
+    "description": "Campañas en web, YouTube y redes sociales colocadas sobre las fuentes que tu consumidor consulta mientras compara y decide."
+  },
+  "hero": {
+    "eyebrow": "Convertimos tu marca en la respuesta",
+    "titular": "Vera identifica dónde vas a ser relevante para tus consumidores y convierte tu anuncio en la <key>respuesta</key> que necesitan",
+    "lede": "Campañas en medios digitales donde tus consumidores te buscan sin saberlo."
+  },
+  "donde": {
+    "titular": "Ese «dónde» son artículos y vídeos <key>concretos</key>",
+    "lede": "Vera simula el recorrido de decisión de tu consumidor, permitiéndonos entender dónde serás relevante: artículos de web, vídeos de YouTube, posts de redes sociales. Aquí te posicionamos, donde el consumidor llega buscando respuestas."
+  },
+  "canales": [
+    {
+      "nombre": "Web",
+      "puntos": [
+        { "titulo": "La parada más frecuente del recorrido", "texto": "Hay miles de artículos respondiendo a cada pregunta de una decisión. Es el canal que da el volumen." },
+        { "titulo": "Los medios de los que se informa la IA", "texto": "Cuando ChatGPT o Gemini responden, consultan medios. Te posicionamos durante la investigación en estos nuevos canales." },
+        { "titulo": "Vídeo, display y native, según el objetivo", "texto": "Vídeo para notoriedad, rich media para atención, native para tráfico cualificado. De la parte baja de awareness a la alta de performance." }
+      ]
+    },
+    {
+      "nombre": "YouTube",
+      "puntos": [
+        { "titulo": "La parada donde la duda es más larga", "texto": "Reviews, comparativas y demostraciones: el consumidor las ve entero porque aún no ha decidido." },
+        { "titulo": "En el vídeo que está viendo, no por afinidad", "texto": "Entramos en los vídeos concretos que ha señalado la simulación, sin depender del targeting por intereses." },
+        { "titulo": "El formato que más valor transmite", "texto": "Si no tienes vídeos propios, estás igual en los vídeos relevantes de terceros." }
+      ]
+    },
+    { "nombre": "Redes sociales" }
+  ],
+  "cierre": {
+    "titular": "Dividimos <key>por dos</key> el coste por visita cualificada en un anunciante de automoción",
+    "lede": "Descubre qué podemos hacer por ti.",
+    "cta": "Pedir un análisis precampaña"
+  }
+}

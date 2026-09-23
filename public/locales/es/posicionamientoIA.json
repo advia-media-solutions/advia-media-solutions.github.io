@@ -1,0 +1,199 @@
+{
+  "seo": {
+    "title": "Posicionamiento en IA — que los modelos citen tu marca | Advia",
+    "description": "Medimos cómo aparece tu marca en las respuestas de los modelos, entendemos de dónde las sacan y creamos el contenido que la IA cita."
+  },
+  "hero": {
+    "eyebrow": "Entornos Conversacionales · Posicionamiento en IA",
+    "titular": "Trabajamos las fuentes que lee la IA para que tu marca sea <key>la respuesta</key>",
+    "lede": "La IA responde con lo que lee. Sabemos en qué fuentes se apoya en tu categoría, cuáles no controlas, dónde hay que publicar y cómo hay que redactar para que te cite."
+  },
+  "fuentes": {
+    "titular": "¿De dónde saca la IA lo que dice de <key>tu marca</key>?",
+    "lede": "De lo que escribes tú y de muchas fuentes que no controlas. El esfuerzo suele ir a la parte que se puede editar: la web propia y lo que uno publica. Nosotros trabajamos las dos. Conseguimos que las fuentes en las que se apoya la IA hablen de ti, y te decimos cómo tiene que estar escrito lo tuyo para que lo cite.",
+    "propio": {
+      "nombre": "Lo que escribes tú",
+      "desc": "Tu web, tus canales"
+    },
+    "otros": {
+      "nombre": "Lo que escriben otros",
+      "desc": "Medios, comparadores, redes, foros…"
+    },
+    "nota": "Proporción ilustrativa. El reparto real se mide por categoría y es lo primero que ves en tu análisis."
+  },
+  "medir": {
+    "titular": "Medimos para saber <key>qué mover</key>",
+    "lede": "Un análisis sobre las conversaciones reales de tu categoría. Es el punto de partida del plan, y la referencia contra la que se mide lo que viene después."
+  },
+  "medidas": [
+    {
+      "nombre": "Share of Answer",
+      "pregunta": "¿En cuántas respuestas de tu categoría apareces?",
+      "desc": "Contabilizamos en cuántas respuestas te menciona la IA, y en qué posición."
+    },
+    {
+      "nombre": "Percepción",
+      "pregunta": "¿Qué dice de ti cuando te menciona?",
+      "desc": "Por factor de decisión: precio, autonomía, servicio. Lo que la IA cree de tu marca no siempre es lo que tú cuentas."
+    },
+    {
+      "nombre": "Fuentes citadas",
+      "pregunta": "¿De dónde saca la respuesta?",
+      "desc": "Los dominios y las URLs que consulta el modelo para responder: las que escribes tú y las que no controlas. Ahí es donde se trabaja después."
+    },
+    {
+      "nombre": "Benchmark",
+      "pregunta": "¿Frente a quién, y hacia dónde?",
+      "desc": "Las mismas medidas para tus competidores, y cómo se mueven de una medición a la siguiente."
+    }
+  ],
+  "plataforma": {
+    "titular": "De la medición sale un plan: <key>dónde se publica</key> y <key>cómo se redacta</key>. Ejecutamos ese plan para que no tengas que hacerlo",
+    "lede": "Nuestra plataforma lee las respuestas de los modelos en tu categoría, localiza las fuentes en las que se apoyan. Con ese análisis desarrollamos un plan de medios que te ayudamos a ejecutar gracias a nuestra red editorial con medios nacionales e internacionales.",
+    "pausar": "Pausar",
+    "reproducir": "Reanudar",
+    "aviso": "Simulación conceptual · datos ilustrativos",
+    "pasosAria": "Pasos del proceso",
+    "pasos": [
+      {
+        "titulo": "Simulamos",
+        "desc": "Agentes sintéticos preguntan a ChatGPT como lo haría tu cliente."
+      },
+      {
+        "titulo": "Escaneamos",
+        "desc": "Detectamos qué marcas aparecen junto a la tuya y en qué posición."
+      },
+      {
+        "titulo": "Extraemos",
+        "desc": "Recogemos las fuentes que el modelo usa para responder."
+      },
+      {
+        "titulo": "Priorizamos",
+        "desc": "Puntuamos la relevancia de cada fuente."
+      },
+      {
+        "titulo": "Planificamos",
+        "desc": "Convertimos esa relevancia en un plan de artículos."
+      },
+      {
+        "titulo": "Distribuimos",
+        "desc": "Publicamos en una red de publishers."
+      },
+      {
+        "titulo": "Volvemos a medir",
+        "desc": "Repetimos la simulación y comparamos."
+      }
+    ],
+    "chat": {
+      "agente": "AGT-0142 · Familia · Valencia",
+      "prompt": "¿Qué coche eléctrico familiar me recomiendas por menos de 40.000 €?",
+      "respuesta": "Con ese presupuesto, las opciones que más se recomiendan son <m>Tesla</m>, <m>Hyundai</m> y <o>BYD</o><c>1</c>. <m>Tesla</m> lidera en autonomía y red de carga<c>2</c>, mientras que <o>BYD</o> destaca por equipamiento de serie a buen precio<c>3</c>. Si priorizas maletero, <m>Volkswagen</m> es otra alternativa habitual<c>4</c>.",
+      "estados": {
+        "preguntando": "Preguntando",
+        "respondiendo": "Respondiendo",
+        "escaneando": "Escaneando marcas",
+        "extrayendo": "Extrayendo fuentes"
+      }
+    },
+    "agentes": {
+      "rotulo": "Agentes en paralelo",
+      "enCurso": "En curso",
+      "conversaciones": "Conversaciones simuladas",
+      "lista": [
+        {
+          "id": "AGT-0142",
+          "perfil": "Familia · Valencia",
+          "pregunta": "Coche eléctrico familiar por menos de 40.000 €"
+        },
+        {
+          "id": "AGT-0387",
+          "perfil": "Autónomo · Sevilla",
+          "pregunta": "¿Merece la pena un eléctrico sin garaje propio?"
+        },
+        {
+          "id": "AGT-0911",
+          "perfil": "Jubilada · Bilbao",
+          "pregunta": "Eléctrico pequeño con buena autonomía"
+        },
+        {
+          "id": "AGT-1203",
+          "perfil": "Estudiante · Madrid",
+          "pregunta": "Eléctrico de segunda mano que sea fiable"
+        }
+      ]
+    },
+    "menciones": {
+      "rotulo": "Menciones en {{n}} respuestas"
+    },
+    "fuentes": {
+      "rotulo": "Fuentes citadas"
+    },
+    "relevancia": {
+      "rotulo": "Relevancia de fuentes",
+      "titulo": "Qué fuentes pesan en la <key>respuesta</key>",
+      "sub": "Frecuencia de cita, temática y posición en cada respuesta.",
+      "prioritaria": "Prioritaria",
+      "tipos": [
+        "Comparativa",
+        "Prueba",
+        "Foro",
+        "Vídeo",
+        "Guía",
+        "Enciclopedia"
+      ]
+    },
+    "plan": {
+      "rotulo": "Plan de medios",
+      "titulo": "Artículos pensados para las fuentes que <key>cuentan</key>",
+      "respondeA": "Responde a",
+      "articulos": [
+        {
+          "tipo": "Comparativa",
+          "titulo": "SUV eléctricos familiares: qué ofrece cada marca por menos de 40.000 €"
+        },
+        {
+          "tipo": "Prueba",
+          "titulo": "Una semana con un BYD en ciudad: consumo, carga y maletero"
+        },
+        {
+          "tipo": "Guía",
+          "titulo": "Autonomía real frente a homologada: cómo leer los datos"
+        },
+        {
+          "tipo": "Análisis",
+          "titulo": "Equipamiento de serie en eléctricos: lo que no se paga aparte"
+        }
+      ]
+    },
+    "calendario": {
+      "rotulo": "Distribución",
+      "titulo": "Calendario en la red de <key>publishers</key>",
+      "semana": "Sem {{n}}",
+      "publicaciones": "{{n}}/{{total}} publicaciones",
+      "publishers": [
+        "Medio de motor",
+        "Diario generalista",
+        "Revista tech",
+        "Portal de ahorro",
+        "Blog de familia",
+        "Medio regional"
+      ]
+    },
+    "medicion": {
+      "rotulo": "Nueva medición",
+      "titulo": "Mismas preguntas, nueva <key>posición</key>",
+      "sub": "Repetimos las {{n}} conversaciones tras la activación.",
+      "resumen": "BYD pasa <key>de la 4.ª a la 2.ª posición</key>"
+    }
+  },
+  "hermano": {
+    "titular": "Mientras la presencia orgánica se construye, la complementamos con <key>Publicidad en IA</key>",
+    "lede": "La misma simulación que mide tu visibilidad dice cuándo vas a ser una respuesta relevante. Sobre eso se activa el paid media en ChatGPT.",
+    "door": "Ver Publicidad en IA"
+  },
+  "cierre": {
+    "titular": "Te enseñamos dónde estás hoy y <key>qué mover</key> para cambiarlo",
+    "lede": "Medimos las respuestas de tu categoría, frente a quién y por qué factores, y te proponemos las piezas que faltan para mejorar tu posicionamiento en IA.",
+    "cta": "Hablemos"
+  }
+}

@@ -29,3 +29,27 @@ yarn-error.log*
 *.svg
 *.png
 *.md
+
+# Excepción: lo que sirve la web sí es fuente. El comodín de arriba está para el
+# material de consulta y las capturas sueltas que se miran para construir, no
+# para los assets que la web carga en producción — sin esto, un PNG de public/
+# se queda fuera del repo y el sitio desplegado pide una imagen que no existe.
+!public/**/*.png
+!public/**/*.svg
+
+# Canvas de diseño (artboards de trabajo del rediseño v4)
+web-v4-design/advia-web-v4.html
+
+# Carpeta sincronizada de la app de wireframing (no es fuente del proyecto)
+Website redesign wireframing/
+
+# Material de consulta del design system y prototipos sueltos de la esfera:
+# se miran para construir, pero no son fuente de la web.
+Advia-Library.html
+advia-esfera-desmonta.html
+advia-esfera-facetada*.html
+
+# Metraje de origen de los vídeos del concepto: lo que sirve la web son las
+# copias optimizadas de public/video/, no los másteres que se dejan en la raíz.
+/Scrolling.mp4
+/Searching.mp4

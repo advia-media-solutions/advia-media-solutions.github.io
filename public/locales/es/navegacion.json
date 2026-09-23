@@ -1,0 +1,54 @@
+{
+  "seo": {
+    "title": "Navegación Activa — el momento en que alguien busca para decidir | Advia",
+    "description": "Hay dos formas de navegar. En una el algoritmo elige por ti; en la otra buscas para decidir, y ahí una marca puede ser la respuesta."
+  },
+  "hero": {
+    "titular": "Hay dos formas de <key>navegar</key>",
+    "lede": "En una, los consumidores se entretienen y el algoritmo elige por ellos. En la otra tienen una pregunta concreta, y existe una respuesta que les sirve: conviértete en ella y capitaliza la Navegación Activa."
+  },
+  "momentos": {
+    "pasiva": {
+      "label": "Navegación pasiva",
+      "descripcion": "Alguien pasa contenido en el móvil, en blanco y negro, sin buscar nada: el contenido llega solo y no responde a ninguna pregunta."
+    },
+    "activa": {
+      "label": "Navegación Activa",
+      "descripcion": "La misma escena a color: sobre el móvil aparecen las preguntas de una misma decisión —«Best car in 2026» en Google, «BYD Seal VS Tesla Model S» en YouTube, «What car should I buy?» en ChatGPT—."
+    }
+  },
+  "recorrido": {
+    "lede": "Para encontrar esa respuesta, los consumidores se hacen preguntas que les llevan a consultar diferentes canales de información. Nuestro trabajo es que estés presente en todos ellos.",
+    "paradas": [
+      {
+        "chip": "ChatGPT",
+        "texto": "«¿cuáles son los mejores SUV híbridos?»"
+      },
+      {
+        "chip": "Web",
+        "texto": "«prestaciones Kia Sportage vs Hyundai Tucson»"
+      },
+      {
+        "chip": "YouTube",
+        "texto": "«vídeo review de Kia Sportage»"
+      },
+      {
+        "chip": "Web",
+        "texto": "«coches chinos SUV»"
+      },
+      {
+        "chip": "YouTube",
+        "texto": "«Omoda vs MG vs BYD»"
+      }
+    ],
+    "notaMeta": "Una sola persona, cinco paradas.",
+    "nota": "<strong>Mujer de 35 años</strong> quiere cambiar a un coche más eficiente.",
+    "door": "Así dibuja Vera este recorrido"
+  },
+  "util": {
+    "titular": "Para que la publicidad sea útil para una marca, antes tiene que ser útil para su <key>consumidor</key>",
+    "lede": "Capitalizar la Navegación Activa te posiciona como la respuesta que los consumidores necesitan.",
+    "citaFuente": "Blog · Introducción a la Navegación Activa, I",
+    "cita": "«La publicidad pasa, de ser publicidad, a formar parte del <key>contenido</key>.»"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "seo": {
+    "title": "Active Navigation — the moment someone searches to decide | Advia",
+    "description": "There are two ways to navigate. In one, the algorithm chooses for you; in the other, you search to decide, and there a brand can be the answer."
+  },
+  "hero": {
+    "titular": "There are two ways to <key>navigate</key>",
+    "lede": "In one, consumers are entertained and the algorithm chooses for them. In the other they have a specific question, and there is an answer that helps them: become that answer and capitalise on Active Navigation."
+  },
+  "momentos": {
+    "pasiva": {
+      "label": "Passive navigation",
+      "descripcion": "Someone scrolls through content on their phone, in black and white, without looking for anything: the content just arrives and answers no question."
+    },
+    "activa": {
+      "label": "Active Navigation",
+      "descripcion": "The same scene in colour: the questions of a single decision appear over the phone —“Best car in 2026” on Google, “BYD Seal VS Tesla Model S” on YouTube, “What car should I buy?” on ChatGPT—."
+    }
+  },
+  "recorrido": {
+    "lede": "To find that answer, consumers ask themselves questions that lead them to consult different information channels. Our job is to make sure you are present in all of them.",
+    "paradas": [
+      {
+        "chip": "ChatGPT",
+        "texto": "“what are the best hybrid SUVs?”"
+      },
+      {
+        "chip": "Web",
+        "texto": "“Kia Sportage vs Hyundai Tucson specs”"
+      },
+      {
+        "chip": "YouTube",
+        "texto": "“Kia Sportage video review”"
+      },
+      {
+        "chip": "Web",
+        "texto": "“Chinese SUV brands”"
+      },
+      {
+        "chip": "YouTube",
+        "texto": "“Omoda vs MG vs BYD”"
+      }
+    ],
+    "notaMeta": "One person, five stops.",
+    "nota": "<strong>A 35-year-old woman</strong> wants to switch to a more efficient car.",
+    "door": "This is how Vera draws this journey"
+  },
+  "util": {
+    "titular": "For advertising to be useful to a brand, it first has to be useful to its <key>consumer</key>",
+    "lede": "Capitalising on Active Navigation positions you as the answer consumers need.",
+    "citaFuente": "Blog · Introduction to Active Navigation, I",
+    "cita": "“Advertising stops being advertising and becomes part of the <key>content</key>.”"
+  }
+}

@@ -45,7 +45,6 @@
       "chat": "Respuesta de IA"
     },
     "chat": "Según <uno/> y <dos/>, los más recomendados son…",
-    "cuantos": "{{n}} de {{total}}",
     "agente": "{{nombre}}, {{edad}} años, {{pregunta}}",
     "oculto": "Cuatro agentes con preguntas distintas sobre el mismo producto: {{agentes}}. Recorren fuentes distintas y coinciden en tres: km77.com, una review en vídeo y la misma respuesta de un modelo, que cita a motor.es y coches.net."
   },

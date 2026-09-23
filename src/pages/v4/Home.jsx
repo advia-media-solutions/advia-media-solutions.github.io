@@ -5,8 +5,8 @@ import T from "../../components/v4/T";
 import EsferaHero from "../../components/v4/EsferaHero";
 import Pantallas from "../../components/v4/Pantallas";
 import Columnas from "../../components/v4/Columnas";
-import { Cabecera, Cierre, Hero, Pagina, Section, Split } from "../../components/v4/layout";
-import { Boton, Door, Nota } from "../../components/v4/primitives";
+import { Cabecera, Cierre, Hero, Pagina, Section } from "../../components/v4/layout";
+import { Boton, Door } from "../../components/v4/primitives";
 import { Bloque, Bloques } from "../../components/v4/blocks";
 
 /**
@@ -17,7 +17,7 @@ import { Bloque, Bloques } from "../../components/v4/blocks";
  * pregunta. El scroll 4 es el que carga ese giro.
  *
  * Cada sección enseña y abre una puerta; ninguna agota su tema. El concepto
- * vive en /navegacion-activa, el motor en /technology y los canales en los dos
+ * vive en /active-navigation, el motor en /technology y los canales en los dos
  * productos: si la home los explicara enteros, los botones no llevarían a
  * ningún sitio al que merezca la pena ir.
  *
@@ -59,7 +59,7 @@ export default function Home() {
         lede={t("hero.lede")}
         acciones={
           <>
-            <Boton href="/navegacion-activa">{t("hero.cta")}</Boton>
+            <Boton href="/active-navigation">{t("hero.cta")}</Boton>
             <Boton href="/about" variant="ghost">
               {t("hero.ctaGhost")}
             </Boton>
@@ -73,7 +73,7 @@ export default function Home() {
           <Pantallas pasiva={pasiva} activa={activa} />
         </div>
         <div className="v4-mt-10">
-          <Door href="/navegacion-activa">{t("formas.door")}</Door>
+          <Door href="/active-navigation">{t("formas.door")}</Door>
         </div>
       </Section>
 
@@ -100,15 +100,10 @@ export default function Home() {
       </Section>
 
       <Section>
-        <Split align="start">
-          <div>
-            <Cabecera titular={<T t={t} k="fundadores.titular" />} lede={t("fundadores.lede")} />
-            <div className="v4-mt-8">
-              <Door href="/about">{t("fundadores.door")}</Door>
-            </div>
-          </div>
-          <Nota>{t("fundadores.nota")}</Nota>
-        </Split>
+        <Cabecera titular={<T t={t} k="fundadores.titular" />} lede={t("fundadores.lede")} />
+        <div className="v4-mt-8">
+          <Door href="/about">{t("fundadores.door")}</Door>
+        </div>
       </Section>
 
       <Cierre

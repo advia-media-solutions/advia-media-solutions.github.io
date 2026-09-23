@@ -15,7 +15,7 @@ export default function NoEncontrada() {
   const { t } = useTranslation("noEncontrada");
   return (
     <Pagina>
-      <Seo path="/404" title={t("seo.title")} description={t("seo.description")} />
+      <Seo path="/404" title={t("seo.title")} description={t("seo.description")} noindex />
       <Hero
         titular={<T t={t} k="titular" />}
         lede={t("lede")}
@@ -25,7 +25,7 @@ export default function NoEncontrada() {
         titular={<T t={t} k="cierre" />}
         doors={
           <>
-            <Door href="/navegacion-activa">{t("doors.navegacion")}</Door>
+            <Door href="/active-navigation">{t("doors.navegacion")}</Door>
             <Door href="/products">{t("doors.productos")}</Door>
             <Door href="/blog">{t("doors.blog")}</Door>
           </>

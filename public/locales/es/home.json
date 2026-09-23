@@ -5,7 +5,7 @@
   },
   "hero": {
     "titular": "Turning ads into <key>answers</key>",
-    "lede": "Cuando alguien busca para decidir, hay una respuesta que le sirve. Trabajamos para que sea la de tu marca, y para que llegue con la forma que admite ese momento.",
+    "lede": "Cuando alguien busca para decidir, hay una respuesta que le sirve. Trabajamos para convertir tu marca en esa respuesta, y para que llegue al consumidor como la solución que necesita.",
     "cta": "Cómo podemos aportarte valor",
     "ctaGhost": "Por qué existe Advia"
   },
@@ -48,10 +48,9 @@
     "ver": "Ver el producto"
   },
   "fundadores": {
-    "titular": "Fundamos Advia para trabajar desde el lado de quien <key>busca</key>",
-    "lede": "Tres fundadores con recorrido en Seedtag y GroupM: conocemos el ciclo de una campaña desde dentro, y sabemos qué se rompe entre el plan y el resultado.",
-    "door": "Quiénes somos",
-    "nota": "Es lógico que una campaña se piense desde el anunciante: es quien paga. Pero el impacto lo recibe otra persona, que en ese momento estaba intentando resolver algo suyo. Planificamos desde ahí."
+    "titular": "Nuestro propósito es ayudar a las marcas a capitalizar la <key>Navegación Activa</key>, conectando así con sus consumidores cuando más se necesitan",
+    "lede": "Advia nace con la misión de diseñar y crear tecnología para convertir la publicidad en valor para el consumidor, ayudando así a las marcas a ser relevantes durante la Navegación Activa de sus potenciales compradores.",
+    "door": "Quiénes somos"
   },
   "cierre": {
     "titular": "Cuéntanos tu objetivo, convirtamos tu marca en la <key>respuesta</key> que el consumidor necesita",

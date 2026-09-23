@@ -15,6 +15,11 @@ import { useTranslation } from "next-i18next/pages";
  * marcado en dorado. Ni pesan, ni envejecen, ni meten creatividades de marcas
  * ajenas en nuestra web.
  *
+ * En pantallas estrechas (≤900px) el móvil se vuelve tablet apaisada: a lo
+ * ancho de la columna, un teléfono vertical quedaba alto, estrecho y con las
+ * maquetas diminutas. Cada maqueta se recoloca para ese formato en el CSS
+ * (`data-maqueta`), sin cambiar lo que dice.
+ *
  * Rota sola cada seis segundos para que se vean todos sin pedir nada, y se para
  * en cuanto alguien toca una pestaña o pasa el ratón: a partir de ahí manda
  * quien mira.
@@ -32,11 +37,15 @@ const POR_CANAL = 6000;
 function PantallaWeb() {
   const { t } = useTranslation("common");
   return (
-    <div className="v4-movil__pantalla">
+    <div className="v4-movil__pantalla" data-maqueta="web">
       <div className="v4-maqueta__barra" />
       <div className="v4-maqueta__titular" />
       <div className="v4-maqueta__linea" />
       <div className="v4-maqueta__linea" style={{ width: "88%" }} />
+      {/* La foto del artículo solo sale en la tablet apaisada (≤900px): allí el
+          anuncio pasa a la columna lateral y el artículo necesita cuerpo para
+          no quedarse en cuatro rayas. */}
+      <div className="v4-maqueta__foto" />
       <div className="v4-maqueta__anuncio" data-formato="display">
         <span>{t("canales.tuMarca")}</span>
       </div>
@@ -49,7 +58,7 @@ function PantallaWeb() {
 function PantallaVideo() {
   const { t } = useTranslation("common");
   return (
-    <div className="v4-movil__pantalla">
+    <div className="v4-movil__pantalla" data-maqueta="video">
       <div className="v4-maqueta__barra" />
       <div className="v4-maqueta__video">
         <span className="v4-maqueta__play" aria-hidden="true" />
@@ -59,6 +68,11 @@ function PantallaVideo() {
       </div>
       <div className="v4-maqueta__titular" />
       <div className="v4-maqueta__linea" style={{ width: "64%" }} />
+      {/* El canal bajo el vídeo, solo en la tablet apaisada (ver PantallaWeb). */}
+      <div className="v4-maqueta__canal">
+        <span className="v4-maqueta__avatar" />
+        <div className="v4-maqueta__linea" style={{ width: "40%" }} />
+      </div>
       <div className="v4-maqueta__sugerencias">
         <span />
         <span />
@@ -71,7 +85,7 @@ function PantallaVideo() {
 function PantallaFeed() {
   const { t } = useTranslation("common");
   return (
-    <div className="v4-movil__pantalla">
+    <div className="v4-movil__pantalla" data-maqueta="feed">
       <div className="v4-maqueta__barra" />
       {[0, 1].map((n) => (
         <div className="v4-maqueta__post" key={n}>
@@ -94,7 +108,11 @@ const PANTALLAS = { web: PantallaWeb, video: PantallaVideo, feed: PantallaFeed }
 export default function Canales({ canales }) {
   const { t } = useTranslation("common");
   const [activo, setActivo] = useState(0);
-  const [parado, setParado] = useState(false);
+  /* Dos motivos para no girar: el ratón o el foco están encima (se retoma al
+     salir) o alguien ha elegido un canal (ya no se retoma: manda quien mira). */
+  const [encima, setEncima] = useState(false);
+  const [elegido, setElegido] = useState(false);
+  const parado = encima || elegido;
   const caja = useRef(null);
 
   useEffect(() => {
@@ -135,8 +153,12 @@ export default function Canales({ canales }) {
     <div
       className="v4-canales"
       ref={caja}
-      onMouseEnter={() => setParado(true)}
-      onMouseLeave={() => setParado(false)}
+      onMouseEnter={() => setEncima(true)}
+      onMouseLeave={() => setEncima(false)}
+      onFocus={() => setEncima(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setEncima(false);
+      }}
     >
       <div className="v4-movil" aria-hidden="true">
         <Pantalla key={canal.nombre} />
@@ -158,7 +180,7 @@ export default function Canales({ canales }) {
               onClick={() => {
                 if (c.wip) return;
                 setActivo(i);
-                setParado(true);
+                setElegido(true);
               }}
             >
               {c.nombre}

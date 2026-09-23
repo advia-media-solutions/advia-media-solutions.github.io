@@ -1,0 +1,232 @@
+/* ============================================================================
+   ADVIA · web v4 — Cómo funciona · escenas 4 a 7
+
+   Relevancia de fuentes, plan de medios, calendario de publicaciones y nueva
+   medición. Las piezas comunes (__micro, __etiqueta, __delta, pistas) están en
+   v4-como-funciona.css.
+   ============================================================================ */
+
+/* ── Escena 4: relevancia de fuentes ── */
+.v4-cf-relevancia { display: flex; flex-direction: column; gap: var(--space-4); }
+.v4-cf-rel {
+  display: grid;
+  grid-template-columns: minmax(0, 200px) minmax(60px, 1fr) 28px 96px;
+  align-items: center;
+  gap: var(--space-3);
+}
+.v4-cf-rel__fuente { display: flex; flex-direction: column; min-width: 0; }
+.v4-cf-rel__dominio {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  font-weight: var(--fw-bold);
+}
+.v4-cf-rel__tipo {
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--v4-muted);
+}
+.v4-cf-rel__pista { height: 8px; }
+.v4-cf-rel .v4-cf-pista__valor { background: var(--neutral-400); }
+.v4-cf-rel[data-alta] .v4-cf-pista__valor { background: var(--chart-1-gradient); }
+.v4-cf-rel__nota {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.v4-cf-rel__marca {
+  justify-self: end;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--gold-ambar-claro);
+  color: var(--brand-graphite);
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Escena 5: plan de medios ── */
+.v4-cf-plan {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.v4-cf-art {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-card);
+}
+.v4-cf-art__cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+}
+.v4-cf-art__titulo {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  font-weight: var(--fw-bold);
+  text-wrap: pretty;
+}
+.v4-cf-art__fuente { margin-top: auto; }
+
+/* ── Escena 6: calendario de publicaciones ── */
+.v4-cf-cal__arriba {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.v4-cf-cal { --v4-cf-col: 130px; position: relative; display: flex; flex-direction: column; }
+.v4-cf-cal__fila {
+  display: grid;
+  grid-template-columns: var(--v4-cf-col) repeat(4, minmax(0, 1fr));
+  min-height: 48px;
+  border-bottom: 1px solid var(--v4-line);
+}
+.v4-cf-cal__fila--cabeza { min-height: 0; }
+.v4-cf-cal__fila--cabeza > .v4-cf__micro { padding: var(--space-2); }
+.v4-cf-cal__pub {
+  align-self: center;
+  padding-right: var(--space-2);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  font-weight: var(--fw-bold);
+}
+.v4-cf-cal__celda {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-left: 1px solid var(--v4-line);
+}
+.v4-cf-cal__chip {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--brand-graphite);
+  color: var(--brand-ivory);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  white-space: nowrap;
+}
+.v4-cf-cal__cabezal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--v4-cf-col) + (100% - var(--v4-cf-col)) * var(--avance));
+  width: 2px;
+  background: var(--accent-gold);
+}
+.v4-cf-cal__leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--neutral-dark);
+}
+.v4-cf-cal__leyenda strong { font-family: var(--font-mono); color: var(--v4-fg); }
+
+/* ── Escena 7: nueva medición ── */
+.v4-cf-rank { position: relative; }
+.v4-cf-rank__fila {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  /* El puesto lo pone el componente como translateY: al reordenarse, las filas
+     se cruzan en la capa de composición, sin recalcular el layout. */
+  transition: transform 520ms var(--ease-emphasis);
+}
+.v4-cf-rank__puesto,
+.v4-cf-rank__pct {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+  font-variant-numeric: tabular-nums;
+}
+.v4-cf-rank__puesto { width: 24px; color: var(--v4-muted); }
+.v4-cf-rank__pct { width: 44px; text-align: right; }
+.v4-cf-rank__nombre {
+  flex: none;
+  width: 96px;
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+}
+.v4-cf-rank__fila[data-propia] .v4-cf-rank__nombre { font-weight: var(--fw-bold); }
+.v4-cf-rank__pista { flex: 1; min-width: 0; height: 8px; }
+.v4-cf-rank__delta { flex: none; width: 80px; display: flex; justify-content: flex-end; }
+/* Callout de insight (DS §10.7): una frase, centrada, con la clave en oro. */
+.v4-cf-resumen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-body-l);
+  line-height: var(--lh-body-l);
+  text-align: center;
+}
+.v4-cf-resumen .v4-key { font-weight: var(--fw-bold); }
+.v4-cf-resumen__delta { display: none; }
+
+@media (max-width: 640px) {
+  /* Dos renglones: fuente y marca arriba; barra y nota debajo, a todo el ancho. */
+  .v4-cf-rel {
+    grid-template-columns: minmax(0, 1fr) auto 28px;
+    grid-template-areas: "fuente marca marca" "pista pista nota";
+    gap: var(--space-2) var(--space-3);
+  }
+  .v4-cf-rel__fuente {
+    grid-area: fuente;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+  .v4-cf-rel__tipo { flex: none; }
+  .v4-cf-rel__marca { grid-area: marca; }
+  .v4-cf-rel__pista { grid-area: pista; height: 6px; }
+  .v4-cf-rel__nota { grid-area: nota; }
+
+  .v4-cf-plan { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .v4-cf-art { gap: var(--space-2); padding: var(--space-3); border-radius: var(--radius-md); }
+  .v4-cf-art__fuente { display: none; }
+
+  .v4-cf-cal { --v4-cf-col: 84px; }
+  .v4-cf-cal__fila { min-height: 52px; }
+  .v4-cf-cal__fila--cabeza > .v4-cf__micro { padding: var(--space-2) 0; text-align: center; }
+  .v4-cf-cal__celda { justify-content: center; padding: var(--space-2) 2px; }
+  .v4-cf-cal__chip { font-size: var(--fs-code-s); line-height: var(--lh-code-s); }
+  .v4-cf-cal__prefijo { display: none; }
+
+  .v4-cf-rank__fila { gap: var(--space-2); }
+  .v4-cf-rank__puesto { width: 16px; }
+  .v4-cf-rank__nombre { width: 84px; }
+  .v4-cf-rank__pct { width: 36px; }
+  .v4-cf-rank__delta { display: none; }
+  .v4-cf-resumen { padding: var(--space-4); }
+  .v4-cf-resumen__delta { display: inline; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-cf-rank__fila { transition: none; }
+}

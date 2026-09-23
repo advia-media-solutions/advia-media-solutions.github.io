@@ -15,15 +15,14 @@
     "door": "Descubre la Navegación Activa"
   },
   "historia": [
-    { "titulo": "Empezamos incómodos", "desc": "Como cualquier consumidor, los anuncios que veíamos al navegar no nos interesaban. Habíamos pasado años dentro del sector, y veíamos por qué.", "rotulo": "Lo que vimos", "eco": "Casi toda campaña se concibe y se planifica desde el anunciante. Tiene lógica: es quien paga." },
-    { "titulo": "Cambiamos de lado", "desc": "Para que un anuncio le sirva al anunciante, antes tiene que servirle a su consumidor. Fundamos Advia para planificar desde ahí.", "rotulo": "Lo que cambia", "eco": "Dejas de preguntarte dónde cabe tu anuncio y empiezas a preguntarte qué está intentando averiguar tu consumidor." },
-    { "titulo": "Hay dos formas de navegar", "desc": "En la pasiva, un algoritmo o un editor elige lo que vemos. En la activa, tenemos una duda o una decisión que tomar, y salimos a buscar información.", "rotulo": "La tesis", "eco": "En esos momentos un anuncio no tiene que interrumpir: puede ser la respuesta que ya estábamos buscando." },
-    { "titulo": "La tecnología va detrás", "desc": "Construimos Vera para convertir anuncios en respuestas allí donde ocurre la pregunta: la web abierta, YouTube y las respuestas de la IA.", "rotulo": "Lo que vendemos", "eco": "Un concepto, no una tecnología. El concepto viaja; la tecnología lo sigue." }
+    { "titulo": "Pensamos la publicidad desde el otro lado", "desc": "Para que un anuncio le sirva al anunciante, antes tiene que ser relevante para su consumidor. Fundamos Advia para planificar desde ahí.", "rotulo": "Lo que cambia", "eco": "Dejas de preguntarte dónde cabe tu anuncio y empiezas a preguntarte dónde serás relevante para tu consumidor." },
+    { "titulo": "Hay dos formas de navegar", "desc": "En la pasiva, un algoritmo o un editor elige lo que vemos. En la activa, tenemos una duda o una decisión que tomar, y salimos a buscar información.", "rotulo": "La tesis", "eco": "Durante la Navegación Activa, un anuncio puede convertirse en la respuesta que el consumidor está buscando." },
+    { "titulo": "La tecnología va detrás", "desc": "Construimos Vera para convertir anuncios en respuestas allí donde ocurre la pregunta: la web abierta, YouTube y las respuestas de la IA.", "rotulo": "Lo que vendemos", "eco": "Posicionamos tu marca durante la Navegación Activa de tu consumidor, en todos los canales." }
   ],
   "equipo": {
     "eyebrow": "El equipo",
-    "titular": "Un equipo pequeño, entero en Madrid, en tres <key>áreas</key>",
-    "lede": "Cada área la lleva un fundador. Los tres coincidimos en Seedtag y antes pasamos por GroupM: el lado del medio y el lado de la agencia, que es donde se ve qué se rompe entre el plan y el resultado.",
+    "titular": "Un equipo pequeño (¡de momento!) pero con mucha <key>ambición</key>",
+    "lede": "Tres fundadores con experiencia en el sector, transformando la publicidad desde el corazón de Madrid.",
     "fotoAlt": "El equipo de Advia al completo, en la oficina de Madrid, con el neón de la marca"
   },
   "areas": [
@@ -33,8 +32,8 @@
   ],
   "valores": {
     "eyebrow": "Valores",
-    "titular": "Cinco valores que se <key>practican</key>, no que se cuelgan en una pared",
-    "lede": "Salieron del ejercicio de escribir quiénes somos, y del debate que eso obligó a tener. Se aplican cada día al escribir, vender y entregar.",
+    "titular": "Cinco valores que definen nuestra <key>cultura</key>",
+    "lede": "Tenemos claro hacia dónde vamos, estos valores nos ayudan a tomar las decisiones del día a día.",
     "items": [
       "Trabajamos con intensidad y disfrutamos haciéndolo. Valoramos la agilidad, el crecimiento constante y que cada persona aporte a su manera.",
       "La tecnología no sustituye a las personas: las amplifica. La persona sigue en el centro, y la tecnología es una extensión de lo que sabemos hacer.",

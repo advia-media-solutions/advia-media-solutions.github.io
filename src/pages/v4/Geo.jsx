@@ -22,7 +22,7 @@ import RespuestaIA from "../../components/v4/RespuestaIA";
 
 /* Las dos puertas, en el orden del diccionario. Aquí va lo que no cambia con
    el idioma: la ruta. */
-const PRODUCTOS = ["/products/geo/posicionamiento-ia", "/products/geo/publicidad-ia"];
+const PRODUCTOS = ["/products/geo/ai-positioning", "/products/geo/ai-advertising"];
 
 export default function Geo() {
   const { t } = useTranslation("geo");

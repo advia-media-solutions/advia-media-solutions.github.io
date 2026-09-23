@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Logo from "./LogoHerramienta";
 import { CORTE_ESCENA } from "./escena";
 import useProgresoPegado, {
@@ -7,6 +7,7 @@ import useProgresoPegado, {
   tramo,
 } from "./movil/useProgresoPegado";
 import { pintarTrazo, prepararTrazo } from "./movil/trazo";
+import usePilaPasos from "./movil/usePilaPasos";
 
 /**
  * Tecnología en móvil: las dos escenas de la esfera, sin WebGL.
@@ -15,13 +16,13 @@ import { pintarTrazo, prepararTrazo } from "./movil/trazo";
  * dos piezas cuentan lo mismo en vertical, con HTML, SVG y las imágenes del
  * render de escritorio (la gota, la esfera y una bola).
  *
- *   1. `EsferaGranos`: la esfera pegada arriba mientras los pasos pasan por
- *      debajo. Empieza siendo una gota lisa y se va facetando paso a paso —el
- *      morph de escritorio, en dos fotogramas fundidos—, y en cada paso le
- *      vuelan los granos que se le dan: el rol, las herramientas.
- *   2. `MapaAgentes`: la esfera suelta su recorrido, la cámara se aleja y
- *      aparecen los otros cuatro agentes con el suyo. Gobernado por el scroll
- *      con el mismo motor que el recorrido de Navegación Activa.
+ *   1. `EsferaGranos`: la esfera arriba y los pasos apilándose debajo como
+ *      tarjetas (usePilaPasos). Empieza siendo una gota lisa y se va facetando
+ *      paso a paso —el morph de escritorio, en dos fotogramas fundidos—, y el
+ *      paso que llega a su sitio le da sus granos: el rol, las herramientas.
+ *   2. `MapaAgentes`: la esfera baja por el eje y suelta su recorrido, la
+ *      cámara se aleja y los otros cuatro entran por los lados con el suyo.
+ *      Gobernado por el scroll con el mismo motor que Navegación Activa.
  *
  * Las dos son decorativas salvo por lo que ya es texto de la página —los
  * roles y los medios—, que aquí se repite para que se vea junto a su esfera.
@@ -29,49 +30,54 @@ import { pintarTrazo, prepararTrazo } from "./movil/trazo";
 
 /* ── 1. La esfera alimentándose ─────────────────────────────────────────── */
 
-/** Dónde nace cada grano: en un anillo más ancho que el móvil, en vueltas. */
-function origen(k, total) {
-  const angulo = (k / total) * Math.PI * 2 - Math.PI / 2;
-  const rx = 210 + (k % 2) * 30;
-  const ry = 150 + ((k + 1) % 2) * 26;
-  return {
-    dx: Math.round(Math.cos(angulo) * rx),
-    dy: Math.round(Math.sin(angulo) * ry),
-  };
+/* El compás de escritorio (CargaGranos.jsx): lo que dura el viaje de un grano y
+   lo que espera cada uno al anterior. Casan con `v4-grano-movil` en v4.css. */
+const VIAJE_MS = 3200;
+const TURNO_MS = 620;
+
+/* Dónde se lee cada grano antes de entrar: a los lados de la esfera, alternando
+   izquierda y derecha. Las alturas van en ciclos de tres por lado para que los
+   que están en el aire a la vez (unos cinco) nunca compartan renglón. */
+const ALTURAS = { izda: [-62, 0, 62], dcha: [-31, 31, 93] };
+function origen(k) {
+  const lado = k % 2 ? "dcha" : "izda";
+  const fila = Math.floor(k / 2) % 3;
+  return { lado, dy: ALTURAS[lado][fila] - 16 };
 }
 
+/**
+ * La esfera pegada arriba del escenario, con la pila de pasos debajo
+ * (usePilaPasos). Se alimenta SOLO del paso que ha llegado a su tope, justo
+ * bajo ella: antes de eso —en la portada, o con el paso subiendo— no le entra
+ * nada.
+ *
+ * Los granos caen en TANDAS, como en escritorio: cada uno viaja una vez y la
+ * tanda siguiente no sale hasta que ha entrado el último. En bucle por CSS, con
+ * once granos el primero volvía a salir con la tanda a medias y se veían
+ * etiquetas repetidas. La vuelta va en la `key`: remontar reinicia la tanda.
+ */
 export function EsferaGranos({ pasos }) {
   const raiz = useRef(null);
-  const [activo, setActivo] = useState(0);
+  const [activo, setActivo] = useState(-1);
+  const [vuelta, setVuelta] = useState(0);
+  usePilaPasos(raiz, setActivo);
 
-  /* El paso activo lo mide un observador propio sobre los pasos del relato:
-     el de Recorridos mide los aires, que en móvil no existen. Se enciende el
-     que cruza el tercio bajo de la ventana, que es donde se lee. */
+  const chips = (activo >= 0 && pasos[activo]?.chips) || [];
+  const tanda = Math.max(0, chips.length - 1) * TURNO_MS + VIAJE_MS;
+
   useEffect(() => {
-    const bloque = raiz.current?.closest(".v4-recorridos");
-    if (!bloque || !window.matchMedia(CORTE_ESCENA).matches) return undefined;
-    const nodos = [...bloque.querySelectorAll(".v4-recorridos__paso")];
-    if (!nodos.length) return undefined;
-    const io = new IntersectionObserver(
-      (entradas) => {
-        entradas.forEach((e) => {
-          if (e.isIntersecting) setActivo(nodos.indexOf(e.target));
-        });
-      },
-      { rootMargin: "-45% 0px -25% 0px", threshold: 0 },
-    );
-    nodos.forEach((n) => io.observe(n));
-    return () => io.disconnect();
-  }, []);
-
-  const chips = pasos[activo]?.chips || [];
+    if (!chips.length) return undefined;
+    setVuelta((v) => v + 1);
+    const id = setInterval(() => setVuelta((v) => v + 1), tanda);
+    return () => clearInterval(id);
+  }, [activo, chips.length, tanda]);
 
   return (
     <div
       className="v4-tecm v4-tecm-esfera"
       aria-hidden="true"
       ref={raiz}
-      data-paso={activo}
+      data-paso={Math.max(0, activo)}
     >
       <div className="v4-tecm-esfera__cuerpo">
         <img
@@ -93,20 +99,17 @@ export function EsferaGranos({ pasos }) {
           decoding="async"
         />
       </div>
-      <ul className="v4-tecm-esfera__granos" key={activo}>
+      <ul className="v4-tecm-esfera__granos" key={`${activo}-${vuelta}`}>
         {chips.map((chip, k) => {
           const texto = typeof chip === "string" ? chip : chip.texto;
           const logo = typeof chip === "string" ? null : chip.logo;
-          const { dx, dy } = origen(k, chips.length);
+          const { lado, dy } = origen(k);
           return (
             <li
               key={texto}
               className="v4-chip v4-tecm-esfera__grano"
-              style={{
-                "--v4-turno": k,
-                "--v4-dx": `${dx}px`,
-                "--v4-dy": `${dy}px`,
-              }}
+              data-lado={lado}
+              style={{ "--v4-turno": k, "--v4-dy": `${dy}px` }}
             >
               {logo ? <Logo id={logo} /> : null}
               {texto}
@@ -120,108 +123,145 @@ export function EsferaGranos({ pasos }) {
 
 /* ── 2. El mapa de agentes ─────────────────────────────────────────────── */
 
-/* El cuadro, en unidades de un lienzo portrait. El agente principal arriba a
-   la derecha, como en escritorio; los otros cuatro en zigzag. Cuatro paradas
-   están compartidas, y son el remate: caminos distintos, mismas paradas. */
+/* El cuadro, en unidades de un lienzo portrait. Es una ESPINA: la principal
+   baja recta por el eje y los otros cuatro entran por los lados, cada uno más
+   abajo que el anterior, y se cruzan con ella y entre ellos en paradas
+   concretas. Los caminos SIEMPRE bajan, como el scroll que los dibuja.
+
+   Las paradas tienen nombre porque varias son de más de un agente: el sitio
+   es uno, y el anillo y el pulso de llegada se pintan sobre él. */
 const ANCHO = 360;
 const ALTO = 540;
+const EJE = 180;
+const PARADAS = {
+  eje1: { x: EJE, y: 176, medio: "ChatGPT" },
+  eje2: { x: EJE, y: 257, medio: "Web" },
+  eje3: { x: EJE, y: 350, medio: "YouTube" },
+  eje4: { x: EJE, y: 434, medio: "Web" },
+  izdaAlta: { x: 110, y: 252, medio: "YouTube" },
+  dchaAlta: { x: 259, y: 325, medio: "ChatGPT" },
+  dchaBaja: { x: 247, y: 409, medio: "ChatGPT" },
+  izdaBaja: { x: 111, y: 421, medio: "Web" },
+  fin1: { x: 104, y: 512, medio: "Web" },
+  fin2: { x: EJE, y: 512, medio: "YouTube" },
+  fin3: { x: 263, y: 512, medio: "ChatGPT" },
+};
 const AGENTES = [
-  {
-    pos: [246, 92],
-    r: 56,
-    paradas: [
-      [200, 140],
-      [156, 190],
-      [122, 280],
-      [182, 346],
-    ],
-    medios: ["ChatGPT", "YouTube", "Web", "ChatGPT"],
-    d: "M246 92 C228 110 216 126 200 140 C184 154 168 176 156 190 C136 216 128 250 122 280 C118 306 164 320 182 346",
-  },
-  {
-    pos: [70, 204],
-    r: 36,
-    paradas: [
-      [122, 280],
-      [156, 382],
-      [206, 444],
-    ],
-    medios: ["Web", "Web", "YouTube"],
-    d: "M70 204 C96 236 110 262 122 280 C136 316 146 352 156 382 C166 410 190 424 206 444",
-  },
-  {
-    pos: [300, 310],
-    r: 36,
-    paradas: [
-      [250, 386],
-      [206, 444],
-      [182, 346],
-    ],
-    medios: ["Web", "YouTube", "ChatGPT"],
-    d: "M300 310 C272 332 256 356 250 386 C240 414 224 430 206 444 C190 412 186 380 182 346",
-  },
-  {
-    pos: [74, 428],
-    r: 36,
-    paradas: [
-      [156, 382],
-      [176, 484],
-    ],
-    medios: ["Web", "ChatGPT"],
-    d: "M74 428 C106 408 130 392 156 382 C176 396 178 450 176 484",
-  },
-  {
-    pos: [288, 476],
-    r: 36,
-    paradas: [
-      [176, 484],
-      [206, 444],
-    ],
-    medios: ["ChatGPT", "YouTube"],
-    d: "M288 476 C252 480 216 484 176 484 C190 472 200 458 206 444",
-  },
+  { pos: [EJE, 84], r: 44, paradas: ["eje1", "eje2", "eje3", "eje4"] },
+  { pos: [79, 176], r: 32, paradas: ["izdaAlta", "eje2", "eje3", "dchaBaja"] },
+  { pos: [301, 250], r: 32, paradas: ["dchaAlta", "eje3", "izdaBaja", "fin1"] },
+  { pos: [60, 400], r: 32, paradas: ["izdaBaja", "eje4", "fin3"] },
+  { pos: [306, 388], r: 32, paradas: ["dchaBaja", "eje4", "fin2"], rolAbajo: true },
 ];
-/* Las paradas compartidas: dónde y de qué medio es su anillo. */
-const COMPARTIDAS = [
-  { x: 122, y: 280, medio: "Web" },
-  { x: 182, y: 346, medio: "ChatGPT" },
-  { x: 156, y: 382, medio: "Web" },
-  { x: 206, y: 444, medio: "YouTube" },
+/* La etiqueta del medio, solo en el recorrido principal, como en escritorio:
+   con cinco etiquetados el mapa era todo letra, y con uno se entiende el
+   código de color de los demás. `dy` la separa del rótulo de al lado. */
+const ETIQUETAS = [
+  { parada: "eje1", lado: "dcha" },
+  { parada: "eje2", lado: "dcha" },
+  { parada: "eje3", lado: "izda", dy: -12 },
 ];
 const MEDIOS = { Web: "v4-chip--gold", YouTube: "v4-chip--rojo", ChatGPT: "" };
-/* Hacia qué lado sale cada rótulo del recorrido principal. */
-const LADOS = ["izda", "dcha", "dcha", "dcha"];
+const punto = (clave) => [PARADAS[clave].x, PARADAS[clave].y];
+
+/** Un camino suave que pasa por todos los puntos (Catmull-Rom en Bézier). */
+function curva(pts) {
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i += 1) {
+    const [a, b, c, e] = [pts[i - 1] || pts[i], pts[i], pts[i + 1], pts[i + 2] || pts[i + 1]];
+    let c1 = [b[0] + (c[0] - a[0]) / 6, b[1] + (c[1] - a[1]) / 6];
+    let c2 = [c[0] - (e[0] - b[0]) / 6, c[1] - (e[1] - b[1]) / 6];
+    /* Entre dos paradas del eje, recto: el camino va MONTADO sobre el de la
+       principal y se lee como uno solo. Con la curva se abría en un arco al
+       lado y parecían dos caminos casi iguales. */
+    if (b[0] === c[0]) {
+      c1 = [b[0], b[1] + (c[1] - b[1]) / 3];
+      c2 = [c[0], c[1] - (c[1] - b[1]) / 3];
+    }
+    d += ` C${c1.map(Math.round).join(" ")} ${c2.map(Math.round).join(" ")} ${c.join(" ")}`;
+  }
+  return d;
+}
+AGENTES.forEach((a) => {
+  a.puntos = a.paradas.map(punto);
+});
+/* El dibujo llena el ancho. Si la pantalla no tiene alto para sus 540, se
+   aplasta un poco en vertical (solo las alturas: bolas, anillos y esferas
+   conservan su forma), pero apenas: más allá de este mínimo las filas se
+   amontonan y el mapa deja de respirar, así que prefiere encoger entero. */
+const APLASTE_MIN = 0.9;
+const aplastar = (pts, f) => pts.map(([x, y]) => [x, y * f]);
 
 /* El guion, en progreso 0..1:
-     0.00–0.42  la esfera principal suelta su recorrido, con la cámara cerca
+     0.00–0.44  la esfera principal baja por el eje, con la cámara cerca
      0.42–0.64  la cámara se aleja
-     0.56–0.94  entran los otros cuatro y sueltan el suyo
-     0.86–1.00  las paradas compartidas se marcan; el pie entra */
+     0.56–0.96  entran los otros cuatro, cada uno más abajo, y sueltan el suyo
+     0.90–1.00  el pie entra */
 const VIAJES_PRINCIPAL = [0, 1, 2, 3].map((i) => ({
   desde: 0.02 + i * 0.09,
   hasta: 0.02 + i * 0.09 + 0.15,
 }));
 const viajesDe = (agente, i) =>
   agente.paradas.map((_, k) => {
-    const base = 0.56 + (i - 1) * 0.05 + k * 0.07;
-    return { desde: base, hasta: base + 0.12 };
+    const base = 0.56 + (i - 1) * 0.05 + k * 0.066;
+    return { desde: base, hasta: base + 0.11 };
   });
-const ZOOM = 1.38;
+const VIAJES = AGENTES.map((a, i) => (i === 0 ? VIAJES_PRINCIPAL : viajesDe(a, i)));
+
+/* Cuándo llega alguien a cada parada, en orden. El primero la marca con su
+   anillo; cada uno de los siguientes la hace pulsar en oro: ahí dos caminos
+   distintos acaban de coincidir, que es lo que el mapa cuenta. */
+const LLEGADAS = {};
+AGENTES.forEach((a, i) =>
+  a.paradas.forEach((clave, k) => {
+    (LLEGADAS[clave] = LLEGADAS[clave] || []).push(VIAJES[i][k].hasta);
+  }),
+);
+Object.values(LLEGADAS).forEach((t) => t.sort((x, y) => x - y));
+const PULSOS = Object.entries(LLEGADAS).flatMap(([clave, t]) =>
+  t.slice(1).map((cuando) => ({ clave, cuando })),
+);
+/* El anillo, ceñido a la bola (26 de diámetro): un filo, no un aro suelto. */
+const ANILLO = 30;
+
+const ZOOM = 1.15;
 /* El foco de la cámara cerca: a la altura del agente principal, para que al
    acercarse no se salga por arriba y pise el titular. */
-const FOCO = [250, 128];
+const FOCO = [EJE, 24];
+
+/**
+ * «Hombre · 42 años» en dos renglones, quién arriba y la edad debajo: en una
+ * sola línea los rótulos de los lados eran más anchos que su esfera. El punto
+ * medio sigue en el texto, oculto a la vista, para que diga lo mismo que en
+ * escritorio.
+ */
+function Partido({ texto }) {
+  const [quien, ...resto] = texto.split(" · ");
+  if (!resto.length) return <span>{texto}</span>;
+  return (
+    <>
+      <span>
+        {quien}
+        <span className="v4-oculto"> · </span>
+      </span>
+      <span>{resto.join(" · ")}</span>
+    </>
+  );
+}
 
 const pc = (v, total) => `${((v / total) * 100).toFixed(2)}%`;
 
 export function MapaAgentes({ roles, titulo, pie }) {
   const contenedor = useRef(null);
+  const cuadro = useRef(null);
+  const [aplaste, setAplaste] = useState(1);
   const camara = useRef(null);
-  const pieRef = useRef(null);
   const paths = useRef([]);
   const bolas = useRef(AGENTES.map(() => []));
   const fichas = useRef([]);
   const agentesRef = useRef([]);
-  const anillos = useRef([]);
+  const anillos = useRef({});
+  const pulsos = useRef([]);
   const trazos = useRef([]);
   const ultimo = useRef(0);
 
@@ -232,13 +272,12 @@ export function MapaAgentes({ roles, titulo, pie }) {
     const z = ZOOM - (ZOOM - 1) * suave(tramo(p, 0.42, 0.64));
     if (camara.current) camara.current.style.transform = `scale(${z})`;
     AGENTES.forEach((a, i) => {
-      const viajes = i === 0 ? VIAJES_PRINCIPAL : viajesDe(a, i);
       pintarTrazo(
         trazos.current[i],
         paths.current[i],
         bolas.current[i],
-        i === 0 ? fichas.current : [],
-        viajes,
+        [],
+        VIAJES[i],
         p,
         posa,
       );
@@ -252,134 +291,195 @@ export function MapaAgentes({ roles, titulo, pie }) {
         nodo.style.transform = `translate(-50%, -50%) scale(${0.7 + 0.3 * v})`;
       }
     });
-    anillos.current.forEach((an, k) => {
+    /* El anillo entra cerrándose sobre la bola cuando llega el primero. */
+    Object.entries(anillos.current).forEach(([clave, an]) => {
       if (!an) return;
-      const v = tramo(p, 0.86 + k * 0.03, 0.92 + k * 0.03);
+      const v = tramo(p, LLEGADAS[clave][0], LLEGADAS[clave][0] + 0.03);
       an.style.opacity = `${v}`;
-      an.style.transform = `translate(-50%, -50%) scale(${1.6 - 0.6 * posa(v)})`;
+      an.style.transform = `translate(-50%, -50%) scale(${1.5 - 0.5 * posa(v)})`;
     });
-    if (pieRef.current) {
-      const v = suave(tramo(p, 0.9, 1));
-      pieRef.current.style.opacity = `${v}`;
-      pieRef.current.style.transform = `translateY(${(1 - v) * 12}px)`;
-    }
+    /* El pulso: un halo dorado que se abre y se apaga desde la bola. */
+    PULSOS.forEach(({ cuando }, k) => {
+      const nodo = pulsos.current[k];
+      if (!nodo) return;
+      const v = tramo(p, cuando, cuando + 0.07);
+      nodo.style.opacity = v > 0 && v < 1 ? `${(1 - v) * 0.7}` : "0";
+      nodo.style.transform = `translate(-50%, -50%) scale(${1 + 1.6 * posa(v)})`;
+    });
+    ETIQUETAS.forEach(({ parada }, k) => {
+      if (fichas.current[k]) fichas.current[k].dataset.puesta = p >= LLEGADAS[parada][0] ? "true" : "";
+    });
   }, []);
 
+  /* Cuánto hay que aplastar: el alto que deja el cuadro contra el que
+     pediría el dibujo a todo el ancho. */
   useEffect(() => {
-    if (!window.matchMedia(CORTE_ESCENA).matches) return undefined;
-    if (trazos.current.length) return undefined;
+    const nodo = cuadro.current;
+    if (!nodo || !window.matchMedia(CORTE_ESCENA).matches) return undefined;
+    const medir = () => {
+      const { width, height } = nodo.getBoundingClientRect();
+      if (!width || !height) return;
+      const f = Math.min(1, Math.max(APLASTE_MIN, height / ((width * ALTO) / ANCHO)));
+      setAplaste(Math.round(f * 100) / 100);
+    };
+    const ojo = new ResizeObserver(medir);
+    ojo.observe(nodo);
+    medir();
+    return () => ojo.disconnect();
+  }, []);
+  const alto = ALTO * aplaste;
+  const caminos = useMemo(
+    () => AGENTES.map((a) => curva(aplastar([a.pos, ...a.puntos], aplaste))),
+    [aplaste],
+  );
+
+  /* Los trazos se preparan de nuevo con cada aplaste: cambia su largo y
+     dónde cae cada parada. */
+  useEffect(() => {
+    if (!window.matchMedia(CORTE_ESCENA).matches) return;
     trazos.current = AGENTES.map((a, i) =>
-      prepararTrazo(paths.current[i], a.paradas),
+      prepararTrazo(paths.current[i], aplastar(a.puntos, aplaste)),
     );
     pintar(ultimo.current);
-    return undefined;
-  }, [pintar]);
+  }, [pintar, aplaste]);
   useProgresoPegado(contenedor, pintar, { solo: CORTE_ESCENA });
 
   return (
-    <div className="v4-tecm v4-tecm-mapa" ref={contenedor}>
-      <div className="v4-tecm-mapa__pegado">
-        {titulo}
-        <div
-          className="v4-tecm-mapa__cuadro"
-          aria-hidden="true"
-          style={{ aspectRatio: `${ANCHO} / ${ALTO}` }}
-        >
+    <>
+      <div className="v4-tecm v4-tecm-mapa" ref={contenedor}>
+        <div className="v4-tecm-mapa__pegado">
+          {titulo}
           <div
-            className="v4-tecm-mapa__camara"
-            ref={camara}
-            style={{
-              transformOrigin: `${pc(FOCO[0], ANCHO)} ${pc(FOCO[1], ALTO)}`,
-            }}
+            className="v4-tecm-mapa__cuadro"
+            aria-hidden="true"
+            ref={cuadro}
           >
-            <svg viewBox={`0 0 ${ANCHO} ${ALTO}`} className="v4-tecm-mapa__svg">
-              {AGENTES.map((a, i) => (
-                <path
-                  key={a.d}
-                  d={a.d}
-                  className="v4-tecm-mapa__trazo"
+            <div
+              className="v4-tecm-mapa__camara"
+              ref={camara}
+              style={{
+                transformOrigin: `${pc(FOCO[0], ANCHO)} ${pc(FOCO[1], ALTO)}`,
+                aspectRatio: `${ANCHO} / ${alto}`,
+                "--v4-proporcion": ANCHO / alto,
+              }}
+            >
+              <svg viewBox={`0 0 ${ANCHO} ${alto}`} className="v4-tecm-mapa__svg">
+                {AGENTES.map((a, i) => (
+                  <path
+                    key={`camino-${i}`}
+                    d={caminos[i]}
+                    className="v4-tecm-mapa__trazo"
+                    ref={(el) => {
+                      paths.current[i] = el;
+                    }}
+                  />
+                ))}
+                {AGENTES.map((a, i) =>
+                  a.paradas.map((pt, k) => (
+                    <image
+                      key={`${i}-${k}`}
+                      href="/img/bola.webp"
+                      x="-13"
+                      y="-13"
+                      width="26"
+                      height="26"
+                      className="v4-tecm-mapa__bola"
+                      ref={(el) => {
+                        bolas.current[i][k] = el;
+                      }}
+                    />
+                  )),
+                )}
+              </svg>
+              {Object.entries(PARADAS).map(([clave, s]) => (
+                <span
+                  key={`anillo-${clave}`}
+                  className="v4-tecm-mapa__anillo"
+                  data-medio={s.medio}
                   ref={(el) => {
-                    paths.current[i] = el;
+                    anillos.current[clave] = el;
+                  }}
+                  style={{ left: pc(s.x, ANCHO), top: pc(s.y, ALTO), width: pc(ANILLO, ANCHO) }}
+                />
+              ))}
+              {PULSOS.map(({ clave }, k) => (
+                <span
+                  key={`pulso-${clave}-${k}`}
+                  className="v4-tecm-mapa__pulso"
+                  ref={(el) => {
+                    pulsos.current[k] = el;
+                  }}
+                  style={{
+                    left: pc(PARADAS[clave].x, ANCHO),
+                    top: pc(PARADAS[clave].y, ALTO),
+                    width: pc(ANILLO, ANCHO),
                   }}
                 />
               ))}
-              {AGENTES.map((a, i) =>
-                a.paradas.map((pt, k) => (
-                  <image
-                    key={`${i}-${k}`}
-                    href="/img/bola.webp"
-                    x="-11"
-                    y="-11"
-                    width="22"
-                    height="22"
-                    className="v4-tecm-mapa__bola"
+              {ETIQUETAS.map(({ parada, lado, dy = 0 }, k) => {
+                const s = PARADAS[parada];
+                return (
+                  <span
+                    key={`chip-${parada}`}
+                    className={`v4-chip v4-tecm-mapa__chip ${MEDIOS[s.medio]}`.trim()}
+                    data-lado={lado}
                     ref={(el) => {
-                      bolas.current[i][k] = el;
+                      fichas.current[k] = el;
                     }}
-                  />
-                )),
-              )}
-            </svg>
-            {COMPARTIDAS.map((c, k) => (
-              <span
-                key={`${c.x}-${c.y}`}
-                className="v4-tecm-mapa__anillo"
-                data-medio={c.medio}
-                ref={(el) => {
-                  anillos.current[k] = el;
-                }}
-                style={{ left: pc(c.x, ANCHO), top: pc(c.y, ALTO) }}
-              />
-            ))}
-            {AGENTES[0].paradas.map((pt, k) => (
-              <span
-                key={`chip-${k}`}
-                className={`v4-chip v4-tecm-mapa__chip ${MEDIOS[AGENTES[0].medios[k]]}`.trim()}
-                data-lado={LADOS[k]}
-                ref={(el) => {
-                  fichas.current[k] = el;
-                }}
-                style={{ left: pc(pt[0], ANCHO), top: pc(pt[1], ALTO) }}
-              >
-                {AGENTES[0].medios[k]}
-              </span>
-            ))}
-            {AGENTES.map((a, i) => (
-              <span
-                key={`agente-${i}`}
-                className="v4-tecm-mapa__agente"
-                data-principal={i === 0 ? "true" : undefined}
-                ref={(el) => {
-                  agentesRef.current[i] = el;
-                }}
-                style={{
-                  left: pc(a.pos[0], ANCHO),
-                  top: pc(a.pos[1], ALTO),
-                  "--v4-r": pc(a.r, ANCHO),
-                }}
-              >
-                <img
-                  src="/img/esfera-hero.webp"
-                  alt=""
-                  width="510"
-                  height="400"
-                  loading="lazy"
-                  decoding="async"
-                />
-                {roles[i] ? (
-                  <span className="v4-tecm-mapa__rol">
-                    <span>{roles[i][0]}</span>
-                    {i === 0 ? <span>{roles[i][1]}</span> : null}
+                    style={{ left: pc(s.x, ANCHO), top: pc(s.y + dy, ALTO) }}
+                  >
+                    {s.medio}
                   </span>
-                ) : null}
-              </span>
-            ))}
+                );
+              })}
+              {AGENTES.map((a, i) => (
+                <span
+                  key={`agente-${i}`}
+                  className="v4-tecm-mapa__agente"
+                  data-principal={i === 0 ? "true" : undefined}
+                  data-rol-abajo={a.rolAbajo ? "true" : undefined}
+                  ref={(el) => {
+                    agentesRef.current[i] = el;
+                  }}
+                  style={{
+                    left: pc(a.pos[0], ANCHO),
+                    top: pc(a.pos[1], ALTO),
+                    "--v4-r": pc(a.r, ANCHO),
+                  }}
+                >
+                  <img
+                    src="/img/esfera-hero.webp"
+                    alt=""
+                    width="510"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {roles[i] ? (
+                    <span
+                      className="v4-tecm-mapa__rol"
+                      data-partido={i === 0 ? undefined : "true"}
+                    >
+                      {i === 0 ? (
+                        <>
+                          <span>{roles[i][0]}</span>
+                          <span>{roles[i][1]}</span>
+                        </>
+                      ) : (
+                        <Partido texto={roles[i][0]} />
+                      )}
+                    </span>
+                  ) : null}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="v4-tecm-mapa__pie" ref={pieRef}>
-          {pie}
-        </div>
       </div>
-    </div>
+      {/* El pie, FUERA de la pantalla pegada: llega justo debajo del mapa
+          cuando este se suelta. Dentro le quitaba al dibujo el alto que
+          necesita para respirar. */}
+      <div className="v4-tecm-mapa__pie">{pie}</div>
+    </>
   );
 }

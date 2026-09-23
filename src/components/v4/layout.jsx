@@ -25,7 +25,7 @@ const HeroField = dynamic(() => import("./HeroField"), { ssr: false });
 /* Los rótulos son claves de `common`; `id` es lo que las páginas pasan en
    `activo` para marcar su entrada, y no depende del idioma. */
 export const NAV_ITEMS = [
-  { id: "navegacion", label: "nav.navegacion", href: "/navegacion-activa" },
+  { id: "navegacion", label: "nav.navegacion", href: "/active-navigation" },
   { id: "tecnologia", label: "nav.tecnologia", href: "/technology" },
   {
     id: "productos",
@@ -50,12 +50,12 @@ export const NAV_ITEMS = [
           {
             label: "nav.posicionamiento",
             desc: "nav.posicionamientoDesc",
-            href: "/products/geo/posicionamiento-ia",
+            href: "/products/geo/ai-positioning",
           },
           {
             label: "nav.publicidad",
             desc: "nav.publicidadDesc",
-            href: "/products/geo/publicidad-ia",
+            href: "/products/geo/ai-advertising",
           },
         ],
       },
@@ -66,6 +66,12 @@ export const NAV_ITEMS = [
 ];
 
 const IDIOMAS = ["es", "en"];
+
+/* Elegir idioma es explícito y se recuerda un año: la portada ya no vuelve a
+   decidir por el navegador (ver src/i18n/idiomaVisitante.js). */
+function recordarIdioma(idioma) {
+  document.cookie = `NEXT_LOCALE=${idioma}; path=/; max-age=31536000; SameSite=Lax`;
+}
 
 /** La misma ruta sin ancla ni query: al cambiar de idioma se vuelve arriba. */
 function useRutaIdioma() {
@@ -94,6 +100,7 @@ export function IdiomaMenu() {
             key={idioma}
             href={ruta}
             locale={idioma}
+            onClick={() => recordarIdioma(idioma)}
             className="v4-nav__sub"
             aria-current={idioma === locale ? "true" : undefined}
             lang={idioma}
@@ -121,6 +128,7 @@ export function Idioma({ className = "" }) {
           key={idioma}
           href={ruta}
           locale={idioma}
+          onClick={() => recordarIdioma(idioma)}
           className="v4-idioma__opcion"
           aria-current={idioma === locale ? "true" : undefined}
           lang={idioma}
@@ -294,8 +302,9 @@ export function Nav({ activo, sobreOscuro }) {
  * jerarquía que el nav de escritorio. Las entradas de primer nivel van en
  * display; bajo Productos cuelgan las dos familias y, de la conversacional, sus
  * dos productos. Abajo, el idioma y el único botón dorado. Está siempre en el
- * DOM (oculto con `hidden`): lo que abre y cierra es el atributo, y así los
- * enlaces existen para el rastreador aunque no haya JavaScript.
+ * DOM (cerrado, invisible e inerte): lo que abre y cierra es `data-abierto`, y
+ * así los enlaces existen para el rastreador aunque no haya JavaScript. El
+ * fundido de entrada y salida vive en el CSS.
  */
 function MenuMovil({ abierto, activo, ruta }) {
   const { t } = useTranslation("common");
@@ -303,7 +312,8 @@ function MenuMovil({ abierto, activo, ruta }) {
     <div
       id="v4-menu-movil"
       className="v4-menu"
-      hidden={!abierto}
+      data-abierto={abierto ? "true" : undefined}
+      inert={abierto ? undefined : ""}
       aria-label={t("nav.principal")}
     >
       <ul className="v4-menu__lista">
@@ -526,7 +536,7 @@ const FOOTER_GRUPOS = [
   {
     titulo: "footer.concepto",
     links: [
-      { label: "nav.navegacion", href: "/navegacion-activa" },
+      { label: "nav.navegacion", href: "/active-navigation" },
       { label: "nav.tecnologia", href: "/technology" },
     ],
   },

@@ -10,6 +10,24 @@ const nextConfig = {
   // donde no está. Fijamos la raíz al propio proyecto.
   outputFileTracingRoot: __dirname,
   poweredByHeader: false,
+  /* Las rutas van en inglés. Estas tres nacieron en castellano en la rama de
+     la v4 y pudieron circular en enlaces de preview: 301 a su nombre final.
+     Con i18n, Next aplica cada regla también con el prefijo /en. */
+  async redirects() {
+    return [
+      { source: "/navegacion-activa", destination: "/active-navigation", permanent: true },
+      {
+        source: "/products/geo/posicionamiento-ia",
+        destination: "/products/geo/ai-positioning",
+        permanent: true,
+      },
+      {
+        source: "/products/geo/publicidad-ia",
+        destination: "/products/geo/ai-advertising",
+        permanent: true,
+      },
+    ];
+  },
   compress: true,
   async headers() {
     return [

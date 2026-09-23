@@ -45,7 +45,6 @@
       "chat": "AI answer"
     },
     "chat": "According to <uno/> and <dos/>, the most recommended are…",
-    "cuantos": "{{n}} of {{total}}",
     "agente": "{{nombre}}, {{edad}}, {{pregunta}}",
     "oculto": "Four agents with different questions about the same product: {{agentes}}. They go through different sources and coincide on three: km77.com, a video review and the same answer from a model, which cites motor.es and coches.net."
   },

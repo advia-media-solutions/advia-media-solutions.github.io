@@ -21,6 +21,12 @@ export default function Reveal({ as: Tag = "div", className = "", children, ...r
     }
     const elemento = nodo.current;
     if (!elemento) return undefined;
+    /* Ya revelado antes de hidratar por el script de primera pantalla
+       (_document.jsx): solo falta que React lo sepa. */
+    if (elemento.hasAttribute("data-inicial")) {
+      setVisible(true);
+      return undefined;
+    }
 
     const observador = new IntersectionObserver(
       ([entrada]) => {
@@ -43,7 +49,14 @@ export default function Reveal({ as: Tag = "div", className = "", children, ...r
   const clases = ["v4-reveal", className].filter(Boolean).join(" ");
 
   return (
-    <Tag ref={nodo} className={clases} data-visible={visible ? "true" : undefined} {...resto}>
+    <Tag
+      ref={nodo}
+      className={clases}
+      data-visible={visible ? "true" : undefined}
+      // El script de primera pantalla añade data-visible/data-inicial antes de hidratar.
+      suppressHydrationWarning
+      {...resto}
+    >
       {children}
     </Tag>
   );

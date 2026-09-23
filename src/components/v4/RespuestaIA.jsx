@@ -67,6 +67,7 @@ function escritoA(tokens, ms) {
 
 /** Cada cuánto cambia la marca una vez escrita la respuesta. */
 const POR_MARCA = 3800;
+const VUELTAS_MARCA = 2;
 
 /**
  * `marca` admite una lista: la primera es la que se escribe, y cuando la
@@ -179,12 +180,21 @@ export default function RespuestaIA({ pregunta, antes, marca, despues, fuentes }
     const nodo = caja.current;
     if (!nodo || !escrita || marcas.length < 2) return undefined;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    /* Dos vueltas y se para en la primera marca: ya se ha visto que la
+       respuesta cambia de marca, y así el bloque se deja leer. */
+    const total = marcas.length * VUELTAS_MARCA;
+    let cambios = 0;
     let reloj;
+    const avanzar = () => {
+      cambios += 1;
+      setIMarca(cambios % marcas.length);
+      if (cambios >= total) clearInterval(reloj);
+    };
     const io = new IntersectionObserver(
       (entradas) => {
         clearInterval(reloj);
-        if (entradas.some((e) => e.isIntersecting)) {
-          reloj = setInterval(() => setIMarca((n) => (n + 1) % marcas.length), POR_MARCA);
+        if (cambios < total && entradas.some((e) => e.isIntersecting)) {
+          reloj = setInterval(avanzar, POR_MARCA);
         }
       },
       { threshold: 0.4 }

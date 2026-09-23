@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next/pages";
  * pantallas.
  *
  * Antes esto eran dos párrafos que definían el concepto entero, y ese es el
- * contenido de /navegacion-activa: si aquí se explica del todo, el botón que
+ * contenido de /active-navigation: si aquí se explica del todo, el botón que
  * lleva allí deja de tener sentido. El contraste lo hace ahora la composición.
  *
  * Cada pantalla lleva su rótulo dentro, en una franja superior con filete:

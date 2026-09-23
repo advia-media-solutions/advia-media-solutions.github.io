@@ -9,7 +9,7 @@ import * as THREE from "three";
  * PARADAS —las fuentes que se repiten en las decisiones de una categoría— y las
  * líneas que se trazan son RECORRIDOS, cada uno el de una persona distinta.
  * Se dibujan, se sostienen y se desvanecen en bucle: caminos infinitos, paradas
- * finitas. Es el mismo mensaje del scroll 5 de /navegacion-activa, en el hero.
+ * finitas. Es el mismo mensaje del scroll 5 de /active-navigation, en el hero.
  *
  * Sostenibilidad de la pieza:
  * - Solo se monta en cliente y solo si hay WebGL y no hay prefers-reduced-motion.
@@ -236,6 +236,7 @@ export default function HeroField({ tono = "claro" }) {
     let animando = true;
     let cuadro = 0;
     const inicio = performance.now();
+    let anterior = inicio;
 
     const dimensionar = () => {
       const { clientWidth: w, clientHeight: h } = nodo;
@@ -255,10 +256,15 @@ export default function HeroField({ tono = "claro" }) {
       if (!visible || !animando) return;
 
       const t = (ahora - inicio) / 1000;
+      const dt = Math.min(ahora - anterior, 100);
+      anterior = ahora;
 
-      // Parallax suave: el campo responde al puntero sin perseguirlo.
-      puntero.x += (objetivo.x - puntero.x) * 0.035;
-      puntero.y += (objetivo.y - puntero.y) * 0.035;
+      // Parallax suave: el campo responde al puntero sin perseguirlo. El
+      // acercamiento va por tiempo, no por cuadro: 0,035 por cuadro a 60 Hz, y
+      // lo mismo por segundo en una pantalla de 120 Hz.
+      const acerca = 1 - Math.pow(1 - 0.035, dt / (1000 / 60));
+      puntero.x += (objetivo.x - puntero.x) * acerca;
+      puntero.y += (objetivo.y - puntero.y) * acerca;
       grupo.rotation.y = t * 0.028 + puntero.x * 0.22;
       grupo.rotation.x = Math.sin(t * 0.16) * 0.05 + puntero.y * 0.12;
 

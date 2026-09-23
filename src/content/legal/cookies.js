@@ -37,6 +37,7 @@ Almacenan datos durante un periodo definido por el responsable de la cookie.
 | --- | --- | --- | --- |
 | Técnica | \`cookieConsent\` (localStorage) | Almacena sus preferencias de consentimiento para que no se le vuelva a preguntar. No es una cookie: se guarda en el almacenamiento local del navegador. | Hasta que borre los datos del navegador |
 | Técnica | \`advia_optout\` | Registra que este navegador se ha excluido del registro de eventos publicitarios. Su contenido íntegro es el valor \`1\`: no contiene ningún identificador. Solo se establece si usted lo solicita. | 1 año, renovada mientras siga excluido |
+| Técnica | \`NEXT_LOCALE\` | Recuerda el idioma que usted ha elegido en el selector de idioma (\`es\` o \`en\`), para mostrarle la web en ese idioma en sus próximas visitas. No contiene ningún identificador. Solo se establece si usted cambia de idioma. | 1 año |
 | Analítica (previo consentimiento) | \`_ga\`, \`_ga_*\` | Google Analytics, cargado a través de Google Tag Manager. Análisis de patrones de tráfico del sitio. Solo se establecen si acepta las cookies de análisis. | 2 años |
 | Publicitaria (previo consentimiento) | \`advia_uid\` | Identificador pseudónimo del ad server de Advia, empleado para deduplicar impresiones. Se establece en \`*.advia.tech\` y se describe en detalle en la [Política de Privacidad](/privacy-policy). | 1 año |
 

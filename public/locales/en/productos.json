@@ -7,10 +7,10 @@
     "videoDescripcion": "Someone searching on their phone",
     "videoPie": "The moment of the search",
     "titular": "Active Navigation happens in every channel where your consumer <key>searches</key>",
-    "lede": "Each channel works differently."
+    "lede": "Each channel works in a different way, and consumers have different expectations."
   },
   "todos": {
-    "titular": "And we position you in <key>all of them</key>",
+    "titular": "We position you in <key>all of them</key> to make you the answer",
     "pronto": "Coming soon",
     "ver": "See the product"
   },
@@ -37,7 +37,7 @@
   ],
   "cierre": {
     "titular": "Capitalise on Active Navigation in <key>every channel</key>",
-    "lede": "You tell us the goal, we simulate your consumer's journey and show you where you can answer them.",
+    "lede": "You tell us the goal, we simulate your consumer's journey and show you where you can become the answer they need.",
     "cta": "Understand my Active Navigation"
   }
 }

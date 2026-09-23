@@ -1,0 +1,494 @@
+/* ============================================================================
+   ADVIA · web v4 — Cómo funciona (posicionamiento en IA)
+
+   Siete pasos a la izquierda y un marco con la escena a la derecha. Dentro del
+   marco manda la densidad de producto: cuerpo a 12–15px, rótulos en mono y
+   cifras en mono tabular. Todo sale de los tokens; lo que depende de la
+   superficie de la sección, de las variables --v4-*.
+   Lo que se mueve lo escribe el reloj en línea (opacidad, anchos, posición);
+   aquí solo va la forma.
+   ============================================================================ */
+
+.v4-cf {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: var(--space-6);
+  align-items: start;
+  margin: var(--space-12) 0 0;
+  color: var(--v4-fg);
+}
+
+/* Piezas pequeñas que se repiten en todas las escenas. */
+.v4-cf__micro {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--v4-muted);
+}
+.v4-cf__pastilla {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  text-transform: uppercase;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--gold-crema);
+  color: var(--brand-graphite);
+  white-space: nowrap;
+}
+.v4-cf__etiqueta {
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  color: var(--neutral-dark);
+}
+/* Delta positivo: pill tintada en mono (DS §10.3). */
+.v4-cf__delta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+  line-height: var(--lh-code-s);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--success-bg);
+  color: var(--success);
+  white-space: nowrap;
+}
+
+/* La pista de las barras. El valor va en grafito; la marca propia y lo que
+   importa, en el degradado oro de dataviz. */
+.v4-cf-pista {
+  display: block;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--v4-track);
+  overflow: hidden;
+}
+.v4-cf-pista__valor {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--neutral-dark);
+}
+[data-propia] .v4-cf-pista__valor,
+[data-alta] .v4-cf-pista__valor { background: var(--chart-1-gradient); }
+
+/* ── Pasos ── */
+.v4-cf__actual { display: none; }
+.v4-cf__pasos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.v4-cf__paso {
+  display: flex;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--motion-base) var(--ease-standard);
+}
+.v4-cf__paso[aria-current] { background: var(--surface-sunken); }
+.v4-cf__paso:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+.v4-cf__paso-pista {
+  flex: none;
+  align-self: stretch;
+  width: 2px;
+  border-radius: var(--radius-full);
+  background: var(--v4-track);
+  overflow: hidden;
+}
+.v4-cf__paso-pista > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-gold);
+  transform: scaleY(var(--avance));
+  transform-origin: top;
+}
+.v4-cf__paso-num {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+  color: var(--neutral-400);
+}
+.v4-cf__paso[aria-current] .v4-cf__paso-num { color: var(--accent-gold); }
+.v4-cf__paso-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.v4-cf__paso-titulo {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  font-weight: var(--fw-bold);
+  color: var(--v4-muted);
+}
+.v4-cf__paso[aria-current] .v4-cf__paso-titulo,
+.v4-cf__paso:hover .v4-cf__paso-titulo { color: var(--v4-fg); }
+.v4-cf__paso-desc {
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--v4-muted);
+  text-wrap: pretty;
+}
+
+/* ── Marco ── */
+.v4-cf__principal { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; }
+.v4-cf__marco {
+  padding: var(--space-4);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-xl);
+  background: var(--surface-sunken);
+}
+.v4-cf__lienzo {
+  display: grid;
+  min-height: 460px;
+  padding: var(--space-6);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-card);
+}
+.v4-cf__capa { grid-area: 1 / 1; min-width: 0; }
+.v4-cf__capa--pila { display: flex; flex-direction: column; gap: var(--space-6); }
+.v4-cf__pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: 0 var(--space-1);
+}
+.v4 .v4-cf__pausa {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  background: transparent;
+}
+.v4-cf__pausa:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); }
+.v4-cf__aviso { font-size: var(--fs-code-xs); line-height: var(--lh-code-xs); }
+
+.v4-cf-cabeza { display: flex; flex-direction: column; gap: var(--space-1); }
+.v4-cf-cabeza__titulo {
+  font-size: var(--fs-subheading);
+  line-height: var(--lh-subheading);
+  font-weight: var(--fw-bold);
+  text-wrap: pretty;
+}
+.v4-cf-cabeza__titulo .v4-key { font-weight: inherit; }
+.v4-cf-cabeza__sub {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--v4-muted);
+}
+
+/* ── Escenas 1–3: la conversación ── */
+.v4-cf-chat-escena {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+.v4-cf-chat { border: 1px solid var(--v4-line); border-radius: var(--radius-lg); overflow: hidden; }
+.v4-cf-chat__barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--v4-line);
+}
+.v4-cf-chat__motor {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  font-weight: var(--fw-bold);
+}
+.v4-cf-chat__estado {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  line-height: var(--lh-code-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--neutral-dark);
+}
+.v4-cf-chat__pulso {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent-gold);
+}
+.v4-cf-chat__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-4);
+}
+.v4-cf-chat__pregunta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+.v4-cf-chat__burbuja {
+  max-width: 85%;
+  min-height: calc(var(--lh-body-m) + 2 * var(--space-3));
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--surface-sunken);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+}
+.v4-cf-chat__caret {
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  margin-left: 2px;
+  vertical-align: -2px;
+  background: var(--v4-fg);
+}
+.v4-cf-chat__respuesta { position: relative; }
+.v4-cf-chat__respuesta p {
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-l);
+  text-wrap: pretty;
+}
+.v4-cf-chat__trozo {
+  border-radius: var(--radius-sm);
+  transition: background var(--motion-base) var(--ease-standard),
+    color var(--motion-base) var(--ease-standard);
+}
+.v4-cf-chat__trozo[data-detectada] {
+  padding: 1px var(--space-1);
+  font-weight: var(--fw-bold);
+  background: var(--v4-track);
+}
+.v4-cf-chat__trozo--o[data-detectada] { background: var(--gold-ambar-claro); }
+.v4-cf-chat__trozo--c {
+  margin-left: 2px;
+  padding: 1px 5px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-xs);
+  vertical-align: 4px;
+  background: var(--v4-track);
+  color: var(--neutral-dark);
+}
+.v4-cf-chat__resto,
+.v4-cf-chat__trozo[data-pendiente] { visibility: hidden; }
+.v4-cf-chat__trozo--c[data-citada] { background: var(--brand-graphite); color: var(--brand-ivory); }
+.v4-cf-chat__escaner {
+  position: absolute;
+  left: calc(-1 * var(--space-4));
+  right: calc(-1 * var(--space-4));
+  height: 36px;
+  margin-top: -36px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, var(--gold-veil));
+  border-bottom: 2px solid var(--accent-gold);
+}
+
+.v4-cf-lados { display: grid; }
+.v4-cf-lado {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.v4-cf-agente {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "id pastilla" "pregunta pregunta";
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-md);
+}
+.v4-cf-agente > .v4-cf__micro { grid-area: id; color: var(--neutral-dark); }
+.v4-cf-agente > .v4-cf__pastilla { grid-area: pastilla; }
+.v4-cf-agente__pregunta {
+  grid-area: pregunta;
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+}
+.v4-cf-agentes__total {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: var(--space-1);
+}
+
+.v4-cf-mencion {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "nombre cifra" "pista pista";
+  gap: var(--space-2);
+}
+.v4-cf-mencion__nombre {
+  grid-area: nombre;
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+}
+.v4-cf-mencion[data-propia] .v4-cf-mencion__nombre { font-weight: var(--fw-bold); }
+.v4-cf-mencion__cifra {
+  grid-area: cifra;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.v4-cf-mencion__pista { grid-area: pista; }
+
+.v4-cf-fuente {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--radius-md);
+}
+.v4-cf-fuente__num {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--brand-graphite);
+  color: var(--brand-ivory);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-s);
+}
+.v4-cf-fuente__texto { display: flex; flex-direction: column; min-width: 0; }
+.v4-cf-fuente__dominio,
+.v4-cf-fuente__ruta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.v4-cf-fuente__dominio {
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  font-weight: var(--fw-bold);
+}
+.v4-cf-fuente__ruta { text-transform: none; letter-spacing: 0; }
+
+/* ── Tablet y móvil ── */
+/* Los pasos se vuelven una barra de siete segmentos bajo el paso actual. */
+@media (max-width: 900px) {
+  .v4-cf { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); margin-top: var(--space-8); }
+  .v4-cf__actual { display: flex; flex-direction: column; gap: var(--space-2); }
+  .v4-cf__actual-num {
+    font-family: var(--font-mono);
+    font-size: var(--fs-code-m);
+    line-height: var(--lh-code-m);
+    color: var(--neutral-400);
+  }
+  .v4-cf__actual-titulo {
+    font-size: var(--fs-subheading);
+    line-height: var(--lh-subheading);
+    font-weight: var(--fw-bold);
+  }
+  .v4-cf__actual-desc {
+    min-height: calc(2 * var(--lh-body-m));
+    font-size: var(--fs-body-m);
+    line-height: var(--lh-body-m);
+    color: var(--v4-muted);
+    text-wrap: pretty;
+  }
+  .v4-cf__pasos { flex-direction: row; gap: var(--space-1); margin-top: calc(-1 * var(--space-2)); }
+  .v4-cf__pasos > li { flex: 1; }
+  .v4-cf__paso { align-items: center; height: 44px; padding: 0; border-radius: var(--radius-sm); }
+  .v4-cf__paso[aria-current] { background: transparent; }
+  .v4-cf__paso-num { display: none; }
+  .v4-cf__paso-texto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .v4-cf__paso-pista { align-self: center; width: 100%; height: 4px; }
+  .v4-cf__paso-pista > span { transform: scaleX(var(--avance)); transform-origin: left; }
+}
+
+/* En el teléfono todo tiene que caber en una pantalla: el paso actual, la
+   conversación y lo que se saca de ella. Se aprietan márgenes y se quita el
+   texto de apoyo (el número y la subcabecera de cada escena). */
+@media (max-width: 640px) {
+  .v4-cf { gap: var(--space-3); }
+  .v4-cf__actual {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--space-3);
+  }
+  .v4-cf__actual-titulo { font-size: var(--fs-body-l); line-height: var(--lh-body-l); }
+  .v4-cf__actual-desc {
+    flex-basis: 100%;
+    min-height: calc(2 * var(--lh-body-s));
+    font-size: var(--fs-body-s);
+    line-height: var(--lh-body-s);
+  }
+  /* La barra sigue midiendo 44px de alto para el dedo; el margen negativo
+     le quita el aire que eso añade arriba y abajo. */
+  .v4-cf__pasos { margin: calc(-1 * var(--space-3)) 0; }
+
+  .v4-cf__marco { padding: var(--space-1); border-radius: var(--radius-lg); }
+  .v4-cf__lienzo { padding: var(--space-3); border-radius: var(--radius-md); }
+  .v4-cf__capa--pila { gap: var(--space-4); }
+  .v4-cf-cabeza__titulo { font-size: var(--fs-body-l); line-height: var(--lh-body-l); }
+  .v4-cf-cabeza__sub { display: none; }
+
+  .v4-cf-chat-escena { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+  .v4-cf-chat__barra { padding: var(--space-2) var(--space-3); }
+  .v4-cf-chat__cuerpo { gap: var(--space-3); padding: var(--space-3); }
+  .v4-cf-chat__pregunta > .v4-cf__micro { display: none; }
+  .v4-cf-chat__burbuja { max-width: 90%; padding: var(--space-2) var(--space-3); }
+  .v4-cf-chat__respuesta p { line-height: var(--lh-body-m); }
+  .v4-cf-chat__escaner { left: calc(-1 * var(--space-3)); right: calc(-1 * var(--space-3)); }
+
+  .v4-cf-lado { gap: var(--space-2); }
+  .v4-cf-agente {
+    grid-template-areas: "id pastilla" "pregunta pastilla";
+    gap: 0 var(--space-2);
+    padding: var(--space-2) var(--space-3);
+  }
+  .v4-cf-agente[data-sobra],
+  .v4-cf-agente__perfil,
+  .v4-cf-fuente__ruta { display: none; }
+  .v4-cf-agente__pregunta {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .v4-cf-mencion {
+    grid-template-columns: 84px minmax(0, 1fr) 40px;
+    grid-template-areas: "nombre pista cifra";
+    align-items: center;
+  }
+  .v4-cf-fuente { padding: var(--space-2) var(--space-3); }
+
+  .v4-cf__pie { flex-wrap: nowrap; }
+  .v4-cf__aviso { text-align: right; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-cf__paso,
+  .v4-cf-chat__trozo { transition: none; }
+}

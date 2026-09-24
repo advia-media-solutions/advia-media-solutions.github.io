@@ -125,7 +125,7 @@ const VIAJE = 1900;
 const PARADA_QUIETA = 2800;
 const POR_CARACTER = 55;
 const ENTRE_AGENTES = 400;
-const ANTES_DE_BAJAR = 1100;
+const ANTES_DE_BAJAR = 450;
 const PAUSA_FINAL = 2400;
 
 /** Las columnas de cada agente, ya con su coincidencia incrustada. */
@@ -256,6 +256,7 @@ export default function Columnas({ agentes }) {
       new Promise((listo) => {
         const inicio = performance.now();
         const paso = () => {
+          if (!vivo) return;
           const n = Math.min(hasta, Math.round((performance.now() - inicio) / POR_CARACTER));
           setEscrito((previo) => previo.map((v, k) => (k === i ? n : v)));
           if (n < hasta) {
@@ -286,16 +287,19 @@ export default function Columnas({ agentes }) {
         setRebobina(false);
 
         /* Los agentes despiertan escalonados y escriben a la vez: uno detrás de
-           otro tardaría veinte segundos en arrancar la pieza. */
+           otro tardaría veinte segundos en arrancar la pieza. La bajada cuenta
+           desde la última letra escrita, no desde el último en despertar:
+           calcularlo a ojo sumaba la espera del escalón y la cinta tardaba en
+           arrancar con todo ya quieto. */
+        const tecleos = [];
         for (let i = 0; i < agentes.length; i += 1) {
           if (!vivo) return;
           setDespiertos(i + 1);
-          teclear(i, agentes[i].pregunta.length);
-          await dormir(ENTRE_AGENTES);
+          tecleos.push(teclear(i, agentes[i].pregunta.length));
+          if (i < agentes.length - 1) await dormir(ENTRE_AGENTES);
         }
-        await dormir(
-          Math.max(...agentes.map((a) => a.pregunta.length)) * POR_CARACTER + ANTES_DE_BAJAR
-        );
+        await Promise.all(tecleos);
+        await dormir(ANTES_DE_BAJAR);
 
         for (let p = 0; p < PARADAS.length; p += 1) {
           if (!vivo) return;

@@ -1,0 +1,124 @@
+{
+  "seo": {
+    "title": "Careers at Advia | Advia",
+    "description": "Open positions at Advia, an AdTech founded in Madrid in 2024. What we build, how we work and how our hiring process runs."
+  },
+  "hero": {
+    "eyebrow": "Careers",
+    "titular": "Build with us the advertising that answers a <key>question</key>",
+    "lede": "We are an AdTech founded in Madrid in 2024. We use AI agents to find the moment someone researches before deciding, and place brands there as the answer. We are looking for people who can't stop thinking about that problem.",
+    "cta": "See open positions"
+  },
+  "principios": {
+    "eyebrow": "How we work",
+    "titular": "What you'll find <key>inside</key>",
+    "items": [
+      {
+        "titulo": "Intensity, and enjoying it",
+        "texto": "We move fast and everyone contributes in their own way. Here you grow by doing."
+      },
+      {
+        "titulo": "Technology amplifies",
+        "texto": "We built Vera so the team can go further, not to take away its judgement."
+      },
+      {
+        "titulo": "Transparency, even when it's hard",
+        "texto": "We say what we see, with the data in front of us, even when it's not what anyone wanted to hear."
+      },
+      {
+        "titulo": "We win as a team",
+        "texto": "We are 12 people. What each of us does shows in everyone's result."
+      }
+    ]
+  },
+  "proceso": {
+    "eyebrow": "Hiring process",
+    "titular": "Four steps and an <key>answer</key> at each one",
+    "lede": "We tell you where you stand. If we don't move forward, we tell you that too.",
+    "pasos": [
+      {
+        "titulo": "Application",
+        "texto": "You send your CV and answer the questions in the job post. We reply within 5 working days."
+      },
+      {
+        "titulo": "First conversation",
+        "texto": "A 30-minute video call with one of the founders, to get to know each other and answer your questions about the role."
+      },
+      {
+        "titulo": "Case or technical interview",
+        "texto": "A case close to the real work, which you present in a one-hour session with the team you'd join."
+      },
+      {
+        "titulo": "Meet the team and offer",
+        "texto": "You spend a morning at our Madrid office with the people you'd work with. If it's a fit on both sides, we make you a written offer."
+      }
+    ],
+    "cierre": "From start to finish, about 3 weeks."
+  },
+  "posiciones": {
+    "eyebrow": "Positions",
+    "titular": "Open <key>positions</key>",
+    "periodo": "gross per year",
+    "vacio": "We have no open positions right now. If the problem interests you, write to careers@advia.tech and tell us what you'd like to build.",
+    "error": "We couldn't load the positions. Try again in a few minutes or write to careers@advia.tech."
+  },
+  "modalidad": {
+    "remote": "Remote",
+    "hybrid": "Hybrid",
+    "onsite": "On-site"
+  },
+  "jornada": {
+    "full_time": "Full-time",
+    "part_time": "Part-time",
+    "internship": "Internship"
+  },
+  "fraude": "We will only ever write to you from an @advia.tech address, and we will never ask you for money or bank details during the process.",
+  "ficha": {
+    "seoTitle": "{{puesto}} · Careers at Advia | Advia",
+    "miga": "Positions",
+    "aplicar": "Apply"
+  },
+  "form": {
+    "titular": "Send us your application",
+    "lede": "It takes about 5 minutes. Just your CV and the questions for the role; no cover letters.",
+    "nombre": "Full name",
+    "email": "Email",
+    "telefono": "Phone",
+    "linkedin": "LinkedIn profile",
+    "opcional": "(optional)",
+    "cv": "CV (PDF, 5 MB max)",
+    "cvAyuda": "Drag your CV here or click to choose it",
+    "talentPool": "Keep my application for future openings for 24 months.",
+    "privacidad": "ADVIA MEDIA SOLUTIONS, S.L. will process your data to manage this hiring process. Only Advia's founders can access it. You can exercise your rights by writing to privacy@advia.tech. More information in the",
+    "privacidadEnlace": "privacy policy",
+    "enviar": "Send application",
+    "enviando": "Sending…",
+    "ok": {
+      "titulo": "Received",
+      "texto": "We'll write to you at {{email}} within 5 working days."
+    },
+    "errores": {
+      "campo": {
+        "requerido": "This field is required.",
+        "formato": "Check the format."
+      },
+      "email": {
+        "formato": "Enter a valid email."
+      },
+      "linkedin": {
+        "formato": "Paste the full URL of your LinkedIn profile."
+      },
+      "cv": {
+        "requerido": "Attach your CV.",
+        "tamano": "Your CV is larger than 5 MB.",
+        "formato": "Your CV must be a PDF."
+      },
+      "duplicada": "We already have your application for this role. No need to send it again.",
+      "cerrada": "This position has just closed.",
+      "captcha": "We couldn't verify you're not a robot. Please try again or write to careers@advia.tech.",
+      "limite": "You've sent several applications in a row. Wait a few minutes and try again.",
+      "fallo": "We couldn't send it. Please try again in a few minutes."
+    },
+    "recaptcha": "Protected by reCAPTCHA: Google's <privacidad>Privacy Policy</privacidad> and <terminos>Terms of Service</terminos> apply."
+  }
+}

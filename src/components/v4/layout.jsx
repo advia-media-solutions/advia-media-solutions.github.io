@@ -370,10 +370,11 @@ function MenuMovil({ abierto, activo, ruta }) {
   );
 }
 
-export function Section({ surface = "page", className = "", children }) {
+export function Section({ surface = "page", className = "", id, children }) {
   const clase = `v4-surface v4-sec ${className}`.trim();
   return (
     <section
+      id={id}
       className={clase}
       data-surface={surface}
       data-theme={surface === "graphite" ? "dark" : undefined}

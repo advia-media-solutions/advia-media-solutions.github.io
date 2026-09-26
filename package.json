@@ -10,6 +10,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.21.6",
+    "busboy": "^1.6.0",
+    "google-auth-library": "^10.9.1",
     "highlight.js": "^11.11.1",
     "i18next": "^26.4.2",
     "lucide-react": "^0.454.0",
@@ -24,6 +26,7 @@
     "rehype-highlight": "^7.0.2",
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.1",
+    "sanitize-html": "^2.17.7",
     "simple-icons": "^11.15.0",
     "three": "^0.185.1",
     "web-vitals": "^2.1.4"

@@ -4,6 +4,7 @@ import "../src/styles/tokens.css";
 import "../src/styles/v4.css";
 import "../src/styles/v4-motion.css";
 import "../src/styles/v4-cookies.css";
+import "../src/styles/v4-careers.css";
 import "../src/styles/v4-como-funciona.css";
 import "../src/styles/v4-como-funciona-escenas.css";
 import CookieConsent from "../src/components/CookieConsent";

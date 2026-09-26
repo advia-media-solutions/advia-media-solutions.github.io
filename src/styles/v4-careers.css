@@ -1,0 +1,113 @@
+/* ────────────────────── Careers ────────────────────── */
+/* El listado de posiciones: una fila por puesto, enlazada entera, con el
+   título y su meta a la izquierda, el rango salarial en mono y la flecha. Las
+   filas comparten pistas con subgrid para que los salarios caigan a plomo. */
+.v4-puestos { display: flex; flex-direction: column; gap: var(--space-12); }
+.v4-puestos__equipo > .v4-label { margin-bottom: var(--space-4); }
+.v4-puestos__lista {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  column-gap: var(--space-10);
+  border-bottom: 1px solid var(--v4-line);
+}
+.v4-puesto {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--v4-line);
+  color: var(--v4-fg);
+  transition: color var(--motion-fast) var(--ease-standard);
+}
+.v4-puesto:hover .v4-subheading,
+.v4-puesto:hover .v4-puesto__flecha { color: var(--accent-gold); }
+.v4-puesto:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); border-radius: var(--radius-sm); }
+.v4-puesto__meta { margin-top: var(--space-1); color: var(--v4-muted); }
+.v4-puesto__salario {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code-m);
+  line-height: var(--lh-code-m);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.v4-puesto__periodo { display: block; font-size: var(--fs-code-s); line-height: var(--lh-code-s); color: var(--v4-faint); }
+.v4-puesto__flecha { color: var(--v4-muted); transition: color var(--motion-fast) var(--ease-standard); }
+.v4-puestos__aviso { max-width: 720px; }
+.v4-proceso__cierre { margin-top: var(--space-2); }
+
+@media (max-width: 640px) {
+  /* En móvil el salario baja bajo el título y la flecha se queda arriba. */
+  .v4-puestos__lista { grid-template-columns: 1fr auto; column-gap: var(--space-4); }
+  .v4-puesto { grid-template-columns: 1fr auto; row-gap: var(--space-3); }
+  .v4-puesto__salario { grid-column: 1; grid-row: 2; text-align: left; }
+  .v4-puesto__flecha { grid-column: 2; grid-row: 1; }
+}
+
+/* ── Formulario de candidatura ── */
+.v4-form { display: flex; flex-direction: column; gap: var(--space-6); max-width: 760px; }
+.v4-form__fila { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }
+.v4-campo { display: flex; flex-direction: column; gap: var(--space-2); }
+.v4-campo__etiqueta { font-weight: var(--fw-semibold); color: var(--v4-fg); }
+.v4-campo__opcional { font-weight: var(--fw-regular); color: var(--v4-faint); }
+.v4-campo__control {
+  font: inherit;
+  color: var(--v4-fg);
+  background: var(--v4-panel);
+  border: 1px solid var(--v4-line-strong);
+  border-radius: var(--radius-field);
+  padding: var(--space-3) var(--space-4);
+  transition: border-color var(--motion-fast) var(--ease-standard);
+}
+textarea.v4-campo__control { resize: vertical; min-height: 120px; }
+.v4-campo__control:focus { outline: none; border-color: var(--accent-gold); box-shadow: var(--focus-ring-shadow); }
+.v4-campo[data-error="true"] .v4-campo__control,
+.v4-campo[data-error="true"] .v4-campo__archivo { border-color: var(--warning); }
+.v4-campo__error { color: var(--text-warning); font-size: var(--fs-body-s); line-height: var(--lh-body-s); }
+
+.v4-campo__archivo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--v4-muted);
+  background: var(--v4-panel);
+  border: 1px dashed var(--v4-line-strong);
+  border-radius: var(--radius-field);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--ease-standard);
+}
+.v4-campo__archivo:hover,
+.v4-campo__archivo:focus-within { border-color: var(--accent-gold); }
+.v4-campo__archivo[data-lleno="true"] { color: var(--v4-fg); border-style: solid; }
+/* El input ocupa toda la zona: así se puede soltar el archivo encima. */
+.v4-campo__archivo input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.v4-form__check { display: flex; align-items: flex-start; gap: var(--space-3); color: var(--v4-fg); cursor: pointer; }
+.v4-form__check input { margin-top: 5px; accent-color: var(--accent-gold); width: 16px; height: 16px; flex: none; }
+.v4-form__legal { font-size: var(--fs-body-s); line-height: var(--lh-body-s); color: var(--v4-muted); max-width: 68ch; }
+.v4-form__legal a { color: var(--text-accent); text-decoration: underline; text-underline-offset: 3px; }
+.v4-form__aviso { color: var(--text-warning); }
+.v4-form__trampa { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.v4-form .v4-btn:disabled { opacity: 0.6; cursor: progress; }
+.v4-form__ok {
+  max-width: 760px;
+  padding: var(--space-8);
+  background: var(--success-bg);
+  color: var(--success);
+  border-radius: var(--radius-lg);
+}
+.v4-form__ok .v4-subheading,
+.v4-form__ok .v4-body { color: var(--success); }
+.v4-form__ok .v4-body { margin-top: var(--space-2); }
+
+@media (max-width: 640px) {
+  .v4-form__fila { grid-template-columns: 1fr; }
+}
+
+/* La insignia flotante de reCAPTCHA se oculta: el aviso que Google exige va
+   en el texto legal del formulario (Formulario.jsx). */
+.grecaptcha-badge { visibility: hidden; }

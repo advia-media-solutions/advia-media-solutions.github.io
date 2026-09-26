@@ -1,0 +1,124 @@
+{
+  "seo": {
+    "title": "Trabaja en Advia | Advia",
+    "description": "Posiciones abiertas en Advia, AdTech fundada en Madrid en 2024. Qué hacemos, cómo trabajamos y cómo es nuestro proceso de selección."
+  },
+  "hero": {
+    "eyebrow": "Trabaja con nosotros",
+    "titular": "Construye con nosotros la publicidad que responde a una <key>pregunta</key>",
+    "lede": "Somos una AdTech fundada en Madrid en 2024. Usamos agentes de IA para encontrar el momento en que alguien investiga antes de decidir, y ponemos ahí a las marcas como la respuesta. Buscamos personas a las que ese problema les quite el sueño.",
+    "cta": "Ver posiciones abiertas"
+  },
+  "principios": {
+    "eyebrow": "Cómo trabajamos",
+    "titular": "Lo que te vas a encontrar <key>dentro</key>",
+    "items": [
+      {
+        "titulo": "Intensidad, y disfrutarla",
+        "texto": "Vamos rápido y cada persona aporta a su manera. Aquí se crece haciendo."
+      },
+      {
+        "titulo": "La tecnología amplifica",
+        "texto": "Construimos Vera para que el equipo llegue más lejos, no para quitarle el criterio."
+      },
+      {
+        "titulo": "Transparencia, también cuando cuesta",
+        "texto": "Decimos lo que vemos, con los datos delante, aunque no sea lo que se quería oír."
+      },
+      {
+        "titulo": "Ganamos en equipo",
+        "texto": "Somos 12 personas. Lo que hace cada una se nota en el resultado de todas."
+      }
+    ]
+  },
+  "proceso": {
+    "eyebrow": "Proceso de selección",
+    "titular": "Cuatro pasos y una <key>respuesta</key> en cada uno",
+    "lede": "Te decimos en qué punto estás. Si no seguimos adelante, también te lo decimos.",
+    "pasos": [
+      {
+        "titulo": "Candidatura",
+        "texto": "Envías tu CV y respondes a las preguntas de la oferta. Te respondemos en 5 días laborables."
+      },
+      {
+        "titulo": "Primera conversación",
+        "texto": "30 minutos por videollamada con uno de los fundadores, para conocernos y resolver tus dudas sobre el puesto."
+      },
+      {
+        "titulo": "Prueba o entrevista técnica",
+        "texto": "Un caso cercano al trabajo real, que presentas en una sesión de una hora con el equipo del área."
+      },
+      {
+        "titulo": "Conocer al equipo y oferta",
+        "texto": "Pasas una mañana en la oficina de Madrid con las personas con las que trabajarías. Si encaja por las dos partes, te hacemos la oferta por escrito."
+      }
+    ],
+    "cierre": "De principio a fin, unas 3 semanas."
+  },
+  "posiciones": {
+    "eyebrow": "Posiciones",
+    "titular": "Posiciones <key>abiertas</key>",
+    "periodo": "brutos al año",
+    "vacio": "Ahora mismo no tenemos posiciones abiertas. Si el problema te interesa, escríbenos a careers@advia.tech y cuéntanos qué te gustaría construir.",
+    "error": "No hemos podido cargar las posiciones. Vuelve a intentarlo en unos minutos o escríbenos a careers@advia.tech."
+  },
+  "modalidad": {
+    "remote": "Remoto",
+    "hybrid": "Híbrido",
+    "onsite": "Presencial"
+  },
+  "jornada": {
+    "full_time": "Jornada completa",
+    "part_time": "Media jornada",
+    "internship": "Prácticas"
+  },
+  "fraude": "Solo te escribiremos desde una dirección @advia.tech y nunca te pediremos dinero ni datos bancarios durante el proceso.",
+  "ficha": {
+    "seoTitle": "{{puesto}} · Trabaja en Advia | Advia",
+    "miga": "Posiciones",
+    "aplicar": "Aplicar"
+  },
+  "form": {
+    "titular": "Envíanos tu candidatura",
+    "lede": "Te llevará unos 5 minutos. Solo el CV y las preguntas del puesto; nada de cartas de presentación.",
+    "nombre": "Nombre y apellidos",
+    "email": "Email",
+    "telefono": "Teléfono",
+    "linkedin": "Perfil de LinkedIn",
+    "opcional": "(opcional)",
+    "cv": "CV (PDF, máximo 5 MB)",
+    "cvAyuda": "Arrastra tu CV aquí o haz clic para elegirlo",
+    "talentPool": "Guardad mi candidatura para futuros procesos durante 24 meses.",
+    "privacidad": "ADVIA MEDIA SOLUTIONS, S.L. tratará tus datos para gestionar este proceso de selección. Solo acceden a ellos los fundadores de Advia. Puedes ejercer tus derechos escribiendo a privacy@advia.tech. Más información en la",
+    "privacidadEnlace": "política de privacidad",
+    "enviar": "Enviar candidatura",
+    "enviando": "Enviando…",
+    "ok": {
+      "titulo": "Recibido",
+      "texto": "Te escribiremos a {{email}} en un máximo de 5 días laborables."
+    },
+    "errores": {
+      "campo": {
+        "requerido": "Este campo es obligatorio.",
+        "formato": "Revisa el formato."
+      },
+      "email": {
+        "formato": "Escribe un email válido."
+      },
+      "linkedin": {
+        "formato": "Pega la URL completa de tu perfil de LinkedIn."
+      },
+      "cv": {
+        "requerido": "Adjunta tu CV.",
+        "tamano": "El CV pesa más de 5 MB.",
+        "formato": "El CV tiene que ser un PDF."
+      },
+      "duplicada": "Ya tenemos tu candidatura a este puesto. No hace falta enviarla otra vez.",
+      "cerrada": "Esta posición acaba de cerrarse.",
+      "captcha": "No hemos podido comprobar que no eres un robot. Vuelve a intentarlo o escríbenos a careers@advia.tech.",
+      "limite": "Has enviado varias candidaturas seguidas. Espera unos minutos y vuelve a intentarlo.",
+      "fallo": "No hemos podido enviarla. Inténtalo de nuevo en unos minutos."
+    },
+    "recaptcha": "Protegido por reCAPTCHA: se aplican la <privacidad>Política de privacidad</privacidad> y las <terminos>Condiciones del servicio</terminos> de Google."
+  }
+}

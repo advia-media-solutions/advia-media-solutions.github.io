@@ -78,13 +78,19 @@ export default function Formulario({ slug, preguntas, recaptchaSiteKey }) {
       ) : null}
       <input type="hidden" name="positionSlug" value={slug} />
       <input type="hidden" name="locale" value={locale} />
-      {/* Campo trampa: invisible para las personas, los bots lo rellenan. El
-          nombre no significa nada a propósito: con uno reconocible («website»,
-          «url», «company») el autorrelleno del navegador lo rellena y una
-          persona de verdad acaba descartada como bot. */}
-      <div className="v4-form__trampa" aria-hidden="true">
-        <input type="text" name={CAMPO_TRAMPA} tabIndex={-1} autoComplete="off" />
-      </div>
+      {/* Campo trampa: los bots que rellenan todo el HTML lo rellenan; las
+          personas no lo ven. Va con display:none y un nombre sin significado
+          porque el autorrelleno del navegador y los gestores de contraseñas
+          rellenan cualquier campo de texto visible, aunque esté fuera de la
+          pantalla, y entonces una persona de verdad salta como bot. */}
+      <input
+        type="text"
+        name={CAMPO_TRAMPA}
+        hidden
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
 
       <Campos preguntas={preguntas} errores={errores} />
 

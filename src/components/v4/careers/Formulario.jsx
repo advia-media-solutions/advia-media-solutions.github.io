@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next/pages";
 import { CampoCv, CampoTexto } from "./Campos";
 import useEnvio from "./useEnvio";
 import T from "../T";
+import { CAMPO_TRAMPA } from "../../../careers/limites";
 
 /* Google permite ocultar la insignia de reCAPTCHA si el formulario enlaza su
    política de privacidad y sus condiciones. */
@@ -77,9 +78,12 @@ export default function Formulario({ slug, preguntas, recaptchaSiteKey }) {
       ) : null}
       <input type="hidden" name="positionSlug" value={slug} />
       <input type="hidden" name="locale" value={locale} />
-      {/* Campo trampa: invisible para las personas, los bots lo rellenan. */}
+      {/* Campo trampa: invisible para las personas, los bots lo rellenan. El
+          nombre no significa nada a propósito: con uno reconocible («website»,
+          «url», «company») el autorrelleno del navegador lo rellena y una
+          persona de verdad acaba descartada como bot. */}
       <div className="v4-form__trampa" aria-hidden="true">
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        <input type="text" name={CAMPO_TRAMPA} tabIndex={-1} autoComplete="off" />
       </div>
 
       <Campos preguntas={preguntas} errores={errores} />

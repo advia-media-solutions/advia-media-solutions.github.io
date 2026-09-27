@@ -3,6 +3,7 @@ import { leerFormulario } from "../../../src/careers/multipart";
 import { validarCandidatura } from "../../../src/careers/validacion";
 import { respuestasMd } from "../../../src/careers/respuestasMd";
 import { permitirEnvio } from "../../../src/careers/limiteEnvios";
+import { CAMPO_TRAMPA } from "../../../src/careers/limites";
 import { VERSION_AVISO_PRIVACIDAD } from "../../../src/careers/config";
 import { captchaValido } from "../../../src/services/recaptcha";
 import { posicionPorSlug, registrarCandidatura } from "../../../src/services/careersApi";
@@ -106,8 +107,11 @@ async function registrarConReintentos(cuerpo) {
 async function procesar(req, res, ip) {
   const { campos, cv } = await leerFormulario(req);
   /* El campo trampa solo lo rellena un bot: se le contesta como si hubiera
-     ido bien para que no aprenda nada. */
-  if (campos.website) return res.status(201).json({ ok: true });
+     ido bien para que no aprenda nada, y se deja rastro en el log. */
+  if (campos[CAMPO_TRAMPA]) {
+    console.warn("[careers] campo trampa relleno: candidatura descartada");
+    return res.status(201).json({ ok: true });
+  }
   if (!(await captchaValido(campos["g-recaptcha-response"], ip))) {
     return responder(res, 400, "captcha");
   }

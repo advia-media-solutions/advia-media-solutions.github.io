@@ -106,11 +106,12 @@ async function registrarConReintentos(cuerpo) {
 
 async function procesar(req, res, ip) {
   const { campos, cv } = await leerFormulario(req);
-  /* El campo trampa solo lo rellena un bot: se le contesta como si hubiera
-     ido bien para que no aprenda nada, y se deja rastro en el log. */
+  /* El campo trampa solo debería rellenarlo un bot. Aun así no se finge un
+     éxito: si una persona llega a rellenarlo (un autorrelleno), tiene que
+     enterarse de que no se ha enviado. En el log, solo la longitud. */
   if (campos[CAMPO_TRAMPA]) {
-    console.warn("[careers] campo trampa relleno: candidatura descartada");
-    return res.status(201).json({ ok: true });
+    console.warn(`[careers] campo trampa relleno (${campos[CAMPO_TRAMPA].length} caracteres)`);
+    return responder(res, 400, "captcha");
   }
   if (!(await captchaValido(campos["g-recaptcha-response"], ip))) {
     return responder(res, 400, "captcha");

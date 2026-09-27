@@ -91,7 +91,6 @@ textarea.v4-campo__control { resize: vertical; min-height: 120px; }
 .v4-form__legal { font-size: var(--fs-body-s); line-height: var(--lh-body-s); color: var(--v4-muted); max-width: 68ch; }
 .v4-form__legal a { color: var(--text-accent); text-decoration: underline; text-underline-offset: 3px; }
 .v4-form__aviso { color: var(--text-warning); }
-.v4-form__trampa { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .v4-form .v4-btn:disabled { opacity: 0.6; cursor: progress; }
 .v4-form__ok {
   max-width: 760px;

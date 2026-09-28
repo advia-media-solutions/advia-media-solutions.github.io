@@ -16,11 +16,13 @@
     "publicidad": "Publicidad en IA",
     "publicidadDesc": "Anuncios en la conversación de ChatGPT.",
     "nosotros": "Nosotros",
+    "nosotrosDesc": "Por qué existe Advia, quién la lleva y los valores con los que trabajamos.",
     "blog": "Blog",
     "cta": "Hablemos",
     "menu": "Menú",
     "cerrar": "Cerrar",
-    "careers": "Trabaja con nosotros"
+    "careers": "Trabaja con nosotros",
+    "careersDesc": "Las posiciones abiertas y cómo es trabajar en Advia."
   },
   "idioma": {
     "rotulo": "Idioma",

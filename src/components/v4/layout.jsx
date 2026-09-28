@@ -68,12 +68,12 @@ export const NAV_ITEMS = [
     id: "nosotros",
     label: "nav.nosotros",
     href: "/about",
-    /* Un submenú sencillo, como el de idioma: solo enlaces, sin panel. La
-       propia página va la primera: con el menú abierto, si solo estuviera
-       Careers parecería que Nosotros ya no se puede abrir. */
-    sub: [
-      { label: "nav.nosotros", href: "/about" },
-      { label: "nav.careers", href: "/careers" },
+    /* El mismo panel que Productos: una columna por página, con su línea
+       de qué hay dentro. La propia página va la primera, para que con el
+       panel abierto se vea que Nosotros sigue siendo una página. */
+    hijos: [
+      { label: "nav.nosotros", desc: "nav.nosotrosDesc", href: "/about" },
+      { label: "nav.careers", desc: "nav.careersDesc", href: "/careers" },
     ],
   },
   { id: "blog", label: "nav.blog", href: "/blog" },
@@ -242,30 +242,11 @@ export function Nav({ activo, sobreOscuro }) {
                 href={item.href}
                 className="v4-nav__link"
                 aria-current={item.id === activo ? "page" : undefined}
-                aria-haspopup={item.hijos || item.sub ? "true" : undefined}
+                aria-haspopup={item.hijos ? "true" : undefined}
               >
                 {t(item.label)}
               </Link>
             );
-            if (item.sub) {
-              return (
-                <div className="v4-nav__grupo" key={item.href}>
-                  {enlace}
-                  <div className="v4-nav__menu">
-                    {item.sub.map((s) => (
-                      <Link
-                        key={s.href}
-                        href={s.href}
-                        className="v4-nav__sub"
-                        aria-current={ruta.startsWith(s.href) ? "page" : undefined}
-                      >
-                        {t(s.label)}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              );
-            }
             if (!item.hijos) return <React.Fragment key={item.href}>{enlace}</React.Fragment>;
             /* Se abre con el ratón y con el teclado: el panel está en el DOM y
                :focus-within lo despliega al tabular, sin estado ni JS. Una
@@ -369,25 +350,10 @@ function MenuMovil({ abierto, activo, ruta }) {
             >
               {t(item.label)}
             </Link>
-            {item.sub ? (
-              <ul className="v4-menu__familias">
-                {/* En móvil la página padre ya es la entrada de arriba. */}
-                {item.sub.filter((s) => s.href !== item.href).map((s) => (
-                  <li key={s.href}>
-                    <Link
-                      href={s.href}
-                      className="v4-menu__familia"
-                      aria-current={ruta.startsWith(s.href) ? "page" : undefined}
-                    >
-                      {t(s.label)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
             {item.hijos ? (
               <ul className="v4-menu__familias">
-                {item.hijos.map((familia) => (
+                {/* En móvil la página padre ya es la entrada de arriba. */}
+                {item.hijos.filter((f) => f.href !== item.href).map((familia) => (
                   <li key={familia.href}>
                     <Link
                       href={familia.href}

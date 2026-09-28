@@ -3,12 +3,15 @@ import { olvidarSecreto, valorSecreto } from "./secretos";
 /**
  * Cliente de la API pública de Careers de Advia OS (/api/public/careers).
  *
- * Solo servidor: la llave `x-careers-key` no puede llegar al navegador, así
- * que este módulo se usa desde getServerSideProps y las rutas de /api.
+ * Se autentica con el x-api-token de Advia (cabecera `x-api-key`), la misma
+ * llave que usan el resto de servicios. Solo servidor: la llave no puede
+ * llegar al navegador, así que este módulo se usa desde getServerSideProps y
+ * las rutas de /api.
  *
  * Configuración por entorno:
  * - CAREERS_API_URL: base de la API, sin barra final.
- * - CAREERS_API_KEY_SECRET: ruta del secreto en Secret Manager.
+ * - CAREERS_API_KEY_SECRET: ruta del secreto en Secret Manager
+ *   (projects/mission-control-486214/secrets/x-api-token/versions/latest).
  * - CAREERS_API_KEY: solo en local; si está, manda sobre el secreto.
  */
 
@@ -20,7 +23,7 @@ async function peticion(ruta, opciones = {}) {
   const { valor: llave, recurso } = await valorSecreto("CAREERS_API_KEY");
   const respuesta = await fetch(`${base.replace(/\/+$/, "")}${ruta}`, {
     ...opciones,
-    headers: { ...opciones.headers, "x-careers-key": llave },
+    headers: { ...opciones.headers, "x-api-key": llave },
     signal: AbortSignal.timeout(TIEMPO_MAXIMO_MS),
   });
   /* Un 401 con la llave de Secret Manager suele ser una rotación: se descarta

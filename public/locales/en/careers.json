@@ -6,30 +6,11 @@
   "hero": {
     "eyebrow": "Careers",
     "titular": "Build with us the advertising that answers a <key>question</key>",
-    "lede": "We are an AdTech founded in Madrid in 2024. We use AI agents to find the moment someone researches before deciding, and place brands there as the answer. We are looking for people who can't stop thinking about that problem.",
     "cta": "See open positions"
   },
   "principios": {
     "eyebrow": "How we work",
-    "titular": "What you'll find <key>inside</key>",
-    "items": [
-      {
-        "titulo": "Intensity, and enjoying it",
-        "texto": "We move fast and everyone contributes in their own way. Here you grow by doing."
-      },
-      {
-        "titulo": "Technology amplifies",
-        "texto": "We built Vera so the team can go further, not to take away its judgement."
-      },
-      {
-        "titulo": "Transparency, even when it's hard",
-        "texto": "We say what we see, with the data in front of us, even when it's not what anyone wanted to hear."
-      },
-      {
-        "titulo": "We win as a team",
-        "texto": "We are 12 people. What each of us does shows in everyone's result."
-      }
-    ]
+    "titular": "What you'll find <key>inside</key>"
   },
   "posiciones": {
     "eyebrow": "Positions",

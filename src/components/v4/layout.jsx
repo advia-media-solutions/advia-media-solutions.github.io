@@ -465,7 +465,7 @@ export function Hero({
       {miga ? (React.isValidElement(miga) ? miga : <Miga hoja={miga} />) : null}
       {eyebrow ? <Label tamano={eyebrowTamano}>{eyebrow}</Label> : null}
       <h1 className={titularTamano === "l" ? "v4-display-l" : "v4-display-xl"}>{titular}</h1>
-      <p className="v4-lede">{lede}</p>
+      {lede ? <p className="v4-lede">{lede}</p> : null}
       {pie}
       {acciones ? <div className="v4-btn-row">{acciones}</div> : null}
     </>

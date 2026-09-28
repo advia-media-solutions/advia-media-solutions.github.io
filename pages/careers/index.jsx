@@ -21,5 +21,5 @@ export async function getServerSideProps({ locale = "es" }) {
   } catch (error) {
     console.error("[careers] no se pudieron cargar las posiciones:", error.message);
   }
-  return { props: { ...(await traducciones(locale, "careers")), posiciones } };
+  return { props: { ...(await traducciones(locale, "careers", "nosotros")), posiciones } };
 }

@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next/pages";
 import Seo from "../../components/v4/Seo";
 import T from "../../components/v4/T";
 import ListaPuestos from "../../components/v4/careers/ListaPuestos";
+import Valores from "../../components/v4/Valores";
 import { Cabecera, Hero, Pagina, Section } from "../../components/v4/layout";
 import { Boton, Nota } from "../../components/v4/primitives";
 import { CAREERS_PUBLISHED } from "../../careers/config";
@@ -14,20 +15,6 @@ import { CAREERS_PUBLISHED } from "../../careers/config";
  * copy vive en public/locales/{es,en}/careers.json. Mientras CAREERS_PUBLISHED
  * esté apagado la página va con noindex y nada la enlaza.
  */
-
-function Principios({ items }) {
-  return (
-    <div className="v4-valores">
-      {items.map((p, i) => (
-        <div key={p.titulo} className="v4-valor">
-          <span className="v4-fila__num">{String(i + 1).padStart(2, "0")}</span>
-          <h3 className="v4-subheading">{p.titulo}</h3>
-          <p className="v4-body">{p.texto}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export default function Careers({ posiciones }) {
   const { t } = useTranslation("careers");
@@ -45,14 +32,13 @@ export default function Careers({ posiciones }) {
         eyebrow={t("hero.eyebrow")}
         titular={<T t={t} k="hero.titular" />}
         titularTamano="l"
-        lede={t("hero.lede")}
         acciones={<Boton href="#posiciones">{t("hero.cta")}</Boton>}
       />
 
       <Section surface="inset">
         <Cabecera eyebrow={t("principios.eyebrow")} titular={<T t={t} k="principios.titular" />} />
         <div className="v4-mt-12">
-          <Principios items={t("principios.items", { returnObjects: true })} />
+          <Valores />
         </div>
       </Section>
 

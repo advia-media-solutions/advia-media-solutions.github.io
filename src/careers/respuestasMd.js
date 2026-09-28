@@ -4,13 +4,12 @@
  * los consentimientos, así que lleva la versión del aviso de privacidad y la
  * fecha y hora exactas.
  */
-export function respuestasMd({ datos, posicion, locale, versionAviso, fecha }) {
-  const titulo = (posicion[locale] || posicion.es).title;
+export function respuestasMd({ datos, titulo, referencia, locale, versionAviso, fecha }) {
   const talentPool = datos.talentPool ? `sí, desde ${fecha.toISOString()}` : "no";
   const lineas = [
     `# ${datos.fullName} · ${titulo}`,
     "",
-    `- **Posición:** ${titulo} (\`${posicion.slug}\`)`,
+    `- **Posición:** ${titulo} (\`${referencia}\`)`,
     `- **Email:** ${datos.email}`,
     `- **Teléfono:** ${datos.phone || "—"}`,
     `- **LinkedIn:** ${datos.linkedin || "—"}`,

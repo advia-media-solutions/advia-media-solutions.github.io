@@ -15,8 +15,13 @@
   "posiciones": {
     "eyebrow": "Posiciones",
     "titular": "Posiciones <key>abiertas</key>",
-    "vacio": "Ahora mismo no tenemos posiciones abiertas. Si el problema te interesa, escríbenos a careers@advia.tech y cuéntanos qué te gustaría construir.",
-    "error": "No hemos podido cargar las posiciones. Vuelve a intentarlo en unos minutos o escríbenos a careers@advia.tech."
+    "vacio": "Ahora mismo no tenemos posiciones abiertas.",
+    "error": "No hemos podido cargar las posiciones. Vuelve a intentarlo en unos minutos o escríbenos a careers@advia.tech.",
+    "espontanea": {
+      "titular": "¿No encaja ninguna oferta?",
+      "texto": "Déjanos tu CV igualmente. Te escribiremos cuando se abra una posición que encaje contigo.",
+      "cta": "Enviar candidatura espontánea"
+    }
   },
   "modalidad": {
     "remote": "Remoto",
@@ -73,8 +78,26 @@
       "cerrada": "Esta posición acaba de cerrarse.",
       "captcha": "No hemos podido comprobar que no eres un robot. Vuelve a intentarlo o escríbenos a careers@advia.tech.",
       "limite": "Has enviado varias candidaturas seguidas. Espera unos minutos y vuelve a intentarlo.",
-      "fallo": "No hemos podido enviarla. Inténtalo de nuevo en unos minutos."
+      "fallo": "No hemos podido enviarla. Inténtalo de nuevo en unos minutos.",
+      "talentPool": {
+        "requerido": "Sin este permiso no podemos guardar tu candidatura."
+      },
+      "duplicadaEspontanea": "Ya tenemos una candidatura espontánea tuya. No hace falta enviarla otra vez."
     },
-    "recaptcha": "Protegido por reCAPTCHA: se aplican la <privacidad>Política de privacidad</privacidad> y las <terminos>Condiciones del servicio</terminos> de Google."
+    "recaptcha": "Protegido por reCAPTCHA: se aplican la <privacidad>Política de privacidad</privacidad> y las <terminos>Condiciones del servicio</terminos> de Google.",
+    "talentPoolEspontanea": "Acepto que Advia conserve mi candidatura durante 24 meses para tenerme en cuenta en futuras posiciones.",
+    "privacidadEspontanea": "ADVIA MEDIA SOLUTIONS, S.L. tratará tus datos, con tu consentimiento, para tenerte en cuenta en sus procesos de selección durante 24 meses. Solo acceden a ellos los fundadores de Advia. Puedes retirar el consentimiento y ejercer tus derechos escribiendo a privacy@advia.tech. Más información en la",
+    "okEspontanea": {
+      "titulo": "Recibido",
+      "texto": "Guardamos tu candidatura 24 meses. Te escribiremos a {{email}} si se abre una posición que encaje contigo."
+    }
+  },
+  "espontanea": {
+    "seoTitle": "Candidatura espontánea · Trabaja en Advia | Advia",
+    "seoDescription": "Si ninguna posición abierta encaja contigo, déjanos tu CV y tu LinkedIn y te tendremos en cuenta en las próximas.",
+    "miga": "Candidatura espontánea",
+    "titular": "¿No encaja ninguna oferta?",
+    "lede": "Déjanos tu CV y tu LinkedIn. Guardamos tu candidatura 24 meses y te escribimos si se abre una posición que encaje contigo.",
+    "formLede": "Te llevará unos 5 minutos: tu CV, tu LinkedIn y dos preguntas."
   }
 }

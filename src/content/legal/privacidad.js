@@ -276,7 +276,7 @@ Esta sección se dirige a las personas que envían su candidatura a una posició
 
 **Destinatarios:** no cedemos sus datos a terceros. Si se incorpora a Advia, los datos necesarios pasarán a su expediente laboral.
 
-**Transferencias internacionales:** Google puede tratar datos fuera del Espacio Económico Europeo. Esas transferencias se amparan en el Marco de Privacidad de Datos UE-EE. UU., en el que Google LLC está certificada, y en las cláusulas contractuales tipo aprobadas por la Comisión Europea.
+**Transferencias internacionales:** su CV y sus respuestas se almacenan en servidores de Google situados en la Unión Europea. La única excepción es reCAPTCHA: Google puede tratar los datos técnicos que recoge fuera del Espacio Económico Europeo, con las garantías del Marco de Privacidad de Datos UE-EE. UU., en el que Google LLC está certificada.
 
 **Conservación:**
 
@@ -558,7 +558,7 @@ This section is addressed to people who apply for a position published at [advia
 
 **Recipients:** we do not share your data with third parties. If you join Advia, the necessary data will become part of your employment record.
 
-**International transfers:** Google may process data outside the European Economic Area. Those transfers rely on the EU-U.S. Data Privacy Framework, under which Google LLC is certified, and on the standard contractual clauses approved by the European Commission.
+**International transfers:** your CV and answers are stored on Google servers located in the European Union. The only exception is reCAPTCHA: Google may process the technical data it collects outside the European Economic Area, with the safeguards of the EU-U.S. Data Privacy Framework, under which Google LLC is certified.
 
 **Retention:**
 

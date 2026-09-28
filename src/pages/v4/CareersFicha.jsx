@@ -57,7 +57,7 @@ export default function CareersFicha({ ficha, recaptchaSiteKey }) {
       />
 
       <Section>
-        <div className="v4-prosa" dangerouslySetInnerHTML={{ __html: ficha.descriptionHtml }} />
+        <div className="v4-prosa v4-oferta" dangerouslySetInnerHTML={{ __html: ficha.descriptionHtml }} />
       </Section>
 
       <Section surface="inset" id="aplicar">

@@ -30,6 +30,25 @@
   .v4-puestos__lista { column-gap: var(--space-4); }
 }
 
+/* ── Descripción de una oferta ── */
+/* Sobre .v4-prosa, con lectura larga (17/27, como el blog) y un ancho de
+   lectura. Las reglas de ritmo llevan las dos clases porque `.v4 p
+   { margin: 0 }` pesa más que `.v4-prosa > * + *` y dejaba cada párrafo pegado
+   a la lista de encima. */
+.v4-prosa.v4-oferta {
+  max-width: 720px;
+  font-size: var(--fs-body-reading);
+  line-height: var(--lh-body-reading);
+}
+.v4-prosa.v4-oferta > * + * { margin-top: var(--space-5); }
+.v4-prosa.v4-oferta > :first-child { margin-top: 0; }
+.v4-prosa.v4-oferta > h2 { margin-top: var(--space-16); }
+.v4-prosa.v4-oferta > h3 { margin-top: var(--space-8); }
+.v4-prosa.v4-oferta > h2 + *,
+.v4-prosa.v4-oferta > h3 + * { margin-top: var(--space-3); }
+.v4-prosa.v4-oferta > h2 + h3 { margin-top: var(--space-5); }
+.v4-prosa.v4-oferta blockquote { margin-top: var(--space-12); }
+
 /* ── Formulario de candidatura ── */
 .v4-form { display: flex; flex-direction: column; gap: var(--space-6); max-width: 760px; }
 .v4-form__fila { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); }

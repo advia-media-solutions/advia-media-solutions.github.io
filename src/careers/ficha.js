@@ -18,8 +18,17 @@ const PERMITIDO = {
   },
 };
 
+/**
+ * La descripción lista para pintar. Además de sanear, arregla dos costumbres
+ * del editor de Advia OS: deja párrafos vacíos como separador, y los
+ * subtítulos («Condiciones», «Entorno») llegan como un párrafo entero en
+ * negrita. Los vacíos se quitan y esos párrafos pasan a h3.
+ */
 export function descripcionSegura(html) {
-  return sanitizeHtml(html || "", PERMITIDO);
+  return sanitizeHtml(html || "", PERMITIDO)
+    .replace(/<p>\s*<\/p>/g, "")
+    /* Solo párrafos sueltos: un punto de lista entero en negrita se queda. */
+    .replace(/(?<!<li>)<p><(strong|b)>([^<]+)<\/\1><\/p>/g, "<h3>$2</h3>");
 }
 
 /** La posición en el idioma de la página, lista para las props. */

@@ -131,6 +131,9 @@ async function procesar(req, res, ip) {
       fullName: datos.fullName,
       email: datos.email,
       driveFolderUrl: urlCarpeta(carpeta),
+      talentPoolConsent: datos.talentPool,
+      /* Advia OS confirma la candidatura por correo en este idioma. */
+      locale,
     });
   } catch (error) {
     /* La carpeta se conserva: si el registro llegó a guardarse y solo se

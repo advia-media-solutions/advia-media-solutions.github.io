@@ -1,21 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next/pages";
 import { ArrowOutward, Label } from "../primitives";
-import { porEquipo, rangoSalarial } from "../../../careers/formato";
+import { porEquipo } from "../../../careers/formato";
 
 /**
  * Las posiciones abiertas, agrupadas por equipo: una fila por puesto con
- * título, dónde y cómo se trabaja, y el rango salarial (en mono, como toda
- * cifra). Sin filtros: con pocas ofertas estorban más de lo que ayudan.
+ * título y dónde y cómo se trabaja. Sin filtros: con pocas ofertas estorban más de lo que ayudan.
  *
  * `posiciones` es null cuando Advia OS no ha respondido, y [] cuando responde
  * que no hay ninguna abierta; son dos mensajes distintos.
  */
 function Puesto({ puesto }) {
   const { t } = useTranslation("careers");
-  const { locale = "es" } = useRouter();
   const meta = [
     puesto.location,
     puesto.workMode && t(`modalidad.${puesto.workMode}`),
@@ -28,10 +25,6 @@ function Puesto({ puesto }) {
         <h3 className="v4-subheading">{puesto.title}</h3>
         {meta.length ? <p className="v4-puesto__meta">{meta.join(" · ")}</p> : null}
       </div>
-      <p className="v4-puesto__salario">
-        {rangoSalarial(puesto, locale)}
-        <span className="v4-puesto__periodo">{t("posiciones.periodo")}</span>
-      </p>
       <span className="v4-puesto__flecha" aria-hidden="true">
         <ArrowOutward />
       </span>

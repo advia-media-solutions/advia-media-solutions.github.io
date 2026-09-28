@@ -58,7 +58,6 @@
   "posiciones": {
     "eyebrow": "Positions",
     "titular": "Open <key>positions</key>",
-    "periodo": "gross per year",
     "vacio": "We have no open positions right now. If the problem interests you, write to careers@advia.tech and tell us what you'd like to build.",
     "error": "We couldn't load the positions. Try again in a few minutes or write to careers@advia.tech."
   },

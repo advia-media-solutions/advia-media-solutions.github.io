@@ -14,7 +14,7 @@ export function leerFormulario(req) {
     try {
       busboy = Busboy({
         headers: req.headers,
-        limits: { fileSize: MAX_CV_BYTES, files: 1, fields: 30, fieldSize: 10000 },
+        limits: { fileSize: MAX_CV_BYTES, files: 1, fields: 200, fieldSize: 10000 },
       });
     } catch (error) {
       reject(error);

@@ -58,7 +58,6 @@
   "posiciones": {
     "eyebrow": "Posiciones",
     "titular": "Posiciones <key>abiertas</key>",
-    "periodo": "brutos al año",
     "vacio": "Ahora mismo no tenemos posiciones abiertas. Si el problema te interesa, escríbenos a careers@advia.tech y cuéntanos qué te gustaría construir.",
     "error": "No hemos podido cargar las posiciones. Vuelve a intentarlo en unos minutos o escríbenos a careers@advia.tech."
   },

@@ -31,15 +31,5 @@ export function jobPosting(ficha) {
         addressCountry: "ES",
       },
     },
-    baseSalary: {
-      "@type": "MonetaryAmount",
-      currency: ficha.salaryCurrency,
-      value: {
-        "@type": "QuantitativeValue",
-        minValue: ficha.salaryMin,
-        maxValue: ficha.salaryMax,
-        unitText: "YEAR",
-      },
-    },
   };
 }

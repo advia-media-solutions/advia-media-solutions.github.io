@@ -1,12 +1,11 @@
 /* ────────────────────── Careers ────────────────────── */
 /* El listado de posiciones: una fila por puesto, enlazada entera, con el
-   título y su meta a la izquierda, el rango salarial en mono y la flecha. Las
-   filas comparten pistas con subgrid para que los salarios caigan a plomo. */
+   título y su meta a la izquierda y la flecha a la derecha. */
 .v4-puestos { display: flex; flex-direction: column; gap: var(--space-12); }
 .v4-puestos__equipo > .v4-label { margin-bottom: var(--space-4); }
 .v4-puestos__lista {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   column-gap: var(--space-10);
   border-bottom: 1px solid var(--v4-line);
 }
@@ -24,24 +23,12 @@
 .v4-puesto:hover .v4-puesto__flecha { color: var(--accent-gold); }
 .v4-puesto:focus-visible { outline: none; box-shadow: var(--focus-ring-shadow); border-radius: var(--radius-sm); }
 .v4-puesto__meta { margin-top: var(--space-1); color: var(--v4-muted); }
-.v4-puesto__salario {
-  font-family: var(--font-mono);
-  font-size: var(--fs-code-m);
-  line-height: var(--lh-code-m);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-.v4-puesto__periodo { display: block; font-size: var(--fs-code-s); line-height: var(--lh-code-s); color: var(--v4-faint); }
 .v4-puesto__flecha { color: var(--v4-muted); transition: color var(--motion-fast) var(--ease-standard); }
 .v4-puestos__aviso { max-width: 720px; }
 .v4-proceso__cierre { margin-top: var(--space-2); }
 
 @media (max-width: 640px) {
-  /* En móvil el salario baja bajo el título y la flecha se queda arriba. */
-  .v4-puestos__lista { grid-template-columns: 1fr auto; column-gap: var(--space-4); }
-  .v4-puesto { grid-template-columns: 1fr auto; row-gap: var(--space-3); }
-  .v4-puesto__salario { grid-column: 1; grid-row: 2; text-align: left; }
-  .v4-puesto__flecha { grid-column: 2; grid-row: 1; }
+  .v4-puestos__lista { column-gap: var(--space-4); }
 }
 
 /* ── Formulario de candidatura ── */

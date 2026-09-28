@@ -1,7 +1,6 @@
 /**
  * Piezas de presentación de una posición que no dependen del componente:
- * el resumen que viaja al navegador, el rango salarial y la agrupación por
- * equipo del listado.
+ * el resumen que viaja al navegador y la agrupación por equipo del listado.
  */
 
 /**
@@ -16,23 +15,9 @@ export function resumenPosicion(posicion, locale) {
     location: posicion.location || null,
     workMode: posicion.workMode || null,
     employmentType: posicion.employmentType || null,
-    salaryMin: posicion.salaryMin,
-    salaryMax: posicion.salaryMax,
-    salaryCurrency: posicion.salaryCurrency,
     title: textos.title,
     summary: textos.summary || null,
   };
-}
-
-/** «40.000 € – 50.000 €» en castellano, «€40,000 – €50,000» en inglés. */
-export function rangoSalarial({ salaryMin, salaryMax, salaryCurrency }, locale) {
-  const formato = new Intl.NumberFormat(locale === "en" ? "en-GB" : "es-ES", {
-    style: "currency",
-    currency: salaryCurrency,
-    maximumFractionDigits: 0,
-  });
-  if (salaryMin === salaryMax) return formato.format(salaryMin);
-  return `${formato.format(salaryMin)} – ${formato.format(salaryMax)}`;
 }
 
 /** Agrupa por equipo respetando el orden en que llegan de Advia OS. */

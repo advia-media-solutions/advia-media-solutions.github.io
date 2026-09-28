@@ -16,11 +16,13 @@
     "publicidad": "AI Advertising",
     "publicidadDesc": "Ads inside the ChatGPT conversation.",
     "nosotros": "About us",
+    "nosotrosDesc": "Why Advia exists, who runs it and the values we work by.",
     "blog": "Blog",
     "cta": "Let's talk",
     "menu": "Menu",
     "cerrar": "Close",
-    "careers": "Careers"
+    "careers": "Careers",
+    "careersDesc": "Open positions and what working at Advia is like."
   },
   "idioma": {
     "rotulo": "Language",

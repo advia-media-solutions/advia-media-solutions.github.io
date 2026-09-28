@@ -52,6 +52,19 @@ export async function posicionPorSlug(slug) {
 }
 
 /**
+ * Registra una candidatura espontánea (sin oferta) y devuelve el código HTTP
+ * de Advia OS: 201, 400 o 409 (ya tiene una en vigor). Un fallo de red lanza.
+ */
+export async function registrarEspontanea(cuerpo) {
+  const respuesta = await peticion("/open-applications", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(cuerpo),
+  });
+  return respuesta.status;
+}
+
+/**
  * Registra una candidatura y devuelve el código HTTP de Advia OS: 201, 400,
  * 404 (posición cerrada) o 409 (ya existe). Un fallo de red lanza.
  */

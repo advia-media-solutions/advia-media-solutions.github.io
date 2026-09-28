@@ -37,7 +37,7 @@ function validarRespuestas(campos, preguntas, errores) {
   });
 }
 
-export function validarCandidatura({ campos, cv, posicion, locale }) {
+export function validarCandidatura({ campos, cv, preguntas, consentimientoObligatorio }) {
   const errores = {};
   const datos = {
     fullName: texto(campos.fullName, 200),
@@ -51,9 +51,9 @@ export function validarCandidatura({ campos, cv, posicion, locale }) {
   if (!EMAIL.test(datos.email)) errores.email = "formato";
   if (!datos.linkedin) errores.linkedin = "requerido";
   else if (!LINKEDIN.test(datos.linkedin)) errores.linkedin = "formato";
+  if (consentimientoObligatorio && !datos.talentPool) errores.talentPool = "requerido";
   validarCv(cv, errores);
-  const textos = posicion[locale] || posicion.es;
-  datos.respuestas = validarRespuestas(campos, textos.questions || [], errores);
+  datos.respuestas = validarRespuestas(campos, preguntas, errores);
 
   return { datos, errores };
 }

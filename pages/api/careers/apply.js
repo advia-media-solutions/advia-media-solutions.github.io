@@ -6,7 +6,7 @@ import { permitirEnvio } from "../../../src/careers/limiteEnvios";
 import { CAMPO_TRAMPA } from "../../../src/careers/limites";
 import { VERSION_AVISO_PRIVACIDAD } from "../../../src/careers/config";
 import { captchaValido } from "../../../src/services/recaptcha";
-import { posicionPorSlug, registrarCandidatura } from "../../../src/services/careersApi";
+import { destinoEspontanea, destinoOferta } from "../../../src/careers/destinos";
 import {
   aLaPapelera,
   carpetaHija,
@@ -17,11 +17,14 @@ import {
 } from "../../../src/services/drive";
 
 /**
- * Recibe una candidatura desde el formulario de /careers/[slug].
+ * Recibe una candidatura desde el formulario de /careers/[slug] o desde el de
+ * candidatura espontánea (/careers/open-application, campo `tipo=espontanea`).
+ * Lo que cambia entre las dos vive en src/careers/destinos.js.
  *
  * Orden (contrato de Careers con Advia OS):
  * 1. Límite por IP, campo trampa y reCAPTCHA (si está configurado).
- * 2. La posición sigue abierta en Advia OS y el formulario es válido.
+ * 2. La posición sigue abierta en Advia OS (si es a una oferta) y el
+ *    formulario es válido.
  * 3. Carpeta en Drive con cv.pdf y respuestas.md.
  * 4. Registro en Advia OS con el enlace a la carpeta; ante 5xx o red se
  *    reintenta con la MISMA carpeta. Si Advia OS la rechaza (400/404/409), la
@@ -56,9 +59,9 @@ function nombreCarpeta(fullName, fecha) {
 }
 
 /** Crea la carpeta del candidato con sus dos archivos y devuelve su id. */
-async function guardarEnDrive({ datos, cv, posicion, locale }) {
+async function guardarEnDrive({ datos, cv, destino, locale }) {
   const fecha = new Date();
-  const carpetaPuesto = await carpetaHija(posicion.slug, carpetaRaiz());
+  const carpetaPuesto = await carpetaHija(destino.carpeta, carpetaRaiz());
   const carpeta = await crearCarpeta(nombreCarpeta(datos.fullName, fecha), carpetaPuesto);
   try {
     await subirArchivo({
@@ -72,7 +75,8 @@ async function guardarEnDrive({ datos, cv, posicion, locale }) {
       mimeType: "text/markdown",
       contenido: respuestasMd({
         datos,
-        posicion,
+        titulo: destino.titulo,
+        referencia: destino.referencia,
         locale,
         versionAviso: VERSION_AVISO_PRIVACIDAD,
         fecha,
@@ -89,12 +93,12 @@ async function guardarEnDrive({ datos, cv, posicion, locale }) {
 const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** POST a Advia OS; reintenta ante 5xx o fallo de red con el mismo cuerpo. */
-async function registrarConReintentos(cuerpo) {
+async function registrarConReintentos(registrar, cuerpo) {
   let ultimo;
   for (let intento = 0; intento <= ESPERAS_REINTENTO_MS.length; intento += 1) {
     if (intento > 0) await esperar(ESPERAS_REINTENTO_MS[intento - 1]);
     try {
-      const estado = await registrarCandidatura(cuerpo);
+      const estado = await registrar(cuerpo);
       if (estado < 500) return estado;
       ultimo = new Error(`Advia OS respondió ${estado}`);
     } catch (error) {
@@ -118,16 +122,18 @@ async function procesar(req, res, ip) {
   }
 
   const locale = campos.locale === "en" ? "en" : "es";
-  const posicion = await posicionPorSlug(String(campos.positionSlug || ""));
-  if (!posicion) return responder(res, 404, "cerrada");
-  const { datos, errores } = validarCandidatura({ campos, cv, posicion, locale });
+  const destino =
+    campos.tipo === "espontanea"
+      ? destinoEspontanea(locale)
+      : await destinoOferta(String(campos.positionSlug || ""), locale);
+  if (!destino) return responder(res, 404, "cerrada");
+  const { datos, errores } = validarCandidatura({ campos, cv, ...destino });
   if (Object.keys(errores).length) return responder(res, 400, "validacion", errores);
 
-  const carpeta = await guardarEnDrive({ datos, cv, posicion, locale });
+  const carpeta = await guardarEnDrive({ datos, cv, destino, locale });
   let estado;
   try {
-    estado = await registrarConReintentos({
-      positionSlug: posicion.slug,
+    estado = await registrarConReintentos(destino.registrar, {
       fullName: datos.fullName,
       email: datos.email,
       driveFolderUrl: urlCarpeta(carpeta),

@@ -1,6 +1,7 @@
 import { blogApiService } from "../src/services/blogApi";
 import { posicionesAbiertas } from "../src/services/careersApi";
 import { CAREERS_PUBLISHED } from "../src/careers/config";
+import { RUTA_ESPONTANEA } from "../src/careers/espontanea";
 
 /**
  * Sitemap generado en cada petición.
@@ -75,6 +76,7 @@ async function careers() {
   }
   return [
     { path: "/careers", prioridad: "0.6" },
+    { path: RUTA_ESPONTANEA, prioridad: "0.4" },
     ...ofertas.map((o) => ({ path: `/careers/${escapar(o.slug)}`, prioridad: "0.5" })),
   ];
 }

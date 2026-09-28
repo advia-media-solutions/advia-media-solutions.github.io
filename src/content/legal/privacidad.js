@@ -262,13 +262,13 @@ En cada petición de página, el servidor de advia.tech envía una llamada de me
 
 ## 16. Candidatos a posiciones de empleo
 
-Esta sección se dirige a las personas que envían su candidatura a una posición publicada en [advia.tech/careers](/careers). Aquí Advia también actúa como responsable del tratamiento por derecho propio.
+Esta sección se dirige a las personas que envían su candidatura a una posición publicada en [advia.tech/careers](/careers), o una candidatura espontánea sin posición concreta. Aquí Advia también actúa como responsable del tratamiento por derecho propio.
 
 **Datos que tratamos:** los que nos facilita en el formulario: nombre y apellidos, email, teléfono (opcional), perfil de LinkedIn, CV y las respuestas a las preguntas de la posición. Guardamos además el idioma en que rellenó el formulario, la fecha y hora del envío, si marcó la casilla para conservar su candidatura y la versión de este aviso que se le mostró. Le pedimos que no incluya en el CV datos de categorías especiales (salud, ideología, religión…) ni una fotografía, porque no los necesitamos para valorar su candidatura.
 
-**Finalidad:** gestionar el proceso de selección de la posición a la que se presenta: valorar su candidatura, contactarle, confirmarle por email que la hemos recibido y, en su caso, convocarle a las siguientes fases.
+**Finalidad:** gestionar el proceso de selección de la posición a la que se presenta: valorar su candidatura, contactarle, confirmarle por email que la hemos recibido y, en su caso, convocarle a las siguientes fases. Si su candidatura es espontánea, la finalidad es tenerle en cuenta en los procesos de selección que abramos durante los 24 meses siguientes.
 
-**Base legal:** la aplicación, a petición suya, de medidas precontractuales (Art. 6.1.b RGPD): enviar la candidatura es pedirnos que la valoremos para un posible contrato. Si marca la casilla «Guardad mi candidatura para futuros procesos», conservarla para otras posiciones se basa en su consentimiento (Art. 6.1.a RGPD), que puede retirar en cualquier momento sin que afecte a la licitud del tratamiento anterior.
+**Base legal:** la aplicación, a petición suya, de medidas precontractuales (Art. 6.1.b RGPD): enviar la candidatura es pedirnos que la valoremos para un posible contrato. Si marca la casilla «Guardad mi candidatura para futuros procesos», conservarla para otras posiciones se basa en su consentimiento (Art. 6.1.a RGPD), que puede retirar en cualquier momento sin que afecte a la licitud del tratamiento anterior. Una candidatura espontánea se basa siempre en su consentimiento, que da al marcar la casilla del formulario.
 
 **Quién accede y dónde se guardan:** el CV y las respuestas se guardan en una unidad compartida de Google Drive a la que solo tienen acceso los fundadores de Advia. En nuestra herramienta interna de gestión (Advia OS) guardamos solo su nombre, su email, la fase del proceso en que está su candidatura y el enlace a su carpeta. Google LLC presta estos servicios como encargado del tratamiento de Advia (Google Workspace y Google Cloud).
 
@@ -282,7 +282,7 @@ Esta sección se dirige a las personas que envían su candidatura a una posició
 
 - Mientras dure el proceso de selección de la posición.
 - Si el proceso termina sin contratarle y **no** marcó la casilla, suprimimos su candidatura (la carpeta de Drive y el registro en Advia OS) cuando se cierra el proceso.
-- Si marcó la casilla, la conservamos durante **24 meses** desde el envío para tenerle en cuenta en otras posiciones, salvo que retire antes su consentimiento.
+- Si marcó la casilla, o si su candidatura es espontánea, la conservamos durante **24 meses** desde el envío para tenerle en cuenta en otras posiciones, salvo que retire antes su consentimiento.
 - Tras la supresión, los datos pueden quedar bloqueados durante los plazos legales de prescripción de posibles reclamaciones, solo a disposición de jueces, tribunales y autoridades.
 
 **Decisiones automatizadas:** no tomamos decisiones sobre candidatos basadas únicamente en un tratamiento automatizado. Las candidaturas las valoran personas del equipo.
@@ -544,13 +544,13 @@ On each page request, the advia.tech server sends a measurement call to \`events
 
 ## 16. Job applicants
 
-This section is addressed to people who apply for a position published at [advia.tech/careers](/careers). Here too, Advia acts as a controller in its own right.
+This section is addressed to people who apply for a position published at [advia.tech/careers](/careers), or who send an open application without a specific position. Here too, Advia acts as a controller in its own right.
 
 **Data we process:** the data you give us in the form: full name, email, phone (optional), LinkedIn profile, CV and your answers to the position's questions. We also keep the language in which you filled in the form, the date and time you sent it, whether you ticked the box to keep your application, and the version of this notice you were shown. Please do not include special-category data (health, beliefs, religion…) or a photograph in your CV: we do not need them to assess your application.
 
-**Purpose:** to manage the hiring process for the position you apply for: assess your application, contact you, confirm by email that we have received it and, where relevant, invite you to the next stages.
+**Purpose:** to manage the hiring process for the position you apply for: assess your application, contact you, confirm by email that we have received it and, where relevant, invite you to the next stages. If yours is an open application, the purpose is to consider you in the hiring processes we open over the following 24 months.
 
-**Legal basis:** taking steps at your request prior to entering into a contract (Art. 6.1.b GDPR): sending your application is asking us to assess it for a possible contract. If you tick the box "Keep my application for future openings", keeping it for other positions is based on your consent (Art. 6.1.a GDPR), which you can withdraw at any time without affecting the lawfulness of prior processing.
+**Legal basis:** taking steps at your request prior to entering into a contract (Art. 6.1.b GDPR): sending your application is asking us to assess it for a possible contract. If you tick the box "Keep my application for future openings", keeping it for other positions is based on your consent (Art. 6.1.a GDPR), which you can withdraw at any time without affecting the lawfulness of prior processing. An open application is always based on your consent, which you give by ticking the box in the form.
 
 **Who has access and where it is stored:** your CV and answers are stored in a Google Drive shared drive that only Advia's founders can access. In our internal management tool (Advia OS) we only keep your name, your email, the stage your application is at and the link to your folder. Google LLC provides these services as Advia's processor (Google Workspace and Google Cloud).
 
@@ -564,7 +564,7 @@ This section is addressed to people who apply for a position published at [advia
 
 - For as long as the hiring process for the position lasts.
 - If the process ends without hiring you and you did **not** tick the box, we delete your application (the Drive folder and the Advia OS record) when the process closes.
-- If you ticked the box, we keep it for **24 months** from submission to consider you for other positions, unless you withdraw your consent earlier.
+- If you ticked the box, or if yours is an open application, we keep it for **24 months** from submission to consider you for other positions, unless you withdraw your consent earlier.
 - After deletion, the data may remain blocked for the statutory limitation periods of possible claims, available only to courts and authorities.
 
 **Automated decisions:** we do not make decisions about candidates based solely on automated processing. Applications are assessed by people on the team.

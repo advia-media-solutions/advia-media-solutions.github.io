@@ -115,3 +115,20 @@ textarea.v4-campo__control { resize: vertical; min-height: 120px; }
 /* La insignia flotante de reCAPTCHA se oculta: el aviso que Google exige va
    en el texto legal del formulario (Formulario.jsx). */
 .grecaptcha-badge { visibility: hidden; }
+
+/* ── Candidatura espontánea, bajo el listado ── */
+/* Una fila con filete, como las posiciones: el texto a la izquierda y el
+   botón a la derecha, para que se lea como la última salida del listado. */
+.v4-espontanea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--v4-line);
+}
+.v4-espontanea .v4-body { margin-top: var(--space-2); max-width: 56ch; }
+.v4-espontanea .v4-btn { flex: none; }
+@media (max-width: 640px) {
+  .v4-espontanea { flex-direction: column; align-items: stretch; }
+}

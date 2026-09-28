@@ -7,6 +7,7 @@ import Valores from "../../components/v4/Valores";
 import { Cabecera, Hero, Pagina, Section } from "../../components/v4/layout";
 import { Boton, Nota } from "../../components/v4/primitives";
 import { CAREERS_PUBLISHED } from "../../careers/config";
+import { RUTA_ESPONTANEA } from "../../careers/espontanea";
 
 /**
  * Careers · qué construimos, cómo trabajamos y qué posiciones hay abiertas.
@@ -46,6 +47,13 @@ export default function Careers({ posiciones }) {
         <Cabecera eyebrow={t("posiciones.eyebrow")} titular={<T t={t} k="posiciones.titular" />} />
         <div className="v4-mt-12">
           <ListaPuestos posiciones={posiciones} />
+        </div>
+        <div className="v4-espontanea v4-mt-12">
+          <div>
+            <h3 className="v4-subheading">{t("posiciones.espontanea.titular")}</h3>
+            <p className="v4-body">{t("posiciones.espontanea.texto")}</p>
+          </div>
+          <Boton href={RUTA_ESPONTANEA}>{t("posiciones.espontanea.cta")}</Boton>
         </div>
         <div className="v4-mt-12">
           <Nota>{t("fraude")}</Nota>

@@ -15,8 +15,13 @@
   "posiciones": {
     "eyebrow": "Positions",
     "titular": "Open <key>positions</key>",
-    "vacio": "We have no open positions right now. If the problem interests you, write to careers@advia.tech and tell us what you'd like to build.",
-    "error": "We couldn't load the positions. Try again in a few minutes or write to careers@advia.tech."
+    "vacio": "We have no open positions right now.",
+    "error": "We couldn't load the positions. Try again in a few minutes or write to careers@advia.tech.",
+    "espontanea": {
+      "titular": "None of our openings fits?",
+      "texto": "Send us your CV anyway. We'll write to you when a position that fits you opens.",
+      "cta": "Send an open application"
+    }
   },
   "modalidad": {
     "remote": "Remote",
@@ -73,8 +78,26 @@
       "cerrada": "This position has just closed.",
       "captcha": "We couldn't verify you're not a robot. Please try again or write to careers@advia.tech.",
       "limite": "You've sent several applications in a row. Wait a few minutes and try again.",
-      "fallo": "We couldn't send it. Please try again in a few minutes."
+      "fallo": "We couldn't send it. Please try again in a few minutes.",
+      "talentPool": {
+        "requerido": "Without this permission we can't keep your application."
+      },
+      "duplicadaEspontanea": "We already have an open application from you. No need to send it again."
     },
-    "recaptcha": "Protected by reCAPTCHA: Google's <privacidad>Privacy Policy</privacidad> and <terminos>Terms of Service</terminos> apply."
+    "recaptcha": "Protected by reCAPTCHA: Google's <privacidad>Privacy Policy</privacidad> and <terminos>Terms of Service</terminos> apply.",
+    "talentPoolEspontanea": "I agree that Advia may keep my application for 24 months to consider me for future positions.",
+    "privacidadEspontanea": "ADVIA MEDIA SOLUTIONS, S.L. will process your data, with your consent, to consider you in its hiring processes for 24 months. Only Advia's founders can access it. You can withdraw your consent and exercise your rights by writing to privacy@advia.tech. More information in the",
+    "okEspontanea": {
+      "titulo": "Received",
+      "texto": "We'll keep your application for 24 months and write to you at {{email}} if a position that fits you opens."
+    }
+  },
+  "espontanea": {
+    "seoTitle": "Open application · Careers at Advia | Advia",
+    "seoDescription": "If none of our open positions fits you, leave us your CV and LinkedIn and we'll consider you for the next ones.",
+    "miga": "Open application",
+    "titular": "None of our openings fits?",
+    "lede": "Leave us your CV and LinkedIn. We keep your application for 24 months and write to you if a position that fits you opens.",
+    "formLede": "It takes about 5 minutes: your CV, your LinkedIn and two questions."
   }
 }

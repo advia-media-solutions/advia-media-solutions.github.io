@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Trabaja en Advia | Advia",
-    "description": "Posiciones abiertas en Advia, AdTech fundada en Madrid en 2024. Qué hacemos, cómo trabajamos y cómo es nuestro proceso de selección."
+    "description": "Posiciones abiertas en Advia, AdTech fundada en Madrid en 2024. Qué hacemos y cómo trabajamos."
   },
   "hero": {
     "eyebrow": "Trabaja con nosotros",
@@ -30,30 +30,6 @@
         "texto": "Somos 12 personas. Lo que hace cada una se nota en el resultado de todas."
       }
     ]
-  },
-  "proceso": {
-    "eyebrow": "Proceso de selección",
-    "titular": "Cuatro pasos y una <key>respuesta</key> en cada uno",
-    "lede": "Te decimos en qué punto estás. Si no seguimos adelante, también te lo decimos.",
-    "pasos": [
-      {
-        "titulo": "Candidatura",
-        "texto": "Envías tu CV y respondes a las preguntas de la oferta. Te respondemos en 5 días laborables."
-      },
-      {
-        "titulo": "Primera conversación",
-        "texto": "30 minutos por videollamada con uno de los fundadores, para conocernos y resolver tus dudas sobre el puesto."
-      },
-      {
-        "titulo": "Prueba o entrevista técnica",
-        "texto": "Un caso cercano al trabajo real, que presentas en una sesión de una hora con el equipo del área."
-      },
-      {
-        "titulo": "Conocer al equipo y oferta",
-        "texto": "Pasas una mañana en la oficina de Madrid con las personas con las que trabajarías. Si encaja por las dos partes, te hacemos la oferta por escrito."
-      }
-    ],
-    "cierre": "De principio a fin, unas 3 semanas."
   },
   "posiciones": {
     "eyebrow": "Posiciones",

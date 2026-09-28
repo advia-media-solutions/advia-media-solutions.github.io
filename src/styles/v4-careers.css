@@ -25,7 +25,6 @@
 .v4-puesto__meta { margin-top: var(--space-1); color: var(--v4-muted); }
 .v4-puesto__flecha { color: var(--v4-muted); transition: color var(--motion-fast) var(--ease-standard); }
 .v4-puestos__aviso { max-width: 720px; }
-.v4-proceso__cierre { margin-top: var(--space-2); }
 
 @media (max-width: 640px) {
   .v4-puestos__lista { column-gap: var(--space-4); }

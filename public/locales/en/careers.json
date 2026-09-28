@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Careers at Advia | Advia",
-    "description": "Open positions at Advia, an AdTech founded in Madrid in 2024. What we build, how we work and how our hiring process runs."
+    "description": "Open positions at Advia, an AdTech founded in Madrid in 2024. What we build and how we work."
   },
   "hero": {
     "eyebrow": "Careers",
@@ -30,30 +30,6 @@
         "texto": "We are 12 people. What each of us does shows in everyone's result."
       }
     ]
-  },
-  "proceso": {
-    "eyebrow": "Hiring process",
-    "titular": "Four steps and an <key>answer</key> at each one",
-    "lede": "We tell you where you stand. If we don't move forward, we tell you that too.",
-    "pasos": [
-      {
-        "titulo": "Application",
-        "texto": "You send your CV and answer the questions in the job post. We reply within 5 working days."
-      },
-      {
-        "titulo": "First conversation",
-        "texto": "A 30-minute video call with one of the founders, to get to know each other and answer your questions about the role."
-      },
-      {
-        "titulo": "Case or technical interview",
-        "texto": "A case close to the real work, which you present in a one-hour session with the team you'd join."
-      },
-      {
-        "titulo": "Meet the team and offer",
-        "texto": "You spend a morning at our Madrid office with the people you'd work with. If it's a fit on both sides, we make you a written offer."
-      }
-    ],
-    "cierre": "From start to finish, about 3 weeks."
   },
   "posiciones": {
     "eyebrow": "Positions",

@@ -5,12 +5,10 @@ import T from "../../components/v4/T";
 import ListaPuestos from "../../components/v4/careers/ListaPuestos";
 import { Cabecera, Hero, Pagina, Section } from "../../components/v4/layout";
 import { Boton, Nota } from "../../components/v4/primitives";
-import { Pasos } from "../../components/v4/blocks";
 import { CAREERS_PUBLISHED } from "../../careers/config";
 
 /**
- * Careers · qué construimos, cómo trabajamos, cómo es el proceso y qué
- * posiciones hay abiertas.
+ * Careers · qué construimos, cómo trabajamos y qué posiciones hay abiertas.
  *
  * Las posiciones llegan de Advia OS en cada petición (ver pages/careers); el
  * copy vive en public/locales/{es,en}/careers.json. Mientras CAREERS_PUBLISHED
@@ -55,20 +53,6 @@ export default function Careers({ posiciones }) {
         <Cabecera eyebrow={t("principios.eyebrow")} titular={<T t={t} k="principios.titular" />} />
         <div className="v4-mt-12">
           <Principios items={t("principios.items", { returnObjects: true })} />
-        </div>
-      </Section>
-
-      <Section>
-        <div className="v4-split" data-cols="1-1" data-align="start">
-          <Cabecera
-            eyebrow={t("proceso.eyebrow")}
-            titular={<T t={t} k="proceso.titular" />}
-            lede={t("proceso.lede")}
-          />
-          <div>
-            <Pasos items={t("proceso.pasos", { returnObjects: true })} />
-            <p className="v4-body v4-strong v4-proceso__cierre">{t("proceso.cierre")}</p>
-          </div>
         </div>
       </Section>
 

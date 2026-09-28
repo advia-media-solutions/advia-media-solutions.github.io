@@ -68,12 +68,15 @@ export const NAV_ITEMS = [
     id: "nosotros",
     label: "nav.nosotros",
     href: "/about",
-    /* El mismo panel que Productos: una columna por página, con su línea
-       de qué hay dentro. La propia página va la primera, para que con el
-       panel abierto se vea que Nosotros sigue siendo una página. */
+    /* Careers es parte de Nosotros, no otra sección: en el panel cuelga de
+       Nosotros como cuelgan de GEO sus productos, sangrada y con flecha. */
     hijos: [
-      { label: "nav.nosotros", desc: "nav.nosotrosDesc", href: "/about" },
-      { label: "nav.careers", desc: "nav.careersDesc", href: "/careers" },
+      {
+        label: "nav.nosotros",
+        desc: "nav.nosotrosDesc",
+        href: "/about",
+        hijos: [{ label: "nav.careers", desc: "nav.careersDesc", href: "/careers" }],
+      },
     ],
   },
   { id: "blog", label: "nav.blog", href: "/blog" },
@@ -255,7 +258,10 @@ export function Nav({ activo, sobreOscuro }) {
             return (
               <div className="v4-nav__grupo" key={item.href}>
                 {enlace}
-                <div className="v4-nav__menu v4-nav__panel">
+                <div
+                  className="v4-nav__menu v4-nav__panel"
+                  data-columnas={item.hijos.length}
+                >
                   {item.todos ? (
                     <Link
                       href={item.href}
@@ -352,34 +358,37 @@ function MenuMovil({ abierto, activo, ruta }) {
             </Link>
             {item.hijos ? (
               <ul className="v4-menu__familias">
-                {/* En móvil la página padre ya es la entrada de arriba. */}
-                {item.hijos.filter((f) => f.href !== item.href).map((familia) => (
-                  <li key={familia.href}>
-                    <Link
-                      href={familia.href}
-                      className="v4-menu__familia"
-                      aria-current={ruta === familia.href ? "page" : undefined}
-                    >
-                      {t(familia.label)}
-                    </Link>
-                    {familia.hijos ? (
-                      <ul className="v4-menu__productos">
-                        {familia.hijos.map((producto) => (
-                          <li key={producto.href}>
-                            <Link
-                              href={producto.href}
-                              className="v4-menu__producto"
-                              aria-current={ruta === producto.href ? "page" : undefined}
-                            >
-                              {t(producto.label)}
-                              <ArrowOutward />
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </li>
-                ))}
+                {/* En móvil la página padre ya es la entrada de arriba: si una
+                    familia es la propia página, sale solo lo que cuelga de ella. */}
+                {item.hijos
+                  .flatMap((f) => (f.href === item.href ? f.hijos || [] : [f]))
+                  .map((familia) => (
+                    <li key={familia.href}>
+                      <Link
+                        href={familia.href}
+                        className="v4-menu__familia"
+                        aria-current={ruta === familia.href ? "page" : undefined}
+                      >
+                        {t(familia.label)}
+                      </Link>
+                      {familia.hijos ? (
+                        <ul className="v4-menu__productos">
+                          {familia.hijos.map((producto) => (
+                            <li key={producto.href}>
+                              <Link
+                                href={producto.href}
+                                className="v4-menu__producto"
+                                aria-current={ruta === producto.href ? "page" : undefined}
+                              >
+                                {t(producto.label)}
+                                <ArrowOutward />
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </li>
+                  ))}
               </ul>
             ) : null}
           </li>

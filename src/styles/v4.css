@@ -2641,6 +2641,9 @@
 .v4-nav__todos .v4-icon { color: var(--text-tertiary); }
 .v4-nav__todos:hover .v4-icon,
 .v4-nav__todos[aria-current] .v4-icon { color: var(--accent-gold); }
+/* Un panel de una sola familia (Nosotros, con Careers dentro) va en una
+   columna y más estrecho: dos columnas lo partirían en dos apartados. */
+.v4-nav__panel[data-columnas="1"] { grid-template-columns: minmax(0, 1fr); min-width: 380px; }
 .v4-nav__familia { display: grid; gap: 2px; align-content: start; }
 .v4-nav__familia + .v4-nav__familia { padding-left: var(--space-3); border-left: 1px solid var(--border-subtle); }
 .v4-nav__familia-link,

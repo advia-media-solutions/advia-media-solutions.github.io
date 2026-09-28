@@ -20,7 +20,7 @@
     "espontanea": {
       "titular": "None of our openings fits?",
       "texto": "Send us your CV anyway. We'll write to you when a position that fits you opens.",
-      "cta": "Send an open application"
+      "cta": "Send my CV"
     }
   },
   "modalidad": {
@@ -33,7 +33,6 @@
     "part_time": "Part-time",
     "internship": "Internship"
   },
-  "fraude": "We will only ever write to you from an @advia.tech address, and we will never ask you for money or bank details during the process.",
   "ficha": {
     "seoTitle": "{{puesto}} · Careers at Advia | Advia",
     "miga": "Positions",
@@ -82,7 +81,7 @@
       "talentPool": {
         "requerido": "Without this permission we can't keep your application."
       },
-      "duplicadaEspontanea": "We already have an open application from you. No need to send it again."
+      "duplicadaEspontanea": "We already have your CV. No need to send it again."
     },
     "recaptcha": "Protected by reCAPTCHA: Google's <privacidad>Privacy Policy</privacidad> and <terminos>Terms of Service</terminos> apply.",
     "talentPoolEspontanea": "I agree that Advia may keep my application for 24 months to consider me for future positions.",
@@ -93,9 +92,9 @@
     }
   },
   "espontanea": {
-    "seoTitle": "Open application · Careers at Advia | Advia",
+    "seoTitle": "Send us your CV · Careers at Advia | Advia",
     "seoDescription": "If none of our open positions fits you, leave us your CV and LinkedIn and we'll consider you for the next ones.",
-    "miga": "Open application",
+    "miga": "Send us your CV",
     "titular": "None of our openings fits?",
     "lede": "Leave us your CV and LinkedIn. We keep your application for 24 months and write to you if a position that fits you opens.",
     "formLede": "It takes about 5 minutes: your CV, your LinkedIn and two questions."

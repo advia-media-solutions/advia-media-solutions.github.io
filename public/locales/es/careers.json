@@ -20,7 +20,7 @@
     "espontanea": {
       "titular": "¿No encaja ninguna oferta?",
       "texto": "Déjanos tu CV igualmente. Te escribiremos cuando se abra una posición que encaje contigo.",
-      "cta": "Enviar candidatura espontánea"
+      "cta": "Enviar mi CV"
     }
   },
   "modalidad": {
@@ -33,7 +33,6 @@
     "part_time": "Media jornada",
     "internship": "Prácticas"
   },
-  "fraude": "Solo te escribiremos desde una dirección @advia.tech y nunca te pediremos dinero ni datos bancarios durante el proceso.",
   "ficha": {
     "seoTitle": "{{puesto}} · Trabaja en Advia | Advia",
     "miga": "Posiciones",
@@ -82,7 +81,7 @@
       "talentPool": {
         "requerido": "Sin este permiso no podemos guardar tu candidatura."
       },
-      "duplicadaEspontanea": "Ya tenemos una candidatura espontánea tuya. No hace falta enviarla otra vez."
+      "duplicadaEspontanea": "Ya tenemos tu CV. No hace falta enviarlo otra vez."
     },
     "recaptcha": "Protegido por reCAPTCHA: se aplican la <privacidad>Política de privacidad</privacidad> y las <terminos>Condiciones del servicio</terminos> de Google.",
     "talentPoolEspontanea": "Acepto que Advia conserve mi candidatura durante 24 meses para tenerme en cuenta en futuras posiciones.",
@@ -93,9 +92,9 @@
     }
   },
   "espontanea": {
-    "seoTitle": "Candidatura espontánea · Trabaja en Advia | Advia",
+    "seoTitle": "Envíanos tu CV · Trabaja en Advia | Advia",
     "seoDescription": "Si ninguna posición abierta encaja contigo, déjanos tu CV y tu LinkedIn y te tendremos en cuenta en las próximas.",
-    "miga": "Candidatura espontánea",
+    "miga": "Envíanos tu CV",
     "titular": "¿No encaja ninguna oferta?",
     "lede": "Déjanos tu CV y tu LinkedIn. Guardamos tu candidatura 24 meses y te escribimos si se abre una posición que encaje contigo.",
     "formLede": "Te llevará unos 5 minutos: tu CV, tu LinkedIn y dos preguntas."

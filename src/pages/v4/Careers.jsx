@@ -5,7 +5,7 @@ import T from "../../components/v4/T";
 import ListaPuestos from "../../components/v4/careers/ListaPuestos";
 import Valores from "../../components/v4/Valores";
 import { Cabecera, Hero, Pagina, Section } from "../../components/v4/layout";
-import { Boton, Nota } from "../../components/v4/primitives";
+import { Boton } from "../../components/v4/primitives";
 import { CAREERS_PUBLISHED } from "../../careers/config";
 import { RUTA_ESPONTANEA } from "../../careers/espontanea";
 
@@ -54,9 +54,6 @@ export default function Careers({ posiciones }) {
             <p className="v4-body">{t("posiciones.espontanea.texto")}</p>
           </div>
           <Boton href={RUTA_ESPONTANEA}>{t("posiciones.espontanea.cta")}</Boton>
-        </div>
-        <div className="v4-mt-12">
-          <Nota>{t("fraude")}</Nota>
         </div>
       </Section>
     </Pagina>

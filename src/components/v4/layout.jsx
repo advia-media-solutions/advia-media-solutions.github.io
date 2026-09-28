@@ -65,8 +65,13 @@ export const NAV_ITEMS = [
     id: "nosotros",
     label: "nav.nosotros",
     href: "/about",
-    /* Un submenú sencillo, como el de idioma: solo enlaces, sin panel. */
-    sub: [{ label: "nav.careers", href: "/careers" }],
+    /* Un submenú sencillo, como el de idioma: solo enlaces, sin panel. La
+       propia página va la primera: con el menú abierto, si solo estuviera
+       Careers parecería que Nosotros ya no se puede abrir. */
+    sub: [
+      { label: "nav.nosotros", href: "/about" },
+      { label: "nav.careers", href: "/careers" },
+    ],
   },
   { id: "blog", label: "nav.blog", href: "/blog" },
 ];
@@ -353,7 +358,8 @@ function MenuMovil({ abierto, activo, ruta }) {
             </Link>
             {item.sub ? (
               <ul className="v4-menu__familias">
-                {item.sub.map((s) => (
+                {/* En móvil la página padre ya es la entrada de arriba. */}
+                {item.sub.filter((s) => s.href !== item.href).map((s) => (
                   <li key={s.href}>
                     <Link
                       href={s.href}

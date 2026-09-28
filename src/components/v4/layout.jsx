@@ -31,6 +31,9 @@ export const NAV_ITEMS = [
     id: "productos",
     label: "nav.productos",
     href: "/products",
+    /* Enlace a la propia página en la cabecera del panel: con el panel
+       abierto, sin él parecería que Productos ya no se puede abrir. */
+    todos: "nav.productosTodos",
     /* Los dos spokes cuelgan del hub: desde el nav se llega a cualquiera de los
        dos sin pasar por la página intermedia. */
     hijos: [
@@ -272,6 +275,16 @@ export function Nav({ activo, sobreOscuro }) {
               <div className="v4-nav__grupo" key={item.href}>
                 {enlace}
                 <div className="v4-nav__menu v4-nav__panel">
+                  {item.todos ? (
+                    <Link
+                      href={item.href}
+                      className="v4-nav__sub v4-nav__todos"
+                      aria-current={ruta === item.href ? "page" : undefined}
+                    >
+                      {t(item.todos)}
+                      <ArrowOutward />
+                    </Link>
+                  ) : null}
                   {item.hijos.map((familia) => (
                     <div className="v4-nav__familia" key={familia.href}>
                       <Link

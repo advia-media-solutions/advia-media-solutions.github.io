@@ -2626,6 +2626,21 @@
   max-width: min(760px, calc(100vw - 2 * var(--space-6)));
   padding: var(--space-3);
 }
+/* «Todos los productos»: a lo ancho del panel, sobre las familias. */
+.v4-nav__todos {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-weight: var(--fw-semibold);
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  margin-bottom: var(--space-1);
+}
+.v4-nav__todos .v4-icon { color: var(--text-tertiary); }
+.v4-nav__todos:hover .v4-icon,
+.v4-nav__todos[aria-current] .v4-icon { color: var(--accent-gold); }
 .v4-nav__familia { display: grid; gap: 2px; align-content: start; }
 .v4-nav__familia + .v4-nav__familia { padding-left: var(--space-3); border-left: 1px solid var(--border-subtle); }
 .v4-nav__familia-link,

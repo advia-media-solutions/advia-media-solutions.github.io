@@ -18,7 +18,8 @@
     "blog": "Blog",
     "cta": "Hablemos",
     "menu": "Menú",
-    "cerrar": "Cerrar"
+    "cerrar": "Cerrar",
+    "careers": "Trabaja con nosotros"
   },
   "idioma": {
     "rotulo": "Idioma",
@@ -33,7 +34,8 @@
     "avisoLegal": "Aviso legal",
     "privacidad": "Privacidad",
     "cookies": "Cookies",
-    "optOut": "Opt-out"
+    "optOut": "Opt-out",
+    "careers": "Careers"
   },
   "pantallas": {
     "busca": "alguien busca"

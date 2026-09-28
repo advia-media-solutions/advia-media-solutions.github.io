@@ -100,7 +100,7 @@ export default function Nosotros() {
         lede={t("cierre.lede")}
         cta={
           <>
-            <Boton href="/contact">{t("cierre.cta")}</Boton>
+            <Boton href="/careers">{t("cierre.cta")}</Boton>
             <Boton href="/contact" variant="ghost">
               {t("cierre.ctaGhost")}
             </Boton>

@@ -31,7 +31,7 @@ export default function CareersFicha({ ficha, recaptchaSiteKey }) {
   const { t } = useTranslation("careers");
 
   return (
-    <Pagina>
+    <Pagina activo="nosotros">
       <Seo
         path={`/careers/${ficha.slug}`}
         title={t("ficha.seoTitle", { puesto: ficha.title })}

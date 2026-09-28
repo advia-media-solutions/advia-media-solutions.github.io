@@ -7,7 +7,7 @@
  * lanzamiento; el resto está en el checklist «Careers: checklist de
  * lanzamiento».
  */
-export const CAREERS_PUBLISHED = false;
+export const CAREERS_PUBLISHED = true;
 
 /**
  * Versión del aviso de privacidad que se muestra junto al formulario. Se

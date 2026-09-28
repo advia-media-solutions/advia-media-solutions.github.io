@@ -61,7 +61,13 @@ export const NAV_ITEMS = [
       },
     ],
   },
-  { id: "nosotros", label: "nav.nosotros", href: "/about" },
+  {
+    id: "nosotros",
+    label: "nav.nosotros",
+    href: "/about",
+    /* Un submenú sencillo, como el de idioma: solo enlaces, sin panel. */
+    sub: [{ label: "nav.careers", href: "/careers" }],
+  },
   { id: "blog", label: "nav.blog", href: "/blog" },
 ];
 
@@ -228,11 +234,30 @@ export function Nav({ activo, sobreOscuro }) {
                 href={item.href}
                 className="v4-nav__link"
                 aria-current={item.id === activo ? "page" : undefined}
-                aria-haspopup={item.hijos ? "true" : undefined}
+                aria-haspopup={item.hijos || item.sub ? "true" : undefined}
               >
                 {t(item.label)}
               </Link>
             );
+            if (item.sub) {
+              return (
+                <div className="v4-nav__grupo" key={item.href}>
+                  {enlace}
+                  <div className="v4-nav__menu">
+                    {item.sub.map((s) => (
+                      <Link
+                        key={s.href}
+                        href={s.href}
+                        className="v4-nav__sub"
+                        aria-current={ruta.startsWith(s.href) ? "page" : undefined}
+                      >
+                        {t(s.label)}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
             if (!item.hijos) return <React.Fragment key={item.href}>{enlace}</React.Fragment>;
             /* Se abre con el ratón y con el teclado: el panel está en el DOM y
                :focus-within lo despliega al tabular, sin estado ni JS. Una
@@ -326,6 +351,21 @@ function MenuMovil({ abierto, activo, ruta }) {
             >
               {t(item.label)}
             </Link>
+            {item.sub ? (
+              <ul className="v4-menu__familias">
+                {item.sub.map((s) => (
+                  <li key={s.href}>
+                    <Link
+                      href={s.href}
+                      className="v4-menu__familia"
+                      aria-current={ruta.startsWith(s.href) ? "page" : undefined}
+                    >
+                      {t(s.label)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             {item.hijos ? (
               <ul className="v4-menu__familias">
                 {item.hijos.map((familia) => (
@@ -552,6 +592,7 @@ const FOOTER_GRUPOS = [
     titulo: "footer.advia",
     links: [
       { label: "nav.nosotros", href: "/about" },
+      { label: "footer.careers", href: "/careers" },
       { label: "nav.blog", href: "/blog" },
     ],
   },

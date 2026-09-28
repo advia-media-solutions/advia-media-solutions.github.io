@@ -17,7 +17,7 @@ export const ES = `**Responsable del tratamiento:** ADVIA MEDIA SOLUTIONS, S.L.
 
 **Contacto para privacidad y ejercicio de derechos:** [privacy@advia.tech](mailto:privacy@advia.tech)
 
-**Última actualización:** 2026-07-31 · **Versión:** 2.1
+**Última actualización:** 2026-09-28 · **Versión:** 2.2
 
 ## 1. Introducción
 
@@ -27,7 +27,7 @@ Advia actúa como **intermediario técnico** entre DSPs (Demand-Side Platforms) 
 
 Las secciones 2 a 14 de esta política están dirigidas al **usuario final** cuya actividad puede generar datos procesados por Advia durante la entrega y medición de anuncios, es decir, al usuario que navega por el sitio de un publisher donde Advia sirve un anuncio.
 
-La **sección 15** cubre un supuesto distinto: los visitantes de este mismo sitio web, \`advia.tech\`, donde Advia actúa como responsable del tratamiento por derecho propio y no en su calidad de vendor del TCF.
+La **sección 15** cubre un supuesto distinto: los visitantes de este mismo sitio web, \`advia.tech\`, donde Advia actúa como responsable del tratamiento por derecho propio y no en su calidad de vendor del TCF. La **sección 16** se dirige a quienes envían su candidatura a una posición de empleo de Advia.
 
 ## 2. Participación en el IAB Europe TCF
 
@@ -258,7 +258,36 @@ En cada petición de página, el servidor de advia.tech envía una llamada de me
 
 **Conservación:** 90 días en bruto. Transcurrido ese plazo los registros se eliminan y solo se conservan métricas agregadas del sitio sin datos personales.
 
-**Sus derechos:** son los descritos en la sección 10, incluido el derecho de oposición del Art. 21 RGPD. Puede ejercerlo de forma inmediata en [advia.tech/opt-out](/opt-out): si su navegador presenta la cookie de exclusión, esta medición no llega a realizarse — la llamada al servicio de medición se suprime por completo, no se envía y no se registra nada. También puede escribir a [privacy@advia.tech](mailto:privacy@advia.tech).`;
+**Sus derechos:** son los descritos en la sección 10, incluido el derecho de oposición del Art. 21 RGPD. Puede ejercerlo de forma inmediata en [advia.tech/opt-out](/opt-out): si su navegador presenta la cookie de exclusión, esta medición no llega a realizarse — la llamada al servicio de medición se suprime por completo, no se envía y no se registra nada. También puede escribir a [privacy@advia.tech](mailto:privacy@advia.tech).
+
+## 16. Candidatos a posiciones de empleo
+
+Esta sección se dirige a las personas que envían su candidatura a una posición publicada en [advia.tech/careers](/careers). Aquí Advia también actúa como responsable del tratamiento por derecho propio.
+
+**Datos que tratamos:** los que nos facilita en el formulario: nombre y apellidos, email, teléfono (opcional), perfil de LinkedIn, CV y las respuestas a las preguntas de la posición. Guardamos además el idioma en que rellenó el formulario, la fecha y hora del envío, si marcó la casilla para conservar su candidatura y la versión de este aviso que se le mostró. Le pedimos que no incluya en el CV datos de categorías especiales (salud, ideología, religión…) ni una fotografía, porque no los necesitamos para valorar su candidatura.
+
+**Finalidad:** gestionar el proceso de selección de la posición a la que se presenta: valorar su candidatura, contactarle, confirmarle por email que la hemos recibido y, en su caso, convocarle a las siguientes fases.
+
+**Base legal:** la aplicación, a petición suya, de medidas precontractuales (Art. 6.1.b RGPD): enviar la candidatura es pedirnos que la valoremos para un posible contrato. Si marca la casilla «Guardad mi candidatura para futuros procesos», conservarla para otras posiciones se basa en su consentimiento (Art. 6.1.a RGPD), que puede retirar en cualquier momento sin que afecte a la licitud del tratamiento anterior.
+
+**Quién accede y dónde se guardan:** el CV y las respuestas se guardan en una unidad compartida de Google Drive a la que solo tienen acceso los fundadores de Advia. En nuestra herramienta interna de gestión (Advia OS) guardamos solo su nombre, su email, la fase del proceso en que está su candidatura y el enlace a su carpeta. Google LLC presta estos servicios como encargado del tratamiento de Advia (Google Workspace y Google Cloud).
+
+**Protección contra spam:** el formulario usa Google reCAPTCHA para distinguir personas de programas automáticos. reCAPTCHA recoge datos técnicos del navegador y del dispositivo y los trata conforme a la [Política de privacidad](https://policies.google.com/privacy) y las [Condiciones del servicio](https://policies.google.com/terms) de Google. Su resultado solo sirve para aceptar o rechazar el envío: nunca se usa para valorar a un candidato.
+
+**Destinatarios:** no cedemos sus datos a terceros. Si se incorpora a Advia, los datos necesarios pasarán a su expediente laboral.
+
+**Transferencias internacionales:** Google puede tratar datos fuera del Espacio Económico Europeo. Esas transferencias se amparan en el Marco de Privacidad de Datos UE-EE. UU., en el que Google LLC está certificada, y en las cláusulas contractuales tipo aprobadas por la Comisión Europea.
+
+**Conservación:**
+
+- Mientras dure el proceso de selección de la posición.
+- Si el proceso termina sin contratarle y **no** marcó la casilla, suprimimos su candidatura (la carpeta de Drive y el registro en Advia OS) cuando se cierra el proceso.
+- Si marcó la casilla, la conservamos durante **24 meses** desde el envío para tenerle en cuenta en otras posiciones, salvo que retire antes su consentimiento.
+- Tras la supresión, los datos pueden quedar bloqueados durante los plazos legales de prescripción de posibles reclamaciones, solo a disposición de jueces, tribunales y autoridades.
+
+**Decisiones automatizadas:** no tomamos decisiones sobre candidatos basadas únicamente en un tratamiento automatizado. Las candidaturas las valoran personas del equipo.
+
+**Sus derechos:** los descritos en la sección 10. Para ejercerlos, o para retirar el consentimiento de conservar su candidatura, escriba a [privacy@advia.tech](mailto:privacy@advia.tech) o a [careers@advia.tech](mailto:careers@advia.tech).`;
 
 export const EN = `**Data controller:** ADVIA MEDIA SOLUTIONS, S.L.
 
@@ -270,7 +299,7 @@ export const EN = `**Data controller:** ADVIA MEDIA SOLUTIONS, S.L.
 
 **Privacy contact and rights exercise:** [privacy@advia.tech](mailto:privacy@advia.tech)
 
-**Last update:** 2026-07-31 · **Version:** 2.1
+**Last update:** 2026-09-28 · **Version:** 2.2
 
 ## 1. Introduction
 
@@ -280,7 +309,7 @@ Advia acts as a **technical intermediary** between DSPs (Demand-Side Platforms) 
 
 Sections 2 to 14 of this policy are addressed to the **end user** whose activity may generate data processed by Advia during ad delivery and measurement — that is, the user browsing a publisher's site where Advia serves an ad.
 
-**Section 15** covers a different situation: visitors to this website itself, \`advia.tech\`, where Advia acts as a controller in its own right and not in its capacity as a TCF vendor.
+**Section 15** covers a different situation: visitors to this website itself, \`advia.tech\`, where Advia acts as a controller in its own right and not in its capacity as a TCF vendor. **Section 16** is addressed to people who apply for a job position at Advia.
 
 ## 2. Participation in IAB Europe TCF
 
@@ -511,4 +540,33 @@ On each page request, the advia.tech server sends a measurement call to \`events
 
 **Retention:** 90 days raw. After that period the records are deleted and only aggregated site metrics without personal data are kept.
 
-**Your rights:** those described in section 10, including the right to object under Art. 21 GDPR. You can exercise it immediately at [advia.tech/opt-out](/opt-out): if your browser presents the opt-out cookie this measurement does not take place — the call to the measurement service is suppressed entirely, never sent and nothing recorded. You may also write to [privacy@advia.tech](mailto:privacy@advia.tech).`;
+**Your rights:** those described in section 10, including the right to object under Art. 21 GDPR. You can exercise it immediately at [advia.tech/opt-out](/opt-out): if your browser presents the opt-out cookie this measurement does not take place — the call to the measurement service is suppressed entirely, never sent and nothing recorded. You may also write to [privacy@advia.tech](mailto:privacy@advia.tech).
+
+## 16. Job applicants
+
+This section is addressed to people who apply for a position published at [advia.tech/careers](/careers). Here too, Advia acts as a controller in its own right.
+
+**Data we process:** the data you give us in the form: full name, email, phone (optional), LinkedIn profile, CV and your answers to the position's questions. We also keep the language in which you filled in the form, the date and time you sent it, whether you ticked the box to keep your application, and the version of this notice you were shown. Please do not include special-category data (health, beliefs, religion…) or a photograph in your CV: we do not need them to assess your application.
+
+**Purpose:** to manage the hiring process for the position you apply for: assess your application, contact you, confirm by email that we have received it and, where relevant, invite you to the next stages.
+
+**Legal basis:** taking steps at your request prior to entering into a contract (Art. 6.1.b GDPR): sending your application is asking us to assess it for a possible contract. If you tick the box "Keep my application for future openings", keeping it for other positions is based on your consent (Art. 6.1.a GDPR), which you can withdraw at any time without affecting the lawfulness of prior processing.
+
+**Who has access and where it is stored:** your CV and answers are stored in a Google Drive shared drive that only Advia's founders can access. In our internal management tool (Advia OS) we only keep your name, your email, the stage your application is at and the link to your folder. Google LLC provides these services as Advia's processor (Google Workspace and Google Cloud).
+
+**Spam protection:** the form uses Google reCAPTCHA to tell people apart from automated programs. reCAPTCHA collects technical browser and device data and processes it under Google's [Privacy Policy](https://policies.google.com/privacy) and [Terms of Service](https://policies.google.com/terms). Its result is only used to accept or reject the submission: it is never used to assess a candidate.
+
+**Recipients:** we do not share your data with third parties. If you join Advia, the necessary data will become part of your employment record.
+
+**International transfers:** Google may process data outside the European Economic Area. Those transfers rely on the EU-U.S. Data Privacy Framework, under which Google LLC is certified, and on the standard contractual clauses approved by the European Commission.
+
+**Retention:**
+
+- For as long as the hiring process for the position lasts.
+- If the process ends without hiring you and you did **not** tick the box, we delete your application (the Drive folder and the Advia OS record) when the process closes.
+- If you ticked the box, we keep it for **24 months** from submission to consider you for other positions, unless you withdraw your consent earlier.
+- After deletion, the data may remain blocked for the statutory limitation periods of possible claims, available only to courts and authorities.
+
+**Automated decisions:** we do not make decisions about candidates based solely on automated processing. Applications are assessed by people on the team.
+
+**Your rights:** those described in section 10. To exercise them, or to withdraw your consent to keeping your application, write to [privacy@advia.tech](mailto:privacy@advia.tech) or [careers@advia.tech](mailto:careers@advia.tech).`;

@@ -38,6 +38,7 @@ They store data for a period defined by the party responsible for the cookie.
 | Technical | \`advia_optout\` | Records that this browser has opted out of ad event logging. Its entire content is the value \`1\`: it contains no identifier. It is only set if you request it. | 1 year, renewed while you remain opted out |
 | Technical | \`NEXT_LOCALE\` | Remembers the language you chose in the language selector (\`es\` or \`en\`), so the site is shown in that language on your next visits. It contains no identifier. It is only set if you change the language. | 1 year |
 | Analytics (subject to consent) | \`_ga\`, \`_ga_*\` | Google Analytics, loaded through Google Tag Manager. Analysis of site traffic patterns. Only set if you accept analytics cookies. | 2 years |
+| Technical (third-party) | \`_GRECAPTCHA\` | Google reCAPTCHA. Only on job offer pages: protects the application form by telling people apart from automated programs. Set by Google (\`google.com\`). | 6 months |
 | Advertising (subject to consent) | \`advia_uid\` | Pseudonymous identifier of Advia's ad server, used to deduplicate impressions. Set on \`*.advia.tech\` and described in detail in the [Privacy Policy](/privacy-policy). | 1 year |
 
 ## How to opt out

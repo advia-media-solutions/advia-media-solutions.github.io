@@ -52,8 +52,8 @@ function Campos({ preguntas, errores }) {
       <div className="v4-form__fila">
         <CampoTexto nombre="phone" tipo="tel" etiqueta={t("form.telefono")}
           autoComplete="tel" error={errores.phone} />
-        <CampoTexto nombre="linkedin" tipo="url" etiqueta={t("form.linkedin")}
-          placeholder="https://www.linkedin.com/in/…" error={errores.linkedin} />
+        <CampoTexto nombre="linkedin" etiqueta={t("form.linkedin")} requerido
+          inputMode="url" placeholder="linkedin.com/in/…" error={errores.linkedin} />
       </div>
       <CampoCv error={errores.cv} />
       {preguntas.map((p) => (

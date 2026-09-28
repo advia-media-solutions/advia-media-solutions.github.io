@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next/pages";
 import Seo from "../../components/v4/Seo";
 import T from "../../components/v4/T";
 import Areas from "../../components/v4/Areas";
+import Valores from "../../components/v4/Valores";
 import { Cabecera, Cierre, Hero, Pagina, Section } from "../../components/v4/layout";
 import { Boton, Door } from "../../components/v4/primitives";
 import { Filas } from "../../components/v4/blocks";
@@ -16,7 +17,8 @@ import { Filas } from "../../components/v4/blocks";
  * no está documentado no está aquí.
  *
  * El copy vive en public/locales/{es,en}/nosotros.json. Aquí quedan los datos
- * que no cambian con el idioma: nombres de área, fundadores y valores.
+ * que no cambian con el idioma: nombres de área y fundadores. Los valores
+ * viven en components/v4/Valores.
  */
 
 /* Las tres áreas y quién lleva cada una. Sale de Who's who (Advia OS); si
@@ -40,23 +42,6 @@ const AREAS = [
   },
 ];
 
-/* Los nombres son fijos y no se traducen (Advia OS · Our values). */
-const VALORES = ["#WorkHardPlayHard", "#Superhuman", "#RightOverEasy", "#Imagine", "#WinAsOne"];
-
-function Valores({ items }) {
-  return (
-    <div className="v4-valores">
-      {items.map((v, i) => (
-        <div key={v.nombre} className="v4-valor">
-          <span className="v4-fila__num">{String(i + 1).padStart(2, "0")}</span>
-          <h3 className="v4-subheading">{v.nombre}</h3>
-          <p className="v4-body">{v.texto}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function Nosotros() {
   const { t } = useTranslation("nosotros");
 
@@ -67,10 +52,6 @@ export default function Nosotros() {
     num: String(i + 1).padStart(2, "0"),
   }));
   const areas = t("areas", { returnObjects: true }).map((a, i) => ({ ...AREAS[i], ...a }));
-  const valores = t("valores.items", { returnObjects: true }).map((texto, i) => ({
-    nombre: VALORES[i],
-    texto,
-  }));
 
   return (
     <Pagina activo="nosotros">
@@ -110,7 +91,7 @@ export default function Nosotros() {
           lede={t("valores.lede")}
         />
         <div className="v4-mt-12">
-          <Valores items={valores} />
+          <Valores />
         </div>
       </Section>
 

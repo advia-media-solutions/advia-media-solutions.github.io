@@ -8,6 +8,12 @@
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LINKEDIN = /^https:\/\/([a-z]{2,3}\.)?linkedin\.com\/.+/i;
 
+/* Mucha gente pega «linkedin.com/in/…» sin el https: se completa. */
+function urlCompleta(valor) {
+  if (!valor || /^https?:\/\//i.test(valor)) return valor.replace(/^http:/i, "https:");
+  return `https://${valor}`;
+}
+
 function texto(valor, maximo) {
   return typeof valor === "string" ? valor.trim().slice(0, maximo) : "";
 }
@@ -37,13 +43,14 @@ export function validarCandidatura({ campos, cv, posicion, locale }) {
     fullName: texto(campos.fullName, 200),
     email: texto(campos.email, 320).toLowerCase(),
     phone: texto(campos.phone, 40),
-    linkedin: texto(campos.linkedin, 300),
+    linkedin: urlCompleta(texto(campos.linkedin, 300)),
     talentPool: campos.talentPool === "si",
   };
 
   if (datos.fullName.length < 2) errores.fullName = "requerido";
   if (!EMAIL.test(datos.email)) errores.email = "formato";
-  if (datos.linkedin && !LINKEDIN.test(datos.linkedin)) errores.linkedin = "formato";
+  if (!datos.linkedin) errores.linkedin = "requerido";
+  else if (!LINKEDIN.test(datos.linkedin)) errores.linkedin = "formato";
   validarCv(cv, errores);
   const textos = posicion[locale] || posicion.es;
   datos.respuestas = validarRespuestas(campos, textos.questions || [], errores);

@@ -6,30 +6,11 @@
   "hero": {
     "eyebrow": "Trabaja con nosotros",
     "titular": "Construye con nosotros la publicidad que responde a una <key>pregunta</key>",
-    "lede": "Somos una AdTech fundada en Madrid en 2024. Usamos agentes de IA para encontrar el momento en que alguien investiga antes de decidir, y ponemos ahí a las marcas como la respuesta. Buscamos personas a las que ese problema les quite el sueño.",
     "cta": "Ver posiciones abiertas"
   },
   "principios": {
     "eyebrow": "Cómo trabajamos",
-    "titular": "Lo que te vas a encontrar <key>dentro</key>",
-    "items": [
-      {
-        "titulo": "Intensidad, y disfrutarla",
-        "texto": "Vamos rápido y cada persona aporta a su manera. Aquí se crece haciendo."
-      },
-      {
-        "titulo": "La tecnología amplifica",
-        "texto": "Construimos Vera para que el equipo llegue más lejos, no para quitarle el criterio."
-      },
-      {
-        "titulo": "Transparencia, también cuando cuesta",
-        "texto": "Decimos lo que vemos, con los datos delante, aunque no sea lo que se quería oír."
-      },
-      {
-        "titulo": "Ganamos en equipo",
-        "texto": "Somos 12 personas. Lo que hace cada una se nota en el resultado de todas."
-      }
-    ]
+    "titular": "Lo que te vas a encontrar <key>dentro</key>"
   },
   "posiciones": {
     "eyebrow": "Posiciones",

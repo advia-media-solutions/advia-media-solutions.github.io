@@ -20,7 +20,7 @@ export default function Careers({ posiciones }) {
   const { t } = useTranslation("careers");
 
   return (
-    <Pagina>
+    <Pagina activo="nosotros">
       <Seo
         path="/careers"
         title={t("seo.title")}

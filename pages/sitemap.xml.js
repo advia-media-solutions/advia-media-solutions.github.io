@@ -1,4 +1,6 @@
 import { blogApiService } from "../src/services/blogApi";
+import { posicionesAbiertas } from "../src/services/careersApi";
+import { CAREERS_PUBLISHED } from "../src/careers/config";
 
 /**
  * Sitemap generado en cada petición.
@@ -58,6 +60,25 @@ function entradaArticulo(base, item) {
   }<priority>0.6</priority></url>`;
 }
 
+/**
+ * /careers y una entrada por oferta abierta en Advia OS, en los dos idiomas.
+ * Mientras careers no esté publicada, nada. Si Advia OS no responde, sale
+ * /careers sin las ofertas.
+ */
+async function careers() {
+  if (!CAREERS_PUBLISHED) return [];
+  let ofertas = [];
+  try {
+    ofertas = await posicionesAbiertas();
+  } catch (e) {
+    ofertas = [];
+  }
+  return [
+    { path: "/careers", prioridad: "0.6" },
+    ...ofertas.map((o) => ({ path: `/careers/${escapar(o.slug)}`, prioridad: "0.5" })),
+  ];
+}
+
 /** Todas las páginas de un listado del CMS, sin que un fallo tumbe el sitemap. */
 async function todos(pedir) {
   try {
@@ -77,12 +98,16 @@ async function todos(pedir) {
 }
 
 export async function getServerSideProps({ res }) {
-  const articulos = await todos((n, p) => blogApiService.getArticles(n, p));
+  const [articulos, empleo] = await Promise.all([
+    todos((n, p) => blogApiService.getArticles(n, p)),
+    careers(),
+  ]);
 
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>` +
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">` +
     FIJAS.map(entradaBilingue).join("") +
+    empleo.map(entradaBilingue).join("") +
     articulos.filter((a) => a.slug).map((a) => entradaArticulo("/blog/article", a)).join("") +
     `</urlset>`;
 

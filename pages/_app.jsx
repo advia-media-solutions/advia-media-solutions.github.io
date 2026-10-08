@@ -66,5 +66,6 @@ function MyApp({ Component, pageProps }) {
 }
 
 /* Las traducciones llegan por props desde getStaticProps (o getServerSideProps,
-   en el blog y opt-out) de cada ruta; appWithTranslation las monta en el provider. */
+   en el listado paginado del blog y opt-out) de cada ruta; appWithTranslation las
+   monta en el provider. */
 export default appWithTranslation(MyApp, nextI18NextConfig);

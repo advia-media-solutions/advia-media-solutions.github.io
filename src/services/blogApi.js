@@ -1,5 +1,8 @@
 const BASE_URL = "https://cms.advia.tech/api";
 const TIEMPO_MAXIMO_MS = 5000;
+/* Cada cuánto se regeneran las páginas del blog servidas desde caché (ISR):
+   un artículo publicado o editado en el CMS tarda como mucho esto en verse. */
+export const REFRESCO_BLOG_S = 300;
 
 class BlogApiService {
   async getArticles(pageSize = 7, page = 1) {

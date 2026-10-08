@@ -9,10 +9,15 @@ export default function BlogArticlePage(props) {
 
 BlogArticlePage.v4 = true;
 
-/* Ningún artículo se genera en el build: cada uno se genera la primera vez que
-   se pide y desde ahí se sirve desde caché. Así el build no depende del CMS. */
-export async function getStaticPaths() {
-  return { paths: [], fallback: "blocking" };
+/* Todos los artículos se generan en el build, en los dos idiomas, y viajan en
+   la imagen: cada instancia nueva de Cloud Run los sirve al momento, sin
+   generarlos en la primera visita. Los publicados después del despliegue se
+   generan la primera vez que se piden (fallback). Si el CMS falla, falla el
+   build, igual que con /blog. */
+export async function getStaticPaths({ locales }) {
+  const slugs = await blogApiService.getAllSlugs();
+  const paths = slugs.flatMap((slug) => locales.map((locale) => ({ params: { slug }, locale })));
+  return { paths, fallback: "blocking" };
 }
 
 /**

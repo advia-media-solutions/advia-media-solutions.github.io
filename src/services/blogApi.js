@@ -17,6 +17,23 @@ class BlogApiService {
     );
   }
 
+  /** Todos los slugs publicados, recorriendo todas las páginas del CMS. */
+  async getAllSlugs() {
+    const POR_PAGINA = 100;
+    const slugs = [];
+    let pagina = 1;
+    let totalPaginas = 1;
+    do {
+      const respuesta = await this.fetchData(
+        `/articles?fields[0]=slug&pagination[pageSize]=${POR_PAGINA}&pagination[page]=${pagina}`
+      );
+      slugs.push(...respuesta.data.map((articulo) => articulo.slug));
+      totalPaginas = respuesta.meta?.pagination?.pageCount || 1;
+      pagina += 1;
+    } while (pagina <= totalPaginas);
+    return slugs;
+  }
+
   async getArticleBySlug(slug) {
     const response = await this.fetchData(
       `/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`

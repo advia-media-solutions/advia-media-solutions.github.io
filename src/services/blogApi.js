@@ -41,6 +41,14 @@ class BlogApiService {
     return response.data.length > 0 ? response.data[0] : null;
   }
 
+  /** Solo la portada de un artículo, con sus enlaces recién firmados. */
+  async getCoverBySlug(slug) {
+    const response = await this.fetchData(
+      `/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&fields[0]=slug&populate[cover]=true`
+    );
+    return response.data[0]?.cover || null;
+  }
+
   async getArticleById(documentId) {
     const response = await this.fetchData(
       `/articles/${documentId}?populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`

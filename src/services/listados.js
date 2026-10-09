@@ -1,4 +1,5 @@
 import { blogApiService } from "./blogApi";
+import { conImagenEstable } from "./imagenesBlog";
 
 /**
  * Carga de listados para `getServerSideProps`.
@@ -24,12 +25,12 @@ async function carga(promesa, forma) {
 }
 
 export function articulosPortada() {
-  return carga(blogApiService.getArticlesForHomepage(), (r) => ({ articulos: r.data || [] }));
+  return carga(blogApiService.getArticlesForHomepage(), (r) => ({ articulos: (r.data || []).map(conImagenEstable) }));
 }
 
 export function articulosPagina(pagina, porPagina = 9) {
   return carga(blogApiService.getArticles(porPagina, pagina), (r) => ({
-    articulos: r.data || [],
+    articulos: (r.data || []).map(conImagenEstable),
     pagina,
     totalPaginas: r.meta?.pagination?.pageCount || 1,
   }));

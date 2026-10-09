@@ -1,6 +1,7 @@
 import React from "react";
 import { traducciones } from "../../../src/i18n/servidor";
 import { blogApiService, REFRESCO_BLOG_S } from "../../../src/services/blogApi";
+import { conImagenEstable } from "../../../src/services/imagenesBlog";
 import BlogArticulo from "../../../src/pages/v4/blog/BlogArticulo";
 
 export default function BlogArticlePage(props) {
@@ -32,5 +33,5 @@ export async function getStaticProps({ params, locale }) {
     blogApiService.getArticleBySlug(params.slug),
   ]);
   if (!articulo) return { notFound: true, revalidate: REFRESCO_BLOG_S };
-  return { props: { ...comunes, articulo }, revalidate: REFRESCO_BLOG_S };
+  return { props: { ...comunes, articulo: conImagenEstable(articulo) }, revalidate: REFRESCO_BLOG_S };
 }

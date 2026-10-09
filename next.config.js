@@ -34,6 +34,11 @@ const nextConfig = {
       // Standalone technical/compliance doc served straight from public/,
       // outside the _app layout (no nav, no footer).
       { source: "/pixels", destination: "/pixels.html" },
+      // Portadas del blog con una URL que no caduca (ver src/services/imagenesBlog.js).
+      {
+        source: "/blog/imagen/:slug/:formato",
+        destination: "/api/blog/imagen/:slug/:formato",
+      },
     ];
   },
   async headers() {

@@ -16,13 +16,42 @@ const API = "https://www.googleapis.com/drive/v3/files";
 const SUBIDA = "https://www.googleapis.com/upload/drive/v3/files";
 const CARPETA = "application/vnd.google-apps.folder";
 
+/* Drive limita las escrituras por su cuenta, aunque no se haya gastado la cuota
+   del proyecto, y lo avisa con un 403 de estos motivos o con un 429. La
+   petición se rechaza entera, así que repetirla no duplica nada. */
+const MOTIVOS_LIMITE = new Set(["userRateLimitExceeded", "rateLimitExceeded"]);
+const ESPERAS_REINTENTO_MS = [1000, 2000, 4000];
+
+function motivoDe(error) {
+  return error.response?.data?.error?.errors?.[0]?.reason;
+}
+
+function esLimite(error) {
+  const estado = error.response?.status;
+  return estado === 429 || (estado === 403 && MOTIVOS_LIMITE.has(motivoDe(error)));
+}
+
+const esperar = (ms) => new Promise((r) => setTimeout(r, ms));
+
 async function drive(opciones) {
   const cliente = await auth.getClient();
-  const { data } = await cliente.request({
-    ...opciones,
-    params: { supportsAllDrives: true, ...opciones.params },
-  });
-  return data;
+  const peticion = { ...opciones, params: { supportsAllDrives: true, ...opciones.params } };
+  for (let intento = 0; ; intento += 1) {
+    try {
+      const { data } = await cliente.request(peticion);
+      return data;
+    } catch (error) {
+      if (esLimite(error) && intento < ESPERAS_REINTENTO_MS.length) {
+        /* Con algo de azar, para que dos envíos a la vez no reintenten juntos. */
+        await esperar(ESPERAS_REINTENTO_MS[intento] * (0.75 + Math.random() / 2));
+        continue;
+      }
+      /* El código y el motivo de Drive acaban en el log de /api/careers/apply. */
+      const estado = error.response?.status;
+      if (estado) error.message = `Drive ${estado} ${motivoDe(error) || "-"}: ${error.message}`;
+      throw error;
+    }
+  }
 }
 
 /** La carpeta raíz de las candidaturas (la unidad compartida «Hiring»). */

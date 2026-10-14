@@ -37,7 +37,8 @@ export default function BlogArticulos({ articulos = [], pagina = 1, totalPaginas
         {!error ? (
           articulos.length > 0 ? (
             <>
-              <Articulos items={articulos} />
+              {/* Van directamente bajo el h1 del hero: sin h2 en medio. */}
+              <Articulos items={articulos} nivelTitulo={2} />
               <Paginacion
                 paginaActual={pagina}
                 totalPaginas={totalPaginas}

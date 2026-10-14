@@ -62,8 +62,9 @@ function Media({ articulo, tamano = "medium" }) {
   );
 }
 
-export function TarjetaArticulo({ articulo }) {
+export function TarjetaArticulo({ articulo, nivelTitulo = 3 }) {
   const href = `/blog/article/${articulo.slug}`;
+  const Titulo = `h${nivelTitulo}`;
   return (
     <article className="v4-ficha">
       <Link className="v4-ficha__link" href={href}>
@@ -71,7 +72,7 @@ export function TarjetaArticulo({ articulo }) {
       </Link>
       <Media articulo={articulo} />
       <div className="v4-ficha__cuerpo">
-        <h3 className="v4-ficha__titulo">{articulo.title}</h3>
+        <Titulo className="v4-ficha__titulo">{articulo.title}</Titulo>
         {articulo.description ? (
           <p className="v4-ficha__desc">{articulo.description}</p>
         ) : null}
@@ -101,11 +102,13 @@ export function ArticuloDestacado({ articulo }) {
   );
 }
 
-export function Articulos({ items }) {
+/* `nivelTitulo`: el del título de cada ficha, un nivel por debajo del título
+   bajo el que va la rejilla. */
+export function Articulos({ items, nivelTitulo = 3 }) {
   return (
     <div className="v4-articulos">
       {items.map((articulo) => (
-        <TarjetaArticulo key={articulo.id} articulo={articulo} />
+        <TarjetaArticulo key={articulo.id} articulo={articulo} nivelTitulo={nivelTitulo} />
       ))}
     </div>
   );

@@ -330,18 +330,23 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
 
             En móvil los dos van dentro de MapaAgentes, que es la escena
             pegada de allí (en escritorio ese envoltorio no existe: display
-            contents). Mismo texto, mismo orden. */}
+            contents). Mismo texto, mismo orden.
+
+            Aquí es solo lo que se ve: esta capa va en el HTML antes que la
+            portada, y como título le pasaba por delante al h1. El h2 de verdad
+            está en el relato, detrás de los pasos. */}
         <MapaAgentes
           roles={agentes}
           titulo={
             mapa ? (
-              <h2
+              <p
                 className="v4-recorridos__mapa-titulo v4-display-l"
+                aria-hidden="true"
                 data-visible={T >= CUES.Suelta ? "true" : undefined}
                 style={{ "--v4-sube": `${borde}px` }}
               >
                 {mapa}
-              </h2>
+              </p>
             ) : null
           }
           pie={
@@ -443,6 +448,11 @@ export default function Recorridos({ titular, lede, cabecera, pasos, mapa, pie, 
             <div className="v4-recorridos__remate" aria-hidden="true" />
           </div>
         </div>
+
+        {/* El título del mapa para quien lee el esquema: en su sitio, detrás de
+            los pasos. Fuera del bloque del mapa porque en móvil ese bloque no
+            se pinta. */}
+        {mapa ? <h2 className="v4-oculto">{mapa}</h2> : null}
 
         {/* El mapa: solo los hitos, el aire que necesita para dibujarse, y su
             altura es lo que le da tiempo. Ni el titular ni el pie están aquí:

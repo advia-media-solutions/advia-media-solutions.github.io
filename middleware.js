@@ -37,12 +37,54 @@ function redireccionHost(request) {
   return NextResponse.redirect(destino, 301);
 }
 
+/**
+ * Una sola URL por página. El castellano va sin prefijo, pero Next también lo
+ * sirve con 200 bajo /es: /es/technology duplicaba /technology. Se manda a la
+ * URL sin prefijo con un 301. Solo se ve el prefijo porque next.config.js
+ * desactiva la normalización de la URL en el middleware.
+ */
+const PREFIJO_IDIOMA_DEFECTO = '/es';
+
+/** La ruta sin /es delante, o null si no lo lleva. */
+function sinPrefijoDefecto(ruta) {
+  if (ruta === PREFIJO_IDIOMA_DEFECTO) return '/';
+  if (ruta.startsWith(`${PREFIJO_IDIOMA_DEFECTO}/`)) {
+    return ruta.slice(PREFIJO_IDIOMA_DEFECTO.length);
+  }
+  return null;
+}
+
+function redireccionPrefijoDefecto(request) {
+  const destino = new URL(request.url);
+  const ruta = sinPrefijoDefecto(destino.pathname);
+  if (!ruta) return null;
+  destino.pathname = ruta;
+  return NextResponse.redirect(destino, 301);
+}
+
+/**
+ * La navegación en cliente pide /_next/data/<build>/<idioma>/<ruta>.json, y sin
+ * la normalización llega así al middleware. El tracking cuenta la página.
+ */
+const RUTA_DATOS = /^\/_next\/data\/[^/]+(\/.+)\.json$/;
+
+function urlDePagina(request) {
+  const url = new URL(request.url);
+  const datos = url.pathname.match(RUTA_DATOS);
+  if (!datos) return request.url;
+  url.pathname = sinPrefijoDefecto(datos[1]) ?? datos[1];
+  return url.toString();
+}
+
 export function middleware(request) {
   const aHostCanonico = redireccionHost(request);
   if (aHostCanonico) return aHostCanonico;
 
+  const sinPrefijo = redireccionPrefijoDefecto(request);
+  if (sinPrefijo) return sinPrefijo;
+
   const userAgent = request.headers.get('user-agent') || '';
-  const requestedUrl = request.url;
+  const requestedUrl = urlDePagina(request);
 
   // Art. 21 GDPR objection to the traffic measurement described in section 15
   // of the privacy policy. The opt-out gate on events.advia.tech does not

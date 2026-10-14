@@ -10,6 +10,9 @@ const nextConfig = {
   // donde no está. Fijamos la raíz al propio proyecto.
   outputFileTracingRoot: __dirname,
   poweredByHeader: false,
+  /* Sin esto, el middleware recibe /es/technology ya como /technology y no
+     puede redirigir el prefijo sobrante (ver middleware.js). */
+  skipMiddlewareUrlNormalize: true,
   /* Las rutas van en inglés. Estas tres nacieron en castellano en la rama de
      la v4 y pudieron circular en enlaces de preview: 301 a su nombre final.
      Con i18n, Next aplica cada regla también con el prefijo /en. */

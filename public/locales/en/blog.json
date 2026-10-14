@@ -22,6 +22,12 @@
     "volver": "Back to the blog",
     "leer": "Read the full article"
   },
+  "autor": {
+    "title": "{{nombre}} | Advia Blog",
+    "descripcionPorDefecto": "Articles by {{nombre}} on the Advia blog.",
+    "articulos": "Articles by {{nombre}}",
+    "sinArticulos": "No articles published yet."
+  },
   "estado": {
     "error": "Error loading articles. {{error}}. Please try again later.",
     "vacio": "No articles available at the moment.",

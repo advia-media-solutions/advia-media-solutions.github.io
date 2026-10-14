@@ -8,7 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
 import { Hero, Miga, Pagina, Section } from "../../../components/v4/layout";
 import { Door } from "../../../components/v4/primitives";
-import { Estado, Meta } from "../../../components/v4/blog";
+import { Estado, Meta, personaAutor } from "../../../components/v4/blog";
 import { IMAGEN_COMPARTIR, ORGANIZACION, urlDe } from "../../../components/v4/Seo";
 
 /**
@@ -107,9 +107,7 @@ function datosEstructurados(articulo, url, descripcion, imagen) {
         inLanguage: "es",
         datePublished: articulo.publishedAt || articulo.createdAt,
         dateModified: articulo.updatedAt || articulo.publishedAt || articulo.createdAt,
-        ...(articulo.author?.name
-          ? { author: { "@type": "Person", name: articulo.author.name } }
-          : {}),
+        ...(articulo.author?.name ? { author: personaAutor(articulo.author) } : {}),
         ...(articulo.category?.name ? { articleSection: articulo.category.name } : {}),
         publisher: { "@id": ORGANIZACION["@id"] },
       },
@@ -204,7 +202,7 @@ export default function BlogArticulo({ articulo, error }) {
           miga={<Miga raiz="Blog" href="/blog" hoja={articulo.title} />}
           titular={articulo.title}
           lede={articulo.description}
-          pie={<Meta articulo={articulo} largo sello />}
+          pie={<Meta articulo={articulo} largo sello enlazarAutor />}
         />
 
         <Section className="v4-sec--pegada">

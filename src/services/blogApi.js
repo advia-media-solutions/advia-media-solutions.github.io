@@ -34,11 +34,33 @@ class BlogApiService {
     return slugs;
   }
 
+  /* El autor con sus perfiles: van al JSON-LD del artículo como `sameAs`. */
   async getArticleBySlug(slug) {
     const response = await this.fetchData(
-      `/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[author]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
+      `/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[author][populate][profiles]=true&populate[category]=true&populate[cover]=true&populate[blocks]=true`
     );
     return response.data.length > 0 ? response.data[0] : null;
+  }
+
+  /** Los slugs de los autores que tienen página: los que no tienen slug, no. */
+  async getAllAuthorSlugs() {
+    const response = await this.fetchData(
+      "/authors?fields[0]=slug&filters[slug][$notNull]=true&pagination[pageSize]=100"
+    );
+    return response.data.map((autor) => autor.slug);
+  }
+
+  async getAuthorBySlug(slug) {
+    const response = await this.fetchData(
+      `/authors?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[profiles]=true`
+    );
+    return response.data.length > 0 ? response.data[0] : null;
+  }
+
+  async getArticlesByAuthor(slug) {
+    return this.fetchData(
+      `/articles?filters[author][slug][$eq]=${encodeURIComponent(slug)}&sort[0]=publishedAt:desc&pagination[pageSize]=100&populate[author]=true&populate[category]=true&populate[cover]=true`
+    );
   }
 
   /** Solo la portada de un artículo, con sus enlaces recién firmados. */

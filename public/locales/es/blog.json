@@ -22,6 +22,12 @@
     "volver": "Volver al blog",
     "leer": "Leer artículo completo"
   },
+  "autor": {
+    "title": "{{nombre}} | Blog Advia",
+    "descripcionPorDefecto": "Artículos de {{nombre}} en el blog de Advia.",
+    "articulos": "Artículos de {{nombre}}",
+    "sinArticulos": "Todavía no ha publicado artículos."
+  },
   "estado": {
     "error": "Error al cargar artículos. {{error}}. Por favor, inténtalo de nuevo más tarde.",
     "vacio": "No hay artículos disponibles en este momento.",

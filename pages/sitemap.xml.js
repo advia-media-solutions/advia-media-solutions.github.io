@@ -99,10 +99,20 @@ async function todos(pedir) {
   }
 }
 
+/* Las páginas de autor. Si el CMS falla, el sitemap sale sin ellas. */
+async function autores() {
+  try {
+    return await blogApiService.getAllAuthorSlugs();
+  } catch (e) {
+    return [];
+  }
+}
+
 export async function getServerSideProps({ res }) {
-  const [articulos, empleo] = await Promise.all([
+  const [articulos, empleo, slugsAutores] = await Promise.all([
     todos((n, p) => blogApiService.getArticles(n, p)),
     careers(),
+    autores(),
   ]);
 
   const xml =
@@ -111,6 +121,7 @@ export async function getServerSideProps({ res }) {
     FIJAS.map(entradaBilingue).join("") +
     empleo.map(entradaBilingue).join("") +
     articulos.filter((a) => a.slug).map((a) => entradaArticulo("/blog/article", a)).join("") +
+    slugsAutores.map((slug) => `<url><loc>${BASE}/blog/author/${escapar(slug)}</loc><priority>0.4</priority></url>`).join("") +
     `</urlset>`;
 
   res.setHeader("Content-Type", "application/xml; charset=utf-8");

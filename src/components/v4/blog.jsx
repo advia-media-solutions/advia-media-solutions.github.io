@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useTranslation } from "next-i18next/pages";
 import { Door } from "./primitives";
+import { ORGANIZACION, urlDe } from "./Seo";
 
 /**
  * Piezas del blog sobre el design system v4.
@@ -26,9 +27,42 @@ export function truncar(texto, maximo = 150) {
   return `${texto.substring(0, maximo).trim()}...`;
 }
 
-export function Meta({ articulo, largo, sello }) {
+export function rutaAutor(slug) {
+  return `/blog/author/${slug}`;
+}
+
+/**
+ * El autor como `Person` de schema.org: quién es (cargo, página propia) y
+ * dónde están sus perfiles públicos (`sameAs`), con Advia como empresa. Un
+ * autor sin slug no tiene página: se queda en el nombre.
+ */
+export function personaAutor(autor) {
+  const url = autor.slug ? urlDe(rutaAutor(autor.slug), "es") : null;
+  const perfiles = (autor.profiles || []).map((perfil) => perfil.url).filter(Boolean);
+  return {
+    "@type": "Person",
+    ...(url ? { "@id": `${url}#persona`, url } : {}),
+    name: autor.name,
+    ...(autor.jobTitle ? { jobTitle: autor.jobTitle } : {}),
+    ...(perfiles.length ? { sameAs: perfiles } : {}),
+    worksFor: { "@id": ORGANIZACION["@id"] },
+  };
+}
+
+/* El nombre de la red a la vista: «LinkedIn», no la URL entera. */
+const REDES = { "linkedin.com": "LinkedIn", "x.com": "X", "twitter.com": "X", "github.com": "GitHub" };
+
+export function nombrePerfil(url) {
+  const host = new URL(url).hostname.replace(/^www\./, "");
+  return REDES[host] || host;
+}
+
+/* `enlazarAutor`: el nombre del autor lleva a su página. No en las fichas,
+   donde toda la tarjeta ya es el enlace al artículo. */
+export function Meta({ articulo, largo, sello, enlazarAutor = false }) {
   const { i18n } = useTranslation();
   const locale = i18n.language === "en" ? "en-GB" : "es-ES";
+  const autor = articulo.author;
   return (
     <div className="v4-meta">
       {sello && articulo.category ? (
@@ -37,10 +71,16 @@ export function Meta({ articulo, largo, sello }) {
       <time className="v4-label v4-label--faint" dateTime={articulo.createdAt}>
         {formatearFecha(articulo.createdAt, largo, locale)}
       </time>
-      {articulo.author ? (
+      {autor ? (
         <>
           <span className="v4-label v4-meta__sep">·</span>
-          <span className="v4-label v4-label--faint">{articulo.author.name}</span>
+          {enlazarAutor && autor.slug ? (
+            <Link className="v4-label v4-label--faint" href={rutaAutor(autor.slug)}>
+              {autor.name}
+            </Link>
+          ) : (
+            <span className="v4-label v4-label--faint">{autor.name}</span>
+          )}
         </>
       ) : null}
     </div>

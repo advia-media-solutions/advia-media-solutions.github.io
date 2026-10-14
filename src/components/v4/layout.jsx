@@ -640,12 +640,19 @@ export function Footer() {
   );
 }
 
-/** Envoltorio de página v4: aísla el árbol del chrome antiguo. */
+/**
+ * Envoltorio de página v4: aísla el árbol del chrome antiguo.
+ *
+ * El contenido de cada página va en `<main>`, separado del nav y del footer,
+ * para que un extractor (buscadores, motores de IA) sepa qué es la página y qué
+ * es chrome sin adivinarlo (GT-04 de la guía de GEO técnico). El hero queda
+ * dentro: es la cabecera de la página, no la del sitio.
+ */
 export function Pagina({ activo, heroOscuro, seccion, children }) {
   return (
     <div className="v4" data-seccion={seccion}>
       <Nav activo={activo} sobreOscuro={heroOscuro} />
-      {children}
+      <main>{children}</main>
       <Footer />
     </div>
   );

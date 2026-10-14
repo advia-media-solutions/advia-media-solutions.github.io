@@ -196,31 +196,36 @@ export default function BlogArticulo({ articulo, error }) {
     <Pagina activo="Blog" seccion="blog">
       <Cabeza articulo={articulo} />
 
-      <Hero
-        miga={<Miga raiz="Blog" href="/blog" hoja={articulo.title} />}
-        titular={articulo.title}
-        lede={articulo.description}
-        pie={<Meta articulo={articulo} largo sello />}
-      />
+      {/* El post es un <article>: su <header> (el hero, con título, fecha y
+          autor) y su cuerpo quedan juntos y aparte del resto de la página. La
+          vuelta al blog va en un <footer>, que los extractores descartan. */}
+      <article>
+        <Hero
+          miga={<Miga raiz="Blog" href="/blog" hoja={articulo.title} />}
+          titular={articulo.title}
+          lede={articulo.description}
+          pie={<Meta articulo={articulo} largo sello />}
+        />
 
-      <Section className="v4-sec--pegada">
-        {articulo.cover ? (
-          <div className="v4-articulo__portada">
-            <img
-              src={articulo.cover.formats?.large?.url || articulo.cover.url}
-              alt={articulo.cover.alternativeText || articulo.title}
-            />
+        <Section className="v4-sec--pegada">
+          {articulo.cover ? (
+            <div className="v4-articulo__portada">
+              <img
+                src={articulo.cover.formats?.large?.url || articulo.cover.url}
+                alt={articulo.cover.alternativeText || articulo.title}
+              />
+            </div>
+          ) : null}
+
+          <div className="v4-mt-16">
+            <Bloques bloques={articulo.blocks} titulo={articulo.title} />
           </div>
-        ) : null}
 
-        <div className="v4-mt-16">
-          <Bloques bloques={articulo.blocks} titulo={articulo.title} />
-        </div>
-
-        <div className="v4-articulo__pie v4-mt-16">
-          <Door href="/blog">{t("articulo.volver")}</Door>
-        </div>
-      </Section>
+          <footer className="v4-articulo__pie v4-mt-16">
+            <Door href="/blog">{t("articulo.volver")}</Door>
+          </footer>
+        </Section>
+      </article>
     </Pagina>
   );
 }

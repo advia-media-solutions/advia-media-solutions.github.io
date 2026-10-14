@@ -84,8 +84,8 @@ export const NAV_ITEMS = [
 
 const IDIOMAS = ["es", "en"];
 
-/* Elegir idioma es explícito y se recuerda un año: la portada ya no vuelve a
-   decidir por el navegador (ver src/i18n/idiomaVisitante.js). */
+/* Elegir idioma es explícito y se recuerda un año: es lo único que hace que
+   la portada redirija (ver src/i18n/idiomaVisitante.js). */
 function recordarIdioma(idioma) {
   document.cookie = `NEXT_LOCALE=${idioma}; path=/; max-age=31536000; SameSite=Lax`;
 }
@@ -640,6 +640,74 @@ export function Footer() {
   );
 }
 
+/* Va en inglés dentro de la versión española: es para quien no la lee. */
+const AVISO_INGLES = {
+  texto: "This page is in Spanish. It's also available in English.",
+  ir: "View in English",
+  cerrar: "Stay in Spanish",
+};
+
+/* Cerrado una vez, no vuelve en lo que dura la visita. Se queda en memoria:
+   no se guarda nada en el navegador. */
+let avisoCerrado = false;
+
+function idiomaRecordado() {
+  return document.cookie.split("; ").some((c) => c.startsWith("NEXT_LOCALE="));
+}
+
+/** La misma regla que antes decidía la redirección: inglés salvo que el español vaya antes. */
+function prefiereIngles() {
+  const primero = (navigator.languages || [navigator.language])
+    .map((idioma) => (idioma || "").split("-")[0].toLowerCase())
+    .find((idioma) => IDIOMAS.includes(idioma));
+  return primero !== "es";
+}
+
+/**
+ * La portada española ya no redirige por el idioma del navegador: cada URL
+ * sirve siempre su idioma. A quien prefiere inglés y aún no ha elegido se le
+ * ofrece la versión inglesa con un aviso que no tapa nada. Solo existe en
+ * cliente, así que los rastreadores ven la página tal cual.
+ */
+function AvisoIdioma() {
+  const { ruta, locale } = useRutaIdioma();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setVisible(
+      ruta === "/" && locale === "es" && !avisoCerrado && !idiomaRecordado() && prefiereIngles()
+    );
+  }, [ruta, locale]);
+  if (!visible) return null;
+
+  const cerrar = () => {
+    avisoCerrado = true;
+    setVisible(false);
+  };
+  return (
+    <aside className="v4-aviso-idioma" lang="en" aria-label={AVISO_INGLES.ir}>
+      <p className="v4-aviso-idioma__texto">{AVISO_INGLES.texto}</p>
+      <Link
+        href="/"
+        locale="en"
+        hrefLang="en"
+        onClick={() => recordarIdioma("en")}
+        className="v4-btn v4-btn--primary"
+      >
+        {AVISO_INGLES.ir}
+      </Link>
+      <button
+        type="button"
+        onClick={cerrar}
+        className="v4-aviso-idioma__cerrar"
+        aria-label={AVISO_INGLES.cerrar}
+        title={AVISO_INGLES.cerrar}
+      >
+        <IconoCerrar />
+      </button>
+    </aside>
+  );
+}
+
 /**
  * Envoltorio de página v4: aísla el árbol del chrome antiguo.
  *
@@ -654,6 +722,7 @@ export function Pagina({ activo, heroOscuro, seccion, children }) {
       <Nav activo={activo} sobreOscuro={heroOscuro} />
       <main>{children}</main>
       <Footer />
+      <AvisoIdioma />
     </div>
   );
 }

@@ -1,8 +1,7 @@
 /**
  * Dos idiomas: castellano sin prefijo e inglés bajo /en. La detección de Next
- * va apagada porque cae al español con cualquier idioma que no sea inglés; la
- * hace middleware.js, solo en la portada y con nuestra regla (español si el
- * navegador lo prefiere, inglés si no, y la cookie del conmutador por encima).
+ * va apagada: cada URL sirve siempre su idioma, pida lo que pida el navegador.
+ * Solo middleware.js redirige la portada, y solo con la cookie del conmutador.
  */
 module.exports = {
   i18n: {

@@ -1,22 +1,19 @@
 import { NextResponse } from 'next/server';
-import { COOKIE_IDIOMA, idiomaVisitante } from './src/i18n/idiomaVisitante';
+import { COOKIE_IDIOMA, idiomaElegido } from './src/i18n/idiomaVisitante';
 
 const TRACKING_URL =
   'https://events.advia.tech/v1/track?data=CVCOI8JqG7mgGLN0b9ti83DG2fsA3PoeRGhIuWbGbvx5UoAE6XlDVglr4ry6U8Up5YU89o5HBbGmYZggdtQ0PMhBp4fYA5n8NfgChWcYNW0XQzPp8rSmK93JArr4wXD1CWdhs5Ra51L9Gs1gSjnQ9zXH4gkVEb8w.f7ad68aa';
 
 /**
- * Solo la portada se adapta al visitante: una URL profunda compartida se abre
- * en el idioma en que se compartió, y los artículos del blog solo existen en
- * castellano. Las peticiones de datos de la navegación en cliente no se tocan.
+ * Solo la portada recuerda el idioma que el visitante eligió con el
+ * conmutador: una URL profunda compartida se abre en el idioma en que se
+ * compartió, y los artículos del blog solo existen en castellano. Las
+ * peticiones de datos de la navegación en cliente no se tocan.
  */
 function redireccionIdioma(request) {
   const { nextUrl, headers, cookies } = request;
   if (nextUrl.pathname !== '/' || headers.has('x-nextjs-data')) return null;
-  const cookie = cookies.get(COOKIE_IDIOMA)?.value;
-  /* Sin cookie, el navegador solo decide en la portada española: quien abre
-     /en a propósito se queda en /en. */
-  if (!cookie && nextUrl.locale !== 'es') return null;
-  const idioma = idiomaVisitante({ cookie, acceptLanguage: headers.get('accept-language') });
+  const idioma = idiomaElegido(cookies.get(COOKIE_IDIOMA)?.value);
   if (!idioma || idioma === nextUrl.locale) return null;
   const destino = nextUrl.clone();
   destino.locale = idioma;
@@ -65,9 +62,9 @@ export function middleware(request) {
   }
 
   const respuesta = redireccionIdioma(request) || NextResponse.next();
-  /* La portada depende del idioma y de la cookie: ninguna caché puede servir
-     la de un visitante a otro. */
-  if (request.nextUrl.pathname === '/') respuesta.headers.set('Vary', 'Accept-Language, Cookie');
+  /* La portada depende de la cookie: ninguna caché puede servir la de un
+     visitante a otro. */
+  if (request.nextUrl.pathname === '/') respuesta.headers.set('Vary', 'Cookie');
   return respuesta;
 }
 

@@ -2826,6 +2826,65 @@
 }
 .v4-footer__legal .v4-idioma--footer .v4-idioma__opcion[aria-current="true"] { color: var(--v4-fg); }
 
+/* Aviso de la portada española para quien prefiere inglés: una card pequeña
+   abajo a la izquierda, sin velo. No tapa contenido ni compite con el aviso de
+   cookies, que va por encima. */
+.v4-aviso-idioma {
+  position: fixed;
+  left: var(--space-6);
+  bottom: var(--space-6);
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 520px;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
+  color: var(--text-primary);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elevation-3);
+}
+.v4-aviso-idioma__texto {
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-body-s);
+  color: var(--text-secondary);
+}
+.v4-aviso-idioma .v4-btn {
+  flex: none;
+  padding: var(--space-2) var(--space-5);
+}
+.v4-aviso-idioma__cerrar {
+  flex: none;
+  display: inline-flex;
+  padding: var(--space-2);
+  color: var(--text-primary);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-standard);
+}
+.v4-aviso-idioma__cerrar:hover { background: var(--surface-sunken); }
+.v4-aviso-idioma__cerrar .v4-icon { width: 20px; height: 20px; }
+.v4-aviso-idioma .v4-btn:focus-visible,
+.v4-aviso-idioma__cerrar:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring-shadow);
+}
+@media (max-width: 640px) {
+  .v4-aviso-idioma {
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+  .v4-aviso-idioma__texto { flex: 1 1 0; }
+  .v4-aviso-idioma .v4-btn { order: 3; width: 100%; }
+}
+
 /* El aviso de que el blog se publica en castellano, sobre la rejilla. */
 .v4-blog__aviso { margin-bottom: var(--space-8); }
 
